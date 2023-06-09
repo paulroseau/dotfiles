@@ -1,0 +1,27 @@
+window:
+  opacity: 0.97
+  startup_mode: Fullscreen
+
+font:
+  normal:
+    family: "Terminess Nerd Font"
+  size: 14
+
+colors:
+  transparent_background_colors: true
+
+import:
+  - ~/.nix-profile/share/alacritty-themes/tokyo-night-storm.yaml
+
+shell:
+  program: zsh
+  args:
+    - --login
+
+mouse:
+  hide_when_typing: true
+
+key_bindings:
+  - { key: Equals, mods: Control, action: ResetFontSize }
+  - { key: Plus, mods: Control|Shift, action: IncreaseFontSize }
+  - { key: Minus, mods: Control, action: DecreaseFontSize }
