@@ -4,6 +4,7 @@
 , neovim-unwrapped
 , fetchFromGitHub
 , tree-sitter
+, linkFarm
 }:
 
 let
@@ -19,25 +20,13 @@ let
     };
   });
 
-  treeSitterExtraParsers = tree-sitter.withPlugins (builtGrammars: [
-    builtGrammars.tree-sitter-bash
-    builtGrammars.tree-sitter-go
-    builtGrammars.tree-sitter-haskell
-    builtGrammars.tree-sitter-hcl
-    builtGrammars.tree-sitter-json
-    builtGrammars.tree-sitter-javascript
-    builtGrammars.tree-sitter-markdown
-    builtGrammars.tree-sitter-markdown-inline
-    builtGrammars.tree-sitter-ocaml
-    #builtGrammars.tree-sitter-ocaml-interface
-    builtGrammars.tree-sitter-python
-    builtGrammars.tree-sitter-rust
-    builtGrammars.tree-sitter-scala
-    builtGrammars.tree-sitter-yaml
-  ]);
-
   utils = import ./utils.nix {
     inherit lib stdenv buildEnv neovim;
+  };
+
+  treeSitterExtraParsers = import ./tree-sitter-parsers.nix {
+    inherit lib fetchFromGitHub tree-sitter linkFarm;
+    neovimVersion = neovim.version;
   };
 
   allPlugins = import ./plugins.nix {

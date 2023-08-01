@@ -37,6 +37,16 @@ let
       ];
     };
 
+    nvim-treesitter = super.nvim-treesitter.overrideAttrs {
+      postInstall = ''
+        target="$out/$pname/parser"
+        if [ -d $target ]; then
+          rm -r $target
+        fi
+        ln -s ${neovimExtraTreesitterParsers} $target
+      '';
+    };
+
     neo-tree-nvim = super.neo-tree-nvim.overrideAttrs {
       dependencies = [
         self.nui-nvim
