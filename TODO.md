@@ -131,7 +131,7 @@
   - [ ] Pretty status line: nvim-lualine/lualine.nvim:
     - [x] Install
     - [ ] Configure
-  - [ ] nvim-treesitter/nvim-treesitter
+  - [x] nvim-treesitter/nvim-treesitter
     - [x] understand tree-sitter concepts
     - [x] understand syntax, indentation, folding (just check the :help)
     - [x] understand how the plugin works
@@ -141,13 +141,17 @@
   - [ ] Neotree explorer:
     - [x] install
     - [ ] configure
-  - [ ] comments: https://github.com/numToStr/Comment.nvim
+  - [x] comments: https://github.com/numToStr/Comment.nvim
+    - [x] install
+    - [x] configure
+  - [x] parenthesis surrounding: https://github.com/kylechui/nvim-surround
+    - [x] install
+    - [x] configure
   - [ ] Fuzzy finder
     - [ ] nvim-telescope/telescope.nvim
     - [ ] nvim-telescope/telescope-fzf-native.nvim -> look if really necessary
   - [ ] nvim-in-tmux:
      - see if you want to rework the module, see if you want to set the mappings outside in all cases
-  - [ ] parenthesis surrounding: https://github.com/kylechui/nvim-surround
   - [ ] Theme
     - [ ] option 1: navarasu/onedark.nvim (inspired by Atom)
     - [ ] option 2: https://github.com/norcalli/nvim-colorizer.lua
