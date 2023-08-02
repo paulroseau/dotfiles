@@ -11,24 +11,12 @@ let
     builtins.readFile ./plugins-source.json
   );
 
-  f = pname: {
-    name = pname;
-    value = buildNeovimPlugin {
-      inherit pname;
-      src = fetchFromGitHub (builtins.getAttr pname sourceArgs);
-    };
-  };
-
-  pluginList = [
-    "lualine-nvim"
-    "nvim-web-devicons"
-    "nvim-treesitter"
-    "neo-tree-nvim"
-    "nui-nvim"
-    "plenary-nvim"
-  ];
-
-  basePlugins = self: builtins.listToAttrs (builtins.map f pluginList);
+  basePlugins = self: builtins.mapAttrs (name: srcArg:
+    buildNeovimPlugin {
+      pname = name;
+      src = fetchFromGitHub srcArg;
+    }
+  ) sourceArgs;
 
   overridePlugins = self: super: {
     lualine-nvim = super.lualine-nvim.overrideAttrs {
