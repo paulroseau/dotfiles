@@ -12,5 +12,9 @@ in
     zshPackages
     neovimPackages
   ] ++ [
+    # git
+    tig
     tmux
+    lazygit
+    jq
   ]
