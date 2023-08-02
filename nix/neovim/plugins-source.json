@@ -11,18 +11,6 @@
     "rev": "05d78e9fd0cdfb4545974a5aa14b1be95a86e9c9",
     "sha256": "sha256-ltHE8UIquGo07BSlFGM1l3wmTNN43i8kx6QY7Fj2CNo="
   },
-  "nvim-web-devicons": {
-    "repo": "nvim-web-devicons",
-    "owner": "nvim-tree",
-    "rev": "efbfed0567ef4bfac3ce630524a0f6c8451c5534",
-    "sha256": "sha256-FtEJBhqvs+c/Rvy4qXf3iyoMTTKrDBvQw5g63n4KEYo="
-  },
-  "nvim-treesitter": {
-    "repo": "nvim-treesitter",
-    "owner": "nvim-treesitter",
-    "rev": "4115fad9fded72571bdc3e0f7351e64b31799a3d",
-    "sha256": "sha256-uOOW2gUgUe+wGd7qEislOqECwnYcMkH7ZPzfClUyz24="
-  },
   "neo-tree-nvim": {
     "repo": "neo-tree.nvim",
     "owner": "nvim-neo-tree",
@@ -34,6 +22,24 @@
     "owner": "MunifTanjim",
     "rev": "9e3916e784660f55f47daa6f26053ad044db5d6a",
     "sha256": "sha256-nSUs9zAX7hQ3PuFrH4zQblMfTY6ALDNggmqaQnkbR5E="
+  },
+  "nvim-surround": {
+    "repo": "nvim-surround",
+    "owner": "kylechui",
+    "rev": "10b20ca7d9da1ac8df8339e140ffef94f9ab3b18",
+    "sha256": "sha256-r3D5WTqEnIL1T3p7cmkRmBY8qgwFFJptM7BKNNsCT8k="
+  },
+  "nvim-treesitter": {
+    "repo": "nvim-treesitter",
+    "owner": "nvim-treesitter",
+    "rev": "4115fad9fded72571bdc3e0f7351e64b31799a3d",
+    "sha256": "sha256-uOOW2gUgUe+wGd7qEislOqECwnYcMkH7ZPzfClUyz24="
+  },
+  "nvim-web-devicons": {
+    "repo": "nvim-web-devicons",
+    "owner": "nvim-tree",
+    "rev": "efbfed0567ef4bfac3ce630524a0f6c8451c5534",
+    "sha256": "sha256-FtEJBhqvs+c/Rvy4qXf3iyoMTTKrDBvQw5g63n4KEYo="
   },
   "plenary-nvim": {
     "repo": "plenary.nvim",

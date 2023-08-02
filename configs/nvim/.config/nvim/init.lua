@@ -86,3 +86,5 @@ require('Comment').setup({
       block = '<leader>b',
   },
 })
+
+require("nvim-surround").setup()

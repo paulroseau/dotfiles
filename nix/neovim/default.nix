@@ -41,8 +41,9 @@ let
     plugins = with allPlugins; [
       comment-nvim
       lualine-nvim
-      nvim-treesitter
       neo-tree-nvim
+      nvim-surround
+      nvim-treesitter
     ];
   };
 
