@@ -39,6 +39,7 @@ let
     name = "my-neovim-plugins";
     extraPrefix = "/share/neovim-plugins";
     plugins = with allPlugins; [
+      comment-nvim
       lualine-nvim
       nvim-treesitter
       neo-tree-nvim

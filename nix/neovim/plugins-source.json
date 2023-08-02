@@ -1,4 +1,10 @@
 {
+  "comment-nvim": {
+    "repo": "Comment.nvim",
+    "owner": "numToStr",
+    "rev": "d0cbbfb539898a275dc4398446ab0ae3b94819bf",
+    "sha256": "sha256-6S5P2K5JzNj38rH5wz6O6G2P2w4Pt7CFg7/rdpsvCzc="
+  },
   "lualine-nvim": {
     "repo": "lualine.nvim",
     "owner": "nvim-lualine",

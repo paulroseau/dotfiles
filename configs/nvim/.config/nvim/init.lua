@@ -75,3 +75,14 @@ require("neo-tree").setup({
 })
 
 vim.keymap.set({'n'} , '<leader>t', '<cmd>Neotree toggle<CR>')
+
+require('Comment').setup({
+  toggler = {
+      line = '<leader>cc',
+      block = '<leader>bc',
+  },
+  opleader = {
+      line = '<leader>c',
+      block = '<leader>b',
+  },
+})
