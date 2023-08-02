@@ -1,0 +1,66 @@
+{ lib
+, stdenv
+, buildEnv
+, neovim-unwrapped
+, fetchFromGitHub
+, tree-sitter
+}:
+
+let
+  # Need to use nightly after fix for https://github.com/neovim/neovim/issues/22041
+  neovim = (
+    neovim-unwrapped.override { inherit tree-sitter; }
+  ).overrideAttrs (self: super: {
+    version = "nightly";
+
+    src = super.src.override {
+      rev = self.version;
+      hash = "sha256-2JHBvDWMKd3brUwzU5NMc2cqrrqyoXZ3p8AFN82MNPI=";
+    };
+  });
+
+  treeSitterExtraParsers = tree-sitter.withPlugins (builtGrammars: [
+    builtGrammars.tree-sitter-bash
+    builtGrammars.tree-sitter-go
+    builtGrammars.tree-sitter-haskell
+    builtGrammars.tree-sitter-hcl
+    builtGrammars.tree-sitter-json
+    builtGrammars.tree-sitter-javascript
+    builtGrammars.tree-sitter-markdown
+    builtGrammars.tree-sitter-markdown-inline
+    builtGrammars.tree-sitter-ocaml
+    #builtGrammars.tree-sitter-ocaml-interface
+    builtGrammars.tree-sitter-python
+    builtGrammars.tree-sitter-rust
+    builtGrammars.tree-sitter-scala
+    builtGrammars.tree-sitter-yaml
+  ]);
+
+  utils = import ./utils.nix {
+    inherit lib stdenv buildEnv neovim;
+  };
+
+  allPlugins = import ./plugins.nix {
+    inherit lib fetchFromGitHub;
+    buildNeovimPlugin = utils.buildNeovimPlugin;
+    neovimExtraTreesitterParsers = treeSitterExtraParsers;
+  };
+
+  myNeovimPlugins = utils.bundleNeovimPlugins {
+    name = "my-neovim-plugins";
+    extraPrefix = "/share/neovim-plugins";
+    plugins = with allPlugins; [
+      lualine-nvim
+      nvim-treesitter
+      neo-tree-nvim
+    ];
+  };
+
+in
+  buildEnv {
+    name = "neovim-packages";
+    paths = [
+      neovim
+      myNeovimPlugins
+    ];
+  }

@@ -1,0 +1,38 @@
+{
+  "lualine-nvim": {
+    "repo": "lualine.nvim",
+    "owner": "nvim-lualine",
+    "rev": "05d78e9fd0cdfb4545974a5aa14b1be95a86e9c9",
+    "sha256": "sha256-ltHE8UIquGo07BSlFGM1l3wmTNN43i8kx6QY7Fj2CNo="
+  },
+  "nvim-web-devicons": {
+    "repo": "nvim-web-devicons",
+    "owner": "nvim-tree",
+    "rev": "efbfed0567ef4bfac3ce630524a0f6c8451c5534",
+    "sha256": "sha256-FtEJBhqvs+c/Rvy4qXf3iyoMTTKrDBvQw5g63n4KEYo="
+  },
+  "nvim-treesitter": {
+    "repo": "nvim-treesitter",
+    "owner": "nvim-treesitter",
+    "rev": "4115fad9fded72571bdc3e0f7351e64b31799a3d",
+    "sha256": "sha256-uOOW2gUgUe+wGd7qEislOqECwnYcMkH7ZPzfClUyz24="
+  },
+  "neo-tree-nvim": {
+    "repo": "neo-tree.nvim",
+    "owner": "nvim-neo-tree",
+    "rev": "3c68ae5968b75aea8d445b3bb024e007b0bd0b65",
+    "sha256": "sha256-X9UOCWj49oSFqUPV4Mqy7wXQQysZwccpPoxzf3OkgxE="
+  },
+  "nui-nvim": {
+    "repo": "nui.nvim",
+    "owner": "MunifTanjim",
+    "rev": "9e3916e784660f55f47daa6f26053ad044db5d6a",
+    "sha256": "sha256-nSUs9zAX7hQ3PuFrH4zQblMfTY6ALDNggmqaQnkbR5E="
+  },
+  "plenary-nvim": {
+    "repo": "plenary.nvim",
+    "owner": "nvim-lua",
+    "rev": "267282a9ce242bbb0c5dc31445b6d353bed978bb",
+    "sha256": "sha256-oRtNcURQzrIRS3D88tWAl3HuFHxVJr8m/zzL7xoa/II="
+  }
+}
