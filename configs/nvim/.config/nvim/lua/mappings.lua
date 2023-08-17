@@ -64,3 +64,13 @@ local function toogle_boolean_option(option_name)
 end
 vim.keymap.set({''} , '<leader>,', toogle_boolean_option("hlsearch"))
 vim.keymap.set({''} , '<leader>l', toogle_boolean_option("list"))
+
+-- Clear whitespace
+local function clear_trailing_whitespaces()
+  local pos = vim.fn.getpos(".")
+	-- need silent! for when the pattern is not found
+	-- (keymap { silent = true } option is equivalent to silent not silent!, ie. errors will be echoed)
+  vim.api.nvim_command([[silent! %substitute/[ \t]\+$//]])
+  vim.fn.setpos(".", pos)
+end
+vim.keymap.set({''} , '<leader>W', clear_trailing_whitespaces)
