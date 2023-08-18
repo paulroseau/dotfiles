@@ -1,9 +1,18 @@
+-- Check if this does not make its way into the plugin: https://github.com/nvim-neo-tree/neo-tree.nvim/issues/777
+
+local function open_all_subnodes(state)
+  local node = state.tree:get_node()
+	local filesystem_commands = require("neo-tree.sources.filesystem.commands")
+	filesystem_commands.expand_all_nodes(state, node)
+end
+
 require("neo-tree").setup({
   window = {
     mappings = {
       ["<leader>m"] = "cancel",
       ["o"] = "open_drop",
       ["T"] = "open_tab_drop",
+      ["O"] = open_all_subnodes,
       ["i"] = "open_split",
       ["s"] = "open_vsplit",
       ["I"] = "toggle_hidden",
