@@ -130,9 +130,8 @@
 ```
 function TSHighlighter.new(tree, opts)
 ...
-  if vim.g.syntax_on ~= 1 then
-    vim.cmd.runtime({ 'syntax/synload.vim', bang = true })
-  end
+  vim.bo[self.bufnr].syntax = ''
+  vim.b[self.bufnr].ts_highlight = true
 ...
 end
 ```
