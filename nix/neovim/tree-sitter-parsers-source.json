@@ -2,56 +2,56 @@
   "bash": {
     "owner": "tree-sitter",
     "repo": "tree-sitter-bash",
-    "rev": "b6667bed364733c8a8f8e5973749f86cfa04ba2a",
-    "hash": "sha256-RcuosYsNspXYagis482IKKafljw+nvFNBCUXsxYYgKE="
+    "rev": "1b0321ee85701d5036c334a6f04761cdc672e64c",
+    "hash": "sha256-ueZjazaqjbxqCM7mO8h9m0fJ6RUCaX4MuJx7StnPqyc="
   },
   "go": {
     "owner": "tree-sitter",
     "repo": "tree-sitter-go",
-    "rev": "64457ea6b73ef5422ed1687178d4545c3e91334a",
-    "hash": "sha256-38pkqR9iEIEf9r3IHJPIYgKfWBlb9aQWi1kij04Vo5k="
+    "rev": "bbaa67a180cfe0c943e50c55130918be8efb20bd",
+    "hash": "sha256-G7d8CHCyKDAb9j6ijRfHk/HlgPqSI+uvkuRIRRvjkHI="
   },
   "haskell": {
     "owner": "tree-sitter",
     "repo": "tree-sitter-haskell",
-    "rev": "c5cb0c860a399308305f44792bc4853737c40c07",
-    "hash": "sha256-9UwKxMEMoVVMUO1DIGxoJI7FUksackZmVYnKDXBpxCo="
+    "rev": "99706824b92f162d4e0f47c7e930bbccb367276e",
+    "hash": "sha256-JJvXkunDFRjWoXipxl1o2P+lRIDa4kw/Ys3LUu3piIY="
   },
   "hcl": {
     "owner": "MichaHoffmann",
     "repo": "tree-sitter-hcl",
-    "rev": "6b74f88b3d396e0f101c93f807e0b3667cd3e3a2",
-    "hash": "sha256-/YpP3DkM+rFoRiwdW+D2vbKjOALE91tLSc/jkFgSobY="
+    "rev": "b5539065432c08e4118eb3ee7c94902fdda85708",
+    "hash": "sha256-okLwoDGgK6aM5+8oelfRnuKqIimTs8Hc0N8Ikrm2eY0="
   },
   "json": {
     "owner": "tree-sitter",
     "repo": "tree-sitter-json",
-    "rev": "40a81c01a40ac48744e0c8ccabbaba1920441199",
-    "hash": "sha256-fZNftzNavJQPQE4S1VLhRyGQRoJgbWA5xTPa8ZI5UX4="
+    "rev": "ca3f8919800e3c1ad4508de3bfd7b0b860ce434f",
+    "hash": "sha256-cyrea0Y13OVGkXbYE0Cwc7nUsDGEZyoQmPAS9wVuHw0="
   },
   "markdown": {
     "owner": "MDeiml",
     "repo": "tree-sitter-markdown",
-    "rev": "fa6bfd51727e4bef99f7eec5f43947f73d64ea7d",
-    "hash": "sha256-P31TiBW5JqDfYJhWH6pGqD2aWan0Bo1Tl0ONEg7ePnM="
+    "rev": "aaf76797aa8ecd9a5e78e0ec3681941de6c945ee",
+    "hash": "sha256-4HofUc+OsI3d2CN9mex5ROwuRHyB6fGow8gl0fe5es4="
   },
   "nix": {
     "owner": "cstrahan",
     "repo": "tree-sitter-nix",
-    "rev": "02878b40ac77d2889833519c6b6e9e63cfc690e6",
-    "hash": "sha256-9E4iQ7jr52ckmQJBrF9Vdwanrgm2I+Gi1lbC46I+4/g="
+    "rev": "66e3e9ce9180ae08fc57372061006ef83f0abde7",
+    "hash": "sha256-+o+f1TlhcrcCB3TNw1RyCjVZ+37e11nL+GWBPo0Mxxg="
   },
   "ocaml": {
     "owner": "tree-sitter",
     "repo": "tree-sitter-ocaml",
-    "rev": "ee871b50b845b6adaa22e85aa3c794a3fd49b1fb",
-    "hash": "sha256-2WhK69OGHeQWQZPkBdfrybgxO2oDwHSn1c/AzQe9hAw="
+    "rev": "694c57718fd85d514f8b81176038e7a4cfabcaaf",
+    "hash": "sha256-j3Hv2qOMxeBNOW+WIgIYzG3zMIFWPQpoHe94b2rT+A8="
   },
   "python": {
     "owner": "tree-sitter",
     "repo": "tree-sitter-python",
-    "rev": "62827156d01c74dc1538266344e788da74536b8a",
-    "hash": "sha256-hVtX4Dyqrq+cSvKTmKMxLbAplcCdR8dfFDoIZNtPFA0="
+    "rev": "5af00f64af6bbf822f208243cce5cf75396fb6f5",
+    "hash": "sha256-2btd/NRE6NuGNlx4cq535OrwtWXihiP3VMCJjPCiDOk="
   },
   "rust": {
     "owner": "tree-sitter",
@@ -62,8 +62,8 @@
   "scala": {
     "owner": "tree-sitter",
     "repo": "tree-sitter-scala",
-    "rev": "5aefc0ae4c174fa74d6e973faefa28692e081954",
-    "hash": "sha256-3FV3MuOx/sZ6NqeewbKhrhUFfnc1mjWpF3TetAlkkBg="
+    "rev": "f14629b4d53f72356ce8f6d4ac8c54d21b4e74dd",
+    "hash": "sha256-SRj4iF1qS2jEFaIkRfXzAmzG7jKeSzKv5/GdXKbKRjU="
   },
   "yaml": {
     "owner": "ikatyang",

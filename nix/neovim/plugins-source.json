@@ -32,8 +32,8 @@
   "nvim-treesitter": {
     "repo": "nvim-treesitter",
     "owner": "nvim-treesitter",
-    "rev": "4115fad9fded72571bdc3e0f7351e64b31799a3d",
-    "sha256": "sha256-uOOW2gUgUe+wGd7qEislOqECwnYcMkH7ZPzfClUyz24="
+    "rev": "63260da18bf273c76b8e2ea0db84eb901cab49ce",
+    "sha256": "sha256-1Iuvq0hVQ7LyBYOkJ5d07NkwbGcR1K61ZZmAAA7ABGs="
   },
   "nvim-web-devicons": {
     "repo": "nvim-web-devicons",
