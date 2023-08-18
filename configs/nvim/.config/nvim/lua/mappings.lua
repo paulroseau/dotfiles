@@ -56,13 +56,15 @@ vim.keymap.set({'n'} , '<M-)>', '<cmd>+tabmove<CR>', { silent = true })
 vim.keymap.set({'n'} , '<M-e>', 'zm')
 vim.keymap.set({'n'} , '<M-d>', 'zr')
 
+-- Clear searchhighlighting
+vim.keymap.set({''} , '<leader>,', '<cmd>nohlsearch<CR>')
+
 -- Toggle settings
 local function toogle_boolean_option(option_name)
   return function ()
     vim.o[option_name] = not vim.o[option_name]
   end
 end
-vim.keymap.set({''} , '<leader>,', toogle_boolean_option("hlsearch"))
 vim.keymap.set({''} , '<leader>l', toogle_boolean_option("list"))
 
 -- Clear whitespace
