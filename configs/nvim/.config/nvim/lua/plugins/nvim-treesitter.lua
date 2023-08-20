@@ -8,7 +8,6 @@ require('nvim-treesitter.configs').setup {
     enable = true,
     additional_vim_regex_highlighting = false,
   },
-
   incremental_selection = {
     enable = true,
 		keymaps = {
@@ -17,7 +16,6 @@ require('nvim-treesitter.configs').setup {
 			node_decremental = "<M-{>",
 		},
   },
-
   indent = {
     enable = true,
   },
