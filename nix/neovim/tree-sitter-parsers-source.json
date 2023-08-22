@@ -5,6 +5,12 @@
     "rev": "1b0321ee85701d5036c334a6f04761cdc672e64c",
     "hash": "sha256-ueZjazaqjbxqCM7mO8h9m0fJ6RUCaX4MuJx7StnPqyc="
   },
+  "c": {
+    "owner": "tree-sitter",
+    "repo": "tree-sitter-c",
+    "rev": "93ef1785bbf854cf964e6e53d6e1e6885a4d8ebc",
+    "hash": "sha256-5n9ZnslpUWyusWTo+AqJiPGB64NB0rTbc2rtfByPUC8="
+  },
   "go": {
     "owner": "tree-sitter",
     "repo": "tree-sitter-go",
