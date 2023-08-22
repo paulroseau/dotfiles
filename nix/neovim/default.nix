@@ -44,6 +44,7 @@ let
       neo-tree-nvim
       nvim-surround
       nvim-treesitter
+      telescope-nvim
     ];
   };
 

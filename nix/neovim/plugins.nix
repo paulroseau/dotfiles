@@ -42,6 +42,14 @@ let
         self.plenary-nvim
       ];
     };
+
+    telescope-nvim = super.telescope-nvim.overrideAttrs {
+      dependencies = [
+        self.nvim-treesitter
+        self.nvim-web-devicons
+        self.plenary-nvim
+      ];
+    };
   };
 
 in
