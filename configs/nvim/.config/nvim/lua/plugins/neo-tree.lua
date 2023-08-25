@@ -15,15 +15,16 @@ require("neo-tree").setup({
       ["O"] = open_all_subnodes,
       ["i"] = "open_split",
       ["s"] = "open_vsplit",
+      ["<C-v>"] = "toggle_preview",
       ["I"] = "toggle_hidden",
-      ["w"] = "noop",
       ["x"] = "close_node",
       ["X"] = "close_all_subnodes",
       ["y"] = "copy_to_clipboard",
       ["c"] = "cut_to_clipboard",
+      ["m"] = "cut_to_clipboard",
       ["z"] = "close_all_nodes",
       ["Z"] = "expand_all_nodes",
-      ["C"] = "copy",
+      ["w"] = "noop",
       ["/"] = "noop",
       ["H"] = "noop",
     },
@@ -52,5 +53,5 @@ require("neo-tree").setup({
   }
 })
 
-vim.keymap.set({'n'} , '<leader>t', '<cmd>Neotree toggle<CR>')
+vim.keymap.set({'n'} , '<leader>T', '<cmd>Neotree toggle<CR>')
 vim.keymap.set({'n'} , '<leader>f', '<cmd>Neotree reveal<CR>')
