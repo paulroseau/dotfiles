@@ -7,6 +7,15 @@
   - [ ] write more notes on ZSH completion mechanisms
   - [ ] write your own starship config (check all presets and adapt)
 
+- alacritty
+  - [ ] add $@ as arguments in the wrapped script so we can pass options and arguments 
+  ```
+  exec ${lib.makeBinPath [glibc.bin]}/ld.so --library-path ${lib.makeLibraryPath [mesa.drivers]} $out/bin/_alacritty $@
+  # instead of
+  exec ${lib.makeBinPath [glibc.bin]}/ld.so --library-path ${lib.makeLibraryPath [mesa.drivers]} $out/bin/_alacritty
+  # test not sure about the escaping of the $
+  ```
+
 - environment & install script:
   - [ ] Create an install and uninstall scripts inside nix which could use `stow` to manage the links to environment folder (those scripts can take parameters for system (linux or other), home directory name etc.)
   - [ ] in the script check if nerd fonts is installed otherwise overwrite starship toml with preset no-nerd-fonts
@@ -15,10 +24,8 @@
 
 - misc:
   - [ ] tmux variables show as environment variables, see if this can be prevented
-  - other tools to install ?
+  - [ ] ripgrep alias in zsh (to `grep`)
   - why do I have nix twice in the path in tmux ?
-    - [ ] ripgrep + alias in zsh
-    - [ ] jq
 
 - tmux :
   - [X] update default command to use `zsh` (use relative path to .nix-profile/bin/zsh on purpose so it resolves to nix one when necessary - or even better use `which zsh` or something mettre un fallback sur bash si on trouve pas zsh)
@@ -84,7 +91,8 @@
     - double check lazy feature and make sure you don't miss anything (but the lazy loading, caching of module should be enabled already)
   - [ ] make an alias to start neovim with a folder (+ set cd to the targeted folder)
   - [ ] logging lib:
-    - [ ] error message grab the name of the current file programmatically, so we know where the error is coming from
+    - [ ] error message grab the name of the current file programmatically, so we know where the error is coming from:
+      - check if "require(plenary.log)" does the trick
   - [ ] Once 0.10 is out, check out `readelf -d $(readlink -f $(which nvim))` and check if lpeg is now included in `Shared_libraries` (not in `RUNPATH`) or `RUNPATH`. It appeared when using the nightly source code built with the 9.1 code we get this:
     - for nvim 9.1
         ```
@@ -146,36 +154,61 @@
     - [X] install
     - [ ] configure:
       - [X] open node recursively: cf. https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/Recipies#emulating-vims-fold-commands
+      - [ ] change behaviour of `X` so that it closes all subnodes but keep current node open
       - [ ] replicate NerdTree navigation :
         - [ ] P: go to root
-        - [ ] p: go to parent
+        - [ ] p: go to parent (this is pasting at the moment)
         - [ ] K: go to first child
         - [ ] J: go to last child
         - [ ] <C-j>: go to next sibling
         - [ ] <C-k>: go to prev sibling
+      - [ ] add `dd` to delete a file without confirmation
+      - [ ] see if you can rework confirmation box to avoid typing <CR>
   - [X] comments: https://github.com/numToStr/Comment.nvim
     - [X] install
     - [X] configure
   - [X] parenthesis surrounding: https://github.com/kylechui/nvim-surround
     - [X] install
     - [X] configure
-  - [ ] Fuzzy finder
-    - [ ] nvim-telescope/telescope.nvim
-    - [ ] nvim-telescope/telescope-fzf-native.nvim -> look if really necessary
   - [ ] nvim-in-tmux:
-     - see if you want to rework the module, see if you want to set the mappings outside in all cases
+     - [X] move it inside `./plugins`, rework the module like nvim-treesitter
+     - [X] set the mappings outside
+     - [ ] check if you want to use vim.loop (libuv) instead of `os.execute`
+  - [ ] nvim-telescope/telescope.nvim
+      - [X] install
+      - [X] configure:
+        - [X] mappings to main commands (no lsp for now)
+        - [X] understand how those popup windows come up to have emacs like mappings (C-a, C-e) in the search bar:
+          - note: done in plenary, using `vim.api.nvim_open_win(0, false, {relative='win', row=3, col=3, width=12, height=3})`
+          - ok, floating windows just added in nvim api (not standard nvim)
+          - 3 of them are created, there are pipes in place to react to what you type in the prompt window buffer
+          - mappings are set in the prompt buffer
+          - didn't implement pasting because yanking does not accumulate like emacs, if necessary you escape and edit vim style
+          - [X] put the above in notes
+        - [X] mappings to have (`C-k` and `C-j`) to work to select options
+        - [X] history search mappings
+        - [X] remove previews for `find_files`
+        - [X] not working for links (add options `-L` to `rg` and `fd`) and hidden files (allow to toggle those)
+      - [ ] nvim-telescope/telescope-fzf-native.nvim -> look if really necessary -> absolutely:
+        - [ ] build a Nix expression to install it, it is not in nixpkgs :(
+        - [ ] install the extensioins in `plugins/telescope.lua`
+  - [ ] Check youtube series on Lunar Nvim (distro): https://www.youtube.com/playlist?list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ
   - [ ] Theme
     - [ ] option 1: navarasu/onedark.nvim (inspired by Atom)
     - [ ] option 2: https://github.com/norcalli/nvim-colorizer.lua
     - [ ] others 3: https://github.com/folke/tokyonight.nvim
-  - [ ] Git (let's move away from fugitive, we aim for lua only plugins):
-    - use neogit
-    - use diffview
-    - if not enough, external tool lazygit: requires custom keybindings definition https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+  - [ ] Git:
+    - Various options to consider:
+      - good old Fugitive.vim:
+        - add `,g` mappings for `:Git<CR>`
+        - downside it is in vimL
+      - neogit + diffview
+      - `lazygit` (extrenal tool): requires custom keybindings definition https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
   - [ ] LSP:
     - [ ] understand lsp
     - [ ] use nix to install lsp servers
     - [ ] neovim/nvim-lspconfig
+    - [ ] add mappings to Telescope
   - [ ] completion
     - hrsh7th/nvim-cmp
     - check dependencies:
@@ -205,3 +238,7 @@
   - [ ] show blanks https://github.com/lukas-reineke/indent-blankline.nvim
   - [ ] folke/which-key.nvim
   - [ ] neodev (plugin for lua in neovim, help + autocompletion, etc., see if still necessary after cmp-nvim-lua)
+
+- Fixes:
+  - lualine hijacks intro screen, cf. https://github.com/nvim-lualine/lualine.nvim/issues/259
+  - add description to each of your mappings so Telescope mapping helps you better (some show anonymous function)
