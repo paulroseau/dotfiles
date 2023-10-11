@@ -52,5 +52,11 @@
     "owner": "nvim-lua",
     "rev": "v0.1.3",
     "sha256": "sha256-oRtNcURQzrIRS3D88tWAl3HuFHxVJr8m/zzL7xoa/II="
+  },
+  "vim-fugitive": {
+    "repo": "vim-fugitive",
+    "owner": "tpope",
+    "rev": "v3.7",
+    "sha256": "sha256-JJ/T38rz7vowsv6q4qeEaRDfMGvl9ZMJley54fOvSAI="
   }
 }

@@ -6,6 +6,7 @@ utils.add_child_directories_to_rtp(vim.fs.normalize("~/.nix-profile/share/neovim
 utils.add_child_directories_to_rtp(vim.fs.normalize(vim.fn.stdpath("config") .. "/my-plugins"))
 
 require("plugins.comment")
+require("plugins.fugitive")
 require("plugins.fzf-lua")
 require("plugins.lualine")
 require("plugins.neo-tree")

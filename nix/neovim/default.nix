@@ -45,6 +45,7 @@ let
       neo-tree-nvim
       nvim-surround
       nvim-treesitter
+      vim-fugitive
     ];
   };
 
