@@ -40,11 +40,11 @@ let
     extraPrefix = "/share/neovim-plugins";
     plugins = with allPlugins; [
       comment-nvim
+      fzf-lua
       lualine-nvim
       neo-tree-nvim
       nvim-surround
       nvim-treesitter
-      telescope-nvim
     ];
   };
 

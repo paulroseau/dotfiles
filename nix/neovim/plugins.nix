@@ -43,21 +43,10 @@ let
       ];
     };
 
-    telescope-nvim = super.telescope-nvim.overrideAttrs {
+    fzf-lua = super.fzf-lua.overrideAttrs {
       dependencies = [
-        self.nvim-treesitter
         self.nvim-web-devicons
-        self.plenary-nvim
-        self.telescope-fzf-native-nvim
       ];
-    };
-
-    telescope-fzf-native-nvim = super.telescope-fzf-native-nvim.overrideAttrs {
-      postInstall = ''
-        target="$out/$pname"
-        cd $target
-        make
-      '';
     };
   };
 

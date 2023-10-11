@@ -5,6 +5,12 @@
     "rev": "v0.8.0",
     "sha256": "sha256-48hy+hiaDJLlgWqC7IeZI3dT+VwWkRo4atQbyPxu/ys="
   },
+  "fzf-lua": {
+    "repo": "fzf-lua",
+    "owner": "ibhagwan",
+    "rev": "c1de84f9c9cb227d2bef65643625f1fb8207bf8f",
+    "sha256": "sha256-p6nDFS2xu5V2NZoFlwdeh2xlkY7kIvnycj0RHQUEG64="
+  },
   "lualine-nvim": {
     "repo": "lualine.nvim",
     "owner": "nvim-lualine",
@@ -46,17 +52,5 @@
     "owner": "nvim-lua",
     "rev": "v0.1.3",
     "sha256": "sha256-oRtNcURQzrIRS3D88tWAl3HuFHxVJr8m/zzL7xoa/II="
-  },
-  "telescope-nvim": {
-    "repo": "telescope.nvim",
-    "owner": "nvim-telescope",
-    "rev": "0.1.2",
-    "sha256": "sha256-fV3LLRwAPykVGc4ImOnUSP+WTrPp9Ad9OTfBJ6wqTMk="
-  },
-  "telescope-fzf-native-nvim": {
-    "repo": "telescope-fzf-native.nvim",
-    "owner": "nvim-telescope",
-    "rev": "main",
-    "sha256": "sha256-Hob1x/jwQYfphYGWQ/i44NVyCM+WFT5/4+J5J4/tLYA="
   }
 }

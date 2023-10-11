@@ -1,0 +1,7 @@
+vim.keymap.set({'n'} , '<leader>tt', require("fzf-lua").builtin)
+vim.keymap.set({'n'} , '<leader>tf', require("fzf-lua").files)
+vim.keymap.set({'n'} , '<leader>tg', require("fzf-lua").grep_project)
+vim.keymap.set({'n'} , '<leader>tG', require("fzf-lua").grep)
+vim.keymap.set({'n'} , '<leader>tl', require("fzf-lua").blines)
+vim.keymap.set({'n'} , '<leader>tb', require("fzf-lua").buffers)
+vim.keymap.set({'n'} , '<leader>th', require("fzf-lua").help_tags)
