@@ -14,7 +14,7 @@
 # Stow configuration in $HOME
 for package in $(ls configs)
 do
-  stow --dir configs --target $HOME $package
+  stow --dotfiles --dir configs --target $HOME $package
   echo "$package stowed"
 done
 
