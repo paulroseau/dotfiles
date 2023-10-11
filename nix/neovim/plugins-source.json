@@ -52,5 +52,11 @@
     "owner": "nvim-telescope",
     "rev": "0.1.2",
     "sha256": "sha256-fV3LLRwAPykVGc4ImOnUSP+WTrPp9Ad9OTfBJ6wqTMk="
+  },
+  "telescope-fzf-native-nvim": {
+    "repo": "telescope-fzf-native.nvim",
+    "owner": "nvim-telescope",
+    "rev": "main",
+    "sha256": "sha256-Hob1x/jwQYfphYGWQ/i44NVyCM+WFT5/4+J5J4/tLYA="
   }
 }

@@ -15,9 +15,9 @@ require("telescope").setup({
         ["<C-p>"] = actions.cycle_history_prev,
 
         -- Neotree style mappings for split opening and preview
-        ["<C-i>"] = actions.select_horizontal,
-        ["<C-s>"] = actions.select_vertical,
-        ["<C-v>"] = actions_layout.toggle_preview,
+        ["<C-s>"] = actions.select_horizontal,
+        ["<C-v>"] = actions.select_vertical,
+        ["<C-x>"] = actions_layout.toggle_preview,
 
         -- Partial Emacs style mappings (no <C-y> and no <C-k> cf. above)
         ["<C-b>"] = { "<Left>", type = "command" },
@@ -33,7 +33,9 @@ require("telescope").setup({
       },
       n = {
         ["<C-c>"] = actions.close,
-        ["<C-v>"] = actions_layout.toggle_preview,
+        ["<C-s>"] = actions.select_horizontal,
+        ["<C-v>"] = actions.select_vertical,
+        ["<C-x>"] = actions_layout.toggle_preview,
         ["q"] = actions.close,
       },
     },
@@ -58,6 +60,14 @@ require("telescope").setup({
       },
     },
   },
+  extensions = {
+    fzf = {
+      fuzzy = true,                    -- false will only do exact matching
+      override_generic_sorter = true,  -- override the generic sorter
+      override_file_sorter = true,     -- override the file sorter
+      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+    }
+  }
 })
 
 vim.keymap.set({'n'} , '<leader>tt', require("telescope.builtin").builtin)
@@ -66,3 +76,5 @@ vim.keymap.set({'n'} , '<leader>tl', require("telescope.builtin").live_grep)
 vim.keymap.set({'n'} , '<leader>tL', require("telescope.builtin").current_buffer_fuzzy_find)
 vim.keymap.set({'n'} , '<leader>tb', require("telescope.builtin").buffers)
 vim.keymap.set({'n'} , '<leader>th', require("telescope.builtin").help_tags)
+
+require('telescope').load_extension('fzf')
