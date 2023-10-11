@@ -1,4 +1,6 @@
-if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+NIX_HOME="$HOME/.nix-profile"
+
+if [ -e $NIX_HOME/etc/profile.d/nix.sh ]; then . $NIX_HOME/etc/profile.d/nix.sh; fi # added by Nix installer
 
 # Environment variables
 export EDITOR="nvim"
@@ -58,25 +60,26 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'j' vi-down-line-or-history
 
 # Add zsh completion for nix installed tools
-if [ -e $HOME/.nix-profile/share/zsh/site-functions ]
+if [ -e $NIX_HOME/share/zsh/site-functions ]
 then 
-  fpath+=($HOME/.nix-profile/share/zsh/site-functions $fpath)
+  fpath+=($NIX_HOME/share/zsh/site-functions $fpath)
 fi
 
 # FZF
-if [ -f $HOME/.nix-profile/share/fzf/completion.zsh ]; then source $HOME/.nix-profile/share/fzf/completion.zsh; fi
-if [ -f $HOME/.nix-profile/share/fzf/key-bindings.zsh ]; then source $HOME/.nix-profile/share/fzf/key-bindings.zsh; fi
+if [ -f $NIX_HOME/share/fzf/completion.zsh ]; then source $NIX_HOME/share/fzf/completion.zsh; fi
+if [ -f $NIX_HOME/share/fzf/key-bindings.zsh ]; then source $NIX_HOME/share/fzf/key-bindings.zsh; fi
 
 # Zsh-z
-if [ -f $HOME/.nix-profile/share/zsh-z/zsh-z.plugin.zsh ]; then source $HOME/.nix-profile/share/zsh-z/zsh-z.plugin.zsh; fi
+if [ -f $NIX_HOME/share/zsh-z/zsh-z.plugin.zsh ]; then source $NIX_HOME/share/zsh-z/zsh-z.plugin.zsh; fi
 
 # Zsh-autosuggestions
-if [ -f $HOME/.nix-profile/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then source $HOME/.nix-profile/share/zsh-autosuggestions/zsh-autosuggestions.zsh; fi
+if [ -f $NIX_HOME/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then source $NIX_HOME/share/zsh-autosuggestions/zsh-autosuggestions.zsh; fi
 
 # Syntax highlighting
-if [ -f $HOME/.nix-profile/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
+if [ -f $NIX_HOME/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
 then
-  source $HOME/.nix-profile/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source $NIX_HOME/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
-if [ -e /home/proseau/.nix-profile/etc/profile.d/nix.sh ]; then . /home/proseau/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+# kubectl
+if [ -f $NIX_HOME/share/zsh/site-functions/_kubectl ]; then source $NIX_HOME/share/zsh/site-functions/_kubectl; fi
