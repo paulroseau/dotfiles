@@ -5,7 +5,7 @@ window:
 font:
   normal:
     family: "Terminess Nerd Font"
-  size: 14
+  size: 16
 
 colors:
   transparent_background_colors: true
