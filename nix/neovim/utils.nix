@@ -39,9 +39,9 @@
           fi
         elif [ -f "$target/${readme}" ]; then
           echo "No docs available for $target, using ${readme}"
-          mkdir -p $target/doc
           # Force filetype to markdown since nvim sets filetype=help when opening a file through :help
           echo '<!-- vim: set ft=markdown: -->' >> $target/${readme}
+          mkdir -p $target/doc
           cp $target/${readme} $target/doc/
           echo -e "${pname}.${readme}\t${readme}\t/# " >> $target/doc/tags
         else
