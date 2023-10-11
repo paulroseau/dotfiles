@@ -6,6 +6,7 @@
 - shell
   - [ ] write more notes on ZSH completion mechanisms
   - [ ] write your own starship config (check all presets and adapt)
+  - [ ] generate separate zsh script to source each derivation zsh extensions (plugins + kubectl, etc.) so that you refer to one script only when sourcing from .zshrc
 
 - alacritty
   - [ ] add $@ as arguments in the wrapped script so we can pass options and arguments 
@@ -15,6 +16,7 @@
   exec ${lib.makeBinPath [glibc.bin]}/ld.so --library-path ${lib.makeLibraryPath [mesa.drivers]} $out/bin/_alacritty
   # test not sure about the escaping of the $
   ```
+  - [ ] use fzf to fuzzy find the font and the colorscheme
 
 - environment & install script:
   - [ ] Create an install and uninstall scripts inside nix which could use `stow` to manage the links to environment folder (those scripts can take parameters for system (linux or other), home directory name etc.)
@@ -148,10 +150,12 @@
     - [X] Configure
     - [X] add parsers for markdown, scala, rust, go, nix, haskell and OCaml
     - [X] fix bash and scala queries, you might need to upgrade bash and scala treesitter to a working version or allow to patch some queries file in the nvim-treesitter
-    - [ ] allow to disable treesitter on one buffer (if it blows it is impossible to work)
+    - [ ] allow to disable treesitter on one buffer (if it blows up it is impossible to work)
     - [ ] the plugin set foldmethod expr globally, if we don't have a parser installed and we want to fold, we need to reset the foldmethod
   - [ ] Neotree explorer:
     - [X] install
+    - [X] update to have the links showing 
+    - [ ] toggle symlink + info display on/off
     - [ ] configure:
       - [X] open node recursively: cf. https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/Recipies#emulating-vims-fold-commands
       - [ ] change behaviour of `X` so that it closes all subnodes but keep current node open
@@ -190,11 +194,22 @@
         - [X] remove previews for `find_files`
         - [X] not working for links (add options `-L` to `rg` and `fd`) and hidden files (allow to toggle those)
       - [ ] nvim-telescope/telescope-fzf-native.nvim -> look if really necessary -> absolutely:
-        - [ ] build a Nix expression to install it, it is not in nixpkgs :(
-        - [ ] install the extensioins in `plugins/telescope.lua`
+        - [ ] build it locally, understand the different make commands (in particular tests and usage of LD_LIBRARY_PATH)
+        - [X] build a Nix expression to install it, it is not in nixpkgs :(
+        - [ ] install the extensions in `plugins/telescope.lua`
+        - [ ] understand load_extensions in telescope
+  - [ ] Use fzf-lua.vim instead of Telescope:
+    - [X] understand what you can do with fzf from: https://www.youtube.com/watch?v=qgG5Jhi_Els
+    - [X] review if you can remove zsh directory plugin
+    - [X] install fzf-lua.vim & remove Telescope
+    - [ ] rename all `.config` files in here with `dot-` and use `stow --dotfiles` in the install script
+    - [ ] understand the philosophy of this plugnin a bit check core.fzf_exec
+    - [ ] make notes on FFI and luaJIT + loadlib (how to dynamically load a library into Lua - from your telescope endeavor)
+      - https://luajit.org/ext_ffi.html
+      - https://www.lua.org/pil/contents.html
   - [ ] Check youtube series on Lunar Nvim (distro): https://www.youtube.com/playlist?list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ
   - [ ] Theme
-    - [ ] option 1: navarasu/onedark.nvim (inspired by Atom)
+    - [ ] option 1: https://github.com/navarasu/onedark.nvim (inspired by Atom)
     - [ ] option 2: https://github.com/norcalli/nvim-colorizer.lua
     - [ ] others 3: https://github.com/folke/tokyonight.nvim
   - [ ] Git:
@@ -224,6 +239,7 @@
       - https://github.com/rafamadriz/friendly-snippets/wiki
 
 - Neovim plugins nice to have:
+  - [ ] find a multiselect so when you can search and replace without having to do * and the :s//blalba/, but direclty get the cursor everywhere
   - [ ] make your own script to increase and diminish foldlevel locally on the fold you are on. Strategy :
        1. select the containing fold of the cursor (invisibly or something)
        2. if you want to open, just execute foldopen on the range
