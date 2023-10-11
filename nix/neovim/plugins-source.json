@@ -14,8 +14,8 @@
   "neo-tree-nvim": {
     "repo": "neo-tree.nvim",
     "owner": "nvim-neo-tree",
-    "rev": "3.3",
-    "sha256": "sha256-rJHoWYZrw8UxcNw/2LYmtpG+qucyDrfkp7lrofszd8Q="
+    "rev": "3.7",
+    "sha256": "sha256-Mwrwo54j9e9/mcqKfO/ar+RoCIoPO5ZiIA62qpTxXOg="
   },
   "nui-nvim": {
     "repo": "nui.nvim",

@@ -7,6 +7,11 @@ local function open_all_subnodes(state)
 end
 
 require("neo-tree").setup({
+  default_component_configs = {
+    symlink_target = {
+      enabled = true,
+    },
+  },
   window = {
     mappings = {
       ["<leader>m"] = "cancel",
@@ -15,15 +20,17 @@ require("neo-tree").setup({
       ["O"] = open_all_subnodes,
       ["i"] = "open_split",
       ["s"] = "open_vsplit",
-      ["<C-v>"] = "toggle_preview",
+      ["<C-x>"] = "toggle_preview",
       ["I"] = "toggle_hidden",
       ["x"] = "close_node",
       ["X"] = "close_all_subnodes",
-      ["y"] = "copy_to_clipboard",
-      ["c"] = "cut_to_clipboard",
-      ["m"] = "cut_to_clipboard",
+      ["Y"] = "copy_to_clipboard",
+      ["C"] = "cut_to_clipboard",
       ["z"] = "close_all_nodes",
       ["Z"] = "expand_all_nodes",
+      ["P"] = "paste_from_clipboard",
+      ["p"] = "paste_from_clipboard",
+      ["y"] = "noop",
       ["w"] = "noop",
       ["/"] = "noop",
       ["H"] = "noop",
@@ -44,14 +51,7 @@ require("neo-tree").setup({
       },
     }
   },
-  buffers = {
-    window = {
-      mappings = {
-        ["u"] = "navigate_up",
-      }
-    }
-  }
 })
 
-vim.keymap.set({'n'} , '<leader>T', '<cmd>Neotree toggle<CR>')
+vim.keymap.set({'n'} , '<leader>x', '<cmd>Neotree toggle<CR>')
 vim.keymap.set({'n'} , '<leader>f', '<cmd>Neotree reveal<CR>')
