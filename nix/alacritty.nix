@@ -23,7 +23,7 @@ let
           owner = "alacritty";
           repo = pname;
           rev = "master";
-          hash = "sha256-KyWu8eDl2Kp+/OlqhwxjtoQsbdeCxzdQ7I9+ykgVsqo=";
+          hash = "sha256-3BkRl7vqErQJgjqkot1MFRb5QzW4Jtv1Fuk4+CQfZOs=";
         };
       }
       ''
