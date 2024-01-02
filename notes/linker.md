@@ -32,7 +32,6 @@
   steps performed by package managers when installing a library. On start-up,
   then, the dynamic loader actually uses the file `/etc/ld.so.cache` and then
   loads the libraries it needs.
-  sfdf
 
 - By the way, FreeBSD uses slightly different filenames for this cache. In
   FreeBSD, the ELF cache is `/var/run/ld-elf.so.hints` and the a.out cache is
