@@ -25,7 +25,7 @@ require("neo-tree").setup({
       ["x"] = "close_node",
       ["X"] = "close_all_subnodes",
       ["Y"] = "copy_to_clipboard",
-      ["C"] = "cut_to_clipboard",
+      ["D"] = "cut_to_clipboard",
       ["z"] = "close_all_nodes",
       ["Z"] = "expand_all_nodes",
       ["P"] = "paste_from_clipboard",
@@ -41,7 +41,6 @@ require("neo-tree").setup({
       mappings = {
         ["u"] = "navigate_up",
         ["F"] = "fuzzy_finder",
-        ["D"] = "fuzzy_finder_directory",
       },
       fuzzy_finder_mappings = {
         ["<C-k>"] = "move_cursor_up",
