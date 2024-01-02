@@ -23,5 +23,5 @@ done
 # Alacritty install
 sudo ln -s $HOME/.nix-profile/share/applications/Alacritty.desktop /usr/local/share/applications/
 sudo ln -s $HOME/.nix-profile/share/icons/hicolor/scalable/apps/Alacritty.svg /usr/share/pixmaps/
-ln -s $HOME/.nix-profile/fonts $HOME/.font
+ln -s $HOME/.nix-profile/fonts $HOME/.fonts # Note: in https://www.youtube.com/watch?v=fR4ThXzhQYI the guy puts them in .local/share/fonts
 rm $HOME/.cache/fontconfig/* # for good measure, spent hours understanding why fonts were not loaded
