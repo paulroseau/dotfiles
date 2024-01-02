@@ -59,6 +59,12 @@
     "rev": "v0.1.3",
     "sha256": "sha256-oRtNcURQzrIRS3D88tWAl3HuFHxVJr8m/zzL7xoa/II="
   },
+  "tokyonight-nvim": {
+    "repo": "tokyonight.nvim",
+    "owner": "folke",
+    "rev": "v2.9.0",
+    "sha256": "sha256-NOKzXsY+DLNrykyy2Fr1eiSpYDiBIBNHL/7PPvbgbSo="
+  },
   "vim-fugitive": {
     "repo": "vim-fugitive",
     "owner": "tpope",

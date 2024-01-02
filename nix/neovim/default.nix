@@ -47,6 +47,7 @@ let
       nvim-surround
       nvim-treesitter
       vim-fugitive
+      tokyonight-nvim
     ];
   };
 
