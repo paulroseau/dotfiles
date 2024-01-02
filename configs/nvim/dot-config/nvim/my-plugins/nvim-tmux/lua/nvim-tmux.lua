@@ -27,10 +27,13 @@ function M.setup(_config)
 
   local config = vim.tbl_deep_extend("force", DEFAULT_CONFIG, _config or {})
   config.tmux.vim_option_name = tmux_vim_option_name
+  local pane_id = tmux.get_current_pane_id()
 
-  local tmux_client = tmux.client(config.tmux)
+  local tmux_client = tmux.client(config.tmux, pane_id)
   utils.setup_augroup(config.augroup_name, tmux_client)
   utils.setup_commands(config, tmux_client)
+
+  return true
 end
 
 return M

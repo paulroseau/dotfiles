@@ -48,7 +48,6 @@ function M.setup_commands(config, tmux_client)
       return
     end
 
-    tmux_client.set_vim_mode("off")
     tmux_client.select_pane(Direction[vim_key].tmux_flag)
   end
 
