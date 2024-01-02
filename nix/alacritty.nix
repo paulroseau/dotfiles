@@ -53,7 +53,7 @@ let
         cat >$out/bin/alacritty <<EOF
         #!${runtimeShell}
         export LIBGL_DRIVERS_PATH=${lib.makeSearchPathOutput "drivers" "lib/dri" [mesa]}
-        exec ${lib.makeBinPath [glibc.bin]}/ld.so --library-path ${lib.makeLibraryPath [mesa.drivers]} $out/bin/_alacritty
+        exec ${lib.makeBinPath [glibc.bin]}/ld.so --library-path ${lib.makeLibraryPath [mesa.drivers]} $out/bin/_alacritty \$@
         EOF
         chmod +x $out/bin/alacritty
       ''
