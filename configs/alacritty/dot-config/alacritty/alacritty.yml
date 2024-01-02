@@ -11,7 +11,7 @@ colors:
   transparent_background_colors: true
 
 import:
-  - ~/.nix-profile/share/alacritty-themes/tokyo-night-storm.yaml
+  - ~/.nix-profile/share/alacritty-themes/papercolor_dark.yaml
 
 shell:
   program: zsh
