@@ -24,7 +24,7 @@
 - The `treesitter` C library is included in `nvim` (cf. nix code), and in the `nvim` source code you can see it imports the `tree_sitter/api.h` header which is in the `lib/include/tree_sitter/api.h` in tree sitter source code. The tree sitter functions are added to the lua environment in `lua/executor.c` as well.
 
 - At build time, default parsers (for C, vimscript, vimdoc and lua languages) are compiled and added to `$VIMRUNTIME/parsers`. Check `preConfigure` in `neovim/default.nix`:
-  ```
+  ```lua
   lib.concatStrings (lib.mapAttrsToList
     (language: src: ''
       ln -s \
@@ -43,7 +43,7 @@
 - Highlighting logic is defined in `$VIMRUNTIME/lua/treesitter/highlighter.lua`, it basically finds the `highlight.scm` TreeSitter query and set the flag `vim.b[self.bufnr].ts_highlight = true` (this buffer local variable is checked by the autocommand defined in `$VIMRUNTIME/syntax/syntax.vim` cf. lower). This means that the `syntax` buffer local option is not set when the TreeSitter Highlighter is running, which means that the default syntax file present in `$VIMRUNTIME/syntax` would not be run. 
 
 - To run TreeSitter highlighting, the api is simply `vim.treesitter.start()`, which instantiate a TreeSitterHighlighter:
-  ```
+  ```lua
   function M.start(bufnr, lang)
     bufnr = bufnr or a.nvim_get_current_buf()
     local parser = M.get_parser(bufnr, lang)
@@ -51,7 +51,7 @@
   end
   ```
   As the comment above that function specifies, if you also want to source `$VIMRUNTIME/syntax/<filetype>.vim` you can wrap `vim.treesitter.start()` in an autocommand on FileType event, and set the syntax buffer option after (which will trigger the `Syntax` event and source the file you want):
-  ```
+  ```lua
   vim.api.nvim_create_autocmd( 'FileType', { pattern = 'tex',
       callback = function(args)
           vim.treesitter.start(args.buf, 'latex')
@@ -61,7 +61,7 @@
   ```
   This is exactly what the nvim-treesitter plugin allows you to do (cf. lower)
 
-## Note on nvim filetypes and syntax
+## Note on nvim filetypes, syntax and colorscheme
 
 ### Filetypes
 
@@ -86,6 +86,48 @@
   'indentexpr'	The most flexible of all: Evaluates an expression to compute the indent of a line. When non-empty this method overrides the other ones. See indent-expression.
   ```
 
+### Colorscheme
+
+- When running `set colorscheme <name>`, `$VIMRUNTIME/colors/<name>.[vim|lua]` will be
+sourced. Colorscheme files typically contain a set of `highlight` commands
+which specify how to highlight (color/style) particular groups. For instance:
+```vim
+hi Comment	gui=bold
+```
+will result in displaying in bold all elements spotted as comments. Note that
+this just adds to the default settings already in place for that particular
+highlight group.
+
+- These highlight groups are traditionnally defined through `syntax match` or
+`syntax region` commands. For instance in the `markdown.vim` file, the
+`markdownBlockquote` group is defined, and it is instructed to highlight it like
+comments through the `highlight def link` command:
+```vim
+...
+syn match markdownBlockquote ">\%(\s\|$\)" contained nextgroup=@markdownBlock
+...
+hi def link markdownBlockquote            Comment
+...
+```
+
+- The purpose of a colorscheme file is to define a nice color palette and assign
+colors to the built-in highlight groups.
+
+- Tree-sitter capture groups are usable as highlight groups (ie. treesitter-nvim
+defines group for those) and are linked to neovim default group (cf. `help
+treesitter-highlight-groups`)
+
+- Note that some colorschemes (for example the `default` one) will refer to some
+variable colors which will change if the you change the value of `backgroud`
+to `dark/light`. This is not the case for all of them (test with `set colorscheme blue`). Also some colorscheme don't define the background color (for example the `default` one) which then results in using the terminal default color.
+
+- Some colorschemes plugin are available online, they define a
+`colors/theme.{vim|lua}` file (which may refer to other files where they define
+palettes etc. to separate things neatly, check the
+https://github.com/navarasu/onedark.nvim for example). You can just include
+those in your RTP, and then you will be able to set them with `:set colorscheme
+my-theme` or `vim.api.nvim_command('colorscheme my-theme')`.
+
 ### Common remark on Indent and Filetype
 
 - In the initialization sequence, `runtime! ftplugin.vim` and `runtime! indent.vim` are run before the `init.lua` is sourced. However these files just set hooks on the `Filetype` events. Filetype events will fired only if `set filetype` is on which can be set or unset in the `init.lua` The `runtime! filetype.vim` is as part of the initialization sequence after the `init.lua` file is sourced. That being said there is still the command `unset filetype plugin` which will cause `runtime! ftplugoff.vim` which will destroy the autocommand groups set by `runtime! filetype.vim`. You can also reenable it afterwards with the same `set filetype plugin`. By default filetypes are sourced though as part of step 6. of the initialization.
@@ -94,11 +136,11 @@
 
 - In neovim the `set syntax` is an alias to sourcing `$VIMRUNTIME/syntax/syntax.vim`.
 
-- Syntax works the same as filetype. When `setlocal syntax=...` is run, the `Syntax` even is fired. When setting `set syntax=on` on startup, `$VIMRUNTIME/syntax/syntax.vim` is sourced, which does 3 things:
+- Syntax works the same as filetype. When `setlocal syntax=...` is run, the `Syntax` event is fired. When setting `set syntax=on` on startup, `$VIMRUNTIME/syntax/syntax.vim` is sourced, which does 3 things:
   1. it sources `$VIMRUNTIME/syntax/synload.vim` which registers autocommands on the `Syntax` event to source the corresponding syntax file for the syntax selected with `exe "runtime! syntax/" . name . ".lua syntax/" . name . "/*.lua"`
   2. it runs `filetype on` if not done already, hence `set syntax=on` implies `filetype` to be on
   3. it creates an autocommand on the `FileType` event to set syntax appropriately when the filetype is detected if tree sitter is not enabled !
-  ```
+  ```lua
   au! FileType *	if !exists('b:ts_highlight') | 0verbose exe "set syntax=" . expand("<amatch>") | endif
   ```
   As a result, setting the filetype, will trigger `FileType` event, which will set the syntax, triggering the `Syntax` event, which will source the files which create highlighting groups.
@@ -127,7 +169,7 @@
 
 - Note that the `vim.treesitter.start()` function which is built into `nvim` disables syntax highlighting by default, so the `nvim-treesitter` plugin does not need to do `set nosyntax` prior to invoking it. cf. `nvim/runtime/lua/vim/treesitter/highlighter.lua`:
 
-```
+```lua
 function TSHighlighter.new(tree, opts)
 ...
   vim.bo[self.bufnr].syntax = ''

@@ -42,6 +42,7 @@ let
       comment-nvim
       fzf-lua
       lualine-nvim
+      onedark-nvim
       neo-tree-nvim
       nvim-surround
       nvim-treesitter

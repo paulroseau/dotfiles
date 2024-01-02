@@ -47,6 +47,12 @@
     "rev": "efbfed0567ef4bfac3ce630524a0f6c8451c5534",
     "sha256": "sha256-FtEJBhqvs+c/Rvy4qXf3iyoMTTKrDBvQw5g63n4KEYo="
   },
+  "onedark-nvim": {
+    "repo": "onedark.nvim",
+    "owner": "navarasu",
+    "rev": "c5476a091b0f1b4e853db91c91ff941f848a1cdd",
+    "sha256": "sha256-UtC8OJw62xYkAyTcwIEbg0tBWttaXeGhFw7Ux8Yu5/0="
+  },
   "plenary-nvim": {
     "repo": "plenary.nvim",
     "owner": "nvim-lua",
