@@ -14,7 +14,7 @@
 # Stow configuration in $HOME
 for package in $(ls configs)
 do
-  stow --dotfiles --dir configs --target $HOME $package
+  stow --dotfiles --dir configs --target $HOME $package # not working for now for dot-config cf. https://github.com/aspiers/stow/issues/33
   echo "$package stowed"
 done
 
