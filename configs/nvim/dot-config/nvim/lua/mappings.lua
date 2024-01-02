@@ -89,3 +89,6 @@ local function clear_trailing_whitespaces()
   vim.fn.setpos(".", pos)
 end
 vim.keymap.set({''} , '<leader>W', clear_trailing_whitespaces)
+
+-- Quit
+vim.keymap.set({'n'} , '<DEL>', '<cmd>qall<CR>')
