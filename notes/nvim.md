@@ -225,16 +225,7 @@
 
 - Since this is exactly what nix aims to be used for and we want to have fine control on what we install on the system, let's just use nix for those functionalities even if it means writing you own code for it.
 
-## Note on floating windows in Telescope
+## Note on floating windows
 
 - Floating windows is a capability added by Neovim. To create one you just need
   to invoke  `vim.api.nvim_open_win({buffer}, {enter}, {*config})` where `config = {relative='win', row=3, col=3, width=12, height=3}`. The window can be relative to the editor, current window, cursor and mouse. It is very much like any other window, it is just that you can not navigate in and out of it with the usual `C-w h/j/k/l` mappings.
-
-- Telescope creates 3 floating windows: one for the prompt, one for the results,
-  one for the previewer. It does so through the `plenary.popup.create` from the `plenary.nvim` library which in turn uses `vim.api.nvim_open_win`. Plenary allows to create nicer looking floating windows more easily.
-
-- Mappings in Telescope are local to the prompt buffer (which is shown in the
-prompt floating window). Those mappings are set as the picker is displayed and
-as such more specific mappings to the picker can be added.
-
-- Note that Telescope config is first set with the `telescope.config.setup()` function and the plugin is then automatically loaded through the script placed in `plugin` (which we add to the runtime in the `init.lua`) at a later stage after the `~/.config/init.lua` has been executed.
