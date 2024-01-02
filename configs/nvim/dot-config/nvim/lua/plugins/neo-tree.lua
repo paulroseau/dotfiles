@@ -41,6 +41,7 @@ require("neo-tree").setup({
       mappings = {
         ["u"] = "navigate_up",
         ["F"] = "fuzzy_finder",
+        ["<BS>"] = "noop",
       },
       fuzzy_finder_mappings = {
         ["<C-k>"] = "move_cursor_up",
@@ -53,4 +54,4 @@ require("neo-tree").setup({
 })
 
 vim.keymap.set({'n'} , '<leader>x', '<cmd>Neotree toggle<CR>')
-vim.keymap.set({'n'} , '<leader>f', '<cmd>Neotree reveal<CR>')
+vim.keymap.set({'n'} , '<leader>r', '<cmd>Neotree reveal<CR>')

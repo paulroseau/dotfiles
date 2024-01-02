@@ -8,6 +8,10 @@ vim.keymap.set({'', '!'} , '<leader>m', '<Esc>')
 vim.keymap.set({''} , '<up>', '<cmd>normal! gk<CR>')
 vim.keymap.set({''} , '<down>', '<cmd>normal! gj<CR>')
 
+-- Buffer switching
+vim.keymap.set({'n'} , '<C-j>', '<cmd>bn<CR>')
+vim.keymap.set({'n'} , '<C-k>', '<cmd>bp<CR>')
+
 -- Window switching
 vim.keymap.set({'n'} , '<M-h>', '<C-w>h')
 vim.keymap.set({'n'} , '<M-j>', '<C-w>j')
@@ -32,6 +36,7 @@ vim.keymap.set({'n'} , '<M-<>', '<C-w><')
 
 -- Window creating
 vim.keymap.set({'n'} , '<M-n>', '<C-w>n')
+vim.keymap.set({'n'} , '<M-m>', '<cmd>vnew<CR>')
 vim.keymap.set({'n'} , '<M-s>', '<C-w>s')
 vim.keymap.set({'n'} , '<M-v>', '<C-w>v')
 vim.keymap.set({'n'} , '<M-]>', '<C-w>g<C-]>')
@@ -42,16 +47,17 @@ vim.keymap.set({'n'} , '<M-o>', '<C-w>o')
 
 -- Tabpage creating
 vim.keymap.set({'n'} , 'Tn', '<cmd>tabnew<CR>')
+vim.keymap.set({'n'} , 'Tc', '<cmd>tabclose<CR>')
 vim.keymap.set({'n'} , 'Tb', '<C-w>T')
 vim.keymap.set({'n'} , 'Tp', '<C-w>T:tabprevious<CR>', { silent = true })
 
 -- Tabpage switching
-vim.keymap.set({'n'} , 'H', '<cmd>tabprevious<CR>', { silent = true })
-vim.keymap.set({'n'} , 'L', '<cmd>tabnext<CR>', { silent = true })
+vim.keymap.set({'n'} , 'H', '<cmd>tabprevious<CR>')
+vim.keymap.set({'n'} , 'L', '<cmd>tabnext<CR>')
 
 -- Tabpage moving
-vim.keymap.set({'n'} , '<M-(>', '<cmd>-tabmove<CR>', { silent = true })
-vim.keymap.set({'n'} , '<M-)>', '<cmd>+tabmove<CR>', { silent = true })
+vim.keymap.set({'n'} , '<M-(>', '<cmd>-tabmove<CR>')
+vim.keymap.set({'n'} , '<M-)>', '<cmd>+tabmove<CR>')
 
 -- Folds
 vim.keymap.set({'n'} , '<M-e>', 'zm')
@@ -59,6 +65,12 @@ vim.keymap.set({'n'} , '<M-d>', 'zr')
 
 -- Clear searchhighlighting
 vim.keymap.set({''} , '<leader>,', '<cmd>nohlsearch<CR>')
+
+-- Clear command line
+vim.keymap.set({''} , '<BS>', ':<BS>')
+
+-- Redo last command
+vim.keymap.set({''} , ';', ':<UP><CR>')
 
 -- Toggle settings
 local function toogle_boolean_option(option_name)
