@@ -9,59 +9,59 @@ vim.keymap.set({''} , '<up>', '<cmd>normal! gk<CR>')
 vim.keymap.set({''} , '<down>', '<cmd>normal! gj<CR>')
 
 -- Buffer switching
-vim.keymap.set({'n'} , '<C-j>', '<cmd>bn<CR>')
-vim.keymap.set({'n'} , '<C-k>', '<cmd>bp<CR>')
+vim.keymap.set({''} , '<C-j>', '<cmd>bn<CR>')
+vim.keymap.set({''} , '<C-k>', '<cmd>bp<CR>')
 
--- Window switching
-vim.keymap.set({'n'} , '<M-h>', '<C-w>h')
-vim.keymap.set({'n'} , '<M-j>', '<C-w>j')
-vim.keymap.set({'n'} , '<M-k>', '<C-w>k')
-vim.keymap.set({'n'} , '<M-l>', '<C-w>l')
+-- Window switching (Follow up on https://github.com/neovim/neovim/issues/26881)
+vim.keymap.set({'', 't'} , '<M-h>', '<cmd>wincmd h<CR>')
+vim.keymap.set({'', 't'} , '<M-j>', '<cmd>wincmd j<CR>')
+vim.keymap.set({'', 't'} , '<M-k>', '<cmd>wincmd k<CR>')
+vim.keymap.set({'', 't'} , '<M-l>', '<cmd>wincmd l<CR>')
 
 -- Window moving
-vim.keymap.set({'n'} , '<M-H>', '<C-w>H')
-vim.keymap.set({'n'} , '<M-J>', '<C-w>J')
-vim.keymap.set({'n'} , '<M-K>', '<C-w>K')
-vim.keymap.set({'n'} , '<M-L>', '<C-w>L')
-vim.keymap.set({'n'} , '<M-x>', '<C-w>x')
-vim.keymap.set({'n'} , '<M-r>', '<C-w>r')
-vim.keymap.set({'n'} , '<M-R>', '<C-w>R')
+vim.keymap.set({'', 't'} , '<M-H>', '<cmd>wincmd H<CR>')
+vim.keymap.set({'', 't'} , '<M-J>', '<cmd>wincmd J<CR>')
+vim.keymap.set({'', 't'} , '<M-K>', '<cmd>wincmd K<CR>')
+vim.keymap.set({'', 't'} , '<M-L>', '<cmd>wincmd L<CR>')
+vim.keymap.set({'', 't'} , '<M-x>', '<cmd>wincmd x<CR>')
+vim.keymap.set({'', 't'} , '<M-r>', '<cmd>wincmd r<CR>')
+vim.keymap.set({'', 't'} , '<M-R>', '<cmd>wincmd R<CR>')
 
 -- Window resizing
-vim.keymap.set({'n'} , '<M-=>', '<C-w>=')
-vim.keymap.set({'n'} , '<M-+>', '<C-w>+')
-vim.keymap.set({'n'} , '<M-->', '<C-w>-')
-vim.keymap.set({'n'} , '<M->>', '<C-w>>')
-vim.keymap.set({'n'} , '<M-<>', '<C-w><')
+vim.keymap.set({'', 't'} , '<M-=>', '<cmd>wincmd =<CR>')
+vim.keymap.set({'', 't'} , '<M-+>', '<cmd>wincmd +<CR>')
+vim.keymap.set({'', 't'} , '<M-->', '<cmd>wincmd -<CR>')
+vim.keymap.set({'', 't'} , '<M->>', '<cmd>wincmd ><CR>')
+vim.keymap.set({'', 't'} , '<M-<>', '<cmd>wincmd <<CR>')
 
 -- Window creating
-vim.keymap.set({'n'} , '<M-n>', '<C-w>n')
-vim.keymap.set({'n'} , '<M-m>', '<cmd>vnew<CR>')
-vim.keymap.set({'n'} , '<M-s>', '<C-w>s')
-vim.keymap.set({'n'} , '<M-v>', '<C-w>v')
-vim.keymap.set({'n'} , '<M-]>', '<C-w>g<C-]>')
+vim.keymap.set({'', 't'} , '<M-n>', '<cmd>wincmd n<CR>')
+vim.keymap.set({'', 't'} , '<M-m>', '<cmd>vnew<CR>')
+vim.keymap.set({'', 't'} , '<M-s>', '<cmd>wincmd s<CR>')
+vim.keymap.set({'', 't'} , '<M-v>', '<cmd>wincmd v<CR>')
+vim.keymap.set({''} , '<M-]>', '<C-w>g<C-]>')
 
 -- Window closing
-vim.keymap.set({'n'} , '<M-c>', '<C-w>c')
-vim.keymap.set({'n'} , '<M-o>', '<C-w>o')
+vim.keymap.set({'', 't'} , '<M-c>', '<cmd>wincmd c<CR>')
+vim.keymap.set({'', 't'} , '<M-o>', '<cmd>wincmd o<CR>')
 
 -- Tabpage creating
-vim.keymap.set({'n'} , 'Tn', '<cmd>tabnew<CR>')
-vim.keymap.set({'n'} , 'Tc', '<cmd>tabclose<CR>')
-vim.keymap.set({'n'} , 'Tb', '<C-w>T')
-vim.keymap.set({'n'} , 'Tp', '<C-w>T:tabprevious<CR>', { silent = true })
+vim.keymap.set({'n', 'v', 's'} , 'Tn', '<cmd>tabnew<CR>')
+vim.keymap.set({'n', 'v', 's'} , 'Tc', '<cmd>tabclose<CR>')
+vim.keymap.set({'n', 'v', 's'} , 'Tb', '<C-w>T')
+vim.keymap.set({'n', 'v', 's'} , 'Tp', '<C-w>T:tabprevious<CR>', { silent = true })
 
 -- Tabpage switching
-vim.keymap.set({'n'} , 'H', '<cmd>tabprevious<CR>')
-vim.keymap.set({'n'} , 'L', '<cmd>tabnext<CR>')
+vim.keymap.set({'n', 'v', 's'} , 'H', '<cmd>tabprevious<CR>')
+vim.keymap.set({'n', 'v', 's'} , 'L', '<cmd>tabnext<CR>')
 
 -- Tabpage moving
-vim.keymap.set({'n'} , '<M-(>', '<cmd>-tabmove<CR>')
-vim.keymap.set({'n'} , '<M-)>', '<cmd>+tabmove<CR>')
+vim.keymap.set({''} , '<M-(>', '<cmd>-tabmove<CR>')
+vim.keymap.set({''} , '<M-)>', '<cmd>+tabmove<CR>')
 
 -- Folds
-vim.keymap.set({'n'} , '<M-e>', 'zm')
-vim.keymap.set({'n'} , '<M-d>', 'zr')
+vim.keymap.set({''} , '<M-e>', 'zm')
+vim.keymap.set({''} , '<M-d>', 'zr')
 
 -- Clear searchhighlighting
 vim.keymap.set({''} , '<leader>,', '<cmd>nohlsearch<CR>')
@@ -78,7 +78,7 @@ local function toogle_boolean_option(option_name)
     vim.o[option_name] = not vim.o[option_name]
   end
 end
-vim.keymap.set({''} , '<leader>l', toogle_boolean_option("list"))
+vim.keymap.set({''} , '<leader>L', toogle_boolean_option("list"))
 
 -- Clear whitespace
 local function clear_trailing_whitespaces()
@@ -92,3 +92,6 @@ vim.keymap.set({''} , '<leader>W', clear_trailing_whitespaces)
 
 -- Quit
 vim.keymap.set({'n'} , '<DEL>', '<cmd>qall<CR>')
+
+-- Terminal mappings
+vim.keymap.set({'t'} , '<leader>m', [[<C-\><C-n>]])
