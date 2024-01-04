@@ -10,7 +10,7 @@
 
 - neovim
   - [X] update mapping to switch window with wincmd (we need to remain in Terminal mode after leaving and coming back), then commit
-  - [ ] install toggle term asap https://github.com/akinsho/toggleterm.nvim
+  - [X] install toggle term ASAP https://github.com/akinsho/toggleterm.nvim
   - [ ] Check youtube series on Lunar Nvim (distro): https://www.youtube.com/playlist?list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ
     - [X] 1. Intro: term toggler looks interesting
       - nothing new

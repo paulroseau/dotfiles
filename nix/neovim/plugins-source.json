@@ -59,6 +59,12 @@
     "rev": "v0.1.3",
     "sha256": "sha256-oRtNcURQzrIRS3D88tWAl3HuFHxVJr8m/zzL7xoa/II="
   },
+  "toggleterm-nvim": {
+    "repo": "toggleterm.nvim",
+    "owner": "akinsho",
+    "rev": "v2.9.0",
+    "sha256": "sha256-vJApw7XY2wOX9InfWcah+hkNxBfS1+kQUWr4ITxRmgA="
+  },
   "tokyonight-nvim": {
     "repo": "tokyonight.nvim",
     "owner": "folke",

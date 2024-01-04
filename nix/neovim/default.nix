@@ -45,8 +45,9 @@ let
       neo-tree-nvim
       nvim-surround
       nvim-treesitter
-      vim-fugitive
+      toggleterm-nvim
       tokyonight-nvim
+      vim-fugitive
     ];
   };
 
