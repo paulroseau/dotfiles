@@ -215,6 +215,8 @@
       - [X] good old Fugitive.vim:
         - [X] add `,g` mappings for `:Git<CR>`
         - downside it is in vimL
+      - [ ] checkout GitSigns, looks cool, you can stage what you changed, but
+      no sure it as good as the Gvdiff of TreeSitter, look around
       - [ ] explore: neogit + diffview
       - [ ] `lazygit` (extrenal tool): requires custom keybindings definition https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
   - [ ] Nice window title
@@ -265,3 +267,7 @@
 - Fixes:
   - lualine hijacks intro screen, cf. https://github.com/nvim-lualine/lualine.nvim/issues/259
   - add description to each of your mappings so Telescope mapping helps you better (some show anonymous function)
+
+- Bugs:
+  - neovim:
+    - Terminal Mode gets deactivated when moving in/out of the Terminal window: https://github.com/neovim/neovim/issues/26881

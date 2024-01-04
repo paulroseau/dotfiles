@@ -1,7 +1,5 @@
-- alacritty
-  - [X] add $@ as arguments in the wrapped script so we can pass options and arguments 
-
 - nix
+  - [ ] upgrade nix
   - [ ] start using `nix` directly instead of `nix-env` and `nix-store`
   - [ ] add nix config to avoid long feature flags
   - [ ] investigate if there is a way to delete old nix-channel user-environment to perform a full `nix-store --gc`
@@ -11,6 +9,8 @@
   - make status bar pretty
 
 - neovim
+  - [X] update mapping to switch window with wincmd (we need to remain in Terminal mode after leaving and coming back), then commit
+  - [ ] install toggle term asap https://github.com/akinsho/toggleterm.nvim
   - [ ] Check youtube series on Lunar Nvim (distro): https://www.youtube.com/playlist?list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ
     - [X] 1. Intro: term toggler looks interesting
       - nothing new
@@ -34,9 +34,9 @@
     - [X] 13. Neovim - Comments (JSX Commenting support explained)
       - JoosepAlviste/nvim-ts-context-commentstring could be interesting to
       comment nested stuff (code instide of markdown, js inside of html, etc.)
-    - [ ] 14. Neovim - Gitsigns Powerful Git Plugin for Neovim
+    - [X] 14. Neovim - Gitsigns Powerful Git Plugin for Neovim
     - [ ] 15. Neovim - NvimTree File Explorer Written In Lua
     - [ ] 16. Neovim - Bufferline Buffers vs Tabs vs Windows Explanation
     - [ ] 17. Neovim - Null-LS Formatting, Linting & more (Supports prettier, black, eslint, flake8 & more)
-    - [ ] 18. Neovim - Toggleterm | Open terminal programs in Neovim
+    - [X] 18. Neovim - Toggleterm | Open terminal programs in Neovim
   - [ ] configure lua-line
