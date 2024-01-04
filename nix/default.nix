@@ -34,15 +34,16 @@ let
   ];
 
   miscBinaries = [
-    # git # not working for Google
+    # git # not working on Google laptop
     tig
     tmux
     lazygit
     jq
+    yq
   ];
 
   kubernetesBinaries = [
-    # k9s # not working at Google, needs to be compiled with patched go
+    # k9s # not working on Google laptop, needs to be compiled with patched go
     kubectl
     kubectl-tree
   ];
