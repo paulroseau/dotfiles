@@ -37,8 +37,8 @@ vim.keymap.set({'', 't'} , '<M-<>', '<cmd>wincmd <<CR>')
 -- Window creating
 vim.keymap.set({'', 't'} , '<M-n>', '<cmd>wincmd n<CR>')
 vim.keymap.set({'', 't'} , '<M-m>', '<cmd>vnew<CR>')
-vim.keymap.set({'', 't'} , '<M-s>', '<cmd>wincmd s<CR>')
-vim.keymap.set({'', 't'} , '<M-v>', '<cmd>wincmd v<CR>')
+vim.keymap.set({''} , '<M-s>', '<cmd>wincmd s<CR>')
+vim.keymap.set({''} , '<M-v>', '<cmd>wincmd v<CR>')
 vim.keymap.set({''} , '<M-]>', '<C-w>g<C-]>')
 
 -- Window closing
@@ -79,6 +79,7 @@ local function toogle_boolean_option(option_name)
   end
 end
 vim.keymap.set({''} , '<leader>L', toogle_boolean_option("list"))
+vim.keymap.set({''} , '<leader>w', toogle_boolean_option("wrap"))
 
 -- Clear whitespace
 local function clear_trailing_whitespaces()
