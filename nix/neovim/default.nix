@@ -8,15 +8,14 @@
 }:
 
 let
-  # Need to use nightly after fix for https://github.com/neovim/neovim/issues/22041
   neovim = (
     neovim-unwrapped.override { inherit tree-sitter; }
   ).overrideAttrs (self: super: {
-    version = "nightly";
+    version = "v0.9.5";
 
     src = super.src.override {
       rev = self.version;
-      hash = "sha256-2JHBvDWMKd3brUwzU5NMc2cqrrqyoXZ3p8AFN82MNPI=";
+      hash = "sha256-CcaBqA0yFCffNPmXOJTo8c9v1jrEBiqAl8CG5Dj5YxE=";
     };
   });
 

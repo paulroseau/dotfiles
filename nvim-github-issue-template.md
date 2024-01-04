@@ -1,4 +1,5 @@
 # Issues you already interacted on
+- https://github.com/neovim/neovim/issues/22041
 - https://github.com/neovim/neovim/issues/26881
 
 # Download and extract neovim
