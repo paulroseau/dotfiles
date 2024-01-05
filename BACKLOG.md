@@ -271,3 +271,4 @@
 - Bugs:
   - neovim:
     - Terminal Mode gets deactivated when moving in/out of the Terminal window: https://github.com/neovim/neovim/issues/26881
+      However toggleterm deals with this just fine, checkout how `persist_mode` works in toggleterm
