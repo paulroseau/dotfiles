@@ -39,6 +39,7 @@ let
     extraPrefix = "/share/neovim-plugins";
     plugins = with allPlugins; [
       comment-nvim
+      flatten-nvim
       fzf-lua
       lualine-nvim
       onedark-nvim

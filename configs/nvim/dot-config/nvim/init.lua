@@ -9,6 +9,7 @@ utils.add_child_directories_to_rtp(vim.fs.normalize(vim.fn.stdpath("config") .. 
 
 -- Configure plugins
 require("plugins.comment")
+require("plugins.flatten")
 require("plugins.fugitive")
 require("plugins.fzf-lua")
 require("plugins.lualine")

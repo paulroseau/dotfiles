@@ -5,6 +5,12 @@
     "rev": "v0.8.0",
     "sha256": "sha256-48hy+hiaDJLlgWqC7IeZI3dT+VwWkRo4atQbyPxu/ys="
   },
+  "flatten-nvim": {
+    "repo": "flatten.nvim",
+    "owner": "willothy",
+    "rev": "v0.5.0",
+    "sha256": "sha256-37DFOCpEoJbd8szjjgWlB9cbNjDdEWz2rGwFe1oKr54="
+  },
   "fzf-lua": {
     "repo": "fzf-lua",
     "owner": "ibhagwan",
