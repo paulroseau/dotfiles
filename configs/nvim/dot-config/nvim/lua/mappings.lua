@@ -92,7 +92,7 @@ end
 vim.keymap.set({''} , '<leader>W', clear_trailing_whitespaces)
 
 -- Quit
-vim.keymap.set({'n'} , '<DEL>', '<cmd>qall<CR>')
+vim.keymap.set({'n'} , '<leader>k', '<cmd>bwipeout!<CR>')
 
 -- Terminal mappings
 vim.keymap.set({'t'} , '<leader>m', [[<C-\><C-n>]])
