@@ -30,6 +30,7 @@ require("neo-tree").setup({
       ["Z"] = "expand_all_nodes",
       ["P"] = "paste_from_clipboard",
       ["p"] = "paste_from_clipboard",
+      ["i"] = "noop",
       ["y"] = "noop",
       ["w"] = "noop",
       ["/"] = "noop",
