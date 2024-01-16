@@ -229,3 +229,7 @@
 
 - Floating windows is a capability added by Neovim. To create one you just need
   to invoke  `vim.api.nvim_open_win({buffer}, {enter}, {*config})` where `config = {relative='win', row=3, col=3, width=12, height=3}`. The window can be relative to the editor, current window, cursor and mouse. It is very much like any other window, it is just that you can not navigate in and out of it with the usual `C-w h/j/k/l` mappings.
+
+## Internals
+
+- vim.loop, is an instantiation of a Libluv loop. It is actually grabbed through [luv](https://github.com/luvit/luv) which is a lua wrapper around the [libluv library](https://github.com/libuv/libuv) which itself is a wrapper around various Unix OS and Windows to expose a uniform API to do Asynchronous programming (things like reading files, networking, forking threads, etc.). It was originally built for NodeJS. Its model is using one event loop, which is polled using the OS native polling mechanism (for Linux it uses the `epoll` system call under the hood for example).
