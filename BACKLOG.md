@@ -5,12 +5,13 @@
 
 - shell
   - [ ] write more notes on ZSH completion mechanisms
+  - [ ] find a nice Pager to read man page (`bat` could do, check out `most`), and set the `PAGER` env variable in your .zshrc
   - [ ] write your own starship config (check all presets and adapt)
   - [ ] generate separate zsh script to source each derivation zsh extensions (plugins + kubectl, etc.) so that you refer to one script only when sourcing from .zshrc
 
 - alacritty
-  - [X] add $@ as arguments in the wrapped script so we can pass options and arguments 
-  ```c
+  - [x] add $@ as arguments in the wrapped script so we can pass options and arguments 
+  ```sh
   exec ${lib.makeBinPath [glibc.bin]}/ld.so --library-path ${lib.makeLibraryPath [mesa.drivers]} $out/bin/_alacritty \$@
   # instead of
   exec ${lib.makeBinPath [glibc.bin]}/ld.so --library-path ${lib.makeLibraryPath [mesa.drivers]} $out/bin/_alacritty
@@ -36,28 +37,28 @@
   - why do I have nix twice in the path in tmux ?
 
 - tmux :
-  - [X] update default command to use `zsh` (use relative path to .nix-profile/bin/zsh on purpose so it resolves to nix one when necessary - or even better use `which zsh` or something mettre un fallback sur bash si on trouve pas zsh)
-  - [X] easier nvim / tmux pane change :
-    - [X] open Github issue for neovim bug
-    - [X] add hook pane-focus to set vim-mode on if vim is running
-    - [X] install neovim with nix (unwrapped version, wrapped neovim allows to bake in some prebuilt plugins and generate special settings like upgrading the rtp in the `~/init.vim`, it also generates a wrapping shell script)
-    - [X] better error messages and error handling with pcall and error in lua -> no need of pcall
-    - [X] prettify your `nvim-tmux` plugin, check other plugins
-      - [X] check if module already loaded -> irrelevant
-      - [X] try to create a class to tmux.command.run() -> heavy, recreating objects all the time, won't do
-      - [X] split in multiple files and put in `./nvim-tmux/init.lua`, etc.
-    - [X] check if you can use command instead of callback to simplify autocmd
-  - [X] make <Ctrl-v> and <v> behave like in vim in copy mode
+  - [x] update default command to use `zsh` (use relative path to .nix-profile/bin/zsh on purpose so it resolves to nix one when necessary - or even better use `which zsh` or something mettre un fallback sur bash si on trouve pas zsh)
+  - [x] easier nvim / tmux pane change :
+    - [x] open Github issue for neovim bug
+    - [x] add hook pane-focus to set vim-mode on if vim is running
+    - [x] install neovim with nix (unwrapped version, wrapped neovim allows to bake in some prebuilt plugins and generate special settings like upgrading the rtp in the `~/init.vim`, it also generates a wrapping shell script)
+    - [x] better error messages and error handling with pcall and error in lua -> no need of pcall
+    - [x] prettify your `nvim-tmux` plugin, check other plugins
+      - [x] check if module already loaded -> irrelevant
+      - [x] try to create a class to tmux.command.run() -> heavy, recreating objects all the time, won't do
+      - [x] split in multiple files and put in `./nvim-tmux/init.lua`, etc.
+    - [x] check if you can use command instead of callback to simplify autocmd
+  - [x] make <Ctrl-v> and <v> behave like in vim in copy mode
   - [ ] make status bar pretty:
     - https://tao-of-tmux.readthedocs.io/en/latest/manuscript/09-status-bar.html
-      (read the whole blog)
+    (read the whole blog)
     - https://medium.com/hackernoon/customizing-tmux-b3d2a5050207
   - [ ] look if [tmux pkg manager](https://github.com/tmux-plugins/tpm) makes sense ?
   - [ ] tmux sensible package -> check but copy paste if anything is interesting
   - [ ] change style of pane when in vim mode to indicate it is locked -> not sure this is really worth it since you will be able to get out of a vim locked window most of the time except when running nvim with your config remotely (experiment with setting vim-mode option as a pane option instead of window option)
   - [ ] Add `./tat.sh` script with nix allows to create a session named with the `pwd` automatically
-  - [ ] look into tmuxinator or tmuxp to script session creation
-  ```
+  - [ ] look into Teamocil, tmuxinator or tmuxp to script session creation (tmuxp is written by the guy from tao-of-tmux, it is in python)
+  ```bash
   #!/bin/sh
   #
   # Attach or create tmux session named the same as current directory.
@@ -65,27 +66,27 @@
   session_name="$(basename "$PWD" | tr . -)"
 
   session_exists() {
-    tmux list-sessions | sed -E 's/:.*$//' | grep -q "^$session_name$"
+  tmux list-sessions | sed -E 's/:.*$//' | grep -q "^$session_name$"
   }
 
   not_in_tmux() {
-    [ -z "$TMUX" ]
+  [ -z "$TMUX" ]
   }
 
   if not_in_tmux; then
-    tmux new-session -As "$session_name"
+  tmux new-session -As "$session_name"
   else
-    if ! session_exists; then
-      (TMUX='' tmux new-session -Ad -s "$session_name")
-    fi
-    tmux switch-client -t "$session_name"
+  if ! session_exists; then
+  (TMUX='' tmux new-session -Ad -s "$session_name")
+  fi
+  tmux switch-client -t "$session_name"
   fi
   ```
 
 - Neovim plugin in nix:
-  - [X] write a function for plugins which:
-    - [X] takes dependencies (use buildenv to merge plugins ?), so you bind some together
-    - [X] generates doc tags if `doc/` present but `doc/tags` isn't, or `cp README.md  doc/` and generate doc tags if `doc/` does not exist but `README.md` exists (get inspiration from vimplugin nix code
+  - [x] write a function for plugins which:
+    - [x] takes dependencies (use buildenv to merge plugins ?), so you bind some together
+    - [x] generates doc tags if `doc/` present but `doc/tags` isn't, or `cp README.md  doc/` and generate doc tags if `doc/` does not exist but `README.md` exists (get inspiration from vimplugin nix code
   - [ ] update shas and rev tags more easily:
     - [ ] look into nix flakes: https://www.tweag.io/blog/2020-05-25-flakes/ so we don't have to manually update shas all the time
     - [ ] get inspiration from `editors/vim/plugins/generated.nix` or from treesitter generated grammars (cf. json file) to update plugins
@@ -149,24 +150,24 @@
 
 - Neovim plugins:
   - [ ] Pretty status line: nvim-lualine/lualine.nvim:
-    - [X] Install
+    - [x] Install
     - [ ] Configure
   - [ ] nvim-treesitter/nvim-treesitter
-    - [X] understand tree-sitter concepts
-    - [X] understand syntax, indentation, folding (just check the :help)
-    - [X] understand how the plugin works
-    - [X] Install plugin
-    - [X] Configure
-    - [X] add parsers for markdown, scala, rust, go, nix, haskell and OCaml
-    - [X] fix bash and scala queries, you might need to upgrade bash and scala treesitter to a working version or allow to patch some queries file in the nvim-treesitter
+    - [x] understand tree-sitter concepts
+    - [x] understand syntax, indentation, folding (just check the :help)
+    - [x] understand how the plugin works
+    - [x] Install plugin
+    - [x] Configure
+    - [x] add parsers for markdown, scala, rust, go, nix, haskell and OCaml
+    - [x] fix bash and scala queries, you might need to upgrade bash and scala treesitter to a working version or allow to patch some queries file in the nvim-treesitter
     - [ ] allow to disable treesitter on one buffer (if it blows up it is impossible to work) -> checkout builtin TSDisable
     - [ ] the plugin sets foldmethod expr globally, if we don't have a parser installed and we want to fold, we need to reset the foldmethod
   - [ ] Neotree explorer:
-    - [X] install
-    - [X] update to have the links showing 
+    - [x] install
+    - [x] update to have the links showing 
     - [ ] toggle symlink + info display on/off
     - [ ] configure:
-      - [X] open node recursively: cf. https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/Recipies#emulating-vims-fold-commands
+      - [x] open node recursively: cf. https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/Recipies#emulating-vims-fold-commands
       - [ ] change behaviour of `X` so that it closes all subnodes but keep current node open
       - [ ] replicate NerdTree navigation :
         - [ ] P: go to root
@@ -177,21 +178,23 @@
         - [ ] <C-k>: go to prev sibling
       - [ ] add `dd` to delete a file without confirmation
       - [ ] see if you can rework confirmation box to avoid typing <CR>
-  - [X] comments: https://github.com/numToStr/Comment.nvim
-    - [X] install
-    - [X] configure
-  - [X] parenthesis surrounding: https://github.com/kylechui/nvim-surround
-    - [X] install
-    - [X] configure
+  - [x] comments: https://github.com/numToStr/Comment.nvim
+    - [x] install
+    - [x] configure
+    - [ ] checkout JoosepAlviste/nvim-ts-context-commentstring which could be interesting to
+    comment nested stuff (code instide of markdown, js inside of html, etc.)
+  - [x] parenthesis surrounding: https://github.com/kylechui/nvim-surround
+    - [x] install
+    - [x] configure
   - [ ] nvim-in-tmux:
-     - [X] move it inside `./plugins`, rework the module like nvim-treesitter
-     - [X] set the mappings outside
+     - [x] move it inside `./plugins`, rework the module like nvim-treesitter
+     - [x] set the mappings outside
      - [ ] check if you want to use vim.loop (libuv) instead of `os.execute`
   - [ ] Use fzf-lua.vim instead of Telescope:
-    - [X] understand what you can do with fzf from: https://www.youtube.com/watch?v=qgG5Jhi_Els
-    - [X] review if you can remove zsh directory plugin
-    - [X] install fzf-lua.vim & remove Telescope
-    - [X] rename all `.config` files in here with `dot-` and use `stow --dotfiles` in the install script
+    - [x] understand what you can do with fzf from: https://www.youtube.com/watch?v=qgG5Jhi_Els
+    - [x] review if you can remove zsh directory plugin
+    - [x] install fzf-lua.vim & remove Telescope
+    - [x] rename all `.config` files in here with `dot-` and use `stow --dotfiles` in the install script
       - [ ] not working for alacritty with dot-config cf. https://github.com/aspiers/stow/issues/33
       - [ ] exercise: write your own `stow` equivalent in Rust?
     - [ ] understand the philosophy of this plugin a bit:
@@ -202,21 +205,23 @@
       - https://www.lua.org/pil/contents.html#P4
       - https://luajit.org/ext_ffi.html
       - https://www.lua.org/pil/contents.html
-  - [ ] Check youtube series on Lunar Nvim (distro): https://www.youtube.com/playlist?list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ
-      - [X] 1. Intro: term toggler looks interesting
-      - [X] 2. Settings
-          - set `splitbelow` and `splitright` to true
-  - [X] Theme
-    - [X] option 1: https://github.com/navarasu/onedark.nvim (inspired by Atom)
+  - [x] Check youtube series on Lunar Nvim (distro): https://www.youtube.com/playlist?list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ
+  - [x] Theme
+    - [x] option 1: https://github.com/navarasu/onedark.nvim (inspired by Atom)
     - [-] option 2: https://github.com/norcalli/nvim-colorizer.lua
-    - [X] others 3: https://github.com/folke/tokyonight.nvim
+    - [x] others 3: https://github.com/folke/tokyonight.nvim
+  - [/] Bufferline
+    - it is good but does way too much compared to what you need. All you need
+    is a nice name for tabs (or maybe just a number), and a floating window appearing on the side to show
+    the list of buffers when typing <C-j> and <C-k>, but fzf does this aleady
+    pretty well
+  - [x] install https://github.com/willothy/flatten.nvim to allow to launch nvim inside a terminal (in particular for git rebase -i) 
   - [ ] Git:
     - Various options to consider:
-      - [X] good old Fugitive.vim:
-        - [X] add `,g` mappings for `:Git<CR>`
+      - [x] good old Fugitive.vim:
+        - [x] add `,g` mappings for `:Git<CR>`
         - downside it is in vimL
-      - [ ] checkout GitSigns, looks cool, you can stage what you changed, but
-      no sure it as good as the Gvdiff of TreeSitter, look around
+      - [ ] checkout GitSigns, looks cool, you can stage what you changed, but no sure it as good as the Gvdiff of TreeSitter, look around
       - [ ] explore: neogit + diffview
       - [ ] `lazygit` (extrenal tool): requires custom keybindings definition https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
   - [ ] Nice window title
@@ -232,15 +237,20 @@
       - snippet engine (L3MON4D3/LuaSnip, check others ?)
       - lsp completion hrsh7th/cmp-nvim-lsp
     - cmp sources plugins:
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path"
+      - "saadparwaiz1/cmp_luasnip",
+      - "hrsh7th/cmp-nvim-lua",
+      - "hrsh7th/cmp-nvim-lsp",
+      - "hrsh7th/cmp-buffer",
+      - "hrsh7th/cmp-path"
     - predefined snippet templates:
       - https://github.com/rafamadriz/friendly-snippets/wiki
 
 - Neovim plugins nice to have:
+  - [ ] find or write a plugin that would display a floating window with the list of buffers as you cycle through them with <C-j>, <C-k> so you know what is coming next, but honestly fzf with buffers is pretty good for that already, see if you want to use https://github.com/stevearc/dressing.nvim for that -> see if you cannot just update fzf buffers so that it displays the list without the first buffer on top
+  - [ ] Install L3MON4D3/LuaSnip + nvim-cmp binding
+  - [ ] https://github.com/hrsh7th/cmp-cmdline see if interesting (completion after `:` and `/`)
+  - [ ] could be good to restrict Fzf ripgrep lines to just one type of files
+  - [ ] adjust the nvim lua cmp plugin so it can autocomplete in cmd line even when not editing a vim or lua file (right now available uses the filetype)
   - [ ] source a lua file (usage example: change the colorscheme option of onedark without needing to quit neovim and restart)
   - [ ] find a multiselect plugin so when you can search and replace without having to do * and the :s//blalba/, but direclty get the cursor everywhere
   - [ ] make your own script to increase and diminish foldlevel locally on the fold you are on. Strategy :
@@ -252,6 +262,8 @@
     - send a particular register to the tty of a particular pane
     - send the content of a predefined register (in normal mode) to the left/right/up/down (C-x C-l, C-x C-k, etc.)
     - C-x C-x resends to the same pane
+    Edit: checkout toggleterm before
+  - [ ] set textwidth to 0 for ft=markdown
   - [ ] implement zoom feature, get inspiration from https://github.com/dhruvasagar/vim-zoom
   - [ ] windwp/nvim-autopairs:
     - not sure if we want to install it, I am not a fan of autopairing (we could have it setup for certain filetype - programming languages)
@@ -264,11 +276,17 @@
   - [ ] neodev (plugin for lua in neovim, help + autocompletion, etc., see if still necessary after cmp-nvim-lua)
   - [ ] install some extra colorschemes from https://github.com/rockerBOO/awesome-neovim#colorscheme (kanagawa, nord)
 
+- Misc:
+  - think about finding a nice filewatcher to recomplie stuff when file changes for example (`entr` is recommended by the guy from the tao-of-tmux)
+
 - Fixes:
   - lualine hijacks intro screen, cf. https://github.com/nvim-lualine/lualine.nvim/issues/259
   - add description to each of your mappings so Telescope mapping helps you better (some show anonymous function)
 
+- sources:
+  - think about checking out neovim awesome for plugins
+
 - Bugs:
   - neovim:
     - Terminal Mode gets deactivated when moving in/out of the Terminal window: https://github.com/neovim/neovim/issues/26881
-      However toggleterm deals with this just fine, checkout how `persist_mode` works in toggleterm
+    However toggleterm deals with this just fine, checkout how `persist_mode` works in toggleterm

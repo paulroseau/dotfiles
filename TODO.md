@@ -3,40 +3,35 @@
   - [ ] start using `nix` directly instead of `nix-env` and `nix-store`
   - [ ] add nix config to avoid long feature flags
   - [ ] investigate if there is a way to delete old nix-channel user-environment to perform a full `nix-store --gc`
+  - [ ] upgrade channel, and reinstall everything make sure nothing breaks before deleting the previous versions for roll back (in particular checkout fzf line grepping works - it crashes on the cloudtop)
 
 - tmux
-  - read https://tao-of-tmux.readthedocs.io
-  - make status bar pretty
+  - [x] read https://tao-of-tmux.readthedocs.io
+    - [x] checkout tmux capture-pane, tmux save-buffer
+      -> ok capture-pane saves you from getting into copy-mode and selecting
+      -> to paste you can use `Prefix+]` or use `:paste-buffer`, you can also send it to stdout
+  - [ ] make status bar pretty
+    - status line can print output of a command at regular interval
+    - checkout https://medium.com/hackernoon/customizing-tmux-b3d2a5050207 for more help
+    - checkout https://tao-of-tmux.readthedocs.io/en/latest/manuscript/09-status-bar.html
+    - looks like the only nice on-the-shelf thing for that is powerline, let's see how it plays, you can also toggle the status bar on and off, but I guess you want it always there
+    - would be nice to style the window list as well, not sure powerline can do that
 
 - neovim
   - [x] update mapping to switch window with wincmd (we need to remain in Terminal mode after leaving and coming back), then commit
   - [x] install toggle term ASAP https://github.com/akinsho/toggleterm.nvim
   - [x] try to replace <C-s> and <C-v> in FZF by <M-s> and <M-v>, same for helptags
-  - [ ] Check youtube series on Lunar Nvim (distro): https://www.youtube.com/playlist?list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ
-    - [x] 1. Intro: term toggler looks interesting
-      - nothing new
-    - [x] 2. Settings
-      - set `splitbelow` and `splitright` to true
-    - [x] 3. Keymaps
-      - nothing new
-    - [ ] 4. Plugins (about packer)
-    - [x] 5. Colorscheme
-    - [ ] 6. Neovim - Completion Tutorial 100% Lua
-    - [x] 7. Add Icons to your Fonts with Nerd Fonts
-      - nothing new
-    - [ ] 8. Neovim - LSP Setup Tutorial (Built in LSP 100% Lua)
-    - [/] 9. Neovim - Telescope: a highly extendable fuzzy finder -> N/A
-    - [ ] 10. Neovim - Treesitter Syntax Highlighting
-    - [x] 11. Neovim - From Scratch Q&A
-      - checkout neovim awesome
-    - [x] 12. Neovim - Autopairs automatically close () [] {} '' ""
-      - not sure if we want to install it, I am not a fan of autopairing (we could have it setup for certain filetype - programming languages)
-    - [x] 13. Neovim - Comments (JSX Commenting support explained)
-      - JoosepAlviste/nvim-ts-context-commentstring could be interesting to
-      comment nested stuff (code instide of markdown, js inside of html, etc.)
-    - [x] 14. Neovim - Gitsigns Powerful Git Plugin for Neovim
-    - [ ] 15. Neovim - NvimTree File Explorer Written In Lua
-    - [ ] 16. Neovim - Bufferline Buffers vs Tabs vs Windows Explanation
-    - [ ] 17. Neovim - Null-LS Formatting, Linting & more (Supports prettier, black, eslint, flake8 & more)
-    - [x] 18. Neovim - Toggleterm | Open terminal programs in Neovim
+  - [x] intall flatten:
+  - [x] Check youtube series on Lunar Nvim (distro): https://www.youtube.com/playlist?list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ
+  - [ ] proceed to install LSP for C code (lots to add in here)
+    - [x] test the nvim-cmp setup
+    - [ ] install LSP server for C in nix (maybe that is a good occasion to do the nix stuff above)
+    - [ ] checkout how nvim-cmp works with LSP
+  - [ ] proceed to install LSP for Rust code
+  - [ ] proceed to install LSP for Go code
+  - [ ] read about https://computationstructures.org/lectures/interrupts/interrupts.html
+  - [ ] update the notes on ComputerArchitecture especially about asynchronous IOs
+  - [ ] Once that is done explore libluv and understand how IOs are handled
+  - [ ] then you should be able to understand flatten.nvim with the use of sockopen and pipes which maps to libuv under the hood
+  - [ ] understand the pipe / NVIM env variable
   - [ ] configure lua-line
