@@ -17,6 +17,7 @@ require("neo-tree").setup({
       ["<leader>m"] = "cancel",
       ["o"] = "open_drop",
       ["T"] = "open_tab_drop",
+      ["<M-t>"] = "open_tab_drop",
       ["O"] = open_all_subnodes,
       ["<M-s>"] = "open_split",
       ["<M-v>"] = "open_vsplit",
