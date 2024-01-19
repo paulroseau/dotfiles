@@ -233,3 +233,15 @@
 ## Internals
 
 - vim.loop, is an instantiation of a Libluv loop. It is actually grabbed through [luv](https://github.com/luvit/luv) which is a lua wrapper around the [libluv library](https://github.com/libuv/libuv) which itself is a wrapper around various Unix OS and Windows to expose a uniform API to do Asynchronous programming (things like reading files, networking, forking threads, etc.). It was originally built for NodeJS. Its model is using one event loop, which is polled using the OS native polling mechanism (for Linux it uses the `epoll` system call under the hood for example).
+
+- `vim.schedule_wrap` grabs a function `cb` and returns a function which will schedule that function on the vim.loop with `vim.schedule`. You can check the source code at `runtime/lua/vim/_editor.lua`:
+    ```lua
+    function vim.schedule_wrap(fn)
+      return function(...)
+        local args = vim.F.pack_len(...)
+        vim.schedule(function()
+          fn(vim.F.unpack_len(args))
+        end)
+      end
+    end
+    ```
