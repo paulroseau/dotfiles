@@ -22,6 +22,16 @@ fzf.setup({
       ["alt-t"]     = fzf.actions.buf_tabedit,
     }
   },
+  buffers = {
+    actions = { 
+      ["ctrl-x"] = { 
+        fn = function(selected, opts) 
+          return fzf.actions.vimcmd_buf("bw!", selected, opts)
+        end, 
+        reload = true 
+      } 
+    },
+  },
   helptags = {
     actions = {
       ["alt-s"]     = fzf.actions.help,
