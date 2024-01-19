@@ -1,4 +1,34 @@
 {
+  "cmp-buffer": {
+    "repo": "cmp-buffer",
+    "owner": "hrsh7th",
+    "rev": "3022dbc9166796b644a841a02de8dd1cc1d311fa",
+    "sha256": "sha256-dG4U7MtnXThoa/PD+qFtCt76MQ14V1wX8GMYcvxEnbM="
+  },
+  "cmp-nvim-lsp": {
+    "repo": "cmp-nvim-lsp",
+    "owner": "hrsh7th",
+    "rev": "5af77f54de1b16c34b23cba810150689a3a90312",
+    "sha256": "sha256-/0sh9vJBD9pUuD7q3tNSQ1YLvxFMNykdg5eG+LjZAA8="
+  },
+  "cmp-nvim-lsp-signature-help": {
+    "repo": "cmp-nvim-lsp-signature-help",
+    "owner": "hrsh7th",
+    "rev": "3d8912ebeb56e5ae08ef0906e3a54de1c66b92f1",
+    "sha256": "sha256-yDxYvjTIeXIKYR3tg+bf+okXKr5JYc/I9obP+6uKey4="
+  },
+  "cmp-nvim-lua": {
+    "repo": "cmp-nvim-lua",
+    "owner": "hrsh7th",
+    "rev": "f12408bdb54c39c23e67cab726264c10db33ada8",
+    "sha256": "sha256-6eXOK1mVK06TN1akhN42Bo4wQpeen3rk3b/m7iVmGKM="
+  },
+  "cmp-path": {
+    "repo": "cmp-path",
+    "owner": "hrsh7th",
+    "rev": "91ff86cd9c29299a64f968ebb45846c485725f23",
+    "sha256": "sha256-thppiiV3wjIaZnAXmsh7j3DUc6ceSCvGzviwFUnoPaI="
+  },
   "comment-nvim": {
     "repo": "Comment.nvim",
     "owner": "numToStr",
@@ -34,6 +64,12 @@
     "owner": "MunifTanjim",
     "rev": "0.2.0",
     "sha256": "sha256-nSUs9zAX7hQ3PuFrH4zQblMfTY6ALDNggmqaQnkbR5E="
+  },
+  "nvim-cmp": {
+    "repo": "nvim-cmp",
+    "owner": "hrsh7th",
+    "rev": "538e37ba87284942c1d76ed38dd497e54e65b891",
+    "sha256": "sha256-BtAYRYn6m788zAq/mNnbAzAxp1TGf9QkRE0hSOp9sdc="
   },
   "nvim-surround": {
     "repo": "nvim-surround",

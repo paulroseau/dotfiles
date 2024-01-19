@@ -9,7 +9,6 @@ vim.o.numberwidth = 1                      -- minimum line number column width
 vim.opt.listchars = "tab:▸ ,eol:↲"
 vim.o.clipboard = 'unnamedplus'            -- copy/paste to/from clipboard provider (xclip, pbcopy, etc.)
 vim.o.cursorline = true                    -- highlight line cursor is currently on
-vim.opt.completeopt:append { "noinsert" }  -- select the first item of popup menu automatically without inserting it
 
 -- Windows
 vim.o.splitbelow = false -- force horizontal splits to go above the current window

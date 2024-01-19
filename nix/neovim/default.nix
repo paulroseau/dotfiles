@@ -38,14 +38,19 @@ let
     name = "my-neovim-plugins";
     extraPrefix = "/share/neovim-plugins";
     plugins = with allPlugins; [
+      cmp-buffer
+      cmp-nvim-lsp
+      cmp-nvim-lsp-signature-help
+      cmp-nvim-lua
+      cmp-path
       comment-nvim
       flatten-nvim
       fzf-lua
       lualine-nvim
-      onedark-nvim
       neo-tree-nvim
       nvim-surround
       nvim-treesitter
+      onedark-nvim
       toggleterm-nvim
       tokyonight-nvim
       vim-fugitive

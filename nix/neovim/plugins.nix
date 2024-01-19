@@ -18,37 +18,52 @@ let
     }
   ) sourceArgs;
 
-  overridePlugins = self: super: {
-    lualine-nvim = super.lualine-nvim.overrideAttrs {
-      dependencies = [
-        self.nvim-web-devicons
-      ];
-    };
+  overridePlugins = self: super: 
+    let 
+      nvimCmpSourcePlugin = plugin: plugin.overrideAttrs {
+        dependencies = [ self.nvim-cmp ];
+      };
+    in {
+      lualine-nvim = super.lualine-nvim.overrideAttrs {
+        dependencies = [
+          self.nvim-web-devicons
+        ];
+      };
 
-    nvim-treesitter = super.nvim-treesitter.overrideAttrs {
-      postInstall = ''
-        target="$out/$pname/parser"
-        if [ -d $target ]; then
-          rm -r $target
-        fi
-        ln -s ${neovimExtraTreesitterParsers} $target
-      '';
-    };
+      cmp-buffer = nvimCmpSourcePlugin super.cmp-buffer;
 
-    neo-tree-nvim = super.neo-tree-nvim.overrideAttrs {
-      dependencies = [
-        self.nui-nvim
-        self.nvim-web-devicons
-        self.plenary-nvim
-      ];
-    };
+      cmp-nvim-lsp = nvimCmpSourcePlugin super.cmp-nvim-lsp;
 
-    fzf-lua = super.fzf-lua.overrideAttrs {
-      dependencies = [
-        self.nvim-web-devicons
-      ];
+      cmp-nvim-lsp-signature-help = nvimCmpSourcePlugin super.cmp-nvim-lsp-signature-help;
+
+      cmp-nvim-lua = nvimCmpSourcePlugin super.cmp-nvim-lua;
+
+      cmp-path = nvimCmpSourcePlugin super.cmp-path;
+
+      nvim-treesitter = super.nvim-treesitter.overrideAttrs {
+        postInstall = ''
+          target="$out/$pname/parser"
+          if [ -d $target ]; then
+            rm -r $target
+          fi
+          ln -s ${neovimExtraTreesitterParsers} $target
+        '';
+      };
+
+      neo-tree-nvim = super.neo-tree-nvim.overrideAttrs {
+        dependencies = [
+          self.nui-nvim
+          self.nvim-web-devicons
+          self.plenary-nvim
+        ];
+      };
+
+      fzf-lua = super.fzf-lua.overrideAttrs {
+        dependencies = [
+          self.nvim-web-devicons
+        ];
+      };
     };
-  };
 
 in
   fix (extends overridePlugins basePlugins)

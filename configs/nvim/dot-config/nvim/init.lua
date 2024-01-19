@@ -20,6 +20,7 @@ require("plugins.nvim-treesitter")
 require("plugins.onedark")
 require("plugins.tokyonight")
 require("plugins.toggleterm")
+require("plugins.nvim-cmp")
 
 -- Pick colorscheme
 vim.cmd.colorscheme("tokyonight")
