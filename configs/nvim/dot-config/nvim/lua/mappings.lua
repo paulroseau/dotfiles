@@ -8,10 +8,6 @@ vim.keymap.set({'', '!'} , '<leader>m', '<Esc>')
 vim.keymap.set({''} , '<up>', '<cmd>normal! gk<CR>')
 vim.keymap.set({''} , '<down>', '<cmd>normal! gj<CR>')
 
--- Buffer switching
-vim.keymap.set({''} , '<C-j>', '<cmd>bn<CR>')
-vim.keymap.set({''} , '<C-k>', '<cmd>bp<CR>')
-
 -- Window switching (Follow up on https://github.com/neovim/neovim/issues/26881)
 vim.keymap.set({'', 't'} , '<M-h>', '<cmd>wincmd h<CR>')
 vim.keymap.set({'', 't'} , '<M-j>', '<cmd>wincmd j<CR>')
