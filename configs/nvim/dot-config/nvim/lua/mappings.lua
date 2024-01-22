@@ -90,5 +90,9 @@ vim.keymap.set({''} , '<leader>W', clear_trailing_whitespaces)
 -- Quit
 vim.keymap.set({'n'} , '<leader>k', '<cmd>bwipeout!<CR>')
 
+-- Hack! <C-Space> is interpreted by the terminal as <C-@> which is a built-in mapping (check :help *i_CTRL-@*)
+-- This gets annoying when auto-completion
+vim.keymap.set({'i'}, '<C-Space>', ' ')
+
 -- Terminal mappings
 vim.keymap.set({'t'} , '<leader>m', [[<C-\><C-n>]])
