@@ -48,6 +48,7 @@ let
       fzf-lua
       lualine-nvim
       neo-tree-nvim
+      nvim-lspconfig
       nvim-surround
       nvim-treesitter
       onedark-nvim

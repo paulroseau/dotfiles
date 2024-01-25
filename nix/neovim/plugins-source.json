@@ -71,6 +71,12 @@
     "rev": "538e37ba87284942c1d76ed38dd497e54e65b891",
     "sha256": "sha256-BtAYRYn6m788zAq/mNnbAzAxp1TGf9QkRE0hSOp9sdc="
   },
+  "nvim-lspconfig": {
+    "repo": "nvim-lspconfig",
+    "owner": "neovim",
+    "rev": "v0.1.7",
+    "sha256": "sha256-qFjFofA2LoD4yRfx4KGfSCpR3mDkpFaagcm+TVNPqco="
+  },
   "nvim-surround": {
     "repo": "nvim-surround",
     "owner": "kylechui",
