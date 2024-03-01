@@ -2,6 +2,6 @@
 
 ## Install
 
-```
+```sh
 ./install.sh
 ```
