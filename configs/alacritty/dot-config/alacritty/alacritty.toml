@@ -1,0 +1,28 @@
+import = [
+  "~/.nix-profile/share/alacritty/themes/nord.toml"
+]
+
+[window]
+opacity = 0.99
+startup_mode = "Fullscreen"
+
+[font]
+normal = { family = "Terminess Nerd Font" }
+size = 16
+
+[colors]
+transparent_background_colors = true
+
+[shell]
+program = "zsh"
+args = [ "--login" ]
+
+[mouse]
+hide_when_typing = true
+
+[keyboard] 
+bindings = [
+  { key = "Equals", mods = "Control", action = "ResetFontSize" },
+  { key = "Plus", mods = "Control|Shift", action = "IncreaseFontSize" },
+  { key = "Minus", mods = "Control", action = "DecreaseFontSize" },
+]
