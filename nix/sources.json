@@ -1,0 +1,38 @@
+{
+    "alacritty-theme": {
+        "branch": "master",
+        "description": "Collection of Alacritty color schemes",
+        "homepage": null,
+        "owner": "alacritty",
+        "repo": "alacritty-theme",
+        "rev": "07c10441dae4d0490145a0f40178f8846b24e800",
+        "sha256": "1dnj22wnniy7yb1llhvlsjwlqgc6y34d3r0yqgn5d6swn4lnr6b9",
+        "type": "tarball",
+        "url": "https://github.com/alacritty/alacritty-theme/archive/07c10441dae4d0490145a0f40178f8846b24e800.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "neovim": {
+        "branch": "master",
+        "description": "Vim-fork focused on extensibility and usability",
+        "homepage": "https://neovim.io",
+        "owner": "neovim",
+        "repo": "neovim",
+        "rev": "v0.9.5",
+        "sha256": "04b3z4wf91n0jy02l1n47bb6zkzix2a3i5zr6kgjf51j1nl83ih9",
+        "type": "tarball",
+        "url": "https://github.com/neovim/neovim/archive/v0.9.5.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "nixos-unstable",
+        "description": "Nix Packages collection",
+        "homepage": null,
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "cbc4211f0afffe6dfd2478a62615dd5175a13f9a",
+        "sha256": "1zhf4102f3a09ri3c2gsn6sjhb72cz4jd65srmz31g4l034gzcv6",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/cbc4211f0afffe6dfd2478a62615dd5175a13f9a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}

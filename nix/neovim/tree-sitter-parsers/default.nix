@@ -1,23 +1,19 @@
 { lib
 , linkFarm
 , tree-sitter
-, fetchFromGitHub
 , neovimVersion
+, sources
 }:
 
 with lib;
 
 let
-  sourceArgs = builtins.fromJSON (
-    builtins.readFile ./tree-sitter-parsers-source.json
-  );
-
   args = let
-    base = self: builtins.mapAttrs (name: srcArg: {
+    base = self: builtins.mapAttrs (name: src: {
+      inherit src;
       language = name;
-      src = fetchFromGitHub srcArg;
       version = "neovim-${neovimVersion}";
-    }) sourceArgs;
+    }) sources;
 
     override = self: super: {
       markdown = super.markdown // { location = "tree-sitter-markdown"; };

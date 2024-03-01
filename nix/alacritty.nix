@@ -1,12 +1,11 @@
 { lib
-, buildEnv
 , runCommand
 , runtimeShell
 , alacritty
+, alacrittyThemeSource
 , glibc
 , mesa
 , nerdfonts
-, fetchFromGitHub
 }:
 
 let
@@ -14,22 +13,12 @@ let
     fonts = [ "Agave" "Hack" "Hermit" "Terminus" ];
   };
 
-  alacrittyTheme =
-    let
-      pname = "alacritty-theme";
-    in
-      runCommand pname {
-        src = fetchFromGitHub {
-          owner = "alacritty";
-          repo = pname;
-          rev = "master";
-          hash = "sha256-3BkRl7vqErQJgjqkot1MFRb5QzW4Jtv1Fuk4+CQfZOs=";
-        };
-      }
-      ''
-      mkdir -p $out/share
-      cp -r $src/themes $out/share/alacritty-themes
-      '';
+  alacrittyThemes =
+    runCommand "alacritty-themes" {}
+    ''
+    mkdir -p $out/share/alacritty
+    ln -s ${alacrittyThemeSource}/themes $out/share/alacritty
+    '';
 
   # Modify the alacritty derivation itself adding a postInstall hook rather
   # than creating a standalone derivation with writeScriptBin because we also
@@ -61,12 +50,8 @@ let
   });
 
 in
-  buildEnv {
-    name = "alacritty-packages";
-    pathsToLink = ["/" "/share"];
-    paths = [
-      wrappedAlacritty
-      alacrittyTheme
-      selectedNerdFonts
-    ];
-  }
+  [
+    wrappedAlacritty
+    alacrittyThemes
+    selectedNerdFonts
+  ]
