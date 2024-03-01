@@ -1,7 +1,9 @@
 - nix:
-  - [ ] start using `nix` directly instead of `nix-env` and `nix-store`
-  - [ ] add nix config to avoid long feature flags
-  - [ ] investigate if there is a way to delete old nix-channel user-environment to perform a full `nix-store --gc`
+  - [/] start using `nix` directly instead of `nix-env` and `nix-store`
+    => part of nix flake, we decided not to use them
+  - [X] add nix config to avoid long feature flags
+  - [/] investigate if there is a way to delete old nix-channel user-environment to perform a full `nix-store --gc`
+    => not sure what I meant here, but to remove old environments as well as a gc, just use `nix-collect-garbage --delete-old`
 
 - shell
   - [ ] write more notes on ZSH completion mechanisms
@@ -10,20 +12,21 @@
   - [ ] generate separate zsh script to source each derivation zsh extensions (plugins + kubectl, etc.) so that you refer to one script only when sourcing from .zshrc
 
 - alacritty
-  - [x] add $@ as arguments in the wrapped script so we can pass options and arguments 
+  - [X] add $@ as arguments in the wrapped script so we can pass options and arguments
   ```sh
   exec ${lib.makeBinPath [glibc.bin]}/ld.so --library-path ${lib.makeLibraryPath [mesa.drivers]} $out/bin/_alacritty \$@
   # instead of
   exec ${lib.makeBinPath [glibc.bin]}/ld.so --library-path ${lib.makeLibraryPath [mesa.drivers]} $out/bin/_alacritty
   # test not sure about the escaping of the $
   ```
-  - [ ] use fzf to fuzzy find the font and the colorscheme:
+  - [X] use fzf to fuzzy find the font and the colorscheme:
     - option 1: have a shortcut which just launches nvim ~/.dotfiles/.../alacritty.yml and then use proper autocompletion in it
     - option 2: create a little bash script which allows to select fonts / colorscheme with fzf and then pipe it to sed
     => option 1 is better, hovering over the fonts will make the window
     change a lot, you will want to update the size as well, etc. - all themes
     might not be in the same directory. Also fzf-nvim does option 2 for
     colorschemes
+    => not worth it
 
 - environment & install script:
   - [ ] Create an install and uninstall scripts inside nix which could use `stow` to manage the links to environment folder (those scripts can take parameters for system (linux or other), home directory name etc.)
@@ -164,7 +167,7 @@
     - [ ] the plugin sets foldmethod expr globally, if we don't have a parser installed and we want to fold, we need to reset the foldmethod
   - [ ] Neotree explorer:
     - [x] install
-    - [x] update to have the links showing 
+    - [x] update to have the links showing
     - [ ] toggle symlink + info display on/off
     - [ ] configure:
       - [x] open node recursively: cf. https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/Recipies#emulating-vims-fold-commands
@@ -215,7 +218,7 @@
     is a nice name for tabs (or maybe just a number), and a floating window appearing on the side to show
     the list of buffers when typing <C-j> and <C-k>, but fzf does this aleady
     pretty well
-  - [x] install https://github.com/willothy/flatten.nvim to allow to launch nvim inside a terminal (in particular for git rebase -i) 
+  - [x] install https://github.com/willothy/flatten.nvim to allow to launch nvim inside a terminal (in particular for git rebase -i)
   - [ ] Git:
     - Various options to consider:
       - [x] good old Fugitive.vim:
@@ -247,6 +250,7 @@
 
 - Neovim plugins nice to have:
   - [ ] find or write a plugin that would display a floating window with the list of buffers as you cycle through them with <C-j>, <C-k> so you know what is coming next, but honestly fzf with buffers is pretty good for that already, see if you want to use https://github.com/stevearc/dressing.nvim for that -> see if you cannot just update fzf buffers so that it displays the list without the first buffer on top
+  - [ ] check https://github.com/rcarriga/nvim-notify for nicer notifications (in pop up windows)
   - [ ] Install L3MON4D3/LuaSnip + nvim-cmp binding
   - [ ] https://github.com/hrsh7th/cmp-cmdline see if interesting (completion after `:` and `/`)
   - [ ] could be good to restrict Fzf ripgrep lines to just one type of files
@@ -275,6 +279,7 @@
     - could be interesting to comment nested stuff (code instide of markdown, js inside of html, etc.)
   - [ ] neodev (plugin for lua in neovim, help + autocompletion, etc., see if still necessary after cmp-nvim-lua)
   - [ ] install some extra colorschemes from https://github.com/rockerBOO/awesome-neovim#colorscheme (kanagawa, nord)
+  - [ ] Allow to delete files from fzf-lua with `Ctrl-x` or `Ctrl-d` just like we do for buffers
 
 - Misc:
   - think about finding a nice filewatcher to recomplie stuff when file changes for example (`entr` is recommended by the guy from the tao-of-tmux)

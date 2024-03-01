@@ -1,10 +1,3 @@
-- nix
-  - [ ] upgrade nix
-  - [ ] start using `nix` directly instead of `nix-env` and `nix-store`
-  - [ ] add nix config to avoid long feature flags
-  - [ ] investigate if there is a way to delete old nix-channel user-environment to perform a full `nix-store --gc`
-  - [ ] upgrade channel, and reinstall everything make sure nothing breaks before deleting the previous versions for roll back (in particular checkout fzf line grepping works - it crashes on the cloudtop)
-
 - tmux
   - [x] read https://tao-of-tmux.readthedocs.io
     - [x] checkout tmux capture-pane, tmux save-buffer
@@ -18,20 +11,24 @@
     - would be nice to style the window list as well, not sure powerline can do that
 
 - neovim
-  - [x] update mapping to switch window with wincmd (we need to remain in Terminal mode after leaving and coming back), then commit
-  - [x] install toggle term ASAP https://github.com/akinsho/toggleterm.nvim
-  - [x] try to replace <C-s> and <C-v> in FZF by <M-s> and <M-v>, same for helptags
-  - [x] intall flatten:
-  - [x] Check youtube series on Lunar Nvim (distro): https://www.youtube.com/playlist?list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ
-  - [ ] proceed to install LSP for C code (lots to add in here)
+  - [X] update mapping to switch window with wincmd (we need to remain in Terminal mode after leaving and coming back), then commit
+  - [X] install toggle term ASAP https://github.com/akinsho/toggleterm.nvim
+  - [X] try to replace <C-s> and <C-v> in FZF by <M-s> and <M-v>, same for helptags
+  - [X] intall flatten:
+  - [X] Check youtube series on Lunar Nvim (distro): https://www.youtube.com/playlist?list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ
+  - [ ] install LSP for C (lots to add in here)
     - [x] test the nvim-cmp setup
     - [ ] install LSP server for C in nix (maybe that is a good occasion to do the nix stuff above)
     - [ ] checkout how nvim-cmp works with LSP
-  - [ ] proceed to install LSP for Rust code
-  - [ ] proceed to install LSP for Go code
   - [ ] read about https://computationstructures.org/lectures/interrupts/interrupts.html
   - [ ] update the notes on ComputerArchitecture especially about asynchronous IOs
   - [ ] Once that is done explore libluv and understand how IOs are handled
-  - [ ] then you should be able to understand flatten.nvim with the use of sockopen and pipes which maps to libuv under the hood
+  - [ ] then you should be able to understand flatten.nvim with the use of sockopen and pipes which maps to libuv under the hood (decompose al the way down to the processor level)
   - [ ] understand the pipe / NVIM env variable
   - [ ] configure lua-line
+  - [ ] install LSP for Rust
+  - [ ] install LSP for Scala
+  - [ ] install LSP for Haskell
+  - [ ] install LSP for OCaml
+  - [ ] install LSP for Lua
+  - [ ] install LSP for Go
