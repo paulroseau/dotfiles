@@ -101,6 +101,10 @@ vim.keymap.set({'n'} , '<leader>k', '<cmd>bwipeout!<CR>')
 -- This gets annoying with auto-completion
 vim.keymap.set({'i'}, '<C-Space>', ' ')
 
+-- Navigate the quickfix
+vim.keymap.set({'n'} , '<C-p>', '<cmd>cprevious<CR>')
+vim.keymap.set({'n'} , '<C-n>', '<cmd>cnext<CR>')
+
 -- LSP mappings
 
 -- Fall back method when no LSP client is attached or no attached client

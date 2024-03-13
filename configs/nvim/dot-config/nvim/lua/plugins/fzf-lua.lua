@@ -2,6 +2,8 @@ local fzf = require("fzf-lua")
 
 fzf.setup({
   keymap = {
+    -- These override the default tables completely so we need to include all we
+    -- need, including what we don't want to modify
     builtin = {
       ["<C-r>"] = "toggle-preview-cw",
       ["<C-p>"] = "toggle-preview",
@@ -10,6 +12,11 @@ fzf.setup({
       ["<M-d>"] = "preview-page-down",
     },
     fzf = {
+      ["ctrl-z"] = "abort",
+      ["ctrl-u"] = "unix-line-discard",
+      ["ctrl-a"] = "beginning-of-line",
+      ["ctrl-e"] = "end-of-line",
+      ["alt-a"]  = "toggle-all",
       ["ctrl-p"] = "toggle-preview",
       ["ctrl-w"] = "toggle-preview-wrap",
       ["alt-e"] = "preview-page-up",
@@ -58,6 +65,12 @@ fzf.setup({
       ["alt-v"] = fzf.actions.keymap_vsplit,
       ["alt-t"] = fzf.actions.keymap_tabedit,
     },
+  },
+  diagnostics ={
+    copen = function () 
+      vim.cmd("copen")
+      vim.cmd(".cc")
+    end,
   },
   manpages = {
     actions = {
