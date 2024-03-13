@@ -2,50 +2,51 @@ vim.g.mapleader = ','
 vim.opt.timeoutlen = 700 -- time in milliseconds that is waited for the next mapping key
 
 -- Esc
-vim.keymap.set({'', '!'} , '<leader>m', '<Esc>')
+vim.keymap.set({'', 'i', 'c'} , '<leader>m', '<C-c>')
+vim.keymap.set({'t'} , '<leader>m', [[<C-\><C-n>]])
 
 -- Navigate inside a wrapped line
 vim.keymap.set({''} , '<up>', '<cmd>normal! gk<CR>')
 vim.keymap.set({''} , '<down>', '<cmd>normal! gj<CR>')
 
 -- Window switching (Follow up on https://github.com/neovim/neovim/issues/26881)
-vim.keymap.set({'', 't'} , '<M-h>', '<cmd>wincmd h<CR>')
-vim.keymap.set({'', 't'} , '<M-j>', '<cmd>wincmd j<CR>')
-vim.keymap.set({'', 't'} , '<M-k>', '<cmd>wincmd k<CR>')
-vim.keymap.set({'', 't'} , '<M-l>', '<cmd>wincmd l<CR>')
+vim.keymap.set({'', 't'} , '<M-h>', '<C-w>h')
+vim.keymap.set({'', 't'} , '<M-j>', '<C-w>j')
+vim.keymap.set({'', 't'} , '<M-k>', '<C-w>k')
+vim.keymap.set({'', 't'} , '<M-l>', '<C-w>l')
 
 -- Window moving
-vim.keymap.set({'', 't'} , '<M-H>', '<cmd>wincmd H<CR>')
-vim.keymap.set({'', 't'} , '<M-J>', '<cmd>wincmd J<CR>')
-vim.keymap.set({'', 't'} , '<M-K>', '<cmd>wincmd K<CR>')
-vim.keymap.set({'', 't'} , '<M-L>', '<cmd>wincmd L<CR>')
-vim.keymap.set({'', 't'} , '<M-x>', '<cmd>wincmd x<CR>')
-vim.keymap.set({'', 't'} , '<M-r>', '<cmd>wincmd r<CR>')
-vim.keymap.set({'', 't'} , '<M-R>', '<cmd>wincmd R<CR>')
+vim.keymap.set({'', 't'} , '<M-H>', '<C-w>H')
+vim.keymap.set({'', 't'} , '<M-J>', '<C-w>J')
+vim.keymap.set({'', 't'} , '<M-K>', '<C-w>K')
+vim.keymap.set({'', 't'} , '<M-L>', '<C-w>L')
+vim.keymap.set({'', 't'} , '<M-x>', '<C-w>x')
+vim.keymap.set({'', 't'} , '<M-r>', '<C-w>r')
+vim.keymap.set({'', 't'} , '<M-R>', '<C-w>R')
 
 -- Window resizing
-vim.keymap.set({'', 't'} , '<M-=>', '<cmd>wincmd =<CR>')
-vim.keymap.set({'', 't'} , '<M-+>', '<cmd>wincmd +<CR>')
-vim.keymap.set({'', 't'} , '<M-->', '<cmd>wincmd -<CR>')
-vim.keymap.set({'', 't'} , '<M->>', '<cmd>wincmd ><CR>')
-vim.keymap.set({'', 't'} , '<M-<>', '<cmd>wincmd <<CR>')
+vim.keymap.set({'', 't'} , '<M-=>', '<C-w>=')
+vim.keymap.set({'', 't'} , '<M-+>', '<C-w>+')
+vim.keymap.set({'', 't'} , '<M-->', '<C-w>-')
+vim.keymap.set({'', 't'} , '<M->>', '<C-w>>')
+vim.keymap.set({'', 't'} , '<M-<>', '<C-w><')
 
 -- Window creating
-vim.keymap.set({'', 't'} , '<M-n>', '<cmd>wincmd n<CR>')
+vim.keymap.set({'', 't'} , '<M-n>', '<cmd>new<CR>')
 vim.keymap.set({'', 't'} , '<M-m>', '<cmd>vnew<CR>')
-vim.keymap.set({''} , '<M-s>', '<cmd>wincmd s<CR>')
-vim.keymap.set({''} , '<M-v>', '<cmd>wincmd v<CR>')
+vim.keymap.set({''} , '<M-s>', '<C-w>s')
+vim.keymap.set({''} , '<M-v>', '<C-w>v')
 vim.keymap.set({''} , '<M-]>', '<C-w>g<C-]>')
 
 -- Window closing
-vim.keymap.set({'', 't'} , '<M-c>', '<cmd>wincmd c<CR>')
-vim.keymap.set({'', 't'} , '<M-o>', '<cmd>wincmd o<CR>')
+vim.keymap.set({'', 't'} , '<M-c>', '<C-w>c')
+vim.keymap.set({'', 't'} , '<M-o>', '<C-w>o')
 
 -- Tabpage creating
 vim.keymap.set({'n'} , 'Tn', '<cmd>tabnew<CR>')
 vim.keymap.set({'n'} , 'Tc', '<cmd>tabclose<CR>')
-vim.keymap.set({''} , '<M-t>', '<cmd>wincmd T<CR>')
-vim.keymap.set({''} , '<M-T>', '<cmd>wincmd T<CR><cmd>tabprevious<CR>')
+vim.keymap.set({''} , '<M-t>', '<C-w>T<CR>')
+vim.keymap.set({''} , '<M-T>', '<C-w>T<CR><cmd>tabprevious<CR>')
 
 -- Tabpage switching
 vim.keymap.set({'n', 'v', 's'} , 'H', '<cmd>tabprevious<CR>')
