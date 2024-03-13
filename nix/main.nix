@@ -67,13 +67,22 @@ let
     kubectl-tree
   ];
 
-  extraPackage = callPackage ./extra.nix {};
+  testPackages = [
+    s3cmd
+    bazel
+  ];
 
-in
-  alacrittyPackages
-  ++ fzfLuaBinaries
-  ++ kubernetesBinaries
-  ++ miscBinaries
-  ++ neovimPackages
-  ++ nixBinaries
-  ++ zshPackages
+in 
+  rec {
+      base =
+        fzfLuaBinaries
+        ++ kubernetesBinaries
+        ++ miscBinaries
+        ++ neovimPackages
+        ++ nixBinaries
+        ++ zshPackages;
+
+      test = testPackages;
+
+      local = base ++ alacrittyPackages;
+  }
