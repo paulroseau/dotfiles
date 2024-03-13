@@ -1,6 +1,6 @@
 - tmux
-  - [x] read https://tao-of-tmux.readthedocs.io
-    - [x] checkout tmux capture-pane, tmux save-buffer
+  - [X] read https://tao-of-tmux.readthedocs.io
+    - [X] checkout tmux capture-pane, tmux save-buffer
       -> ok capture-pane saves you from getting into copy-mode and selecting
       -> to paste you can use `Prefix+]` or use `:paste-buffer`, you can also send it to stdout
   - [ ] make status bar pretty
@@ -16,10 +16,29 @@
   - [X] try to replace <C-s> and <C-v> in FZF by <M-s> and <M-v>, same for helptags
   - [X] intall flatten:
   - [X] Check youtube series on Lunar Nvim (distro): https://www.youtube.com/playlist?list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ
-  - [ ] install LSP for C (lots to add in here)
-    - [x] test the nvim-cmp setup
-    - [ ] install LSP server for C in nix (maybe that is a good occasion to do the nix stuff above)
+  - [X] install LSP for Lua
+  - [X] install LSP for C:
+    - [X] test the nvim-cmp setup
+    - [X] install LSP server for C in nix (maybe that is a good occasion to do the nix stuff above)
+    - [X] understand how LSP works on its own use
+    - [X] make sure you found the best way to disable diagnostics (check if the server can avoid compiling stuff and return errors, don't sweat it though, an alternative would be to simply configure your projects properly)
+      => ok you can disable them by passing a config file to individual servers, to be done on a repo by repo basis
+  - [X] LSP:
+    - [X] notes on configuration (checkout how lspconfig passes the settings to the language server, and the various type of files you can include to help the LSP server find the sources)
+    - [X] Add RTP to lua path for lsp completion (checkout lsp config server doc for lua)
+    - [X] setup key mappings to use fzf lua to navigate the code:
+      - [X] rotate preview window with M-r
+      - [X] finish writing lsp.md (TODOs)
+      - [X] gain inspiration of fzf-lua to check capabilities for custom mappings
+      - [X] try make fzf layout horizontal specific horizonta split for diagnostics and code actions
+  - [ ] Generalities on nvim-cmp:
+    - [ ] checkout why it seems necessary to have a snippet engine for pressing `Enter`
     - [ ] checkout how nvim-cmp works with LSP
+      - check source execute (how it is used in the nvim-cmp not in nvim-cmp-lsp)
+      - the lsp source looks pretty straightforward - not much, but still have a quick look
+  - [ ] install LSP for Go
+    - how to disable LSP (useful for big projects like GDCH for instance)
+    - check if you can reference external index for LSP servers
   - [ ] read about https://computationstructures.org/lectures/interrupts/interrupts.html
   - [ ] update the notes on ComputerArchitecture especially about asynchronous IOs
   - [ ] Once that is done explore libluv and understand how IOs are handled
@@ -30,5 +49,3 @@
   - [ ] install LSP for Scala
   - [ ] install LSP for Haskell
   - [ ] install LSP for OCaml
-  - [ ] install LSP for Lua
-  - [ ] install LSP for Go
