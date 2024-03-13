@@ -101,5 +101,49 @@ vim.keymap.set({'n'} , '<leader>k', '<cmd>bwipeout!<CR>')
 -- This gets annoying with auto-completion
 vim.keymap.set({'i'}, '<C-Space>', ' ')
 
--- Terminal mappings
-vim.keymap.set({'t'} , '<leader>m', [[<C-\><C-n>]])
+-- LSP mappings
+
+-- Fall back method when no LSP client is attached or no attached client
+-- supports renaming
+local function rename_with_substitute()
+  local cword = vim.fn.expand('<cword>')
+  local prompt_opts = {
+    prompt = 'New Name: ',
+    default = cword,
+  }
+
+  vim.ui.input(prompt_opts, function(input)
+    if not input or #input == 0 then
+      return
+    end
+    local pos = vim.fn.getpos(".")
+    local substitute_cmd = string.format("%%substitute/\\<%s\\>/%s/eg", cword, input)
+    vim.cmd(substitute_cmd)
+    vim.cmd("nohlsearch")
+    vim.fn.setpos(".", pos)
+  end)
+end
+
+-- Unfortunately vim.lsp.buf.rename does not change its return type if no client
+-- with adequate capability is found, so we need to wrap it to fall back on our
+-- hand made method
+-- This was adapted from runtime/lua/vim/lsp/buf.lua
+local function wrapped_lsp_buf_rename()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local lsp_clients = vim.lsp.get_active_clients({ bufnr = bufnr, })
+
+  -- Clients must at least support rename, prepareRename is optional
+  lsp_clients = vim.tbl_filter(function(client)
+    return client.supports_method('textDocument/rename')
+  end, lsp_clients)
+
+  if #lsp_clients == 0 then
+    vim.notify('[LSP] Rename, no matching language servers with rename capability, using builtin substitute instead')
+    rename_with_substitute()
+  else
+    vim.lsp.buf.rename()
+  end
+end
+
+vim.keymap.set({'n'}, '<leader>R', wrapped_lsp_buf_rename)
+vim.keymap.set({'n'}, 'K', vim.lsp.buf.hover)

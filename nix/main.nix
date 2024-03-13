@@ -48,6 +48,8 @@ let
     delta
   ];
 
+  developmentTools =  callPackage ./development-tools {};
+
   miscBinaries = [
     # git # not working on Google laptop
     tig
@@ -74,8 +76,9 @@ let
 
 in 
   rec {
-      base =
-        fzfLuaBinaries
+      remote =
+        developmentTools
+        ++ fzfLuaBinaries
         ++ kubernetesBinaries
         ++ miscBinaries
         ++ neovimPackages
@@ -84,5 +87,5 @@ in
 
       test = testPackages;
 
-      local = base ++ alacrittyPackages;
+      local = alacrittyPackages ++ remote;
   }
