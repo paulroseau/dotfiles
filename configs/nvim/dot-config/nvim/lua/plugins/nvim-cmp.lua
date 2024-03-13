@@ -1,7 +1,7 @@
 local cmp = require('cmp')
 
 local complete_if_invisible = function(if_visible_fn)
-  return function(fallback)
+  return function(_)
     if cmp.visible() then
       if_visible_fn()
     else
@@ -12,19 +12,19 @@ end
 
 cmp.setup({
   mapping = cmp.mapping({
-    ['<C-n>'] = cmp.mapping(
+    ['<C-j>'] = cmp.mapping(
       complete_if_invisible(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
       { 'i', 'c' }
     ),
-    ['<C-p>'] = cmp.mapping(
+    ['<C-k>'] = cmp.mapping(
       complete_if_invisible(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
       { 'i', 'c' }
     ),
-    ['<C-j>'] = cmp.mapping(
+    ['<C-n>'] = cmp.mapping(
       complete_if_invisible(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select })),
       { 'i', 'c' }
     ),
-    ['<C-k>'] = cmp.mapping(
+    ['<C-p>'] = cmp.mapping(
       complete_if_invisible(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select })),
       { 'i', 'c' }
     ),
@@ -40,20 +40,14 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = 'nvim_lua' },
     { name = 'path' },
-    { name = 'buffer', keyword_length = 2, },
+    { name = 'buffer',   keyword_length = 2, },
   }),
-})
-
-cmp.setup.cmdline({'/'}, {
-  sources = {
-    { name = 'buffer', keyword_length = 2, }
-  }
 })
 
 cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
-    { name = 'cmdline' },
-    { name = 'nvim_lua'},
+    { name = 'cmdline', keyword_length = 3, },
+    { name = 'nvim_lua' }, -- works only if you are editing a lua file :-(
     { name = 'path' },
   })
 })

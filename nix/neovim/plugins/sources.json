@@ -11,6 +11,18 @@
         "url": "https://github.com/hrsh7th/cmp-buffer/archive/3022dbc9166796b644a841a02de8dd1cc1d311fa.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "cmp-cmdline": {
+        "branch": "main",
+        "description": "nvim-cmp source for vim's cmdline",
+        "homepage": "",
+        "owner": "hrsh7th",
+        "repo": "cmp-cmdline",
+        "rev": "8ee981b4a91f536f52add291594e89fb6645e451",
+        "sha256": "03j79ncxnnpilx17x70my7s8vvc4w81kipraq29g4vp32dggzjsv",
+        "type": "tarball",
+        "url": "https://github.com/hrsh7th/cmp-cmdline/archive/8ee981b4a91f536f52add291594e89fb6645e451.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "cmp-nvim-lsp": {
         "branch": "main",
         "description": "nvim-cmp source for neovim builtin LSP client",
