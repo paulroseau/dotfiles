@@ -24,3 +24,6 @@ vim.o.expandtab = true  -- tab transformed in spaces
 vim.o.tabstop = 2       -- tab correspond to x spaces and vice-versa depending on whether expandtab is on
 vim.o.softtabstop = 2   -- column offset when PRESSING the tab key (or the backspace key around spaces)
 vim.o.shiftwidth = 2    -- column offset when using keys '>' and '<' in normal mode
+
+-- Disable diagnostics by default
+vim.diagnostic.disable()

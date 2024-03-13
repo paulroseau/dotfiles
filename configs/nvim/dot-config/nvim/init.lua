@@ -1,6 +1,7 @@
 -- General settings
 require("settings")
 require("mappings")
+require("commands")
 
 -- Add plugins to runtimepath
 local utils = require("utils")
