@@ -95,7 +95,7 @@ local function wrap_vertical(fn)
 end
 
 -- Mappings
-vim.keymap.set({ 'n' }, '<leader>z', fzf.builtin)
+vim.keymap.set({ '' }, '<leader>z', fzf.builtin)
 
 vim.keymap.set({ 'n' }, '<leader>f', fzf.files)
 vim.keymap.set({ 'n' }, '<C-j>', fzf.buffers)
