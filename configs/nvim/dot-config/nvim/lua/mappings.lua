@@ -56,10 +56,6 @@ vim.keymap.set({'n', 'v', 's'} , 'L', '<cmd>tabnext<CR>')
 vim.keymap.set({''} , '<M-(>', '<cmd>-tabmove<CR>')
 vim.keymap.set({''} , '<M-)>', '<cmd>+tabmove<CR>')
 
--- Easier scrolling
-vim.keymap.set({''} , '<C-e>', '<C-u>')
-vim.keymap.set({''} , '<C-u>', '<C-e>')
-
 -- Folds
 vim.keymap.set({''} , '<M-e>', 'zm')
 vim.keymap.set({''} , '<M-d>', 'zr')
