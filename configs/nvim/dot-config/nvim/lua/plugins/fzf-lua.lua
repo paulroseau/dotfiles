@@ -5,9 +5,9 @@ fzf.setup({
     -- These override the default tables completely so we need to include all we
     -- need, including what we don't want to modify
     builtin = {
-      ["<C-r>"] = "toggle-preview-cw",
-      ["<C-p>"] = "toggle-preview",
-      ["<C-w>"] = "toggle-preview-wrap",
+      ["<M-p>"] = "toggle-preview",
+      ["<M-r>"] = "toggle-preview-cw",
+      ["<M-w>"] = "toggle-preview-wrap",
       ["<M-e>"] = "preview-page-up",
       ["<M-d>"] = "preview-page-down",
     },
@@ -16,9 +16,9 @@ fzf.setup({
       ["ctrl-u"] = "unix-line-discard",
       ["ctrl-a"] = "beginning-of-line",
       ["ctrl-e"] = "end-of-line",
-      ["alt-a"]  = "toggle-all",
-      ["ctrl-p"] = "toggle-preview",
-      ["ctrl-w"] = "toggle-preview-wrap",
+      ["alt-a"] = "toggle-all",
+      ["alt-p"] = "toggle-preview",
+      ["alt-w"] = "toggle-preview-wrap",
       ["alt-e"] = "preview-page-up",
       ["alt-d"] = "preview-page-down",
     },
