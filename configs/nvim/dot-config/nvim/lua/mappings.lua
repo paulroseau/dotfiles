@@ -1,5 +1,5 @@
+-- Leader key
 vim.g.mapleader = ','
-vim.opt.timeoutlen = 700 -- time in milliseconds that is waited for the next mapping key
 
 -- Esc
 vim.keymap.set({'', 'i'}, '<leader>m', '<Esc>')
@@ -61,7 +61,7 @@ vim.keymap.set({''} , '<M-)>', '<cmd>+tabmove<CR>')
 vim.keymap.set({''} , '<M-e>', 'zm')
 vim.keymap.set({''} , '<M-d>', 'zr')
 
--- Clear searchhighlighting
+-- Clear search highlighting
 vim.keymap.set({''} , '<leader>,', '<cmd>nohlsearch<CR>')
 
 -- Clear command line
@@ -91,7 +91,7 @@ end
 
 vim.keymap.set({''} , '<leader>W', clear_trailing_whitespaces)
 
--- Quit
+-- Remove scratch buffer
 vim.keymap.set({'n'} , '<leader>k', '<cmd>bwipeout!<CR>')
 
 -- Hack! <C-Space> is interpreted by the terminal as <C-@> which is a built-in mapping (check :help *i_CTRL-@*)
