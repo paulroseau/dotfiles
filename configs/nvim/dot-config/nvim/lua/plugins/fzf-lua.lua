@@ -81,7 +81,6 @@ fzf.setup({
   }
 })
 
-
 local function wrap_vertical(fn)
   local vertial_layout_opts = {
     winopts = {
@@ -105,9 +104,9 @@ vim.keymap.set({ '', 'i' }, '<leader>p', fzf.registers)
 
 vim.keymap.set({ 'n' }, '<leader>l', fzf.blines)
 vim.keymap.set({ 'n' }, '<leader>L', fzf.grep_project)
-vim.keymap.set({ 'n' }, '<leader>g', fzf.grep_cword)
-vim.keymap.set({ 'v' }, '<leader>g', fzf.grep_visual)
-vim.keymap.set({ 'n' }, '<leader>G', fzf.grep_cWORD)
+vim.keymap.set({ 'n' }, '<leader>gw', fzf.grep_cword)
+vim.keymap.set({ 'v' }, '<leader>gw', fzf.grep_visual)
+vim.keymap.set({ 'n' }, '<leader>gW', fzf.grep_cWORD)
 
 vim.keymap.set({ 'n' }, '<C-\\>', fzf.lsp_references)
 vim.keymap.set({ 'n' }, '<leader>a', wrap_vertical(fzf.lsp_code_actions))
