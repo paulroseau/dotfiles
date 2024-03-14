@@ -10,7 +10,12 @@
 
 let
   selectedNerdFonts = nerdfonts.override {
-    fonts = [ "Agave" "Hack" "Hermit" "Terminus" ];
+    fonts = [ 
+      "Agave" 
+      "Hack" 
+      "Hermit" 
+      "Terminus" 
+    ];
   };
 
   alacrittyThemes =
@@ -51,7 +56,7 @@ let
 
 in
   [
-    wrappedAlacritty
     alacrittyThemes
     selectedNerdFonts
+    wrappedAlacritty
   ]
