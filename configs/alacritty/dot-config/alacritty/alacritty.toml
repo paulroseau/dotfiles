@@ -7,8 +7,8 @@ opacity = 0.99
 startup_mode = "Fullscreen"
 
 [font]
-normal = { family = "Terminess Nerd Font" }
-size = 16
+normal = { family = "Hurmit Nerd Font" }
+size = 15
 
 [colors]
 transparent_background_colors = true
