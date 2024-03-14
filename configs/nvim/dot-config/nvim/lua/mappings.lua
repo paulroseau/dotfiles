@@ -79,6 +79,20 @@ end
 vim.keymap.set({''} , '<leader><Space>', toogle_boolean_option("list"))
 vim.keymap.set({''} , '<leader>w', toogle_boolean_option("wrap"))
 
+-- Better * and # searches
+local function visual_selection_search(search_character)
+  return function ()
+    local previous_s_register = vim.fn.getreg('s')
+    vim.cmd('normal! "sy')
+    local search_pattern = vim.fn.escape(vim.fn.getreg('s'), '\\' .. search_character)
+    search_pattern = vim.fn.substitute(search_pattern, '\n', '\\\\n', 'g')
+    vim.fn.setreg('s', previous_s_register)
+    vim.cmd("silent! " .. search_character .. "\\V" .. search_pattern)
+  end
+end
+vim.keymap.set({'v'}, '*', visual_selection_search('/'))
+vim.keymap.set({'v'}, '#', visual_selection_search('?'))
+
 -- Clear whitespace
 local function clear_trailing_whitespaces()
   local pos = vim.fn.getpos(".")
