@@ -2,8 +2,9 @@ vim.g.mapleader = ','
 vim.opt.timeoutlen = 700 -- time in milliseconds that is waited for the next mapping key
 
 -- Esc
-vim.keymap.set({'', 'i', 'c'} , '<leader>m', '<C-c>')
-vim.keymap.set({'t'} , '<leader>m', [[<C-\><C-n>]])
+vim.keymap.set({'', 'i'}, '<leader>m', '<Esc>')
+vim.keymap.set({'c'}, '<leader>m', '<C-c>')
+vim.keymap.set({'t'}, '<leader>m', [[<C-\><C-n>]])
 
 -- Navigate inside a wrapped line
 vim.keymap.set({''} , '<up>', '<cmd>normal! gk<CR>')
