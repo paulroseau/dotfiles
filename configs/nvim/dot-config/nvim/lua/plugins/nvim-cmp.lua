@@ -1,9 +1,9 @@
 local cmp = require('cmp')
 
-local complete_if_invisible = function(if_visible_fn)
+local complete_if_invisible = function(callback)
   return function(_)
     if cmp.visible() then
-      if_visible_fn()
+      callback()
     else
       cmp.complete()
     end
