@@ -72,6 +72,7 @@ let
   testPackages = [
     s3cmd
     bazel
+    texliveFull
   ];
 
 in 
