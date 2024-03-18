@@ -113,8 +113,19 @@ vim.keymap.set({'n'} , '<leader>k', '<cmd>bwipeout!<CR>')
 vim.keymap.set({'i'}, '<C-Space>', ' ')
 
 -- Navigate the quickfix
-vim.keymap.set({'n'} , '<C-p>', '<cmd>cprevious<CR>')
-vim.keymap.set({'n'} , '<C-n>', '<cmd>cnext<CR>')
+local function locationlist_or_quickfixlist(action)
+  return function ()
+    local locations = vim.fn.getloclist(0)
+    if not vim.tbl_isempty(locations) then
+      vim.cmd("silent! l" .. action)
+    else
+      vim.cmd("silent! c" .. action)
+    end
+  end
+end
+
+vim.keymap.set({'n'} , '<C-p>', locationlist_or_quickfixlist("previous"))
+vim.keymap.set({'n'} , '<C-n>', locationlist_or_quickfixlist("next"))
 
 -- LSP mappings
 
