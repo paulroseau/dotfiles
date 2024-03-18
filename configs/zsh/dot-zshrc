@@ -31,6 +31,9 @@ alias l='ls -CFt'
 alias la='ls -At'
 alias ll='ls -alFt'
 
+if [ -f $NIX_HOME/bin/bat ]; then alias cat='bat'; fi
+if [ -f $NIX_HOME/bin/rg ]; then alias grep='rg'; fi
+
 # Default keymap
 
 # Zsh sets keymap to viins if the EDITOR environment variable is set to nvim.
