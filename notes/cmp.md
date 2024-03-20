@@ -87,10 +87,13 @@ source.complete = function(self, ctx, callback)
   )
 ```
 
-That's how the `source.entries` get updated. The logic to select the text from all the entry's fields is in the `core.confirm` method, in one of the `feedkeys.call` method, which is used just for the callback:
+That's how the `source.entries` get updated. The logic to select the text from all the entry's fields is in the `core.confirm` method, in one of the `feedkeys.call` method, which is used just for the callback (no keys are actually fed):
 ```lua
 core.confirm = function(self, e, option, callback)
   ...
+  feedkeys.call('', 'n', function() ... end)
+  feedkeys.call('', 'n', function() ... end)
+
   feedkeys.call('', 'n', function()
     local ctx = context.new()
     local completion_item = misc.copy(e:get_completion_item())
@@ -119,5 +122,110 @@ core.confirm = function(self, e, option, callback)
     end
   )
   ...
+end
+```
+
+Mappings are defined as a map of mode and lhs to functions which take a `fallback`
+argument. `fallback` is supposed to represent whatever "rhs action" (callback
+function to call, or keys to feed send to nvim through nvim_feedkeys) is already
+assigned to the lhs. The keymap setting is done in 2 steps:
+1. for all modes and lhs in the config we resovle the existing fallback method (done in the `keymap.listen` method)
+2. we assign for all keys (mode and lhs) a function which will call the configured function for that pair of mode/keys with the right fallback as argument (the look up of the configured function is done in `core.on_keymap`, the passing of the resovled `fallback` method is done in `keymap.listen`)
+
+The setup of the mappings starts in the `core.prepare` method in `cmp/core.lua`:
+```lua
+core.prepare = function(self)
+  for keys, mapping in pairs(config.get().mapping) do
+    for mode in pairs(mapping) do
+      -- keymap.listen assigns the same function for all mapping
+      keymap.listen(mode, keys, function(...)
+        self:on_keymap(...)
+      end)
+    end
+  end
+end
+
+-- inside on_keymap we resolve which keys was called and call the appropriate
+-- function by passing the fallback function to it
+core.on_keymap = function(self, keys, fallback)
+  local mode = api.get_mode()
+  for key, mapping in pairs(config.get().mapping) do
+    if keymap.equals(key, keys) and mapping[mode] then
+      return mapping[mode](fallback)
+    end
+  end
+  
+  -- other stuff below related to confirmation of the key, on_keymap is also
+  -- registered as a hook to self.view.on(...), didn't dig into that
+  ...
+end
+```
+
+`keymap.listen` in `cmp/utils/keymap.lua` sets up the mappings in way such that if the keys in `lhs` were already assigned to some function, then we resovle that function and pass it as an argument to the new mapping function (named `callback` in here, to which `on_keymap` is assigned):
+```lua
+keymap.listen = function(mode, lhs, callback)
+  lhs = keymap.normalize(keymap.to_keymap(lhs))
+
+  local existing = keymap.get_map(mode, lhs)
+  if existing.desc == 'cmp.utils.keymap.set_map' then
+    return
+  end
+
+  local bufnr = existing.buffer and vim.api.nvim_get_current_buf() or -1
+  local fallback = keymap.fallback(bufnr, mode, existing)
+  keymap.set_map(bufnr, mode, lhs, function()
+    local ignore = false
+    ignore = ignore or (mode == 'c' and vim.fn.getcmdtype() == '=')
+    if ignore then
+      fallback()
+    else
+      callback(lhs, misc.once(fallback)) -- core.prepare makes this is core.on_keymap
+    end
+  end, {
+    expr = false,
+    noremap = true,
+    silent = true,
+  })
+end
+
+-- keymap.set_map is a small wrapper around nvim_set_keymap/nvim_buf_set_keymap
+keymap.set_map = function(bufnr, mode, lhs, rhs, opts)
+  if type(rhs) == 'function' then
+    opts.callback = rhs
+    rhs = ''
+  end
+
+  opts.desc = 'cmp.utils.keymap.set_map'
+  ...
+  if bufnr == -1 then
+    vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
+  else
+    vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+  end
+end
+
+-- keymap.fallback creates the appropriate fallback function based on how the original mapping was defined
+keymap.fallback = function(bufnr, mode, map)
+  return function()
+    if map.expr then
+      -- creating an invisible mapping
+      local fallback_lhs = string.format('<Plug>(cmp.u.k.fallback_expr:%s)', map.lhs)
+      keymap.set_map(bufnr, mode, fallback_lhs, function()
+        return keymap.solve(bufnr, mode, map).keys
+      end, { ... })
+      vim.api.nvim_feedkeys(keymap.t(fallback_lhs), 'im', true)
+    elseif map.callback then
+      -- note that the documentation for nvim.api.nvim_set_keymap says for the
+      -- opt.callback value:
+      -- "callback" Lua function called in place of {rhs}
+      -- so the plugin just replicates the logic here (I guess nvim does the
+      -- same thing as nvim_cmp does when setting keymap, ie. if the rhs is a
+      -- function it just assigns it to opts.callback
+      map.callback()  -- 
+    else
+      local solved = keymap.solve(bufnr, mode, map)
+      vim.api.nvim_feedkeys(solved.keys, solved.mode, true)
+    end
+  end
 end
 ```
