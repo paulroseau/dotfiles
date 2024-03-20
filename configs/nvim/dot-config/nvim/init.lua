@@ -23,6 +23,7 @@ require("plugins.tokyonight")
 require("plugins.toggleterm")
 require("plugins.nvim-cmp")
 require("plugins.lspconfig")
+require("plugins.luasnip")
 
 -- Pick colorscheme
 vim.cmd.colorscheme("tokyonight")

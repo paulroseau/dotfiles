@@ -2,7 +2,7 @@
 vim.g.mapleader = ','
 
 -- Esc
-vim.keymap.set({'', 'i'}, '<leader>m', '<Esc>')
+vim.keymap.set({'', 's', 'i'}, '<leader>m', '<Esc>')
 vim.keymap.set({'c'}, '<leader>m', '<C-c>')
 vim.keymap.set({'t'}, '<leader>m', [[<C-\><C-n>]])
 

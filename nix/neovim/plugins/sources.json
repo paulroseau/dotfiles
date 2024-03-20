@@ -1,4 +1,16 @@
 {
+    "LuaSnip": {
+        "branch": "master",
+        "description": "Snippet Engine for Neovim written in Lua.",
+        "homepage": "",
+        "owner": "L3MON4D3",
+        "repo": "LuaSnip",
+        "rev": "v2.2.0",
+        "sha256": "05d5ks3g6a9dl3bmap8m60hnx3hc4acvcp2jzkw85r4anaawl45b",
+        "type": "tarball",
+        "url": "https://github.com/L3MON4D3/LuaSnip/archive/v2.2.0.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "cmp-buffer": {
         "branch": "main",
         "description": "nvim-cmp source for buffer words",
@@ -101,10 +113,10 @@
         "homepage": "",
         "owner": "ibhagwan",
         "repo": "fzf-lua",
-        "rev": "3b3cc17c7bb91f6bbef7166c0756f89a189c4db4",
-        "sha256": "0214vy5sid8kw8c65cr795039wchnvayhnij0vryj905m40d9f2c",
+        "rev": "d87a1e2a7ffb20dcbc4091fc878fb02ecb8c248f",
+        "sha256": "19zbv6vg45mm0vf02xfhirhvjvwd7mqqmiwm1cswl1kyprkzkrgb",
         "type": "tarball",
-        "url": "https://github.com/ibhagwan/fzf-lua/archive/3b3cc17c7bb91f6bbef7166c0756f89a189c4db4.tar.gz",
+        "url": "https://github.com/ibhagwan/fzf-lua/archive/d87a1e2a7ffb20dcbc4091fc878fb02ecb8c248f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lualine-nvim": {

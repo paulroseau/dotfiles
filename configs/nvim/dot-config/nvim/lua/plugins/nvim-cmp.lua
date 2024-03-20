@@ -11,6 +11,11 @@ local complete_if_invisible = function(callback)
 end
 
 cmp.setup({
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end
+  },
   mapping = cmp.mapping({
     ['<C-j>'] = cmp.mapping(
       complete_if_invisible(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
@@ -18,14 +23,6 @@ cmp.setup({
     ),
     ['<C-k>'] = cmp.mapping(
       complete_if_invisible(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
-      { 'i', 'c' }
-    ),
-    ['<C-n>'] = cmp.mapping(
-      complete_if_invisible(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select })),
-      { 'i', 'c' }
-    ),
-    ['<C-p>'] = cmp.mapping(
-      complete_if_invisible(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select })),
       { 'i', 'c' }
     ),
     ['<C-c>'] = cmp.mapping(
