@@ -6,27 +6,10 @@
     => not sure what I meant here, but to remove old environments as well as a gc, just use `nix-collect-garbage --delete-old`
 
 - shell
-  - [ ] write more notes on ZSH completion mechanisms
-  - [ ] find a nice Pager to read man page (`bat` could do, check out `most`), and set the `PAGER` env variable in your .zshrc
+  - [/] write more notes on ZSH completion mechanisms
+  - [X] find a nice Pager to read man page (`bat` could do, check out `most`), and set the `PAGER` env variable in your .zshrc
   - [ ] write your own starship config (check all presets and adapt)
   - [ ] generate separate zsh script to source each derivation zsh extensions (plugins + kubectl, etc.) so that you refer to one script only when sourcing from .zshrc
-
-- alacritty
-  - [X] add $@ as arguments in the wrapped script so we can pass options and arguments
-  ```sh
-  exec ${lib.makeBinPath [glibc.bin]}/ld.so --library-path ${lib.makeLibraryPath [mesa.drivers]} $out/bin/_alacritty \$@
-  # instead of
-  exec ${lib.makeBinPath [glibc.bin]}/ld.so --library-path ${lib.makeLibraryPath [mesa.drivers]} $out/bin/_alacritty
-  # test not sure about the escaping of the $
-  ```
-  - [X] use fzf to fuzzy find the font and the colorscheme:
-    - option 1: have a shortcut which just launches nvim ~/.dotfiles/.../alacritty.yml and then use proper autocompletion in it
-    - option 2: create a little bash script which allows to select fonts / colorscheme with fzf and then pipe it to sed
-    => option 1 is better, hovering over the fonts will make the window
-    change a lot, you will want to update the size as well, etc. - all themes
-    might not be in the same directory. Also fzf-nvim does option 2 for
-    colorschemes
-    => not worth it
 
 - environment & install script:
   - [ ] Create an install and uninstall scripts inside nix which could use `stow` to manage the links to environment folder (those scripts can take parameters for system (linux or other), home directory name etc.)
@@ -36,7 +19,6 @@
 
 - misc:
   - [ ] tmux variables show as environment variables, see if this can be prevented
-  - [ ] ripgrep alias in zsh (to `grep`)
   - [ ] why do I have nix-profile one more time in zsh, and 2 more times in tmux in the path ?
 
 - tmux :
@@ -228,13 +210,12 @@
       - [ ] explore: neogit + diffview
       - [ ] `lazygit` (extrenal tool): requires custom keybindings definition https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
   - [ ] Nice window title
-    - check out Barbecue (seems to do to much uses lsp to understand the code)
-    - if you do use Barbecue, you make sure onedark and tokyonight style can be applied
-  - [ ] LSP:
-    - [ ] understand lsp
-    - [ ] use nix to install lsp servers
-    - [ ] neovim/nvim-lspconfig
-  - [ ] completion
+      - [ ] https://github.com/alvarosevilla95/luatab.nvim/tree/master for nicer tabs, fork the repo since there is some Telescope specific shit and the plugin is a few lines long
+  - [X] LSP:
+    - [X] understand lsp
+    - [X] use nix to install lsp servers
+    - [X] neovim/nvim-lspconfig
+  - [X] completion
     - hrsh7th/nvim-cmp
     - check dependencies:
       - snippet engine (L3MON4D3/LuaSnip, check others ?)
@@ -248,17 +229,20 @@
     - predefined snippet templates:
       - https://github.com/rafamadriz/friendly-snippets/wiki
 
+- Install bash-language-server (not part of nixpgks, it is a typescript application)
+
 - Neovim plugins nice to have:
-  - [ ] Add mapping to scroll preview window in fzf-lua
+  - [X] Add mapping to scroll preview window in fzf-lua
   - [ ] https://github.com/alvarosevilla95/luatab.nvim/tree/master for nicer tabs, fork the repo since there is some Telescope specific shit and the plugin is a few lines long
   - [ ] nvim/dap debugger
-  - [ ] find or write a plugin that would display a floating window with the list of buffers as you cycle through them with <C-j>, <C-k> so you know what is coming next, but honestly fzf with buffers is pretty good for that already, see if you want to use https://github.com/stevearc/dressing.nvim for that -> see if you cannot just update fzf buffers so that it displays the list without the first buffer on top
+  - [/] find or write a plugin that would display a floating window with the list of buffers as you cycle through them with <C-j>, <C-k> so you know what is coming next, but honestly fzf with buffers is pretty good for that already, see if you want to use https://github.com/stevearc/dressing.nvim for that -> see if you cannot just update fzf buffers so that it displays the list without the first buffer on top
   - [ ] check https://github.com/rcarriga/nvim-notify for nicer notifications (in pop up windows)
-  - [ ] Install L3MON4D3/LuaSnip + nvim-cmp binding
+  - [X] Install L3MON4D3/LuaSnip + nvim-cmp binding
   - [X] https://github.com/hrsh7th/cmp-cmdline see if interesting (completion after `:` and `/`)
   - [ ] could be good to restrict Fzf ripgrep lines to just one type of files
   - [ ] adjust the nvim lua cmp plugin so it can autocomplete in cmd line even when not editing a vim or lua file (right now available uses the filetype)
-  - [ ] source a lua file (usage example: change the colorscheme option of onedark without needing to quit neovim and restart)
+  - [/] source a lua file (usage example: change the colorscheme option of onedark without needing to quit neovim and restart)
+    -> use :luafile
   - [ ] find a multiselect plugin so when you can search and replace without having to do * and the :s//blalba/, but direclty get the cursor everywhere
   - [ ] make your own script to increase and diminish foldlevel locally on the fold you are on. Strategy :
        1. select the containing fold of the cursor (invisibly or something)

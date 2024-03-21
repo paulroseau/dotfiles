@@ -31,21 +31,34 @@
       - [X] finish writing lsp.md (TODOs)
       - [X] gain inspiration of fzf-lua to check capabilities for custom mappings
       - [X] try make fzf layout horizontal specific horizonta split for diagnostics and code actions
-  - [ ] Generalities on nvim-cmp:
-    - [ ] checkout why it seems necessary to have a snippet engine for pressing `Enter`
-    - [ ] checkout how nvim-cmp works with LSP
+  - [X] Generalities on nvim-cmp:
+    - [X] checkout why it seems necessary to have a snippet engine for pressing `Enter`
+    - [X] checkout how nvim-cmp works with LSP
       - check source execute (how it is used in the nvim-cmp not in nvim-cmp-lsp)
       - the lsp source looks pretty straightforward - not much, but still have a quick look
+    - [X] write some more notes on nvim-cmp: how keymaps are setup
+  - [X] understand why fzf-lua fuzzy search does not work for symbol across worspace but works with livegrep
+    - seems like lsp server returns a max number of 1000 results when sending an empty request
+    - hence sending a non empty query first and then C-g to refine looks better
+    - find where the 1000 is defined and write to notes
+  - [X] Install LuaSnips:
+    - [X] hook it to nvim-cmp
+    - [X] see if you want to add mappings to navigate from one place-holder to the next
+    - [X] write some notes on LuaSnips
+  - [ ] configure lua-line:
+    - remove lines and columns on the right side (you have the line on the left already with `:set number`)
+    - remove the pinguin and the encoding
+    - remove the diff number on the left
+    - see what else you could add, and if you want to use those triangles
   - [ ] install LSP for Go
-    - how to disable LSP (useful for big projects like GDCH for instance)
-    - check if you can reference external index for LSP servers
+    - how to disable LSP (useful for big projects like GDCH for instance) -> use LspStop from lspconfig plugin. Check the memory usage of that process, and if it calms down after you stop the client (the server still keeps running)
+    - check if you can reference external index for LSP servers (big projects again), basically try to see how it goes with GDCH code base
   - [ ] read about https://computationstructures.org/lectures/interrupts/interrupts.html
   - [ ] update the notes on ComputerArchitecture especially about asynchronous IOs
-  - [ ] Once that is done explore libluv and understand how IOs are handled
-  - [ ] then you should be able to understand flatten.nvim with the use of sockopen and pipes which maps to libuv under the hood (decompose al the way down to the processor level)
+  - [ ] once that is done explore libluv and understand how IOs are handled
+  - [ ] then you should be able to understand flatten.nvim with the use of sockopen and pipes which maps to libuv under the hood (decompose all the way down to the processor level)
   - [ ] understand the pipe / NVIM env variable
-  - [ ] configure lua-line
   - [ ] install LSP for Rust
+  - [ ] install LSP for OCaml
   - [ ] install LSP for Scala
   - [ ] install LSP for Haskell
-  - [ ] install LSP for OCaml
