@@ -6,8 +6,7 @@
 
 - In fzf-lua, a `provider` is whatever is passed to fzf command, an `action` is whatever action you can do on the selected item(s).A lot of providers inherit the default actions `action.files` and `action.buffers` defined in the setup function (these are global defaults). Actions specific to a provider can be defined in each provider configuration (eg. `helptags.action` in the setup function for the helptag provider). Those will be merged with whatever defaults was already defined or inherited from. Checkout `:h fzf-lua-default-options` or the `fzf-lua/defaults.lua` file.
 
-- Note the difference between `live-*` commands and their counterpart. For
-instance `fzf.live-grep-project` greps for the new input at each key stroke and passt those results to `fzf`, whereas `fzf.grep_project` sends all files through to `fzf`. Similarly for `lsp_workspace_symbols`, the lsp client sends an empty request to the server and sends those results to `fzf`. Check in `fzf-lua/providers/lsp.lua`:
+- Note the difference between `live-*` commands and their counterpart. For instance `fzf.live-grep-project` greps for the new input at each key stroke and passt those results to `fzf`, whereas `fzf.grep_project` sends all files through to `fzf`. Similarly for `lsp_workspace_symbols`, the lsp client sends an empty request to the server and sends those results to `fzf`. Check in `fzf-lua/providers/lsp.lua`:
 ```lua
 M.workspace_symbols = function(opts)
   ...
@@ -37,3 +36,5 @@ end
 ```
 
 - This is why it is preferable to start with a simple subpattern in `lsp_live_workspace_symbols` and then switch with `Ctrl-g` to fuzzy find inside those first results
+
+- In terms of key mappings, some are set by passing them as fzf options to act on the results once fzf is running (for example, using `alt-a` to select all the results) while others are set on the fzf-lua window as native nvim mappings to affect the layout (like `toggle-preview`, etc.)

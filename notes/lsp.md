@@ -126,7 +126,7 @@ We have several moving parts:
 - fzf-lua which provides some convenient wrappers around some of the built-in client requests
 - nvim-cmp which provides sources for LSP based completions (nvim-cmp-lsp, nvim-cmp-lsp-signature-help for instance)
 
-In `fzf-lua`, `lsp_finder` aggregates the results of all the lsp related queries. However that leads to duplicates, it seems like lsp-reference captures everything fine most of the time so this is what we decide to have a mapping to.
+In `fzf-lua`, `lsp_finder` aggregates the results of all the lsp related queries. However that leads to duplicates, it seems like the `lsp-reference` provider captures everything fine most of the time so this is what we decide to have a mapping to.
 
 `fzf-lua` checks the capability and prints a warning before aborting if the method is not supported, so we don't need to set those mappings inside an autocommand on the LspStart event, cf. `fzf-lua/providers/lsp.lua`:
 ```lua

@@ -2,8 +2,8 @@ local fzf = require("fzf-lua")
 
 fzf.setup({
   keymap = {
-    -- These override the default tables completely so we need to include all we
-    -- need, including what we don't want to modify
+    -- These override the default tables completely so we need to include
+    -- everything we need, including what we don't want to modify
     builtin = {
       ["<M-p>"] = "toggle-preview",
       ["<M-r>"] = "toggle-preview-cw",

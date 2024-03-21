@@ -1,7 +1,7 @@
 local M = {}
 
 function M.setup_augroup(augroup_name, tmux_client)
-  augroup = vim.api.nvim_create_augroup(augroup_name, { clear = true })
+  local augroup = vim.api.nvim_create_augroup(augroup_name, { clear = true })
 
   vim.api.nvim_create_autocmd({'VimEnter', 'VimResume'}, {
     callback = function ()
@@ -31,7 +31,7 @@ local Direction = {
 
 function M.setup_commands(config, tmux_client)
   local change_nvim_window = function(opts)
-    vim_key = opts.fargs[1]
+    local vim_key = opts.fargs[1]
     if not Direction[vim_key] then
       return
     end
