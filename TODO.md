@@ -51,12 +51,13 @@
     - [X] remove the diff number on the left
     - [X] see what else you could add, and if you want to use those triangles
     - [X] see if you can use it to display your tabs, check the bufferline option as well
-  - [ ] Fugitive is not configurable enough, let's replace it with lazygit and toggleterm
+  - [X] Fugitive is not configurable enough, let's replace it with lazygit and toggleterm
     - [X] install lazygit
-    - [ ] configure lazygit mappings
-    - [ ] nicer git log view for branches
-    - [ ] hook it to toggleterm and bind it to ,gg
-    - [ ] remove Fugitive
+    - [X] configure lazygit mappings
+    - [X] nicer git log view for branches
+    - [/] hook it to toggleterm and bind it to ,gg
+    - [/] remove Fugitive
+    => Actually no, Fugitive is good enough, lazygit is powerful but even less configurable and its separate UI is a bit weird
   - [X] rework main.nix so you don't have to reinstall everything all the time:
     - return attrset instead of lists, and merge everything in one AttrSet
     - add the lists if necessary (all, base, local, remote, etc.)

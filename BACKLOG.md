@@ -183,10 +183,10 @@
     - [X] rename all `.config` files in here with `dot-` and use `stow --dotfiles` in the install script
       - [ ] not working for alacritty with dot-config cf. https://github.com/aspiers/stow/issues/33
       - [ ] exercise: write your own `stow` equivalent in Rust?
-    - [ ] understand the philosophy of this plugin a bit:
-      - [ ] read README.md
-      - [ ] check core.fzf_exec
-      - [ ] take some notes
+    - [x] understand the philosophy of this plugin a bit:
+      - [x] read README.md
+      - [x] check core.fzf_exec
+      - [x] take some notes
     - [ ] make notes on FFI and luaJIT + loadlib (how to dynamically load a library into Lua - from your telescope endeavor)
       - https://www.lua.org/pil/contents.html#P4
       - https://luajit.org/ext_ffi.html
@@ -208,7 +208,8 @@
         - downside it is in vimL
       - [ ] checkout GitSigns, looks cool, you can stage what you changed, but no sure it as good as the Gvdiff of TreeSitter, look around
       - [ ] explore: neogit + diffview
-      - [ ] `lazygit` (extrenal tool): requires custom keybindings definition https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+      - [X] `lazygit` (external tool): requires custom keybindings definition https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+        -> powerful but a bit too much actually, rather stick to something more barebone
   - [ ] Nice window title
       - [ ] https://github.com/alvarosevilla95/luatab.nvim/tree/master for nicer tabs, fork the repo since there is some Telescope specific shit and the plugin is a few lines long
   - [X] LSP:
@@ -267,6 +268,11 @@
   - [ ] neodev (plugin for lua in neovim, help + autocompletion, etc., see if still necessary after cmp-nvim-lua)
   - [ ] install some extra colorschemes from https://github.com/rockerBOO/awesome-neovim#colorscheme (kanagawa, nord)
   - [ ] Allow to delete files from fzf-lua with `Ctrl-x` or `Ctrl-d` just like we do for buffers
+
+
+- exercises/projects
+  - write your own `stow` equivalent in Rust?
+  - refactor fugitive in Lua
 
 - Misc:
   - think about finding a nice filewatcher to recomplie stuff when file changes for example (`entr` is recommended by the guy from the tao-of-tmux)

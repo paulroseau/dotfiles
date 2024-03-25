@@ -50,3 +50,5 @@ end
 - This is why it is preferable to start with a simple subpattern in `lsp_live_workspace_symbols` and then switch with `Ctrl-g` to fuzzy find inside those first results
 
 - In terms of key mappings, some are set by passing them as fzf options to act on the results once fzf is running (for example, using `alt-a` to select all the results) while others are set on the fzf-lua window as native nvim mappings to affect the layout (like `toggle-preview`, etc.)
+
+- To launch the fzf command, the plugin uses uv under the hood through `uv.spawn` (checkout `./fzf-lua/libuv.lua` `M.spawn()` method)
