@@ -63,6 +63,7 @@ let
         fzf
         # git # not working on Google laptop
         jq
+        lazygit
         ripgrep
         tig
         tmux

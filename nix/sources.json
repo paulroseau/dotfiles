@@ -11,6 +11,18 @@
         "url": "https://github.com/alacritty/alacritty-theme/archive/07c10441dae4d0490145a0f40178f8846b24e800.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "lazygit": {
+        "branch": "master",
+        "description": "simple terminal UI for git commands",
+        "homepage": "",
+        "owner": "jesseduffield",
+        "repo": "lazygit",
+        "rev": "v0.41.0",
+        "sha256": "1jdxin0kdprrcx6mv003q1i3ywqd3kgpx90prj93g81pgjfr0kis",
+        "type": "tarball",
+        "url": "https://github.com/jesseduffield/lazygit/archive/v0.41.0.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "neovim": {
         "branch": "master",
         "description": "Vim-fork focused on extensibility and usability",

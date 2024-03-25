@@ -13,11 +13,18 @@ let
     inherit sources;
   };
 
+  lazygitPinned = lazygit.overrideAttrs (self: super: {
+    version = sources.lazygit.rev;
+    src = sources.lazygit;
+    ldflags = [ "-X main.version=${self.version}" "-X main.buildSource=nix" ];
+  });
 
   myPackages = 
     nixpkgs // 
     alacrittyPackages //
-    neovimPackages;
+    neovimPackages // {
+      lazygit = lazygitPinned;
+    };
 
   packageBundles = import ./bundles.nix myPackages;
 
