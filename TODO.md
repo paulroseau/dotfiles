@@ -45,11 +45,21 @@
     - [X] hook it to nvim-cmp
     - [X] see if you want to add mappings to navigate from one place-holder to the next
     - [X] write some notes on LuaSnips
-  - [ ] configure lua-line:
-    - remove lines and columns on the right side (you have the line on the left already with `:set number`)
-    - remove the pinguin and the encoding
-    - remove the diff number on the left
-    - see what else you could add, and if you want to use those triangles
+  - [X] configure lua-line:
+    - [X] remove lines and columns on the right side (you have the line on the left already with `:set number`)
+    - [X] remove the pinguin and the encoding
+    - [X] remove the diff number on the left
+    - [X] see what else you could add, and if you want to use those triangles
+    - [X] see if you can use it to display your tabs, check the bufferline option as well
+  - [ ] Fugitive is not configurable enough, let's replace it with lazygit and toggleterm
+    - [X] install lazygit
+    - [ ] configure lazygit mappings
+    - [ ] nicer git log view for branches
+    - [ ] hook it to toggleterm and bind it to ,gg
+    - [ ] remove Fugitive
+  - [X] rework main.nix so you don't have to reinstall everything all the time:
+    - return attrset instead of lists, and merge everything in one AttrSet
+    - add the lists if necessary (all, base, local, remote, etc.)
   - [ ] install LSP for Go
     - how to disable LSP (useful for big projects like GDCH for instance) -> use LspStop from lspconfig plugin. Check the memory usage of that process, and if it calms down after you stop the client (the server still keeps running)
     - check if you can reference external index for LSP servers (big projects again), basically try to see how it goes with GDCH code base

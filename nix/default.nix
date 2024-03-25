@@ -14,7 +14,7 @@ let
   };
 
   pkgs = import ./main.nix {
-    pkgs = nixpkgs;
+    inherit nixpkgs;
     sources = sources // {
       neovimPlugins = neovimPluginsSources;
       treeSitterParsers = treeSitterParsersSources;

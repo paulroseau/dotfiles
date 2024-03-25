@@ -1,5 +1,17 @@
 # FZF
 
+## fzf-lua plugin in Nix
+
+Some binaries are necessary/recommended for the fzf-lua plugin to work properly (`fzf`, `ripgrep`, `detla`, etc.).
+
+The fzf-lua plugin looks up these binaries from the PATH environment variable.
+
+An extreme approach would have been to patch the plugin at build time in nix to replace occurences of those binaries by their full path in the nix store such as ${ripgrep}/bin/rg but that's not easy to maintain.
+
+An alternative would have been to use nix to wrap the resulting `nvim` executable in a script where we set the PATH environment variable to hold only the paths to these required executables.
+
+However since we also want to use those binaries on their own, it just makes sense to install them directly and not as dependencies of nvim.
+
 ## fzf-lua plugin
 
 - For the keymap option, the `keymap.builtin` object is for Neovim terminal mode bindings which are local to the fzf-lua buffer, while the `keymap.fzf` is for the bindings passed as an the value to the `--bind` option of the `fzf` command.

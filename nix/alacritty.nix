@@ -55,8 +55,8 @@ let
   });
 
 in
-  [
-    alacrittyThemes
-    selectedNerdFonts
-    wrappedAlacritty
-  ]
+  {
+    alacritty = wrappedAlacritty;
+    alacritty-themes = alacrittyThemes;
+    nerdfont = selectedNerdFonts;
+  }

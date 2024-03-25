@@ -36,7 +36,7 @@ let
       };
 
 in
-  [
-    neovim
-    neovimPlugins
-  ]
+  { 
+    inherit neovim;
+    neovim-plugins = neovimPlugins;
+  }
