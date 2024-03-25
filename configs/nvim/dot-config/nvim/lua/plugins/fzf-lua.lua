@@ -98,7 +98,7 @@ end
 vim.keymap.set({ '' }, '<leader>z', fzf.builtin)
 
 vim.keymap.set({ 'n' }, '<leader>f', fzf.files)
-vim.keymap.set({ 'n' }, '<C-j>', fzf.buffers)
+vim.keymap.set({ 'n' }, '<leader>b', fzf.buffers)
 vim.keymap.set({ 'n' }, '<leader>h', fzf.help_tags)
 vim.keymap.set({ '', 'i' }, '<leader>p', fzf.registers)
 
