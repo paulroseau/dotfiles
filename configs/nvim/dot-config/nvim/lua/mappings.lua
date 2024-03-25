@@ -110,7 +110,7 @@ end
 vim.keymap.set({''} , '<leader>W', clear_trailing_whitespaces)
 
 -- Remove scratch buffer
-vim.keymap.set({'n'} , '<leader>k', '<cmd>bwipeout!<CR>')
+vim.keymap.set({'n'} , '<C-x>', '<cmd>bwipeout!<CR>')
 
 -- Hack! <C-Space> is interpreted by the terminal as <C-@> which is a built-in mapping (check :help *i_CTRL-@*)
 -- This gets annoying with auto-completion
