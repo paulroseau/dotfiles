@@ -26,4 +26,4 @@ require("plugins.lspconfig")
 require("plugins.luasnip")
 
 -- Pick colorscheme
-vim.cmd.colorscheme("tokyonight")
+vim.cmd.colorscheme("onedark")
