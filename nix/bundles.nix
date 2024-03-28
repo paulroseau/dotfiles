@@ -64,7 +64,14 @@ rec {
       lua-language-server
     ];
 
-    all = c ++ lua ++ go;
+    rust = [
+      cargo
+      rustc
+      rustfmt
+      rust-analyzer
+    ];
+
+    all = c ++ lua ++ go ++ rust;
   };
 
   base = 

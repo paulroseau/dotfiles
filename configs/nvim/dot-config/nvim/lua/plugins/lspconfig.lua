@@ -42,3 +42,7 @@ lspconfig.lua_ls.setup({
     return true
   end
 })
+
+lspconfig.rust_analyzer.setup({
+  capabilities = lsp_client_extra_capabilities,
+})
