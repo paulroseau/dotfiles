@@ -2,82 +2,77 @@ pkgs:
 
 with pkgs;
 
-let
-  alacrittyPackages = [
-    alacritty
+rec {
+  alacritty = [
     alacritty-themes
     nerdfont
+    pkgs.alacritty
   ];
 
-  developmentPackages =
-    let
-      c = [
-        clang
-        clang-tools
-        cmake
-      ];
+  nix = [
+    niv
+    pkgs.nix
+  ];
 
-      go = [
-        gopls
-      ];
+  zsh = [
+    pkgs.zsh
+    starship
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+  ];
 
-      lua = [
-        lua-language-server
-      ];
-    in
-      c
-      ++ lua
-      ++ go;
-
-  neovimPackages = [
-    neovim
+  neovim = [
+    pkgs.neovim
     neovim-plugins
   ];
 
-  zshPackages =
-    let
-      zshPlugins = [
-        zsh-autosuggestions
-        zsh-syntax-highlighting
-      ];
+  fzfLuaRequired = [
+    bat
+    delta
+    fd
+    fzf
+    ripgrep
+  ];
 
-    in [ zsh starship ] ++ zshPlugins;
+  kubernetes = [
+    # k9s # not working on Google laptop, needs to be compiled with patched go
+    kubectl
+    kubectl-tree
+  ];
 
-  binaries =
-    let
-      nixBinaries = [
-        niv
-        nix
-      ];
+  misc = [
+    # git # not working on Google laptop
+    jq
+    lazygit
+    tig
+    tmux
+    yq
+  ];
 
-      kubernetesBinaries = [
-        # k9s # not working on Google laptop, needs to be compiled with patched go
-        kubectl
-        kubectl-tree
-      ];
+  development = rec {
+    c = [
+      clang
+      clang-tools
+      cmake
+    ];
 
-      miscBinaries = [
-        bat
-        delta
-        fd
-        fzf
-        # git # not working on Google laptop
-        jq
-        lazygit
-        ripgrep
-        tig
-        tmux
-        yq
-      ];
-    in
-      nixBinaries ++ kubernetesBinaries ++ miscBinaries;
+    go = [
+      gopls
+    ];
 
-in {
-  base =
-    binaries
-    ++ developmentPackages
-    ++ neovimPackages
-    ++ zshPackages;
+    lua = [
+      lua-language-server
+    ];
 
-  local = alacrittyPackages ++ base;
+    all = c ++ lua ++ go;
+  };
+
+  base = 
+    misc
+    ++ nix 
+    ++ neovim 
+    ++ fzfLuaRequired 
+    ++ zsh;
+
+  local = alacritty ++ base;
 }

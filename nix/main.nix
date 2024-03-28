@@ -19,14 +19,16 @@ let
     ldflags = [ "-X main.version=${self.version}" "-X main.buildSource=nix" ];
   });
 
-  myPackages = 
+  pkgs = 
     nixpkgs // 
     alacrittyPackages //
     neovimPackages // {
       lazygit = lazygitPinned;
     };
 
-  packageBundles = import ./bundles.nix myPackages;
+  myBundles = import ./bundles.nix pkgs;
 
 in 
-  myPackages // packageBundles
+  pkgs // {
+    myPkgs = myBundles;
+  }
