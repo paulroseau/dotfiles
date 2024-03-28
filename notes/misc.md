@@ -1,7 +1,7 @@
 # Nix syntax
 
 - To escape `$` in a multi-line string, you prefix it by '' (same characters as the ones used to open and close the multi-line string, confusing...):
-  ```
+  ```nix
   ''
   I need ''$10
   ''

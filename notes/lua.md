@@ -11,7 +11,7 @@
 ## Lua in nixpkgs
 
 - Building the `liblua.so`, `luaconf.h` is patched with:
-  ```
+  ```nix
   postPatch = ''
     ...
     {
@@ -149,27 +149,27 @@
 - The lua library defines a structure lua_State, on which you can "push" values, functions and have it execute lines of lua code
 
 - You can define your own functions and push them in the environment. Here is an example from the official documentation to push a function called `mysin` into the environment (the lua state):
-  ```
-  # create an environment
+  ```c
+  // create an environment
   lua_State *L = lua_open();
 
-  # define the function
+  // define the function
   static int l_sin (lua_State *L) {
     double d = luaL_checknumber(L, 1);
     lua_pushnumber(L, sin(d)); # we use the standard sin function from the math C library here
     return 1;  /* number of results */
   }
 
-  # push the function in the state
+  // push the function in the state
   lua_pushcfunction(L, l_sin);
 
-  # create a global variable "mysin" referring to the function (I guess this works because this is called right after pushing the function on the lua Stack)
+  // create a global variable "mysin" referring to the function (I guess this works because this is called right after pushing the function on the lua Stack)
   lua_setglobal(L, "mysin");
   ```
 
 - In nvim, for the "vim" object for example, the lua_State is built in `executor.c`. For instance for the `vim.loop` table, it is defined as so:
-  ```
-  luaopen_luv(lstate); # libluv is a library that binds libuv library to lua
+  ```c
+  luaopen_luv(lstate); // libluv is a library that binds libuv library to lua
   lua_pushvalue(lstate, -1);
   lua_setfield(lstate, -3, "loop");
   ```

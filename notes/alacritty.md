@@ -14,7 +14,7 @@
   `addOpenglRunpath` hook which is part of the `libglvnd.postFixUp`
   To launch `alacritty` as is, you have 2 options:
   - Option 1:
-    ```
+    ```sh
     LD_LIBRARY_PATH=/lib alacritty
     ```
     which is not recommended since all libraries pulled by alacritty will be
@@ -22,7 +22,7 @@
     nix binary `RUNPATH`
     (cf. readelf -d `which alacritty`)
   - Option 2:
-    ```
+    ```sh
     sudo mkdir -p /run/opengl-driver
     sudo ln -s $HOME/.nix-profile/lib /run/opengl-driver
     ```
@@ -34,7 +34,7 @@
 - I tried 2 approaches to circumvent this issue.
   - Approach 1:
     Create overlays which would inject the path to the mesa drivers directly.
-    ```
+    ```nix
       pkgs =
         let
           overlays = [
@@ -61,7 +61,7 @@
     `buildInputs` are automatically added to the `RPATH` (this looks manual, for instance for
     alacritty the `RPATH` is patched in `alacritty.postInstall`) so it should be fine to strip it, but then we also have to
     update `mesa.postfixup` and `mesa.mesonFlags` which ends up being ugly
-    ```
+    ```nix
       pkgs =
         let
           overlays = [
