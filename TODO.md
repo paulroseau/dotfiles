@@ -1,6 +1,14 @@
-- tmux
-  - [X] read https://tao-of-tmux.readthedocs.io
-    - [X] checkout tmux capture-pane, tmux save-buffer
+- develop your own stow version in Rust:
+  - [x] init project
+  - [ ] implementation
+
+- install script:
+  - [ ] arguments wether you are installing it on a local machine or remotely
+  - [ ] distinguish whether we are running on Debian or MacOS X to set up the various links (fonts, launch menu, etc.)
+
+- tmux:
+  - [x] read https://tao-of-tmux.readthedocs.io
+    - [x] checkout tmux capture-pane, tmux save-buffer
       -> ok capture-pane saves you from getting into copy-mode and selecting
       -> to paste you can use `Prefix+]` or use `:paste-buffer`, you can also send it to stdout
   - [ ] make status bar pretty
@@ -9,67 +17,23 @@
     - checkout https://tao-of-tmux.readthedocs.io/en/latest/manuscript/09-status-bar.html
     - looks like the only nice on-the-shelf thing for that is powerline, let's see how it plays, you can also toggle the status bar on and off, but I guess you want it always there
     - would be nice to style the window list as well, not sure powerline can do that
+    - maybe powerline is overkill (gadget), but check if you can setup some nice colors
 
-- neovim
-  - [X] update mapping to switch window with wincmd (we need to remain in Terminal mode after leaving and coming back), then commit
-  - [X] install toggle term ASAP https://github.com/akinsho/toggleterm.nvim
-  - [X] try to replace <C-s> and <C-v> in FZF by <M-s> and <M-v>, same for helptags
-  - [X] intall flatten:
-  - [X] Check youtube series on Lunar Nvim (distro): https://www.youtube.com/playlist?list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ
-  - [X] install LSP for Lua
-  - [X] install LSP for C:
-    - [X] test the nvim-cmp setup
-    - [X] install LSP server for C in nix (maybe that is a good occasion to do the nix stuff above)
-    - [X] understand how LSP works on its own use
-    - [X] make sure you found the best way to disable diagnostics (check if the server can avoid compiling stuff and return errors, don't sweat it though, an alternative would be to simply configure your projects properly)
-      => ok you can disable them by passing a config file to individual servers, to be done on a repo by repo basis
-  - [X] LSP:
-    - [X] notes on configuration (checkout how lspconfig passes the settings to the language server, and the various type of files you can include to help the LSP server find the sources)
-    - [X] Add RTP to lua path for lsp completion (checkout lsp config server doc for lua)
-    - [X] setup key mappings to use fzf lua to navigate the code:
-      - [X] rotate preview window with M-r
-      - [X] finish writing lsp.md (TODOs)
-      - [X] gain inspiration of fzf-lua to check capabilities for custom mappings
-      - [X] try make fzf layout horizontal specific horizonta split for diagnostics and code actions
-  - [X] Generalities on nvim-cmp:
-    - [X] checkout why it seems necessary to have a snippet engine for pressing `Enter`
-    - [X] checkout how nvim-cmp works with LSP
-      - check source execute (how it is used in the nvim-cmp not in nvim-cmp-lsp)
-      - the lsp source looks pretty straightforward - not much, but still have a quick look
-    - [X] write some more notes on nvim-cmp: how keymaps are setup
-  - [X] understand why fzf-lua fuzzy search does not work for symbol across worspace but works with livegrep
-    - seems like lsp server returns a max number of 1000 results when sending an empty request
-    - hence sending a non empty query first and then C-g to refine looks better
-    - find where the 1000 is defined and write to notes
-  - [X] Install LuaSnips:
-    - [X] hook it to nvim-cmp
-    - [X] see if you want to add mappings to navigate from one place-holder to the next
-    - [X] write some notes on LuaSnips
-  - [X] configure lua-line:
-    - [X] remove lines and columns on the right side (you have the line on the left already with `:set number`)
-    - [X] remove the pinguin and the encoding
-    - [X] remove the diff number on the left
-    - [X] see what else you could add, and if you want to use those triangles
-    - [X] see if you can use it to display your tabs, check the bufferline option as well
-  - [X] Fugitive is not configurable enough, let's replace it with lazygit and toggleterm
-    - [X] install lazygit
-    - [X] configure lazygit mappings
-    - [X] nicer git log view for branches
-    - [/] hook it to toggleterm and bind it to ,gg
-    - [/] remove Fugitive
-    => Actually no, Fugitive is good enough, lazygit is powerful but even less configurable and its separate UI is a bit weird
-  - [X] rework main.nix so you don't have to reinstall everything all the time:
-    - return attrset instead of lists, and merge everything in one AttrSet
-    - add the lists if necessary (all, base, local, remote, etc.)
-  - [ ] install LSP for Go
-    - how to disable LSP (useful for big projects like GDCH for instance) -> use LspStop from lspconfig plugin. Check the memory usage of that process, and if it calms down after you stop the client (the server still keeps running)
-    - check if you can reference external index for LSP servers (big projects again), basically try to see how it goes with GDCH code base
+- theory:
   - [ ] read about https://computationstructures.org/lectures/interrupts/interrupts.html
   - [ ] update the notes on ComputerArchitecture especially about asynchronous IOs
   - [ ] once that is done explore libluv and understand how IOs are handled
-  - [ ] then you should be able to understand flatten.nvim with the use of sockopen and pipes which maps to libuv under the hood (decompose all the way down to the processor level)
+  - [ ] then you should be able to understand flatten.nvim with the use of
+  sockopen and pipes which maps to libuv under the hood (decompose all the way
+  down to the processor level)
   - [ ] understand the pipe / NVIM env variable
-  - [ ] install LSP for Rust
-  - [ ] install LSP for OCaml
+
+- neovim:
+  - [ ] install LSP for Python
+  - [ ] install LSP for Go
+    - how to disable LSP (useful for big projects like GDCH for instance) -> use LspStop from lspconfig plugin. Check the memory usage of that process, and if it calms down after you stop the client (the server still keeps running)
+    - check if you can reference external index for LSP servers (big projects again), basically try to see how it goes with GDCH code base
+    - test on gdch code base
   - [ ] install LSP for Scala
+  - [ ] install LSP for OCaml
   - [ ] install LSP for Haskell

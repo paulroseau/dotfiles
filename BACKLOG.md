@@ -269,7 +269,6 @@
   - [ ] install some extra colorschemes from https://github.com/rockerBOO/awesome-neovim#colorscheme (kanagawa, nord)
   - [ ] Allow to delete files from fzf-lua with `Ctrl-x` or `Ctrl-d` just like we do for buffers
 
-
 - exercises/projects
   - write your own `stow` equivalent in Rust?
   - refactor fugitive in Lua
