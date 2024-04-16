@@ -66,6 +66,7 @@ rec {
 
     rust = [
       cargo
+      cargo-show-asm
       rustc
       rustfmt
       rust-analyzer
