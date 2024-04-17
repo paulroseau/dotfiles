@@ -3,7 +3,8 @@
   - [ ] implementation
 
 - install script:
-  - [ ] arguments wether you are installing it on a local machine or remotely
+  - [ ] try to make your setup work with the ./overlay.nix inside ~/.config/nixpkgs
+  - [ ] arguments whether you are installing it on a local machine or remotely
   - [ ] distinguish whether we are running on Debian or MacOS X to set up the various links (fonts, launch menu, etc.)
 
 - tmux:
@@ -18,8 +19,11 @@
     - looks like the only nice on-the-shelf thing for that is powerline, let's see how it plays, you can also toggle the status bar on and off, but I guess you want it always there
     - would be nice to style the window list as well, not sure powerline can do that
     - maybe powerline is overkill (gadget), but check if you can setup some nice colors
+  - [ ] set the window name to cwd by default (dynamically?)
 
 - theory:
+  - [ ] how does FFI work
+  - [ ] how does a Rust program handle signals, are the handlers set by exec?
   - [ ] read about https://computationstructures.org/lectures/interrupts/interrupts.html
   - [ ] update the notes on ComputerArchitecture especially about asynchronous IOs
   - [ ] once that is done explore libluv and understand how IOs are handled
@@ -29,6 +33,13 @@
   - [ ] understand the pipe / NVIM env variable
 
 - neovim:
+  - [ ] install LSP for Rust:
+    - [x] rust-analyser and other tools (cargo, etc.) with nix
+    - [x] setup lspconfig
+    - [ ] setup auto formatting with rustfmt
+    - [ ] see if you want to use other tools such as the one listed here https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins:
+      - https://github.com/mrcjkb/rustaceanvim
+      - https://github.com/Saecki/crates.nvim
   - [ ] install LSP for Python
   - [ ] install LSP for Go
     - how to disable LSP (useful for big projects like GDCH for instance) -> use LspStop from lspconfig plugin. Check the memory usage of that process, and if it calms down after you stop the client (the server still keeps running)

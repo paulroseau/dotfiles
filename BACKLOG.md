@@ -233,13 +233,14 @@
 - Install bash-language-server (not part of nixpgks, it is a typescript application)
 
 - Neovim plugins nice to have:
-  - [X] Add mapping to scroll preview window in fzf-lua
+  - [x] Add mapping to scroll preview window in fzf-lua
   - [ ] https://github.com/alvarosevilla95/luatab.nvim/tree/master for nicer tabs, fork the repo since there is some Telescope specific shit and the plugin is a few lines long
   - [ ] nvim/dap debugger
   - [/] find or write a plugin that would display a floating window with the list of buffers as you cycle through them with <C-j>, <C-k> so you know what is coming next, but honestly fzf with buffers is pretty good for that already, see if you want to use https://github.com/stevearc/dressing.nvim for that -> see if you cannot just update fzf buffers so that it displays the list without the first buffer on top
   - [ ] check https://github.com/rcarriga/nvim-notify for nicer notifications (in pop up windows)
-  - [X] Install L3MON4D3/LuaSnip + nvim-cmp binding
-  - [X] https://github.com/hrsh7th/cmp-cmdline see if interesting (completion after `:` and `/`)
+  - [x] Install L3MON4D3/LuaSnip + nvim-cmp binding
+  - [x] https://github.com/hrsh7th/cmp-cmdline see if interesting (completion after `:` and `/`)
+  - [ ] checkout lsp-signature-help nvim cmp source (already installed) you might want to configure it
   - [ ] could be good to restrict Fzf ripgrep lines to just one type of files
   - [ ] adjust the nvim lua cmp plugin so it can autocomplete in cmd line even when not editing a vim or lua file (right now available uses the filetype)
   - [/] source a lua file (usage example: change the colorscheme option of onedark without needing to quit neovim and restart)

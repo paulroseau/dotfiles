@@ -4,16 +4,19 @@
 nix-shell -p git --command "git clone https://github.com/paulroseau/dotfiles $HOME/.dotfiles"
 cd $HOME/.dotfiles
 
-# Install applications
-# TODO ask if you are installing on a remote workstation or locally (to install Alacritty)
-nix-env -if nix/default.nix -A myPkgs.local
-
+# Create links from .dotfiles to the right configs using stow (in particular the nix folder)
+# Question how do you get your own version of stow at this point if not in nixpkgs?
 # Stow configuration in $HOME
 for package in $(ls configs)
 do
   stow --dotfiles --dir configs --target $HOME $package # not working for now for dot-config cf. https://github.com/aspiers/stow/issues/33
   echo "$package stowed"
 done
+
+# Install applications
+# TODO ask if you are installing on a remote workstation or locally (to install Alacritty)
+nix-env -if nix/default.nix -A myPkgs.local
+
 
 # Basic install script for Debian only
 
