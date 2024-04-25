@@ -4,8 +4,8 @@ with pkgs;
 
 rec {
   alacritty = [
-    alacritty-themes
-    nerdfont
+    alacritty-theme
+    nerdfonts
     pkgs.alacritty
   ];
 
@@ -22,7 +22,7 @@ rec {
   ];
 
   neovim = [
-    pkgs.neovim
+    pkgs.neovim-unwrapped
     neovim-plugins
   ];
 

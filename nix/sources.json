@@ -34,17 +34,5 @@
         "type": "tarball",
         "url": "https://github.com/neovim/neovim/archive/v0.9.5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "nixpkgs": {
-        "branch": "nixos-unstable",
-        "description": "Nix Packages collection",
-        "homepage": null,
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "cbc4211f0afffe6dfd2478a62615dd5175a13f9a",
-        "sha256": "1zhf4102f3a09ri3c2gsn6sjhb72cz4jd65srmz31g4l034gzcv6",
-        "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/cbc4211f0afffe6dfd2478a62615dd5175a13f9a.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
