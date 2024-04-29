@@ -107,7 +107,7 @@ vim.keymap.set({ 'n' }, '<leader>l', fzf.blines)
 vim.keymap.set({ 'n' }, '<leader>*', fzf.grep_cword)
 vim.keymap.set({ 'v' }, '<leader>*', fzf.grep_visual)
 
-vim.keymap.set({ 'n' }, '<C-\\>', fzf.lsp_references)
+vim.keymap.set({ 'n' }, '<leader>r', fzf.lsp_references)
 vim.keymap.set({ 'n' }, '<leader>a', wrap_vertical(fzf.lsp_code_actions))
 vim.keymap.set({ 'n' }, '<leader>S', fzf.lsp_live_workspace_symbols)
 vim.keymap.set({ 'n' }, '<leader>s', fzf.lsp_document_symbols)
