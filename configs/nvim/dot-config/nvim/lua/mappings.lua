@@ -72,7 +72,7 @@ vim.keymap.set({''} , '<leader>,', '<cmd>nohlsearch<CR>')
 vim.keymap.set({''} , '<BS>', ':<BS>')
 
 -- Redo last command
-vim.keymap.set({''} , ';', ':<UP><CR>')
+vim.keymap.set({''} , '\\', ':<UP><CR>')
 
 -- Toggle settings
 local function toogle_boolean_option(option_name)
