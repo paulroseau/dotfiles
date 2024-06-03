@@ -5,7 +5,7 @@ require('lualine').setup({
   },
   sections = {
     lualine_a = {'mode'},
-    lualine_b = {'buffers'},
+    lualine_b = {'filename'},
     lualine_c = {''},
     lualine_x = {'branch', 'diagnostics'},
     lualine_y = {'filetype'},
