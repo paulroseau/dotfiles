@@ -87,29 +87,5 @@ fi
 # kubectl
 if [ -f $NIX_HOME/share/zsh/site-functions/_kubectl ]; then source $NIX_HOME/share/zsh/site-functions/_kubectl; fi
 
-# Better manpager for man pages
-
-# NB: We want to use nvim to display man pages but we don't want to nest nvim
-# instances when launching man from a terminal running inside nvim (:terminal).
-# I tried to create a script with the following but I can get it to work:
-# nvim --server $NVIM --remote-send '<C-\><C-n><C-w>c:Man! '"$1"'<CR>' 
-#
-# On top of it, the behaviour with toggleterm is not super neat because unpon
-# returning to the window:
-# 1. the cursor is at the top of the window
-# 2. we need to get back in insert mode.
-#
-# Also if you launch :terminal and your shell environment is not zsh, you would
-# get an inconsistent behaviour Hence we play it simple: use nvim as a manpager
-# outside of nvim only, fallback on bat if it is available or the default
-if [ -z $NVIM ]
-then 
-  # running outside nvim
-  if [ $(command -v nvim) ]; then export MANPAGER='nvim -c "Man!"'; fi
-else
-  # running inside nvim (:terminal)
-  unset MANPAGER # the MANPAGER value is inherited from the parent process, so we need to reset it
-
-  # let's use bat if we have it
-  if [ $(command -v bat) ]; then export MANPAGER='bat'; fi
-fi
+# Better manpager for man pages (use bat if available)
+if [ $(command -v bat) ]; then export MANPAGER='bat'; fi
