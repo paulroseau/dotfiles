@@ -274,6 +274,9 @@
   - write your own `stow` equivalent in Rust?
   - refactor fugitive in Lua
 
+- Books:
+  - Learning eBPF by Liz Rice: https://github.com/lizrice/learning-ebpf 
+
 - Misc:
   - think about finding a nice filewatcher to recomplie stuff when file changes for example (`entr` is recommended by the guy from the tao-of-tmux)
 
