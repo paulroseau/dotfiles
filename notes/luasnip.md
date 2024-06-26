@@ -11,7 +11,7 @@ The rendered text of a snippet depends on its definition which relies on several
 - `choiceNode`: allows to cycle between several options (useful if you want to include default values)
 - `dynamicNode`: get expanded to whatever base on the content of the snippet so far
 
-Once a snippet is defined, it needs to be added for a filetype specifically or using the filetype `all` if it should be used in any buffer. If not added, the snippet is not added.
+Once a snippet is defined, it needs to be added for a filetype specifically or using the filetype `all` if it should be used in any buffer. If not added, the snippet cannot be used.
 
 Nodes come with an index which allows to easily jump from node to node for easier editing. You should see snippets as trees, you can decide to link snippets together (meaning if you create a new snippet, it won't be created as a standalone root, but as a child of the last nodes of the previous snippet) with the `link_roots` configuration parameter. By default LuaSnip forgets about previously inserted snippets, you can decide to change that with the `keep_roots` configuration parameter (you need to set it to true if you want to use `link_roots`. Also by default cycling through nodes happens only through brothers and does not go into children, if you want to explore all the nodes in a DFS way you need to set `link_children`.
 

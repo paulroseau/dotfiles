@@ -31,7 +31,7 @@ local mark_down_code_block = luasnip.snippet(
   ```
   ]], {
     i(1, 'sh'),
-    i(2, '...'),
+    i(2, ''),
   })
 )
 
