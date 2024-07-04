@@ -54,11 +54,19 @@ in
     # rust-analyzer tries to generate the Cargo.lock file for a project when it
     # is missing. Since the standard library source code does not contain any
     # Cargo.lock files, rust-analyzer crashes because it does not have write
-    # permissions on /nix/store/...
-    # Here we create a copy of the rustLibSrc and override this parameter when
-    # deriving rust-analyzer. We don't use an overlay on rustPlatform.rustLibSrc
-    # because that causes nix to rebuild every rust package rather than pulling
-    # those from the cache
+    # permissions on /nix/store/...-rustLibSrc (the nix store is read-only!)
+    #
+    # Here we create a copy of the rustSrc derivation and override this
+    # parameter when deriving rust-analyzer. We don't just overlay on
+    # rustPlatform.rustLibSrc because that causes nix to rebuild every rust
+    # package rather than pulling those from the cache
+    # 
+    # NB: we now decided to rely on rustup which handles the installation of
+    # rust related tools, rust-analyzer being one of them, but because the
+    # following was hard to get right we are keeping it around, you can always
+    # install it with:
+    # nix-env --install -f ./default.nix -A rust-analyzer
+    # but we removed it from the rust bundle
     rust-analyzer = super.rust-analyzer.override {
       rustSrc = super.runCommand "rust-lib-src-with-cargo-lock" {
          # necessary to make this a fixed output derivation so the build can run
@@ -72,10 +80,10 @@ in
          cp -r ${super.rustPlatform.rustLibSrc}/* $out/
          chmod -R u+w $out/
 
-         # necessary so Cargo can validate the SSL certs from crates.io
+         # necessary so cargo can validate the SSL certs from crates.io
          export CARGO_HTTP_CAINFO=${super.cacert}/etc/ssl/certs/ca-bundle.crt
 
-         # necessary for Cargo to find crates included in the directory tree
+         # necessary for cargo to find crates included in the directory tree
          cd $out
 
          find . -name 'Cargo.toml' -exec ${super.cargo}/bin/cargo generate-lockfile --manifest-path {} \;
