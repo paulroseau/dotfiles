@@ -86,6 +86,3 @@ fi
 
 # kubectl
 if [ -f $NIX_HOME/share/zsh/site-functions/_kubectl ]; then source $NIX_HOME/share/zsh/site-functions/_kubectl; fi
-
-# Better manpager for man pages (use bat if available)
-if [ $(command -v bat) ]; then export MANPAGER='bat'; fi
