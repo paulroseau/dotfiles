@@ -71,6 +71,10 @@ rec {
     all = c ++ lua ++ go ++ rust;
   };
 
+  google = [
+    google-cloud-sdk
+  ];
+
   base = 
     misc
     ++ nix 
