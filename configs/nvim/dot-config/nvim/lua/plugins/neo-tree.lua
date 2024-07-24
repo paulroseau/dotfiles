@@ -31,6 +31,7 @@ require("neo-tree").setup({
       ["P"] = "paste_from_clipboard",
       ["p"] = "paste_from_clipboard",
       ["i"] = "noop",
+      ["l"] = "noop", -- don't know why move right is blocked
       ["y"] = "noop",
       ["w"] = "noop",
       ["/"] = "noop",
