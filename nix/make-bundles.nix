@@ -40,11 +40,18 @@ rec {
     kubectl-tree
   ];
 
-  misc = [
+  versioning = [
     # git # not working on Google laptop
-    jq
     lazygit
     tig
+  ];
+
+  networking = [
+    ipcalc
+  ];
+
+  misc = [
+    jq
     tmux
     yq
   ];
