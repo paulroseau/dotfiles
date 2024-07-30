@@ -50,16 +50,12 @@ vim.keymap.set({''} , '<M-t>', '<C-w>T<CR>')
 vim.keymap.set({''} , '<M-T>', '<C-w>T<CR><cmd>tabprevious<CR>')
 
 -- Tabpage switching
-vim.keymap.set({'n', 'v', 's'} , '(', '<cmd>tabprevious<CR>')
-vim.keymap.set({'n', 'v', 's'} , ')', '<cmd>tabnext<CR>')
+vim.keymap.set({'n', 'v', 's'} , 'H', '<cmd>tabprevious<CR>')
+vim.keymap.set({'n', 'v', 's'} , 'L', '<cmd>tabnext<CR>')
 
 -- Tabpage moving
-vim.keymap.set({''} , '<M-(>', '<cmd>-tabmove<CR>')
-vim.keymap.set({''} , '<M-)>', '<cmd>+tabmove<CR>')
-
--- Buffer switching
-vim.keymap.set({'n', 'v', 's'} , 'H', '<cmd>bprevious<CR>')
-vim.keymap.set({'n', 'v', 's'} , 'L', '<cmd>bnext<CR>')
+vim.keymap.set({''} , '(', '<cmd>-tabmove<CR>')
+vim.keymap.set({''} , ')', '<cmd>+tabmove<CR>')
 
 -- Folds
 vim.keymap.set({''} , '<M-e>', 'zm')
