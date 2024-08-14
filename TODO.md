@@ -1,6 +1,7 @@
 - develop your own stow version in Rust:
   - [x] init project
-  - [ ] implementation
+  - [ ] implementation:
+    - [ ] follow this https://rust-cli.github.io/book/tutorial/index.html - don't get lost in looking up the sources too much
 
 - install script:
   - [ ] try to make your setup work with the ./overlay.nix inside ~/.config/nixpkgs
@@ -24,7 +25,10 @@
 - theory:
   - [ ] how does FFI work
   - [ ] how does a Rust program handle signals, are the handlers set by exec?
-  - [ ] read about https://computationstructures.org/lectures/interrupts/interrupts.html
+  - [ ] read about https://computationstructures.org/lectures/interrupts/interrupts.html :
+    - how do we keep up with interrupts? Example of a network card bombing the system
+    - how is the interrupt wire checked at each cycle?
+    - which PC is saved when interrupted? how do we make sure some instructions are complete
   - [ ] update the notes on ComputerArchitecture especially about asynchronous IOs
   - [ ] once that is done explore libluv and understand how IOs are handled
   - [ ] then you should be able to understand flatten.nvim with the use of
