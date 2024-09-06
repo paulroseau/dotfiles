@@ -75,18 +75,27 @@ rec {
       rustup
     ];
 
-    all = c ++ lua ++ go ++ rust;
+    python = [
+      pyright
+    ];
+
+    all =
+      c ++
+      go ++
+      lua ++
+      python ++
+      rust;
   };
 
   google = [
     google-cloud-sdk
   ];
 
-  base = 
+  base =
     misc
-    ++ nix 
-    ++ neovim 
-    ++ fzfLuaRequired 
+    ++ nix
+    ++ neovim
+    ++ fzfLuaRequired
     ++ zsh;
 
   local = alacritty ++ base;

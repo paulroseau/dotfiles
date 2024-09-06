@@ -43,6 +43,10 @@ lspconfig.lua_ls.setup({
   end
 })
 
+lspconfig.pyright.setup({
+  capabilities = lsp_client_extra_capabilities,
+})
+
 lspconfig.rust_analyzer.setup({
   capabilities = lsp_client_extra_capabilities,
 })
