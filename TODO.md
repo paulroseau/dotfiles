@@ -1,12 +1,22 @@
 - develop your own stow version in Rust:
   - [x] init project
   - [ ] implementation:
+    - [ ] how do you allocate a vector's data on the heap ? 
+      - [ ] read https://fasterthanli.me/series/making-our-own-executable-packer/part-14 and take notes
     - [ ] follow this https://rust-cli.github.io/book/tutorial/index.html - don't get lost in looking up the sources too much
 
-- install script:
+- other idea of something to do in Rust:
+  - a small CLI which allows to output up to N lines to stdout and then pass on the rest (this would allow to print the header and then grep for example for ps, kubectl, readelf etc.) (it's a bit like `tee` basically)
+
+- install scripts:
   - [ ] try to make your setup work with the ./overlay.nix inside ~/.config/nixpkgs
   - [ ] arguments whether you are installing it on a local machine or remotely
   - [ ] distinguish whether we are running on Debian or MacOS X to set up the various links (fonts, launch menu, etc.)
+  - [ ] add a little shell script to automatically add a neovim plugin:
+  ```sh
+    niv -s ./nix/neovim-plugins/plugins/sources.json add shaunsingh/nord.nvim
+    nix-env --install --file nix/default.nix -A neovim-plugin
+  ```
 
 - tmux:
   - [x] read https://tao-of-tmux.readthedocs.io
@@ -37,6 +47,8 @@
   - [ ] understand the pipe / NVIM env variable
 
 - neovim:
+  - [ ] try nvim-tree instead of neotree - not sure it is better, but neo-tree is slow, background a bit weird, too configurable, nvim-tree sounds simpler
+  - [ ] try noice.nvim
   - [ ] install LSP for Rust:
     - [x] rust-analyser and other tools (cargo, etc.) with nix
     - [x] setup lspconfig
@@ -44,7 +56,7 @@
     - [ ] see if you want to use other tools such as the one listed here https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins:
       - https://github.com/mrcjkb/rustaceanvim
       - https://github.com/Saecki/crates.nvim
-  - [ ] install LSP for Python
+  - [x] install LSP for Python
   - [ ] install LSP for Go
     - how to disable LSP (useful for big projects like GDCH for instance) -> use LspStop from lspconfig plugin. Check the memory usage of that process, and if it calms down after you stop the client (the server still keeps running)
     - check if you can reference external index for LSP servers (big projects again), basically try to see how it goes with GDCH code base

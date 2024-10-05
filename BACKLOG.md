@@ -136,24 +136,24 @@
 
 - Neovim plugins:
   - [ ] Pretty status line: nvim-lualine/lualine.nvim:
-    - [X] Install
+    - [x] Install
     - [ ] Configure
   - [ ] nvim-treesitter/nvim-treesitter
-    - [X] understand tree-sitter concepts
-    - [X] understand syntax, indentation, folding (just check the :help)
-    - [X] understand how the plugin works
-    - [X] Install plugin
-    - [X] Configure
-    - [X] add parsers for markdown, scala, rust, go, nix, haskell and OCaml
-    - [X] fix bash and scala queries, you might need to upgrade bash and scala treesitter to a working version or allow to patch some queries file in the nvim-treesitter
+    - [x] understand tree-sitter concepts
+    - [x] understand syntax, indentation, folding (just check the :help)
+    - [x] understand how the plugin works
+    - [x] Install plugin
+    - [x] Configure
+    - [x] add parsers for markdown, scala, rust, go, nix, haskell and OCaml
+    - [x] fix bash and scala queries, you might need to upgrade bash and scala treesitter to a working version or allow to patch some queries file in the nvim-treesitter
     - [ ] allow to disable treesitter on one buffer (if it blows up it is impossible to work) -> checkout builtin TSDisable
     - [ ] the plugin sets foldmethod expr globally, if we don't have a parser installed and we want to fold, we need to reset the foldmethod
   - [ ] Neotree explorer:
-    - [X] install
-    - [X] update to have the links showing
+    - [x] install
+    - [x] update to have the links showing
     - [ ] toggle symlink + info display on/off
     - [ ] configure:
-      - [X] open node recursively: cf. https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/Recipies#emulating-vims-fold-commands
+      - [x] open node recursively: cf. https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/Recipies#emulating-vims-fold-commands
       - [ ] change behaviour of `X` so that it closes all subnodes but keep current node open
       - [ ] replicate NerdTree navigation :
         - [ ] P: go to root
@@ -169,12 +169,12 @@
     - [X] configure
     - [ ] checkout JoosepAlviste/nvim-ts-context-commentstring which could be interesting to
     comment nested stuff (code instide of markdown, js inside of html, etc.)
-  - [X] parenthesis surrounding: https://github.com/kylechui/nvim-surround
-    - [X] install
-    - [X] configure
+  - [x] parenthesis surrounding: https://github.com/kylechui/nvim-surround
+    - [x] install
+    - [x] configure
   - [ ] nvim-in-tmux:
-     - [X] move it inside `./plugins`, rework the module like nvim-treesitter
-     - [X] set the mappings outside
+     - [x] move it inside `./plugins`, rework the module like nvim-treesitter
+     - [x] set the mappings outside
      - [ ] check if you want to use vim.loop (libuv) instead of `os.execute`
   - [ ] Use fzf-lua.vim instead of Telescope:
     - [X] understand what you can do with fzf from: https://www.youtube.com/watch?v=qgG5Jhi_Els
@@ -191,24 +191,24 @@
       - https://www.lua.org/pil/contents.html#P4
       - https://luajit.org/ext_ffi.html
       - https://www.lua.org/pil/contents.html
-  - [X] Check youtube series on Lunar Nvim (distro): https://www.youtube.com/playlist?list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ
-  - [X] Theme
-    - [X] option 1: https://github.com/navarasu/onedark.nvim (inspired by Atom)
+  - [x] Check youtube series on Lunar Nvim (distro): https://www.youtube.com/playlist?list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ
+  - [x] Theme
+    - [x] option 1: https://github.com/navarasu/onedark.nvim (inspired by Atom)
     - [-] option 2: https://github.com/norcalli/nvim-colorizer.lua
-    - [X] others 3: https://github.com/folke/tokyonight.nvim
+    - [x] others 3: https://github.com/folke/tokyonight.nvim
   - [/] Bufferline
     - it is good but does way too much compared to what you need. All you need
     is a nice name for tabs (or maybe just a number), and a floating window appearing on the side to show
     the list of buffers when typing <C-j> and <C-k>, but fzf does this aleady pretty well
-  - [X] install https://github.com/willothy/flatten.nvim to allow to launch nvim inside a terminal (in particular for git rebase -i)
+  - [x] install https://github.com/willothy/flatten.nvim to allow to launch nvim inside a terminal (in particular for git rebase -i)
   - [ ] Git:
     - Various options to consider:
-      - [X] good old Fugitive.vim:
-        - [X] add `,g` mappings for `:Git<CR>`
+      - [x] good old Fugitive.vim:
+        - [x] add `,g` mappings for `:Git<CR>`
         - downside it is in vimL
       - [ ] checkout GitSigns, looks cool, you can stage what you changed, but no sure it as good as the Gvdiff of TreeSitter, look around
       - [ ] explore: neogit + diffview
-      - [X] `lazygit` (external tool): requires custom keybindings definition https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+      - [x] `lazygit` (external tool): requires custom keybindings definition https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
         -> powerful but a bit too much actually, rather stick to something more barebone
   - [ ] Nice window title
       - [ ] https://github.com/alvarosevilla95/luatab.nvim/tree/master for nicer tabs, fork the repo since there is some Telescope specific shit and the plugin is a few lines long
