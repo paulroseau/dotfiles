@@ -113,10 +113,10 @@
         "homepage": "",
         "owner": "ibhagwan",
         "repo": "fzf-lua",
-        "rev": "d87a1e2a7ffb20dcbc4091fc878fb02ecb8c248f",
-        "sha256": "19zbv6vg45mm0vf02xfhirhvjvwd7mqqmiwm1cswl1kyprkzkrgb",
+        "rev": "1e03541de4d8a169defe83bb4d7abfba450c63a1",
+        "sha256": "1by9092fvfk1v06idfqhnx5bsisj28hk981ngylkzq806j7lbj09",
         "type": "tarball",
-        "url": "https://github.com/ibhagwan/fzf-lua/archive/d87a1e2a7ffb20dcbc4091fc878fb02ecb8c248f.tar.gz",
+        "url": "https://github.com/ibhagwan/fzf-lua/archive/1e03541de4d8a169defe83bb4d7abfba450c63a1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lualine-nvim": {
@@ -221,10 +221,10 @@
         "homepage": "",
         "owner": "nvim-tree",
         "repo": "nvim-web-devicons",
-        "rev": "14ac5887110b06b89a96881d534230dac3ed134d",
-        "sha256": "1l02wpzxac4ykghficsdhgn7ix2896qhaisxm4f7xbl72jl77h44",
+        "rev": "56f17def81478e406e3a8ec4aa727558e79786f3",
+        "sha256": "1855li3b7j64w1m1jxqxxdsdf0m6vs8migddhkrfkz6nmm1f3lfq",
         "type": "tarball",
-        "url": "https://github.com/nvim-tree/nvim-web-devicons/archive/14ac5887110b06b89a96881d534230dac3ed134d.tar.gz",
+        "url": "https://github.com/nvim-tree/nvim-web-devicons/archive/56f17def81478e406e3a8ec4aa727558e79786f3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "onedark-nvim": {

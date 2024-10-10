@@ -42,16 +42,6 @@ fzf.setup({
       ["alt-t"]   = fzf.actions.buf_tabedit,
     }
   },
-  buffers = {
-    actions = {
-      ["ctrl-x"] = {
-        fn = function(selected, opts)
-          return fzf.actions.vimcmd_buf("bw!", selected, opts)
-        end,
-        reload = true
-      }
-    },
-  },
   helptags = {
     actions = {
       ["alt-s"] = fzf.actions.help,
@@ -66,11 +56,20 @@ fzf.setup({
       ["alt-t"] = fzf.actions.keymap_tabedit,
     },
   },
-  diagnostics ={
-    copen = function () 
+  diagnostics = {
+    copen = function()
       vim.cmd("copen")
       vim.cmd(".cc")
     end,
+  },
+  git = {
+    bcommits = {
+      actions = {
+        ["alt-s"] = fzf.actions.git_buf_split,
+        ["alt-v"] = fzf.actions.git_buf_vsplit,
+        ["alt-t"] = fzf.actions.git_buf_tabedit,
+      },
+    },
   },
   manpages = {
     actions = {
