@@ -42,3 +42,21 @@ niv -s ./nix/neovim-plugins/plugins/sources.json add hrsh7th/cmp-cmdline
 # Update to a particular version
 niv -s ./nix/neovim-plugins/plugins/sources.json update nvim-treesitter -r v0.9.1
 ```
+
+## Tips
+
+### Tmux
+
+Remember that you can copy/paste the content of a tmux pane with:
+```
+# copy from the top of the visible part of the pane
+capture-pane -S
+
+# copy from the begining of the pane
+capture-pane -S -
+
+# paste
+paste-buffer
+```
+
+More details through `man tmux`.
