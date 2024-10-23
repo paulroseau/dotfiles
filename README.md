@@ -33,7 +33,28 @@ nix-env --install --file nix/default.nix -A 'myPkgs.development.rust'
 nix-env --install --file nix/default.nix 'myPkgs.local'
 ```
 
-## Update dependencies with niv
+## Updates 
+
+### Update nixpkgs
+
+```sh
+# List channels
+nix-channel --list
+
+# List current channels
+nix-channel --list-generations
+
+# Update the nixpkgs channel
+nix-channel --update nixpkgs
+```
+
+You can then reinstall packages based of the latest version of `<nixpkgs>`:
+```sh
+# Example reinstall all my base packages
+nix-env --install --file nix/default.nix -A myPkgs.base
+```
+
+### Update packages with niv
 
 ```sh
 # Add
@@ -41,6 +62,40 @@ niv -s ./nix/neovim-plugins/plugins/sources.json add hrsh7th/cmp-cmdline
 
 # Update to a particular version
 niv -s ./nix/neovim-plugins/plugins/sources.json update nvim-treesitter -r v0.9.1
+
+niv -s ./nix/sources.json update neovim -r v0.10.2
+```
+
+Then you need to reinstall the package with `nix`:
+```sh
+nix-env --install --file nix/default.nix -A '<package>'
+```
+
+## Deletions
+
+```sh
+# Delete a package (creates a new environment without the package)
+nix-env --uninstall --file nix/default -A '<package>'
+
+# List all nix environment generations
+nix-env --list-generations
+
+# Switch to a particular nix environment
+nix-env --switch-generation ${generation_number}
+
+# Delete old environment generations
+nix-env --delete-generations 69 70
+
+# Roll back to the previous generation (if you broke anything - equivalent to `nix-env --switch-generation <previous-generation>`
+nix-env --rollback
+
+# Garbage collect unused packages
+nix-store --gc
+nix-collect-garbage
+
+# Utility to delete old generations and collect garbage
+nix-collect-garbage --delete-old
+nix-collect-garbage --delete-older-than 2d
 ```
 
 ## Tips
