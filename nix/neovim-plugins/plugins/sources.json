@@ -209,10 +209,10 @@
         "homepage": "",
         "owner": "nvim-treesitter",
         "repo": "nvim-treesitter",
-        "rev": "v0.9.1",
-        "sha256": "0sq4q070104rcnssxm0icxn31ngcfjbjg9430prb4hsm92msz2yl",
+        "rev": "v0.9.3",
+        "sha256": "0fv4i7l7zh7ma1pl9cjfjc7fijd1m3k9sgbplzzc0wk6s65idi7h",
         "type": "tarball",
-        "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/v0.9.1.tar.gz",
+        "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/v0.9.3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-web-devicons": {
