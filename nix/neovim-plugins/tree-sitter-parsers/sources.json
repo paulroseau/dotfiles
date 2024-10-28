@@ -125,10 +125,10 @@
         "homepage": "",
         "owner": "tree-sitter",
         "repo": "tree-sitter-rust",
-        "rev": "v0.20.4",
-        "sha256": "1pk4mb3gh62xk0qlhxa8ihhxvnf7grrcchwg2xv99yy6yb3yh26b",
+        "rev": "v0.23.0",
+        "sha256": "08m0i6ar5gkz1pvz8lh2dfwjff4szzl0q0lzbqp0p5il0arxvbbh",
         "type": "tarball",
-        "url": "https://github.com/tree-sitter/tree-sitter-rust/archive/v0.20.4.tar.gz",
+        "url": "https://github.com/tree-sitter/tree-sitter-rust/archive/v0.23.0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "scala": {
