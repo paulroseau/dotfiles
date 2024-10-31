@@ -33,6 +33,32 @@ nix-env --install --file nix/default.nix -A 'myPkgs.development.rust'
 nix-env --install --file nix/default.nix 'myPkgs.local'
 ```
 
+### Install new neovim plugins
+
+```sh
+# Add the plugin to the list of plugins with niv
+niv -s ./nix/neovim-plugins/plugins/sources.json add hrsh7th/cmp-cmdline
+
+# Install it 
+nix-env --install --file nix/default.nix -A 'neovim-plugins'
+# or (to reinstal neovim if necessary)
+nix-env --install --file nix/default.nix -A 'myPkgs.neovim'
+```
+
+### Add Treesitter support for new languages
+
+```sh
+# Add a tree-sitter parser with a name with -n option and at a particular version
+niv -s nix/neovim-plugins/tree-sitter-parsers/sources.json add -n lua tree-sitter-grammars/tree-sitter-lua -r v0.2.0
+
+# Install it
+nix-env --install --file nix/default.nix -A 'myPkgs.neovim'
+```
+
+Remark: the `-n` option is important, because by convention use the keys in `tree-sitter-parsers/sources.json` as the name of the built parser, and `nvim` resolves tree-sitter parsers expecting their name to match the filetype. For example, with the line above it will be `lua.so` (without the `-n` option it would have been `tree-sitter-lua.so` which would cause the parser to not be found by neovim).
+
+Remark: `nvim` does come with a few tree-sitter parsers built-in (in the `../lib/nvim/parser` directory - `../lib/nvim` is part of the runtimepath by default), however those sometimes ship with errors, so we override them by downloading our own and setting them in the `nvim-treesitter` plugin `parser` directory. The `nvim-treesitter` plugin searches that directory in priority for parsers.
+
 ## Updates 
 
 ### Update nixpkgs
@@ -59,6 +85,9 @@ nix-env --install --file nix/default.nix -A myPkgs.base
 ```sh
 # Add
 niv -s ./nix/neovim-plugins/plugins/sources.json add hrsh7th/cmp-cmdline
+
+# Add a tree-sitter parser with a name with -n option and at a particular version
+niv -s nix/neovim-plugins/tree-sitter-parsers/sources.json add -n lua tree-sitter-grammars/tree-sitter-lua -r v0.2.0
 
 # Update to a particular version
 niv -s ./nix/neovim-plugins/plugins/sources.json update nvim-treesitter -r v0.9.1
@@ -107,7 +136,7 @@ Remember that you can copy/paste the content of a tmux pane with:
 # copy from the top of the visible part of the pane
 capture-pane -S
 
-# copy from the begining of the pane
+# copy from the begining of the pane (beyond the visible part)
 capture-pane -S -
 
 # paste
