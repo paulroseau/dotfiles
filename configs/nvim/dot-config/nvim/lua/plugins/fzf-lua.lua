@@ -1,5 +1,16 @@
 local fzf = require("fzf-lua")
 
+-- Adapted from fzf-lua.actions to prevent blocking deletions of dirty
+-- buffers
+local buf_del = function(selected, opts)
+  for _, sel in ipairs(selected) do
+    local entry = fzf.path.entry_to_file(sel, opts)
+    if entry.bufnr then
+      vim.api.nvim_buf_delete(entry.bufnr, { force = true })
+    end
+  end
+end
+
 fzf.setup({
   keymap = {
     -- These override the default tables completely so we need to include
@@ -24,22 +35,26 @@ fzf.setup({
     },
   },
   actions = {
-    -- These override the default tables completely
-    -- so we need to include all the orignal entries
-    -- cf. :help fzf-lua-default-options
+    -- These are the default actions inherited by other pickeres, such as git_files, buffers, etc.
+    -- Here we are overriding the plugin defaults for these default actions
+    -- More details with :help fzf-lua-default-options
     files = {
-      ["default"] = fzf.actions.file_edit_or_qf,
-      ["alt-s"]   = fzf.actions.file_split,
-      ["alt-v"]   = fzf.actions.file_vsplit,
-      ["alt-t"]   = fzf.actions.file_tabedit,
-      ["alt-q"]   = fzf.actions.file_sel_to_qf,
-      ["alt-l"]   = fzf.actions.file_sel_to_ll,
+      ["enter"] = fzf.actions.file_edit_or_qf,
+      ["alt-s"] = fzf.actions.file_split,
+      ["alt-v"] = fzf.actions.file_vsplit,
+      ["alt-t"] = fzf.actions.file_tabedit,
+      ["alt-q"] = fzf.actions.file_sel_to_qf,
+      ["alt-l"] = fzf.actions.file_sel_to_ll,
     },
-    buffers = {
-      ["default"] = fzf.actions.buf_edit,
-      ["alt-s"]   = fzf.actions.buf_split,
-      ["alt-v"]   = fzf.actions.buf_vsplit,
-      ["alt-t"]   = fzf.actions.buf_tabedit,
+  },
+  buffers = {
+    actions = {
+      ["ctrl-x"] = { fn = buf_del, reload = true },
+    }
+  },
+  tabs = {
+    actions = {
+      ["ctrl-x"] = { fn = buf_del, reload = true },
     }
   },
   helptags = {
