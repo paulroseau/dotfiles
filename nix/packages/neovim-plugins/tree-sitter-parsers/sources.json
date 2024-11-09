@@ -131,6 +131,18 @@
         "url": "https://github.com/tree-sitter/tree-sitter-python/archive/v0.20.4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "query": {
+        "branch": "master",
+        "description": "TS query grammar for tree-sitter",
+        "homepage": "",
+        "owner": "tree-sitter-grammars",
+        "repo": "tree-sitter-query",
+        "rev": "v0.4.0",
+        "sha256": "0wi01kmvb5axavfm6jp3rd6dd9pnq551w9lgwcgs02amxp6z8ymj",
+        "type": "tarball",
+        "url": "https://github.com/tree-sitter-grammars/tree-sitter-query/archive/v0.4.0.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "rust": {
         "branch": "master",
         "description": "Rust grammar for tree-sitter",
@@ -153,6 +165,30 @@
         "sha256": "0hs6gmkq5cx9qrmgfz1mh0c34flwffc0k2mhwf13laawswnywfkz",
         "type": "tarball",
         "url": "https://github.com/tree-sitter/tree-sitter-scala/archive/v0.20.2.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "vim": {
+        "branch": "master",
+        "description": "Vimscript grammar for tree-sitter",
+        "homepage": "",
+        "owner": "tree-sitter-grammars",
+        "repo": "tree-sitter-vim",
+        "rev": "v0.4.0",
+        "sha256": "1ih12fmawhhpx9prfkcmvqf6fpnq83wxkv4ask19d5q1qyl8r20j",
+        "type": "tarball",
+        "url": "https://github.com/tree-sitter-grammars/tree-sitter-vim/archive/v0.4.0.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "vimdoc": {
+        "branch": "master",
+        "description": "Tree-sitter parser for Vim help files",
+        "homepage": "",
+        "owner": "neovim",
+        "repo": "tree-sitter-vimdoc",
+        "rev": "v3.0.0",
+        "sha256": "0raqlzi2x9a0qrfidgw0gqda8030jz518kdwzvyxjndnd5cd5rdz",
+        "type": "tarball",
+        "url": "https://github.com/neovim/tree-sitter-vimdoc/archive/v3.0.0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "yaml": {
