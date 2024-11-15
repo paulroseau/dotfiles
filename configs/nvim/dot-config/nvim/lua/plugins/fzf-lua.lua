@@ -1,11 +1,11 @@
 local fzf = require("fzf-lua")
 
 -- Adapted from fzf-lua.actions to prevent blocking deletions of dirty
--- buffers
+-- buffers which have not been written to disk
 local buf_del = function(selected, opts)
   for _, sel in ipairs(selected) do
     local entry = fzf.path.entry_to_file(sel, opts)
-    if entry.bufnr then
+    if entry.bufnr and (entry.path == "[No Name]" or not fzf.utils.buffer_is_dirty(entry.bufnr, true, false)) then
       vim.api.nvim_buf_delete(entry.bufnr, { force = true })
     end
   end
