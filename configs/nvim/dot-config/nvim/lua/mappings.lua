@@ -46,8 +46,8 @@ vim.keymap.set({'', 't'} , '<M-o>', '<C-w>o')
 -- Tabpage creating
 vim.keymap.set({'n'} , 'Tn', '<cmd>tabnew<CR>')
 vim.keymap.set({'n'} , 'Tc', '<cmd>tabclose<CR>')
-vim.keymap.set({''} , '<M-t>', '<C-w>T<CR>')
-vim.keymap.set({''} , '<M-T>', '<C-w>T<CR><cmd>tabprevious<CR>')
+vim.keymap.set({''} , '<M-t>', '<C-w>T')
+vim.keymap.set({''} , '<M-T>', '<C-w>T<cmd>tabprevious<CR>')
 
 -- Tabpage switching
 vim.keymap.set({'n', 'v', 's'} , 'H', '<cmd>tabprevious<CR>')
