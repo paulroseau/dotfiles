@@ -29,10 +29,10 @@
         "homepage": null,
         "owner": "tree-sitter",
         "repo": "tree-sitter-go",
-        "rev": "v0.20.0",
-        "sha256": "0wlhwcdlaj74japyn8wjza0fbwckqwbqv8iyyqdk0a5jf047rdqv",
+        "rev": "v0.23.4",
+        "sha256": "0yi8if9mqzzcs4qflflz90hhaxkzlq54wia3s0iiqzfqxk24a61g",
         "type": "tarball",
-        "url": "https://github.com/tree-sitter/tree-sitter-go/archive/v0.20.0.tar.gz",
+        "url": "https://github.com/tree-sitter/tree-sitter-go/archive/v0.23.4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "haskell": {
