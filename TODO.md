@@ -1,9 +1,10 @@
 - develop your own stow version in Rust:
-  - [x] init project
-  - [ ] implementation:
-    - [ ] how do you allocate a vector's data on the heap ? 
-      - [ ] read https://fasterthanli.me/series/making-our-own-executable-packer/part-14 and take notes
+    - [x] init project
+    - [x] implementation:
+    - [x] how do you allocate a vector's data on the heap ? 
+      - [x] read https://fasterthanli.me/series/making-our-own-executable-packer/part-14 and take notes
     - [ ] follow this https://rust-cli.github.io/book/tutorial/index.html - don't get lost in looking up the sources too much
+    - [ ] https://veykril.github.io/tlborm/syntax-extensions/source-analysis.html on macros
 
 - other idea of something to do in Rust:
   - a small CLI which allows to output up to N lines to stdout and then pass on the rest (this would allow to print the header and then grep for example for ps, kubectl, readelf etc.) (it's a bit like `tee` basically)
@@ -16,6 +17,15 @@
   ```sh
     niv -s ./nix/neovim-plugins/plugins/sources.json add shaunsingh/nord.nvim
     nix-env --install --file nix/default.nix -A neovim-plugin
+  ```
+  - [ ] create small `init-perso-projects.sh` shell script to be installed as a binary with nix which would clone:
+  ```
+  git clone git@bitbucket.org:paul_roseau/hlx-gcp-infrastructure.git
+  git clone https://github.com/aylei/leetcode-rust.git
+  git clone git@github.com:paulroseau/nand2tetris
+  git clone git@bitbucket.org:paul_roseau/resume.git
+  git clone git@github.com:paulroseau/rust-executable-packer.git
+  git clone git://g.csail.mit.edu/xv6-labs-2020
   ```
 
 - tmux:
