@@ -1,4 +1,5 @@
 { lib
+, stdenv
 , runtimeShell
 , alacritty
 , glibc
@@ -20,16 +21,20 @@
 # need to be patched. For details why we don't patch libglvnd check the notes.
 # Credits to: https://gms.tf/ld_library_path-considered-harmful.html
 
-alacritty.overrideAttrs(_: _: {
-  postInstallHooks = [
-    ''
-      mv $out/bin/alacritty $out/bin/_alacritty
-      cat >$out/bin/alacritty <<EOF
-      #!${runtimeShell}
-      export LIBGL_DRIVERS_PATH=${lib.makeSearchPathOutput "drivers" "lib/dri" [mesa]}
-      exec ${lib.makeBinPath [glibc.bin]}/ld.so --library-path ${lib.makeLibraryPath [mesa.drivers]} $out/bin/_alacritty \$@
-      EOF
-      chmod +x $out/bin/alacritty
-    ''
-  ];
-})
+if stdenv.hostPlatform.isLinux 
+then
+  alacritty.overrideAttrs(_: _: {
+    postInstallHooks = [
+        ''
+          mv $out/bin/alacritty $out/bin/_alacritty
+          cat >$out/bin/alacritty <<EOF
+          #!${runtimeShell}
+          export LIBGL_DRIVERS_PATH=${lib.makeSearchPathOutput "drivers" "lib/dri" [mesa]}
+          exec ${lib.makeBinPath [glibc.bin]}/ld.so --library-path ${lib.makeLibraryPath [mesa.drivers]} $out/bin/_alacritty \$@
+          EOF
+          chmod +x $out/bin/alacritty
+        ''
+      ];
+  })
+else
+  alacritty
