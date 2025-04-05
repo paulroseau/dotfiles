@@ -1,3 +1,8 @@
+- updates:
+  - [ ] check if you still need to wrap alacritty in a script on Linux (and update notes to explain chain lib dependency)
+  - [ ] notes on install of nix in the first place to get started
+  - [ ] use alacritty-themes from nixpkgs
+
 - develop your own stow version in Rust:
     - [x] init project
     - [x] implementation:
@@ -11,6 +16,7 @@
 
 - install scripts:
   - [ ] try to make your setup work with the ./overlay.nix inside ~/.config/nixpkgs
+  - [ ] check what git-uptdater does
   - [ ] arguments whether you are installing it on a local machine or remotely
   - [ ] distinguish whether we are running on Debian or MacOS X to set up the various links (fonts, launch menu, etc.)
   - [ ] add a little shell script to automatically add a neovim plugin:

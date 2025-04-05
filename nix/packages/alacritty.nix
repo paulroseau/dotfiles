@@ -1,4 +1,5 @@
 { lib
+, stdenv
 , runtimeShell
 , alacritty
 , glibc
@@ -21,15 +22,18 @@
 # Credits to: https://gms.tf/ld_library_path-considered-harmful.html
 
 alacritty.overrideAttrs(_: _: {
-  postInstallHooks = [
-    ''
-      mv $out/bin/alacritty $out/bin/_alacritty
-      cat >$out/bin/alacritty <<EOF
-      #!${runtimeShell}
-      export LIBGL_DRIVERS_PATH=${lib.makeSearchPathOutput "drivers" "lib/dri" [mesa]}
-      exec ${lib.makeBinPath [glibc.bin]}/ld.so --library-path ${lib.makeLibraryPath [mesa.drivers]} $out/bin/_alacritty \$@
-      EOF
-      chmod +x $out/bin/alacritty
-    ''
-  ];
+  postInstallHooks = 
+    if stdenv.hostPlatform.isLinux 
+    then [
+      ''
+        mv $out/bin/alacritty $out/bin/_alacritty
+        cat >$out/bin/alacritty <<EOF
+        #!${runtimeShell}
+        export LIBGL_DRIVERS_PATH=${lib.makeSearchPathOutput "drivers" "lib/dri" [mesa]}
+        exec ${lib.makeBinPath [glibc.bin]}/ld.so --library-path ${lib.makeLibraryPath [mesa.drivers]} $out/bin/_alacritty \$@
+        EOF
+        chmod +x $out/bin/alacritty
+      ''
+    ]
+    else [] ;
 })
