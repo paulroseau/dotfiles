@@ -1,4 +1,6 @@
 - updates:
+  - [ ] understand by-name packages in nix
+  - [ ] understand multi-user for Mac
   - [ ] check if you still need to wrap alacritty in a script on Linux (and update notes to explain chain lib dependency)
   - [ ] notes on install of nix in the first place to get started
   - [ ] use alacritty-themes from nixpkgs
