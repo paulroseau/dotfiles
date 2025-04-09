@@ -1,16 +1,4 @@
 {
-    "alacritty-theme": {
-        "branch": "master",
-        "description": "Collection of Alacritty color schemes",
-        "homepage": null,
-        "owner": "alacritty",
-        "repo": "alacritty-theme",
-        "rev": "07c10441dae4d0490145a0f40178f8846b24e800",
-        "sha256": "1dnj22wnniy7yb1llhvlsjwlqgc6y34d3r0yqgn5d6swn4lnr6b9",
-        "type": "tarball",
-        "url": "https://github.com/alacritty/alacritty-theme/archive/07c10441dae4d0490145a0f40178f8846b24e800.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "lazygit": {
         "branch": "master",
         "description": "simple terminal UI for git commands",
@@ -29,10 +17,10 @@
         "homepage": "https://neovim.io",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "v0.10.2",
-        "sha256": "1xi1f4msjm7csbwiymnj9i2m9q51hqk7q4m1ilr761qcarxf7a7s",
+        "rev": "v0.11.0",
+        "sha256": "0lf8fsdadkpk1jbjyvb9867n8xb6si1i5zayn7yh7p5amhg12lsi",
         "type": "tarball",
-        "url": "https://github.com/neovim/neovim/archive/v0.10.2.tar.gz",
+        "url": "https://github.com/neovim/neovim/archive/v0.11.0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

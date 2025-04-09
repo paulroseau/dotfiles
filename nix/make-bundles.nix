@@ -3,10 +3,17 @@ pkgs:
 with pkgs;
 
 rec {
+  nerd-fonts = [
+    pkgs.nerd-fonts.agave
+    pkgs.nerd-fonts.hack
+    pkgs.nerd-fonts.hurmit
+    pkgs.nerd-fonts.terminess-ttf
+  ];
+
   alacritty = [
-    alacritty-theme
-    nerdfonts
     pkgs.alacritty
+    pkgs.alacritty-theme
+    nerd-fonts
   ];
 
   nix = [
@@ -41,8 +48,8 @@ rec {
   ];
 
   versioning = [
-    # git # not working on Google laptop
-    lazygit
+    git
+    # lazygit
     tig
   ];
 

@@ -8,22 +8,6 @@ let
 
 in 
   {
-    nerdfonts = super.nerdfonts.override {
-      fonts = [ 
-        "Agave" 
-        "Hack" 
-        "Hermit" 
-        "Terminus" 
-      ];
-    };
-
-    alacritty-theme = 
-      self.runCommand "alacritty-theme" {}
-      ''
-      mkdir -p $out/share/alacritty
-      ln -s ${sources.alacritty-theme}/themes $out/share/alacritty
-      '';
-
     lazygit = super.lazygit.overrideAttrs (self: super: {
       version = sources.lazygit.rev;
       src = sources.lazygit;
@@ -32,7 +16,7 @@ in
 
     neovim-unwrapped = super.neovim-unwrapped.overrideAttrs(self: super: {
       version = sources.neovim.rev;
-      src = sources.neovim;
+      src = sources.neovim // { tag = sources.neovim.rev; } ;
     });
 
     alacritty = self.callPackage ./packages/alacritty.nix {

@@ -1,6 +1,6 @@
 [general]
 import = [
-  "~/.nix-profile/share/alacritty/themes/nord.toml"
+  "~/.nix-profile/share/alacritty-themes/nord.toml"
 ]
 
 [window]
