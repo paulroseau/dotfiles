@@ -3,6 +3,12 @@ pkgs:
 with pkgs;
 
 rec {
+  # for a more uniform experience across MacOS X and Linux
+  core = [
+    pkgs.coreutils
+    pkgs.findutils
+  ];
+
   nerd-fonts = [
     pkgs.nerd-fonts.agave
     pkgs.nerd-fonts.hack
@@ -99,7 +105,8 @@ rec {
   ];
 
   base =
-    misc
+    core
+    ++ misc
     ++ nix
     ++ neovim
     ++ fzfLuaRequired
