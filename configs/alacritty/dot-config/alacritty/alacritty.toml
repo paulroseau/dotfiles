@@ -1,3 +1,4 @@
+[general]
 import = [
   "~/.nix-profile/share/alacritty/themes/nord.toml"
 ]
@@ -5,6 +6,7 @@ import = [
 [window]
 opacity = 0.99
 startup_mode = "Fullscreen"
+option_as_alt = "Both" # for MacOS
 
 [font]
 normal = { family = "Hurmit Nerd Font", style = "Regular" }
@@ -13,9 +15,8 @@ size = 13.0
 [colors]
 transparent_background_colors = true
 
-[shell]
-program = "zsh"
-args = [ "--login" ]
+[terminal]
+shell = { program = "zsh", args = [ "--login" ] }
 
 [mouse]
 hide_when_typing = true
