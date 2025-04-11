@@ -1,7 +1,54 @@
 - updates:
+  - [x] understand caching for fonts 
+  => nothing really - to reset you can just reboto laptop
+  It does not follow links, you need to copy fonts - kinda sucks https://apple.stackexchange.com/questions/446227/can-you-install-fonts-by-symlinking-them-into-library-fonts
+  ```sh
+  # Just Do (-L to follow links to target and not copy symlinks themselves - since it does not work on Mac)
+  cp -Lr ~/.nix-profile/share/fonts/* ~/Library/Fonts/
+  # you might need to resetart laptop
+  ```
+
+  - [x] use alacritty-themes from nixpkgs
+
+  - [x] install gnu tools
+    - [x] coreutils
+    - [x] findutils
+    - [ ] ???
+
+  - [x] understand nix's by-name package new structure and automatic addition to all-package
+    => added in specific overlay (check `top-level/stages.nix`)
+
+  - [ ] install karabiner with nix for macOS?
+  - [ ] configure karabiner
+
+  - [x] understand alacritty for spotlight
+    => seems like you just need to copy it there cf. https://github.com/nix-community/home-manager/issues/1341#issuecomment-2748323255
+       spotlight does not follow links, MacOS seems painful on that issue
+       ```sh
+       # -L to follow links (when using GNU cp)
+        cp -rL ~/.nix-profile/Applications/* ~/Applications/
+       # ideally we should use rsync to prevent recopying everything after a reinstall
+       # cf. what nix-darwin does at https://github.com/nix-community/home-manager/issues/1341#issuecomment-2748323255
+       ```
+
+  - [ ] MacOs install script:
+    - add link to `~/.nix-profile/Applications/Alacritty.app` in `~/Applications/` (for Spotlight to be able to find it, there could have been 2 issues:
+    ```sh
+    # We use -L with cp below because MacOS does not follow sym links for these funcionalities
+    # A better approach could resort on using `rsync` with the options that nix-darwin uses https://github.com/nix-community/home-manager/issues/1341#issuecomment-2748323255
+
+    # Make applications available from launchpad and spotlight
+    cp -rL ~/.nix-profile/Applications/* ~/Applications/
+
+    # Add NerdFonts (you may need to restart for them to appear)
+    cp -Lr ~/.nix-profile/share/fonts/* ~/Library/Fonts/
+    ```
+
   - [ ] check if you still need to wrap alacritty in a script on Linux (and update notes to explain chain lib dependency)
   - [ ] notes on install of nix in the first place to get started
-  - [ ] use alacritty-themes from nixpkgs
+
+  - [ ] check nix-update script if that could work (`niv` does not seem to be maintained so actively :-( )
+
 
 - develop your own stow version in Rust:
     - [x] init project
