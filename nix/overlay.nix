@@ -8,12 +8,6 @@ let
 
 in 
   {
-    lazygit = super.lazygit.overrideAttrs (self: super: {
-      version = sources.lazygit.rev;
-      src = sources.lazygit;
-      ldflags = [ "-X main.version=${self.version}" "-X main.buildSource=nix" ];
-    });
-
     neovim-unwrapped = super.neovim-unwrapped.overrideAttrs(self: super: {
       version = sources.neovim.rev;
       src = sources.neovim // { tag = sources.neovim.rev; } ;

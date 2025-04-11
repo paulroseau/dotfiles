@@ -55,7 +55,6 @@ rec {
 
   versioning = [
     git
-    # lazygit
     tig
   ];
 
