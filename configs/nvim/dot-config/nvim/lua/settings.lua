@@ -27,4 +27,4 @@ vim.o.softtabstop = 2   -- column offset when PRESSING the tab key (or the backs
 vim.o.shiftwidth = 2    -- column offset when using keys '>' and '<' in normal mode
 
 -- Disable diagnostics by default
-vim.diagnostic.disable()
+vim.diagnostic.enable(false)
