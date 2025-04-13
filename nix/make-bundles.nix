@@ -5,8 +5,8 @@ with pkgs;
 rec {
   # for a more uniform experience across MacOS X and Linux
   core = [
-    pkgs.coreutils
-    pkgs.findutils
+    coreutils
+    findutils
   ];
 
   nerd-fonts = [
@@ -18,7 +18,7 @@ rec {
 
   alacritty = [
     pkgs.alacritty
-    pkgs.alacritty-theme
+    alacritty-theme
     nerd-fonts
   ];
 
@@ -34,8 +34,12 @@ rec {
     zsh-syntax-highlighting
   ];
 
+  macos = [
+    karabiner-elements
+  ];
+
   neovim = [
-    pkgs.neovim-unwrapped
+    neovim-unwrapped
     neovim-plugins
   ];
 
@@ -65,6 +69,7 @@ rec {
   misc = [
     jq
     tmux
+    tree
     yq
   ];
 
@@ -79,8 +84,16 @@ rec {
       gopls
     ];
 
+    json = [
+      vscode-langservers-extracted
+    ];
+
     lua = [
       lua-language-server
+    ];
+
+    nix = [
+      nil
     ];
 
     rust = [
@@ -94,7 +107,9 @@ rec {
     all =
       c ++
       go ++
+      json ++
       lua ++
+      nix ++
       python ++
       rust;
   };

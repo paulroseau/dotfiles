@@ -43,6 +43,14 @@ lspconfig.lua_ls.setup({
   end
 })
 
+lspconfig.jsonls.setup({
+  capabilities = lsp_client_extra_capabilities,
+})
+
+lspconfig.nil_ls.setup({
+  capabilities = lsp_client_extra_capabilities,
+})
+
 lspconfig.pyright.setup({
   capabilities = lsp_client_extra_capabilities,
 })
