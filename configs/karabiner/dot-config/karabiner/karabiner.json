@@ -1,0 +1,95 @@
+{
+  "profiles": [
+    {
+      "name": "Default profile",
+      "selected": true,
+      "complex_modifications": {
+        "rules": [{
+          "description": "Terminal mappings",
+          "manipulators": [
+            {
+              "type": "basic",
+              "from": {
+                "key_code": "left_option"
+              },
+              "to": [
+                { 
+                  "key_code": "left_command"
+                }
+              ],
+              "conditions": [
+                {
+                  "type": "frontmost_application_if",
+                  "bundle_identifiers": [
+                    "^org\\.alacritty$",
+                    "^com\\.apple\\.Terminal$"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "basic",
+              "from": {
+                "key_code": "left_command"
+              },
+              "to": [
+                { 
+                  "key_code": "left_option"
+                }
+              ],
+              "conditions": [
+                {
+                  "type": "frontmost_application_if",
+                  "bundle_identifiers": [
+                    "^org\\.alacritty$",
+                    "^com\\.apple\\.Terminal$"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "basic",
+              "from": {
+                "key_code": "right_command"
+              },
+              "to": [
+                { 
+                  "key_code": "right_option"
+                }
+              ],
+              "conditions": [
+                {
+                  "type": "frontmost_application_if",
+                  "bundle_identifiers": [
+                    "^org\\.alacritty$",
+                    "^com\\.apple\\.Terminal$"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "basic",
+              "from": {
+                "key_code": "right_option"
+              },
+              "to": [
+                { 
+                  "key_code": "right_control"
+                }
+              ],
+              "conditions": [
+                {
+                  "type": "frontmost_application_if",
+                  "bundle_identifiers": [
+                    "^org\\.alacritty$",
+                    "^com\\.apple\\.Terminal$"
+                  ]
+                }
+              ]
+            }
+          ]
+        }]
+      }
+    }
+  ]
+}
