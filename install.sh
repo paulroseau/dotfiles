@@ -34,6 +34,8 @@ rm $HOME/.cache/fontconfig/* # for good measure, spent hours understanding why f
 
 # Make applications available from launchpad and spotlight
 cp -rL ~/.nix-profile/Applications/* ~/Applications/
+# TODO you need to use rsync for the following (replace existing target but don't mach source)
+rsync --unsafe-link-copy ~/.nix-profile/Library ~/Library
 
 # Add NerdFonts (you may need to restart for them to appear)
 cp -Lr ~/.nix-profile/share/fonts/* ~/Library/Fonts/
