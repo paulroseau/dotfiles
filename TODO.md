@@ -18,8 +18,19 @@
   - [x] understand nix's by-name package new structure and automatic addition to all-package
     => added in specific overlay (check `top-level/stages.nix`)
 
+  - [x] configure karabiner
+    - idea #1:
+      - use karabiner to remap (if possible only in Alacritty and Terminal):
+        - right option -> right ctrl
+        - right command -> right option
+    - idea #2:
+      - use karabiner to remap (if possible only in Alacritty and Terminal):
+        - right option -> right ctrl
+        - right command -> right option
+        - left command -> left option
+        - left option -> left command
+
   - [ ] install karabiner with nix for macOS?
-  - [ ] configure karabiner
 
   - [x] understand alacritty for spotlight
     => seems like you just need to copy it there cf. https://github.com/nix-community/home-manager/issues/1341#issuecomment-2748323255
@@ -49,6 +60,7 @@
 
   - [ ] check nix-update script if that could work (`niv` does not seem to be maintained so actively :-( )
 
+- install json5 (to convert from `json5` to `json`), it is a simple node module, but you need to write the derivation for it ...
 
 - develop your own stow version in Rust:
     - [x] init project
