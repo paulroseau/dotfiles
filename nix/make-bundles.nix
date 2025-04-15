@@ -52,7 +52,7 @@ rec {
   ];
 
   kubernetes = [
-    # k9s # not working on Google laptop, needs to be compiled with patched go
+    k9s
     kubectl
     kubectl-tree
   ];
