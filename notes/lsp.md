@@ -16,7 +16,7 @@ You can see all the diagnostic set for the current buffer with `lua vim.print(vi
 
 Neovim comes with the implementation of an LSP client. When launching a client you use `vim.lsp.start()` (defined in `./lua/runtime/vim/lsp.lua`) which takes a `cmd` and `root_dir` arguments. The `start` calls the `start_client` function which will spawn the corresponding LSP server if none has been for this project (identified by the filetype and the `root_dir` argument in the configuration) and will create a RPC client to send requests to that server and handle its response with default handlers. The `start` method also "attaches" the client to the buffer so the server knows about that buffer and sets up all the relevant autocommands for the `BufPreWrite` and `BufPostWrite` events.
 
-The LSP client is a RPC client either using TCP for transport or through local socket (pipe). The instantiation of the client invokes libuv to create the socket or the pipe. The source code is in `./lua/runtime/vim/lsp/rpc.lua`:
+The LSP client is a RPC client either using TCP for transport or through local socket (pipe). The instantiation of the client invokes `libuv` to create the socket or the pipe. The source code is in `./lua/runtime/vim/lsp/rpc.lua`:
 ```lua
 local function connect(host, port)
   return function(dispatchers)
@@ -39,7 +39,7 @@ end
 
 The LSP module implements handlers for a bunch of different LSP request (check out `./lua/runtime/vim/lsp/handlers.lua`). Servers don't necessarily implement all of these requests though. You can customize those handlers with the `vim.lsp.with()` command.
 
-The main function to look into is `vim.lsp.start_client()` (defined in `./lua/runtime/vim/lsp.lua`), where the client is set up. In particular, check the client.request function which executes the handler function on the response returned by the the LSP server subsequently to a request.
+The main function to look into is `vim.lsp.start_client()` (defined in `./lua/runtime/vim/lsp.lua`), where the client is set up. In particular, check the `client.request` function which executes the handler function on the response returned by the the LSP server subsequently to a request.
 
 When a client is started and attached to a buffer it sets the `omnifunc`, `tagfunc` and `formatexpr` settings to the corresponding functions defined and implemented in the lsp module.
 
@@ -85,6 +85,8 @@ end
 `on_init` can be used to send extra parameters to the server after it started and update the running configuration of a LSP client.
 
 The `settings` are also returned to the language server if requested via `workspace/configuration` (checkout the handler for that message in `./lua/runtime/vim/lsp/handlers.lua`)
+
+NB: to check a particular servers capabilities, open a file for which the lsp client is configured and run: `:lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)`
 
 ## Neovim lspconfig plugin
 

@@ -210,7 +210,7 @@
 
 - Check `:help initialization` to understand what `nvim` does when booting. In particular, `init.lua` is read pretty late, but you can still disable some automatic loading from there by turning off `vim.go.filetype = false`, `vim.go.syntax = false` or `vim.go.loadplugins = false`. 
 
-- The latter will prevent the automatic sourcing of files located in `share/nvim/runtime/plugin` such as (`gzip.vim` - to read gzip files automatically, `matchit.vim` - to highlight matching parenthesis automatically, etc.) and files in `share/nvim/runtime/pack/*/start/*` (none by default). The lazy.lua plugin manager disables the `loadplugin` option, might be a good idea to do so as well.
+- The latter will prevent the automatic sourcing of files located in `share/nvim/runtime/plugin` such as (`gzip.vim` - to read gzip files automatically, `matchit.vim` - to highlight matching parenthesis automatically, etc.) and files in `share/nvim/runtime/pack/*/start/*` (none by default). The `lazy.lua` plugin manager disables the `loadplugin` option, might be a good idea to do so as well.
 
 - In the neovim source code in `./nvim/lua/executor.c` you will see that the lua environment (of type `lua_State`) is initialized. A lot of functions for the external libraries (`libuv` via `libluv`, `treesitter`, etc.) are pushed inside that environment, so they are available when running lua inside neovim. For instance for the `vim.loop` table, it is defined as so in `lua/executor.c`:
   ```
@@ -227,8 +227,7 @@
 
 ## Note on floating windows
 
-- Floating windows is a capability added by Neovim. To create one you just need
-  to invoke  `vim.api.nvim_open_win({buffer}, {enter}, {*config})` where `config = {relative='win', row=3, col=3, width=12, height=3}`. The window can be relative to the editor, current window, cursor and mouse. It is very much like any other window, it is just that you can not navigate in and out of it with the usual `C-w h/j/k/l` mappings.
+- Floating windows is a capability added by Neovim. To create one you just need to invoke  `vim.api.nvim_open_win({buffer}, {enter}, {*config})` where `config = {relative='win', row=3, col=3, width=12, height=3}`. The window can be relative to the editor, current window, cursor and mouse. It is very much like any other window, it is just that you can not navigate in and out of it with the usual `C-w h/j/k/l` mappings.
 
 ## Internals
 
