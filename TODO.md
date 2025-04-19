@@ -1,4 +1,5 @@
 - updates:
+  - [ ] install unixtools (find a good way to discrimate between MacOS X and Linux since unfortunately not all unixtools are available for Darwin, it seems that unixtools is more of a convenience for build script rather than something you should depend on)
   - [x] understand caching for fonts 
   => nothing really - to reset you can just reboto laptop
   It does not follow links, you need to copy fonts - kinda sucks https://apple.stackexchange.com/questions/446227/can-you-install-fonts-by-symlinking-them-into-library-fonts
@@ -29,8 +30,8 @@
         - right command -> right option
         - left command -> left option
         - left option -> left command
-
-  - [ ] install karabiner with nix for macOS?
+        - override command + shift + v to paste
+        - override command + tab to 
 
   - [x] understand alacritty for spotlight
     => seems like you just need to copy it there cf. https://github.com/nix-community/home-manager/issues/1341#issuecomment-2748323255
@@ -42,8 +43,14 @@
        # cf. what nix-darwin does at https://github.com/nix-community/home-manager/issues/1341#issuecomment-2748323255
        ```
 
+  - [/] install Karabiner with nix for macOS?
+    - won't do, no time to get into MacOS custom installation (several disks, locked permissions) + all of this might evolve in the future
+
+  - [ ] update nvim-treesitter, fold is broken
+
   - [ ] MacOs install script:
     - add link to `~/.nix-profile/Applications/Alacritty.app` in `~/Applications/` (for Spotlight to be able to find it, there could have been 2 issues:
+    - use rsync for that
     ```sh
     # We use -L with cp below because MacOS does not follow sym links for these funcionalities
     # A better approach could resort on using `rsync` with the options that nix-darwin uses https://github.com/nix-community/home-manager/issues/1341#issuecomment-2748323255
@@ -54,13 +61,20 @@
     # Add NerdFonts (you may need to restart for them to appear)
     cp -Lr ~/.nix-profile/share/fonts/* ~/Library/Fonts/
     ```
+      - install rust-analyzer, cargo through rustup
+
+  - [ ] use last version of stow for now before yours gets ready
+    - [ ] test on Linux (@home, when wifi is not an issue)
 
   - [ ] check if you still need to wrap alacritty in a script on Linux (and update notes to explain chain lib dependency)
+
   - [ ] notes on install of nix in the first place to get started
+    - [ ] for MacOS
+    - [ ] for Linux
 
   - [ ] check nix-update script if that could work (`niv` does not seem to be maintained so actively :-( )
 
-- install json5 (to convert from `json5` to `json`), it is a simple node module, but you need to write the derivation for it ...
+- [ ] install json5 (to convert from `json5` to `json`), it is a simple node module, but you need to write the derivation for it ...
 
 - develop your own stow version in Rust:
     - [x] init project
@@ -75,7 +89,7 @@
 
 - install scripts:
   - [ ] try to make your setup work with the ./overlay.nix inside ~/.config/nixpkgs
-  - [ ] check what git-uptdater does
+  - [ ] check what git-updater does
   - [ ] arguments whether you are installing it on a local machine or remotely
   - [ ] distinguish whether we are running on Debian or MacOS X to set up the various links (fonts, launch menu, etc.)
   - [ ] add a little shell script to automatically add a neovim plugin:
@@ -91,6 +105,10 @@
   git clone git@bitbucket.org:paul_roseau/resume.git
   git clone git@github.com:paulroseau/rust-executable-packer.git
   git clone git://g.csail.mit.edu/xv6-labs-2020
+  ```
+  - [ ] check whether rustup actually downloads rust-analyzer directly or not when first called otherwise:
+  ```sh
+  rustup component add rust-analyzer
   ```
 
 - tmux:
@@ -122,6 +140,14 @@
   - [ ] understand the pipe / NVIM env variable
 
 - neovim:
+  - [ ] setup formatting (autoformatting?) for all relevant filetype. Options are:
+    - rely on vim.lsp.buf.format() (works only if server supports formatting, check it with `:lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)` for rust, python, sh, etc. It seems that you need to see 
+  `documentFormattingProvider = true,` in the results
+    - setup a `formatprg` and `formatoptions` in a personal `./ftplugin`
+    - add information to lsp.md nodes about this
+    - questions:
+      - we probably want to map gq to *vim.lsp.buf.format()* if it works (check
+      - how can the formatter pick up local options to the project? if the lsp.format works then ok, but in the case where it is not??
   - [ ] try nvim-tree instead of neotree - not sure it is better, but neo-tree is slow, background a bit weird, too configurable, nvim-tree sounds simpler
   - [ ] try noice.nvim
   - [ ] install LSP for Rust:
