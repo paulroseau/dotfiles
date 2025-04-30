@@ -88,6 +88,12 @@ The `settings` are also returned to the language server if requested via `worksp
 
 NB: to check a particular servers capabilities, open a file for which the lsp client is configured and run: `:lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)`
 
+NB: Example of how to play around with the nvim built-in LSP client:
+```
+:lua content = vim.lsp.get_active_clients()[1].request_sync("workspace/symbol", { query = "v" }, 1000, 0)
+:lua vim.print(#content.result)
+```
+
 ## Neovim lspconfig plugin
 
 The structure of this plugin is to lazily create a big table. Each time time you reference an element from that table like:
