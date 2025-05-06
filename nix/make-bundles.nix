@@ -70,6 +70,7 @@ rec {
     jq
     tmux
     tree
+    stow
     yq
   ];
 

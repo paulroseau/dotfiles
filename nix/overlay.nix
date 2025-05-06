@@ -1,24 +1,26 @@
-self: super: 
+self: super:
 
-let 
+let
   sources = import ./sources.nix {
     pkgs = super;
     sourcesFile = ./sources.json ;
   };
 
-in 
+in
   {
-    neovim-unwrapped = super.neovim-unwrapped.overrideAttrs(self: super: {
-      version = sources.neovim.rev;
-      src = sources.neovim // { tag = sources.neovim.rev; } ;
-    });
-
     alacritty = self.callPackage ./packages/alacritty.nix {
       alacritty = super.alacritty;
     };
 
+    # neovim version caught up in nixpkgs, but we keep this around in case we
+    # want quicker updates
+    neovim-unwrapped-pinned-version = self.callPackage ./packages/neovim.nix {
+      neovim-unwrapped = super.neovim-unwrapped;
+      source = sources.neovim;
+    };
+
     neovim-plugins = self.callPackage ./packages/neovim-plugins {
-      neovimPluginsSources = import ./sources.nix { 
+      neovimPluginsSources = import ./sources.nix {
         pkgs = super;
         sourcesFile = ./packages/neovim-plugins/plugins/sources.json ;
       };
