@@ -1,5 +1,5 @@
 {
-    "LuaSnip": {
+    "lua-snip": {
         "branch": "master",
         "description": "Snippet Engine for Neovim written in Lua.",
         "homepage": "",
