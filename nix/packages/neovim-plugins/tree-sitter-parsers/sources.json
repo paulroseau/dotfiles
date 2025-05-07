@@ -214,5 +214,17 @@
         "type": "tarball",
         "url": "https://github.com/ikatyang/tree-sitter-yaml/archive/0e36bed171768908f331ff7dff9d956bae016efb.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "zsh": {
+        "branch": "master",
+        "description": "Zsh grammar for tree-sitter",
+        "homepage": "",
+        "owner": "tree-sitter-grammars",
+        "repo": "tree-sitter-zsh",
+        "rev": "47e2caf4ed7e466f51cfbb13a860a192c300506f",
+        "sha256": "0cryscxsaz46pa7v8d0nz6rkfaqd2lfaphrnmzfp2kp8kbpw3bxc",
+        "type": "tarball",
+        "url": "https://github.com/tree-sitter-grammars/tree-sitter-zsh/archive/47e2caf4ed7e466f51cfbb13a860a192c300506f.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
