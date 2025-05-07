@@ -16,7 +16,7 @@ eval "$(starship init zsh)"
 # History
 HISTSIZE=10000
 SAVEHIST=10000
-HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
+HISTFILE=$HOME/.zsh_history
 setopt HIST_SAVE_NO_DUPS # not so useful since SHARE_HISTORY adds timestamps to each line
 setopt SHARE_HISTORY
 setopt APPEND_HISTORY
@@ -48,10 +48,6 @@ bindkey -M main '^v' edit-command-line
 
 # Completion
 
-# Init completion
-autoload -Uz compinit
-compinit
-
 # Configure completion
 zstyle ':completion:*' menu select
 
@@ -68,6 +64,10 @@ then
   fpath+=($NIX_HOME/share/zsh/site-functions $fpath)
 fi
 
+# Init completion
+autoload -Uz compinit
+compinit
+
 # FZF
 if [ -f $NIX_HOME/share/fzf/completion.zsh ]; then source $NIX_HOME/share/fzf/completion.zsh; fi
 if [ -f $NIX_HOME/share/fzf/key-bindings.zsh ]; then source $NIX_HOME/share/fzf/key-bindings.zsh; fi
@@ -83,6 +83,3 @@ if [ -f $NIX_HOME/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
 then
   source $NIX_HOME/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
-
-# kubectl
-if [ -f $NIX_HOME/share/zsh/site-functions/_kubectl ]; then source $NIX_HOME/share/zsh/site-functions/_kubectl; fi
