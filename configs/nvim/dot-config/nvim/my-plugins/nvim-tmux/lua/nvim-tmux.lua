@@ -13,12 +13,12 @@ local DEFAULT_CONFIG = {
 }
 
 function M.setup(_config)
-  if not os.getenv("TMUX") then 
+  if not vim.env.TMUX then 
     vim.notify_once("nvim-tmux needs to execute inside tmux", vim.log.levels.WARN)
     return nil
   end
 
-  local tmux_vim_option_name = os.getenv("vim_mode_option")
+  local tmux_vim_option_name = vim.env.vim_mode_option
   if not tmux_vim_option_name then
     -- TODO log properly the file where this fails
     vim.notify_once("nvim-tmux needs tmux to define 'vim_mode_option'", vim.log.levels.WARN)
