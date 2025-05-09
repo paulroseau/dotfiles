@@ -127,5 +127,14 @@ rec {
     ++ fzfLuaRequired
     ++ zsh;
 
-  local = alacritty ++ base;
+  work =
+    base
+    ++ kubernetes
+    ++ versioning
+    ++ networking
+    ++ development.all;
+
+  local = 
+    base
+    ++ alacritty;
 }

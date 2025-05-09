@@ -1,7 +1,30 @@
+- Wezterm:
+  - POC on Windows:
+    - [x] install wezterm manually (zipfile)
+    - [x] install coder and configure cli
+      ```
+      winget install Coder.Coder
+      coder config-ssh
+      ```
+    - [x] configure coder ssh
+    - [ ] replicate your tmux setup (in particular nvim integration remotely)
+    - [ ] install wezterm on the client
+    - [ ] configure multiplexing session and check that clipboard is working fine
+    - [ ] remove Nerdfonts
+
+- shells:
+  - [ ] add git completions with nix (understand whether you should add
+   .nix-profile/share/git/contrib/completion/ to the fpath or source .nix-profile/share/git/contrib/completion/git-completion.zsh
+  - [ ] setup bash completions by linking 
+    ~/.nix-profile/share/bash-completion/completions   
+
+- docker:
+  - mv install-docker.sh close to the Dockerfile, add in README docker command to build it from the root of this repo
+
 - updates:
   - [ ] install unixtools (find a good way to discrimate between MacOS X and Linux since unfortunately not all unixtools are available for Darwin, it seems that unixtools is more of a convenience for build script rather than something you should depend on)
-  - [x] understand caching for fonts 
-  => nothing really - to reset you can just reboto laptop
+  - [x] understand caching for fonts
+  => nothing really - to reset you can just reboot laptop
   It does not follow links, you need to copy fonts - kinda sucks https://apple.stackexchange.com/questions/446227/can-you-install-fonts-by-symlinking-them-into-library-fonts
   ```sh
   # Just Do (-L to follow links to target and not copy symlinks themselves - since it does not work on Mac)
@@ -31,7 +54,7 @@
         - left command -> left option
         - left option -> left command
         - override command + shift + v to paste
-        - override command + tab to 
+        - override command + tab to
 
   - [x] understand alacritty for spotlight
     => seems like you just need to copy it there cf. https://github.com/nix-community/home-manager/issues/1341#issuecomment-2748323255
@@ -49,6 +72,7 @@
   - [ ] update nvim-treesitter, fold is broken
 
   - [ ] MacOs install script:
+    - install Karabiner manually
     - add link to `~/.nix-profile/Applications/Alacritty.app` in `~/Applications/` (for Spotlight to be able to find it, there could have been 2 issues:
     - use rsync for that
     ```sh
@@ -56,7 +80,7 @@
     # A better approach could resort on using `rsync` with the options that nix-darwin uses https://github.com/nix-community/home-manager/issues/1341#issuecomment-2748323255
 
     # Make applications available from launchpad and spotlight
-    cp -rL ~/.nix-profile/Applications/* ~/Applications/
+    cp -rL ~/.nix-profile/Applications/* ~/Applications/ # check if you need the -rL if cp with gnu tools
 
     # Add NerdFonts (you may need to restart for them to appear)
     cp -Lr ~/.nix-profile/share/fonts/* ~/Library/Fonts/
@@ -79,7 +103,7 @@
 - develop your own stow version in Rust:
     - [x] init project
     - [x] implementation:
-    - [x] how do you allocate a vector's data on the heap ? 
+    - [x] how do you allocate a vector's data on the heap ?
       - [x] read https://fasterthanli.me/series/making-our-own-executable-packer/part-14 and take notes
     - [ ] follow this https://rust-cli.github.io/book/tutorial/index.html - don't get lost in looking up the sources too much
     - [ ] https://veykril.github.io/tlborm/syntax-extensions/source-analysis.html on macros
@@ -141,7 +165,7 @@
 
 - neovim:
   - [ ] setup formatting (autoformatting?) for all relevant filetype. Options are:
-    - rely on vim.lsp.buf.format() (works only if server supports formatting, check it with `:lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)` for rust, python, sh, etc. It seems that you need to see 
+    - rely on vim.lsp.buf.format() (works only if server supports formatting, check it with `:lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)` for rust, python, sh, etc. It seems that you need to see
   `documentFormattingProvider = true,` in the results
     - setup a `formatprg` and `formatoptions` in a personal `./ftplugin`
     - add information to lsp.md nodes about this
