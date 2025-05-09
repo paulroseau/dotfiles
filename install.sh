@@ -43,3 +43,4 @@ rsync --unsafe-link-copy ~/.nix-profile/Library ~/Library
 cp -Lr ~/.nix-profile/share/fonts/* ~/Library/Fonts/
 
 # Go to Privacy & Security settings, Full Disk Access, tick Alacritty (otherwisse you can't ls in ~/Documents, ~/Downloads with GNU ls)
+# Install Karabiner

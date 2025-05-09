@@ -9,7 +9,7 @@ You need to install the [nix package manager](https://nixos.org/download/).
 ### Install from scratch
 
 ```sh
-./install.sh
+nix-shell -p curl bash --command "curl -sSL https://raw.githubusercontent.com/paulroseau/dotfiles/refs/heads/main/install.sh | bash"
 ```
 
 ### Install individual packages
@@ -37,7 +37,7 @@ nix-env --install --file nix/default.nix 'myPkgs.local'
 
 ```sh
 # Add the plugin to the list of plugins with niv
-niv -s ./nix/neovim-plugins/plugins/sources.json add hrsh7th/cmp-cmdline
+niv -s ./nix/packages/neovim-plugins/plugins/sources.json add hrsh7th/cmp-cmdline
 
 # Install it 
 nix-env --install --file nix/default.nix -A 'neovim-plugins'
@@ -49,7 +49,7 @@ nix-env --install --file nix/default.nix -A 'myPkgs.neovim'
 
 ```sh
 # Add a tree-sitter parser with a name with -n option and at a particular version
-niv -s nix/neovim-plugins/tree-sitter-parsers/sources.json add -n lua tree-sitter-grammars/tree-sitter-lua -r v0.2.0
+niv -s nix/packages/neovim-plugins/tree-sitter-parsers/sources.json add -n lua tree-sitter-grammars/tree-sitter-lua -r v0.2.0
 
 # Install it
 nix-env --install --file nix/default.nix -A 'myPkgs.neovim'
@@ -84,13 +84,13 @@ nix-env --install --file nix/default.nix -A myPkgs.base
 
 ```sh
 # Add
-niv -s ./nix/neovim-plugins/plugins/sources.json add hrsh7th/cmp-cmdline
+niv -s ./nix/packages/neovim-plugins/plugins/sources.json add hrsh7th/cmp-cmdline
 
 # Add a tree-sitter parser with a name with -n option and at a particular version
-niv -s nix/neovim-plugins/tree-sitter-parsers/sources.json add -n lua tree-sitter-grammars/tree-sitter-lua -r v0.2.0
+niv -s nix/packages/neovim-plugins/tree-sitter-parsers/sources.json add -n lua tree-sitter-grammars/tree-sitter-lua -r v0.2.0
 
 # Update to a particular version
-niv -s ./nix/neovim-plugins/plugins/sources.json update nvim-treesitter -r v0.9.1
+niv -s ./nix/packages/neovim-plugins/plugins/sources.json update nvim-treesitter -r v0.9.1
 
 niv -s ./nix/sources.json update neovim -r v0.10.2
 ```
