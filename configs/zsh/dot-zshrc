@@ -1,17 +1,25 @@
-NIX_HOME="$HOME/.nix-profile"
-
-if [ -e $NIX_HOME/etc/profile.d/nix.sh ]; then . $NIX_HOME/etc/profile.d/nix.sh; fi # added by Nix installer
-
-# Environment variables
+# Environment
 export EDITOR="nvim"
 export VISUAL="nvim"
+
 # Necessary for packages complaining about Locale in nix cf. https://github.com/NixOS/nix/issues/4829 
 # For instance it causes issues with nix installed starship which leaves characters when using Tab completion in zsh
 # cf. https://stackoverflow.com/questions/19305291/remnant-characters-when-tab-completing-with-zsh
 export LC_ALL="C.UTF-8"
 
+export ZSH_PLUGINS_DIR="$HOME/.zsh-plugins"
+export NVIM_PLUGINS_DIR="$HOME/.nvim-plugins"
+
+# Nix aware setup
+NIX_PROFILE="$HOME/.nix-profile"
+if [ -e $NIX_PROFILE/share ]; then export ZSH_PLUGINS_DIR="$NIX_PROFILE/share"; fi
+if [ -e $NIX_PROFILE/share/neovim-plugins ]; then export NVIM_PLUGINS_DIR="$NIX_PROFILE/share/neovim-plugins"; fi
+
+# Update PATH through nix-env if present
+if [ -e $NIX_PROFILE/etc/profile.d/nix.sh ]; then source $NIX_PROFILE/etc/profile.d/nix.sh; fi
+
 # Prompt
-eval "$(starship init zsh)"
+if [ $(command -v starship) ]; then eval "$(starship init zsh)"; fi
 
 # History
 HISTSIZE=10000
@@ -59,27 +67,18 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'j' vi-down-line-or-history
 
 # Add zsh completion for nix installed tools
-if [ -e $NIX_HOME/share/zsh/site-functions ]
-then 
-  fpath+=($NIX_HOME/share/zsh/site-functions $fpath)
-fi
+if [ -e $ZSH_PLUGINS_DIR/zsh/site-functions ]; then fpath+=($ZSH_PLUGINS_DIR/zsh/site-functions $fpath); fi
 
 # Init completion
 autoload -Uz compinit
 compinit
 
 # FZF
-if [ -f $NIX_HOME/share/fzf/completion.zsh ]; then source $NIX_HOME/share/fzf/completion.zsh; fi
-if [ -f $NIX_HOME/share/fzf/key-bindings.zsh ]; then source $NIX_HOME/share/fzf/key-bindings.zsh; fi
-
-# Zsh-z
-if [ -f $NIX_HOME/share/zsh-z/zsh-z.plugin.zsh ]; then source $NIX_HOME/share/zsh-z/zsh-z.plugin.zsh; fi
+if [ -f $ZSH_PLUGINS_DIR/fzf/completion.zsh ]; then source $ZSH_PLUGINS_DIR/fzf/completion.zsh; fi
+if [ -f $ZSH_PLUGINS_DIR/fzf/key-bindings.zsh ]; then source $ZSH_PLUGINS_DIR/fzf/key-bindings.zsh; fi
 
 # Zsh-autosuggestions
-if [ -f $NIX_HOME/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then source $NIX_HOME/share/zsh-autosuggestions/zsh-autosuggestions.zsh; fi
+if [ -f $ZSH_PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then source $ZSH_PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh; fi
 
 # Syntax highlighting
-if [ -f $NIX_HOME/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
-then
-  source $NIX_HOME/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
+if [ -f $ZSH_PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then source $ZSH_PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh; fi
