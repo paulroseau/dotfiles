@@ -121,7 +121,32 @@
                   ]
                 }
               ]
-            }
+            },
+            {
+              "type": "basic",
+              "from": {
+                "key_code": "spacebar",
+                "modifiers": {
+                  "mandatory": ["left_option"]
+                }
+              },
+              "to": [
+                { 
+                  "key_code": "spacebar",
+                  "modifiers": ["left_command"]
+                }
+              ],
+              "conditions": [
+                {
+                  "type": "frontmost_application_if",
+                  "bundle_identifiers": [
+                    "^com\\.github\\.wez\\.wezterm$",
+                    "^org\\.alacritty$",
+                    "^com\\.apple\\.Terminal$"
+                  ]
+                }
+              ]
+            },
             {
               "type": "basic",
               "from": {
