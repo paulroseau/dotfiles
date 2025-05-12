@@ -7,10 +7,19 @@
       coder config-ssh
       ```
     - [x] configure coder ssh
-    - [ ] replicate your tmux setup (in particular nvim integration remotely)
-    - [ ] install wezterm on the client
+    - [x] install wezterm on Ubuntu docker image
     - [ ] configure multiplexing session and check that clipboard is working fine
-    - [ ] remove Nerdfonts
+  - [ ] replicate your tmux setup (in particular nvim integration remotely)
+    - [ ] lua what is userdata vs metatable
+    - [ ] default program
+    - [ ] vi mode in copy mode
+    - [ ] vi rectangular selection
+    - [ ] copy paste in copy mode
+    - [ ] navigation in nvim
+    - [ ] search
+    - [ ] reload config
+    - [ ] Session navigation
+  - [ ] check how it works on Linux, you probably need to do the same `ld` hack than on Alacritty to use the LibGL
 
 - shells:
   - [ ] add git completions with nix (understand whether you should add
