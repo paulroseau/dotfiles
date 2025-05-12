@@ -126,7 +126,7 @@
               "from": {
                 "key_code": "c",
                 "modifiers": {
-                  "mandatory": ["right_option", "right_shift"]
+                  "mandatory": ["left_option", "right_shift"]
                 }
               },
               "to": [
@@ -139,7 +139,6 @@
                 {
                   "type": "frontmost_application_if",
                   "bundle_identifiers": [
-                    "^com\\.github\\.wez\\.wezterm$",
                     "^org\\.alacritty$",
                     "^com\\.apple\\.Terminal$"
                   ]
@@ -151,7 +150,7 @@
               "from": {
                 "key_code": "v",
                 "modifiers": {
-                  "mandatory": ["right_option", "right_shift"]
+                  "mandatory": ["left_option", "right_shift"]
                 }
               },
               "to": [
@@ -164,7 +163,6 @@
                 {
                   "type": "frontmost_application_if",
                   "bundle_identifiers": [
-                    "^com\\.github\\.wez\\.wezterm$",
                     "^org\\.alacritty$",
                     "^com\\.apple\\.Terminal$"
                   ]
@@ -189,7 +187,6 @@
                 {
                   "type": "frontmost_application_if",
                   "bundle_identifiers": [
-                    "^com\\.github\\.wez\\.wezterm$",
                     "^org\\.alacritty$",
                     "^com\\.apple\\.Terminal$"
                   ]
