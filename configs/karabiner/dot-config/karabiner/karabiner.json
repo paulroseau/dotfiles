@@ -20,10 +20,10 @@
               "conditions": [
                 {
                   "type": "frontmost_application_if",
-                  "bundle_identifiers": [
-                    "^com\\.github\\.wez\\.wezterm$",
-                    "^org\\.alacritty$",
-                    "^com\\.apple\\.Terminal$"
+                  "file_paths": [
+                    "Terminal$",
+                    "alacritty$",
+                    "wezterm-gui$"
                   ]
                 }
               ]
@@ -44,10 +44,10 @@
               "conditions": [
                 {
                   "type": "frontmost_application_if",
-                  "bundle_identifiers": [
-                    "^com\\.github\\.wez\\.wezterm$",
-                    "^org\\.alacritty$",
-                    "^com\\.apple\\.Terminal$"
+                  "file_paths": [
+                    "Terminal$",
+                    "alacritty$",
+                    "wezterm-gui$"
                   ]
                 }
               ]
@@ -68,10 +68,10 @@
               "conditions": [
                 {
                   "type": "frontmost_application_if",
-                  "bundle_identifiers": [
-                    "^com\\.github\\.wez\\.wezterm$",
-                    "^org\\.alacritty$",
-                    "^com\\.apple\\.Terminal$"
+                  "file_paths": [
+                    "Terminal$",
+                    "alacritty$",
+                    "wezterm-gui$"
                   ]
                 }
               ]
@@ -89,10 +89,10 @@
               "conditions": [
                 {
                   "type": "frontmost_application_if",
-                  "bundle_identifiers": [
-                    "^com\\.github\\.wez\\.wezterm$",
-                    "^org\\.alacritty$",
-                    "^com\\.apple\\.Terminal$"
+                  "file_paths": [
+                    "Terminal$",
+                    "alacritty$",
+                    "wezterm-gui$"
                   ]
                 }
               ]
@@ -114,10 +114,10 @@
               "conditions": [
                 {
                   "type": "frontmost_application_if",
-                  "bundle_identifiers": [
-                    "^com\\.github\\.wez\\.wezterm$",
-                    "^org\\.alacritty$",
-                    "^com\\.apple\\.Terminal$"
+                  "file_paths": [
+                    "Terminal$",
+                    "alacritty$",
+                    "wezterm-gui$"
                   ]
                 }
               ]
@@ -139,10 +139,10 @@
               "conditions": [
                 {
                   "type": "frontmost_application_if",
-                  "bundle_identifiers": [
-                    "^com\\.github\\.wez\\.wezterm$",
-                    "^org\\.alacritty$",
-                    "^com\\.apple\\.Terminal$"
+                  "file_paths": [
+                    "Terminal$",
+                    "alacritty$",
+                    "wezterm-gui$"
                   ]
                 }
               ]
@@ -164,9 +164,9 @@
               "conditions": [
                 {
                   "type": "frontmost_application_if",
-                  "bundle_identifiers": [
-                    "^org\\.alacritty$",
-                    "^com\\.apple\\.Terminal$"
+                  "file_paths": [
+                    "Terminal$",
+                    "alacritty$"
                   ]
                 }
               ]
@@ -188,9 +188,9 @@
               "conditions": [
                 {
                   "type": "frontmost_application_if",
-                  "bundle_identifiers": [
-                    "^org\\.alacritty$",
-                    "^com\\.apple\\.Terminal$"
+                  "file_paths": [
+                    "Terminal$",
+                    "alacritty$"
                   ]
                 }
               ]
@@ -212,9 +212,9 @@
               "conditions": [
                 {
                   "type": "frontmost_application_if",
-                  "bundle_identifiers": [
-                    "^org\\.alacritty$",
-                    "^com\\.apple\\.Terminal$"
+                  "file_paths": [
+                    "Terminal$",
+                    "alacritty$"
                   ]
                 }
               ]
@@ -236,9 +236,9 @@
               "conditions": [
                 {
                   "type": "frontmost_application_if",
-                  "bundle_identifiers": [
-                    "^org\\.alacritty$",
-                    "^com\\.apple\\.Terminal$"
+                  "file_paths": [
+                    "Terminal$",
+                    "alacritty$"
                   ]
                 }
               ]
