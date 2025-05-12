@@ -21,6 +21,7 @@
                 {
                   "type": "frontmost_application_if",
                   "bundle_identifiers": [
+                    "^com\\.github\\.wez\\.wezterm$",
                     "^org\\.alacritty$",
                     "^com\\.apple\\.Terminal$"
                   ]
@@ -44,6 +45,7 @@
                 {
                   "type": "frontmost_application_if",
                   "bundle_identifiers": [
+                    "^com\\.github\\.wez\\.wezterm$",
                     "^org\\.alacritty$",
                     "^com\\.apple\\.Terminal$"
                   ]
@@ -60,13 +62,14 @@
               },
               "to": [
                 { 
-                  "key_code": "right_option"
+                  "key_code": "left_option"
                 }
               ],
               "conditions": [
                 {
                   "type": "frontmost_application_if",
                   "bundle_identifiers": [
+                    "^com\\.github\\.wez\\.wezterm$",
                     "^org\\.alacritty$",
                     "^com\\.apple\\.Terminal$"
                   ]
@@ -87,6 +90,7 @@
                 {
                   "type": "frontmost_application_if",
                   "bundle_identifiers": [
+                    "^com\\.github\\.wez\\.wezterm$",
                     "^org\\.alacritty$",
                     "^com\\.apple\\.Terminal$"
                   ]
@@ -135,6 +139,7 @@
                 {
                   "type": "frontmost_application_if",
                   "bundle_identifiers": [
+                    "^com\\.github\\.wez\\.wezterm$",
                     "^org\\.alacritty$",
                     "^com\\.apple\\.Terminal$"
                   ]
@@ -159,6 +164,7 @@
                 {
                   "type": "frontmost_application_if",
                   "bundle_identifiers": [
+                    "^com\\.github\\.wez\\.wezterm$",
                     "^org\\.alacritty$",
                     "^com\\.apple\\.Terminal$"
                   ]
@@ -183,6 +189,7 @@
                 {
                   "type": "frontmost_application_if",
                   "bundle_identifiers": [
+                    "^com\\.github\\.wez\\.wezterm$",
                     "^org\\.alacritty$",
                     "^com\\.apple\\.Terminal$"
                   ]
@@ -207,6 +214,7 @@
                 {
                   "type": "frontmost_application_if",
                   "bundle_identifiers": [
+                    "^com\\.github\\.wez\\.wezterm$",
                     "^org\\.alacritty$",
                     "^com\\.apple\\.Terminal$"
                   ]
