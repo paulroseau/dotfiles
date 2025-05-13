@@ -1,0 +1,93 @@
+set-option -g default-command "zsh --login"
+
+# Key binding to toogle vim-mode option which alters pane navigation mappings (cf. below)
+vim_mode_option="@vim_mode"
+is_vim_mode_on="[ $(tmux show-option -pv ${vim_mode_option}) = \"on\" ]"
+bind-key -T root "M-\\" {
+  run-shell "\
+    if [ \"$(tmux show-option -pv ${vim_mode_option})\" = \"on\" ] ;\
+    then \
+      tmux set-option -p ${vim_mode_option} \"off\" ;\
+    else \
+      tmux set-option -p ${vim_mode_option} \"on\" ;\
+    fi"
+}
+
+# Session navigation
+bind-key -T root M-h if-shell "$is_vim_mode_on" "send-keys M-h" "select-pane -L"
+bind-key -T root M-j if-shell "$is_vim_mode_on" "send-keys M-j" "select-pane -D"
+bind-key -T root M-k if-shell "$is_vim_mode_on" "send-keys M-k" "select-pane -U"
+bind-key -T root M-l if-shell "$is_vim_mode_on" "send-keys M-l" "select-pane -R"
+bind-key -T root M-< if-shell "$is_vim_mode_on" "send-keys M-<" "resize-pane -L"
+bind-key -T root M-> if-shell "$is_vim_mode_on" "send-keys M->" "resize-pane -R"
+bind-key -T root M-+ if-shell "$is_vim_mode_on" "send-keys M-+" "resize-pane -U"
+bind-key -T root M-- if-shell "$is_vim_mode_on" "send-keys M--" "resize-pane -D"
+bind-key -T root M-s if-shell "$is_vim_mode_on" "send-keys M-s" "split-pane -v -c '#{pane_current_path}'"
+bind-key -T root M-n if-shell "$is_vim_mode_on" "send-keys M-n" "split-pane -v -c '#{pane_current_path}'"
+bind-key -T root M-v if-shell "$is_vim_mode_on" "send-keys M-v" "split-pane -h -c '#{pane_current_path}'"
+bind-key -T root M-m if-shell "$is_vim_mode_on" "send-keys M-m" "split-pane -h -c '#{pane_current_path}'"
+bind-key -T root M-x if-shell "$is_vim_mode_on" "send-keys M-x" "swap-pane -U"
+
+bind-key -T copy-mode-vi M-h "select-pane -L"
+bind-key -T copy-mode-vi M-j "select-pane -D"
+bind-key -T copy-mode-vi M-k "select-pane -U"
+bind-key -T copy-mode-vi M-l "select-pane -R"
+bind-key -T copy-mode-vi M-< "resize-pane -L"
+bind-key -T copy-mode-vi M-> "resize-pane -R"
+bind-key -T copy-mode-vi M-+ "resize-pane -U"
+bind-key -T copy-mode-vi M-- "resize-pane -D"
+bind-key -T copy-mode-vi M-s "split-pane -v -c '#{pane_current_path}'"
+bind-key -T copy-mode-vi M-n "split-pane -v -c '#{pane_current_path}'"
+bind-key -T copy-mode-vi M-v "split-pane -h -c '#{pane_current_path}'"
+bind-key -T copy-mode-vi M-m "split-pane -h -c '#{pane_current_path}'"
+unbind-key -T copy-mode-vi C-h # by default this is set to cursor left, we want to default to previous-window defined above in the root table
+
+# Rearrange panes
+bind-key -T prefix p switch-client -T pane
+bind-key -T prefix C-p switch-client -T pane
+bind-key -T pane k kill-pane
+bind-key -T pane t choose-tree
+bind-key -T pane m choose-tree 'select-pane -m ; switch-client -t "%1" ; join-pane -t "%1"'
+bind-key -T pane e choose-tree 'select-pane -m ; join-pane -t "%1"'
+bind-key -T pane i choose-tree 'join-pane -s "%1"'
+bind-key -T prefix b break-pane
+bind-key -T prefix B break-pane -d
+bind-key -T pane N {
+  break-pane
+  command-prompt 'new-session -d -s "%1" ; move-window -k -t "%1:0" ; switch-client -t "%1"'
+}
+bind-key -T pane C-n {
+  break-pane
+  command-prompt 'new-session -d -s "%1" ; move-window -k -t "%1:0"'
+}
+
+# Rearrange windows
+bind-key -T prefix w switch-client -T window
+bind-key -T prefix C-w switch-client -T window
+bind-key -T window k kill-window
+bind-key -T window t choose-tree -w
+bind-key -T window m choose-tree -w {
+  run-shell 'tmux switch-client -t "%1" \; move-window -a -s "#{session_name}:#{window_index}" -t "%1"'
+}
+bind-key -T window i choose-tree -w 'move-window -s "%1"'
+bind-key -T window I choose-tree -w {
+  run-shell 'tmux move-window -k -s "%1" -t "#{session_name}:#{window_index}"'
+}
+bind-key -T window l choose-tree -w 'link-window -s "%1"'
+bind-key -T window u 'unlink-window'
+bind-key -T window N {
+  command-prompt 'new-session -d -s "%1" ; move-window -k -t "%1:0" ; switch-client -t "%1"'
+}
+bind-key -T window C-n {
+  command-prompt 'new-session -d -s "%1" ; move-window -k -t "%1:0"'
+}
+
+# Status bar
+set-option -g status-keys "emacs"
+set-option -g status-bg "#666666"
+set-option -g status-fg "#aaaaaa"
+set-option -g status-left-length 50
+set-option -g status-left "#[fg=#333000]session: #{session_name} | vim-mode: #{@vim_mode}"
+set-option -g status-right "#(date +'%H:%M - %d/%m/%Y')"
+set-option -g status-justify "absolute-centre"
+set-option -g status-interval 15
