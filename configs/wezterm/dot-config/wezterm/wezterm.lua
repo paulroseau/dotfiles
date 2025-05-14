@@ -21,7 +21,6 @@ local rename_workspace = wezterm.action_callback(function(window, pane, _)
   local current_workspace = wezterm.mux.get_active_workspace()
   window:perform_action(act.PromptInputLine {
       description = 'Rename current Workspace (' .. current_workspace .. '):',
-      initial_value = '',
       action = wezterm.action_callback(function(_, _, line)
         if line then
           wezterm.mux.rename_workspace(current_workspace, line)
@@ -50,7 +49,6 @@ config.keys = {
   { key = 'r', mods = 'LEADER', action = act.ReloadConfiguration, },
   { key = ',', mods = 'LEADER', action = act.PromptInputLine {
       description = 'Rename tab:',
-      initial_value = '',
       action = wezterm.action_callback(function(window, _, line)
         if line then
           window:active_tab():set_title(line)
@@ -59,7 +57,6 @@ config.keys = {
   }, },
   { key = 'n', mods = 'LEADER|SHIFT', action = act.PromptInputLine {
       description = 'New workspace name:',
-      initial_value = '',
       action = wezterm.action_callback(function(_, _, line)
         if line then
           wezterm.mux.spawn_window { workspace = line }
