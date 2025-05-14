@@ -40,8 +40,8 @@ vim.keymap.set({''} , '<M-v>', '<C-w>v')
 vim.keymap.set({''} , '<M-]>', '<C-w>g<C-]>')
 
 -- Window closing
-vim.keymap.set({'', 't'} , '<M-c>', '<C-w>c')
-vim.keymap.set({'', 't'} , '<M-o>', '<C-w>o')
+vim.keymap.set({''} , '<M-c>', '<C-w>c')
+vim.keymap.set({''} , '<M-o>', '<C-w>o')
 
 -- Tabpage creating
 vim.keymap.set({'n'} , 'Tn', '<cmd>tabnew<CR>')
