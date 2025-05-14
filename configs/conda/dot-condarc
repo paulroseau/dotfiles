@@ -1,5 +1,7 @@
-name: base
-dependencies:
+channels: 
+  - conda-forge
+
+create_default_packages:
   - conda-forge::bat=0.25.*
   - conda-forge::curl=8.13.*
   - conda-forge::fd-find=10.2.*
@@ -10,7 +12,7 @@ dependencies:
   - conda-forge::nvim=0.11.*
   - conda-forge::ripgrep=14.1.*
   - conda-forge::starship=1.23.*
-  - conda-forge::stow=2.3.*
+  - conda-forge::stow=2.3.* # TODO update to 2.4.* when CI goes through: https://github.com/conda-forge/stow-feedstock
   - conda-forge::tig=2.5.*
   - conda-forge::tmux=3.5.*
   - conda-forge::yq=3.4.*
