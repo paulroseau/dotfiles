@@ -78,6 +78,8 @@ config.keys = {
 }
 
 -- TODO
+-- Consider using the Input select for switching workspaces
+-- prettier tabs
 -- Create a domain dynamically ? needs to be added to wezterm
 -- Closing a workspace at once (not supported natively, lots of lua code cf. https://github.com/wezterm/wezterm/issues/3658, not worth it)
 -- contribute to add `Ctrl-C` to exit launcher, super-mini change: https://github.com/wezterm/wezterm/issues/4722

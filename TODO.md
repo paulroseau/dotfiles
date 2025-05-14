@@ -1,25 +1,41 @@
+- Ephemeral environments:
+  - with conda:
+  ```sh
+  
+  ```
 - Wezterm:
   - POC on Windows:
     - [x] install wezterm manually (zipfile)
     - [x] install coder and configure cli
       ```
       winget install Coder.Coder
+      coder login http://...
       coder config-ssh
+      ssh coder.<...>
       ```
     - [x] configure coder ssh
     - [x] install wezterm on Ubuntu docker image
     - [ ] configure multiplexing session and check that clipboard is working fine
+  - Karabiner:
+    - [ ] check if conditions for karabiner could not be factored out
+    - [x] find how to apply changes to when wezterm is launched from the command line -> use FilePath instead of bundle identifier
+  - Default program:
+    - [ ] (same issue on Alacritty) on MacOS the default PATH is prepended, so /bin/zsh is started instead of the nix one. Modifications to the path are not taken into account unless you launch it via command line (for which karabiner does not work ...)
+      -> potential solution, wrap it in Nix
   - [ ] replicate your tmux setup (in particular nvim integration remotely)
     - [ ] lua what is userdata vs metatable
     - [ ] default program
-    - [ ] vi mode in copy mode
-    - [ ] vi rectangular selection
-    - [ ] copy paste in copy mode
+        - [ ] zsh is not the nix-env one!
+    - [x] vi mode in copy mode
+    - [x] vi rectangular selection
+    - [x] copy paste in copy mode
+    - [ ] remove default mappings
     - [ ] navigation in nvim
     - [ ] search
     - [ ] reload config
     - [ ] Session navigation
   - [ ] check how it works on Linux, you probably need to do the same `ld` hack than on Alacritty to use the LibGL
+  - [ ] contribute to add `Ctrl-C` to exit launcher, super-mini change: https://github.com/wezterm/wezterm/issues/4722
 
 - shells:
   - [ ] add git completions with nix (understand whether you should add

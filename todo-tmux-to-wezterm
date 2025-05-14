@@ -14,6 +14,9 @@ bind-key -T root "M-\\" {
 }
 
 # Session navigation
+bind-key -T prefix t choose-tree
+bind-key -T prefix C-t choose-tree
+
 bind-key -T root M-h if-shell "$is_vim_mode_on" "send-keys M-h" "select-pane -L"
 bind-key -T root M-j if-shell "$is_vim_mode_on" "send-keys M-j" "select-pane -D"
 bind-key -T root M-k if-shell "$is_vim_mode_on" "send-keys M-k" "select-pane -U"
@@ -73,8 +76,6 @@ bind-key -T window i choose-tree -w 'move-window -s "%1"'
 bind-key -T window I choose-tree -w {
   run-shell 'tmux move-window -k -s "%1" -t "#{session_name}:#{window_index}"'
 }
-bind-key -T window l choose-tree -w 'link-window -s "%1"'
-bind-key -T window u 'unlink-window'
 bind-key -T window N {
   command-prompt 'new-session -d -s "%1" ; move-window -k -t "%1:0" ; switch-client -t "%1"'
 }
