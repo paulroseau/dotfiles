@@ -8,13 +8,13 @@ local DEFAULT_CONFIG = {
     vim_mode_hook_id = 10, -- picked randomly, easiest way to add and remove one particular hook
     vim_option_name = nil,
   },
-  augroup_name = "NvimTmux",
+  augroup_name = "NvimInTmux",
   do_preserve_zoomed_window = true,
 }
 
 function M.setup(_config)
   if not vim.env.TMUX then 
-    vim.notify_once("nvim-tmux needs to execute inside tmux", vim.log.levels.WARN)
+    vim.notify_once("Not running in tmux, skipping nvim-tmux setup", vim.log.levels.INFO)
     return nil
   end
 
@@ -27,9 +27,8 @@ function M.setup(_config)
 
   local config = vim.tbl_deep_extend("force", DEFAULT_CONFIG, _config or {})
   config.tmux.vim_option_name = tmux_vim_option_name
-  local pane_id = tmux.get_current_pane_id()
 
-  local tmux_client = tmux.client(config.tmux, pane_id)
+  local tmux_client = tmux.client(config.tmux)
   utils.setup_augroup(config.augroup_name, tmux_client)
   utils.setup_commands(config, tmux_client)
 

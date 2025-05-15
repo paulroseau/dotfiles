@@ -7,12 +7,10 @@ local function get_tmux_option_value(flag_name, type)
   return result
 end
 
-function M.get_current_pane_id()
-  return get_tmux_option_value("pane_id", "*line")
-end
-
-function M.client(config, pane_id)
+function M.client(config)
   local TmuxClient = {}
+
+  local pane_id = get_tmux_option_value("pane_id", "*line")
 
   function TmuxClient.set_vim_mode_hook_on_current_pane()
     return os.execute("tmux set-option -t " .. pane_id .. " -p pane-focus-in[" .. config.vim_mode_hook_id .. "] 'set-option -p " .. config.vim_option_name .. " \"on\"'")

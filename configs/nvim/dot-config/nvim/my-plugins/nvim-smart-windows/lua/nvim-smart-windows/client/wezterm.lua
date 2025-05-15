@@ -1,0 +1,58 @@
+local M = {}
+
+local function set_wezterm_user_var(key, value)
+  io.write(vim.fn.printf("\x1b]1337;SetUserVar=%s=%s\a", key, vim.base64.encode(value)))
+end
+
+local DEFAULT_CONFIG = {
+  nvim_wezterm_user_var = 'is_nvim_running'
+}
+
+local Direction = {
+  h = "Left",
+  j = "Down",
+  k = "Up",
+  l = "Right",
+}
+
+function M.client(_config)
+  local client = {}
+
+  local config = vim.tbl_deep_extend("force", DEFAULT_CONFIG, _config or {})
+
+  local state = true
+
+  local function update_nvim_wezterm_user_var(value)
+    state = value
+    set_wezterm_user_var(config.nvim_wezterm_user_var, tostring(state))
+  end
+
+  function client.set_nvim_running_flag()
+    update_nvim_wezterm_user_var(true)
+  end
+
+  function client.unset_nvim_running_flag()
+    update_nvim_wezterm_user_var(false)
+  end
+
+  function client.toggle_nvim_running_flag()
+    update_nvim_wezterm_user_var(not state)
+  end
+
+  function client.is_terminal_active()
+    return vim.env.TERM_PROGRAM == 'WezTerm'
+  end
+
+  function client.is_current_pane_zoomed()
+    -- Wezterm does not support this, would need to create an issue or contribute
+    return false
+  end
+
+  function client.move_pane(nvim_key)
+    vim.system({ 'wezterm', 'cli', 'activate-pane-direction', Direction[nvim_key] })
+  end
+
+  return client
+end
+
+return M

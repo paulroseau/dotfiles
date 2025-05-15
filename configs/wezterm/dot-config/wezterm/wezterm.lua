@@ -1,6 +1,6 @@
 local wezterm = require('wezterm')
-local act = wezterm.action
 
+local act = wezterm.action
 local config = wezterm.config_builder()
 
 config.font = wezterm.font("Hurmit Nerd Font")
@@ -9,6 +9,8 @@ config.tab_and_split_indices_are_zero_based = true
 config.tab_bar_at_bottom = true
 
 config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
+
+local nvim_support = require("utils.nvim-support")
 
 -- need to bundle those in a function, with multiple we end up with SelectionMode on
 local activate_copy_mode_without_selection = wezterm.action_callback(function(window, pane, _)
@@ -33,15 +35,19 @@ config.keys = {
   -- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
   { key = 'a', mods = 'LEADER|CTRL', action = act.SendKey { key = 'a', mods = 'CTRL' }, },
   { key = '[', mods = 'LEADER', action = activate_copy_mode_without_selection, },
-  { key = 'x', mods = 'CTRL', action = act.CloseCurrentPane { confirm = false }, },
+  { key = 'b', mods = 'LEADER', action = wezterm.action_callback(function(window, pane)
+      local tab, _ = pane:move_to_new_tab()
+      tab:activate()
+    end), },
+  { key = 'b', mods = 'LEADER|SHIFT', action = wezterm.action_callback(function(window, pane)
+      pane:move_to_new_tab()
+    end), },
   { key = 'w', mods = 'LEADER', action = act.CloseCurrentTab { confirm = false }, },
   { key = 'w', mods = 'LEADER|CTRL', action = act.CloseCurrentPane { confirm = false }, },
-  { key = 's', mods = 'META', action = act.SplitVertical { domain = 'CurrentPaneDomain' }, },
-  { key = 'v', mods = 'META', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' }, },
   { key = 'z', mods = 'META', action = act.TogglePaneZoomState, },
   { key = 'c', mods = 'LEADER', action = act.SpawnTab 'CurrentPaneDomain', },
-  { key = 'h', mods = 'CTRL', action = act.ActivateTabRelative(-1) },
-  { key = 'l', mods = 'CTRL', action = act.ActivateTabRelative(1) },
+  { key = 'h', mods = 'CTRL', action = act.ActivateTabRelativeNoWrap(-1) },
+  { key = 'l', mods = 'CTRL', action = act.ActivateTabRelativeNoWrap(1) },
   { key = 'h', mods = 'CTRL|META', action = act.MoveTabRelative(-1) },
   { key = 'l', mods = 'CTRL|META', action = act.MoveTabRelative(1) },
   { key = 'l', mods = 'LEADER', action = act.SendKey { key = 'l', mods = 'CTRL' } },
@@ -55,6 +61,14 @@ config.keys = {
         end
       end),
   }, },
+  { key = 'n', mods = 'LEADER|CTRL', action = act.PromptInputLine {
+      description = 'New workspace name:',
+      action = wezterm.action_callback(function(_, _, line)
+        if line then
+          wezterm.mux.spawn_window { workspace = line }
+        end
+      end),
+  }, },
   { key = 'n', mods = 'LEADER|SHIFT', action = act.PromptInputLine {
       description = 'New workspace name:',
       action = wezterm.action_callback(function(_, _, line)
@@ -65,14 +79,28 @@ config.keys = {
       end),
   }, },
   { key = 'r', mods = 'LEADER|SHIFT', action = rename_workspace }, 
-  { key = 'r', mods = 'META', action = act.RotatePanes 'Clockwise', },
-  { key = 'R', mods = 'META', action = act.RotatePanes 'CounterClockwise', },
   { key = 'q', mods = 'LEADER', action = act.QuitApplication },
   { key = 's', mods = 'LEADER', action = act.ShowLauncherArgs { flags = 'WORKSPACES' } },
   { key = 's', mods = 'LEADER|CTRL', action = act.ShowLauncherArgs { flags = 'WORKSPACES' } },
   { key = 's', mods = 'LEADER|SHIFT', action = act.ShowLauncherArgs { flags = 'DOMAINS' } },
   { key = '=', mods = 'CTRL', action = act.ResetFontSize },
+  nvim_support.assign_key { key = 'x', mods = 'CTRL', action = act.CloseCurrentPane { confirm = false }, },
+  nvim_support.assign_key { key = 's', mods = 'META', action = act.SplitPane { direction = 'Up' }, },
+  nvim_support.assign_key { key = 'v', mods = 'META', action = act.SplitPane { direction = 'Right' }, },
+  nvim_support.assign_key { key = 'n', mods = 'META', action = act.SplitPane { direction = 'Up' }, },
+  nvim_support.assign_key { key = 'm', mods = 'META', action = act.SplitPane { direction = 'Right' }, },
+  nvim_support.assign_key { key = 'r', mods = 'META', action = act.RotatePanes 'Clockwise', },
+  nvim_support.assign_key { key = 'R', mods = 'META', action = act.RotatePanes 'CounterClockwise', },
+  nvim_support.assign_key { key = 'h', mods = 'META', action = act.ActivatePaneDirection 'Left', },
+  nvim_support.assign_key { key = 'j', mods = 'META', action = act.ActivatePaneDirection 'Down', },
+  nvim_support.assign_key { key = 'k', mods = 'META', action = act.ActivatePaneDirection 'Up', },
+  nvim_support.assign_key { key = 'l', mods = 'META', action = act.ActivatePaneDirection 'Right', },
+  nvim_support.assign_key { key = '<', mods = 'META|SHIFT', action = act.AdjustPaneSize { 'Left', 2 }, },
+  nvim_support.assign_key { key = '-', mods = 'META', action = act.AdjustPaneSize { 'Down', 2 }, },
+  nvim_support.assign_key { key = '+', mods = 'META|SHIFT', action = act.AdjustPaneSize { 'Up', 2 }, },
+  nvim_support.assign_key { key = '>', mods = 'META|SHIFT', action = act.AdjustPaneSize { 'Right', 2 }, },
 }
+
 
 -- TODO
 -- Consider using the Input select for switching workspaces
@@ -200,5 +228,10 @@ config.key_tables = {
   copy_mode = copy_mode,
   search_mode = search_mode
 }
+
+-- TODO
+wezterm.on('update-right-status', function(window, pane)
+  window:set_right_status(window:active_workspace())
+end)
 
 return config
