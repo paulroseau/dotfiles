@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+if [[ -z "$ZSH_PLUGINS_DIR" || -z "$NVIM_PLUGINS_DIR" ]] ; then source ~/.zshrc ; fi
+
 function clone_and_update_repo {
   plugin_name=$1
   owner=$2

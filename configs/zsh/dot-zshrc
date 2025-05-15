@@ -76,13 +76,12 @@ compinit
 # FZF
 FZF_SHELL_DIR="$(dirname $(dirname $(which fzf)))/share/fzf"
 
+if [ -f $FZF_SHELL_DIR/shell/completion.zsh ]; then source $FZF_SHELL_DIR/shell/completion.zsh; fi
+if [ -f $FZF_SHELL_DIR/shell/key-bindings.zsh ]; then source $FZF_SHELL_DIR/shell/key-bindings.zsh; fi
+
 # For nix
 if [ -f $FZF_SHELL_DIR/completion.zsh ]; then source $FZF_SHELL_DIR/completion.zsh; fi
 if [ -f $FZF_SHELL_DIR/key-bindings.zsh ]; then source $FZF_SHELL_DIR/key-bindings.zsh; fi
-
-# For conda
-if [ -f $FZF_SHELL_DIR/shell/completion.zsh ]; then source $FZF_SHELL_DIR/shell/completion.zsh; fi
-if [ -f $FZF_SHELL_DIR/shell/key-bindings.zsh ]; then source $FZF_SHELL_DIR/shell/key-bindings.zsh; fi
 
 # Zsh-autosuggestions
 if [ -f $ZSH_PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then source $ZSH_PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh; fi
