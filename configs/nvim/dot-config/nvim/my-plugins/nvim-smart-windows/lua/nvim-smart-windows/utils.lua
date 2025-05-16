@@ -44,12 +44,6 @@ function M.setup_commands(config, client)
     change_nvim_window,
     { nargs = 1 }
   )
-
-  vim.api.nvim_create_user_command(
-    config.command_prefix .. 'Toggle', 
-    client.toggle_nvim_running_flag,
-    {}
-  )
 end
 
 return M

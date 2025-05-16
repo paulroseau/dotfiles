@@ -15,5 +15,4 @@ if nvim_smart_windows then
   vim.keymap.set({'', 't'} , '<M-j>', '<cmd>' .. prefix .. 'Wincmd j<CR>')
   vim.keymap.set({'', 't'} , '<M-k>', '<cmd>' .. prefix .. 'Wincmd k<CR>')
   vim.keymap.set({'', 't'} , '<M-l>', '<cmd>' .. prefix .. 'Wincmd l<CR>')
-  vim.keymap.set({'', 't'} , '<M-\\>', '<cmd>' .. prefix .. 'Toggle<CR>')
 end

@@ -35,10 +35,6 @@ function M.client(_config)
     update_nvim_wezterm_user_var(false)
   end
 
-  function client.toggle_nvim_running_flag()
-    update_nvim_wezterm_user_var(not state)
-  end
-
   function client.is_terminal_active()
     return vim.env.TERM_PROGRAM == 'WezTerm'
   end
