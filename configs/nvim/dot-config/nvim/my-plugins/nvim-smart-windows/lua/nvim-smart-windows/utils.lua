@@ -4,12 +4,12 @@ function M.setup_augroup(augroup_name, client)
   local augroup = vim.api.nvim_create_augroup(augroup_name, { clear = true })
 
   vim.api.nvim_create_autocmd({'VimEnter', 'VimResume'}, {
-    callback = client.set_nvim_running_flag,
+    callback = client.set_nvim_running_mode,
     group = augroup,
   })
 
   vim.api.nvim_create_autocmd({'VimLeave', 'VimSuspend'}, {
-    callback = client.unset_nvim_running_flag,
+    callback = client.unset_nvim_running_mode,
     group = augroup,
   })
 
@@ -33,6 +33,8 @@ function M.setup_commands(config, client)
     if end_window ~= start_window then
       return
     elseif client.is_current_pane_zoomed() and config.do_preserve_zoomed_pane then
+      return
+    elseif client.is_current_pane_on_edge(nvim_key) then
       return
     end
 

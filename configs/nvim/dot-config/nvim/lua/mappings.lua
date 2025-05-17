@@ -26,10 +26,10 @@ vim.keymap.set({'', 't'} , '<M-r>', '<C-w>r')
 vim.keymap.set({'', 't'} , '<M-R>', '<C-w>R')
 
 -- Window resizing
-vim.keymap.set({'', 't'} , '<M-=>', '<C-w>=', { remap = true })
-vim.keymap.set({'', 't'} , '<M-+>', '<C-w>+', { remap = true })
-vim.keymap.set({'', 't'} , '<M-->', '<C-w>-', { remap = true })
-vim.keymap.set({'', 't'} , '<M->>', '<C-w>>', { remap = true })
+vim.keymap.set({'', 't'} , '<M-=>', '<C-w>=')
+vim.keymap.set({'', 't'} , '<M-+>', '<C-w>+')
+vim.keymap.set({'', 't'} , '<M-->', '<C-w>-')
+vim.keymap.set({'', 't'} , '<M->>', '<C-w>>')
 vim.keymap.set({'', 't'} , '<M-<>', '<C-w><')
 
 -- Window creating

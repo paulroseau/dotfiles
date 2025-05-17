@@ -7,10 +7,11 @@ local act = wezterm.action
 local config = wezterm.config_builder()
 
 config.font = wezterm.font("Hurmit Nerd Font")
+config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
 config.window_decorations = "RESIZE"
 config.tab_and_split_indices_are_zero_based = true
 config.tab_bar_at_bottom = true
-config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
+config.unzoom_on_switch_pane = false
 
 config.keys = {
   -- terminal
@@ -126,12 +127,12 @@ wezterm.on('update-right-status', function(window, pane)
 end)
 
 -- TODO
+-- nvim to handle last window resizing better
 -- rework tmux plugin to make if fit smart-windows
 -- Consider using the Input select for switching workspaces
 -- prettier tabs
 -- prettier statusline
 -- Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit
--- nvim to handle last window resizing better
 -- theme and size of window on wezterm
 -- Closing a workspace at once (not supported natively, lots of lua code cf. https://github.com/wezterm/wezterm/issues/3658, not worth it)
 -- contribute to add `Ctrl-C` to exit launcher, super-mini change: https://github.com/wezterm/wezterm/issues/4722

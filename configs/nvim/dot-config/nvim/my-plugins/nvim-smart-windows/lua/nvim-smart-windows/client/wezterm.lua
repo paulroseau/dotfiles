@@ -1,12 +1,12 @@
 local M = {}
 
-local function set_wezterm_user_var(key, value)
-  io.write(vim.fn.printf("\x1b]1337;SetUserVar=%s=%s\a", key, vim.base64.encode(value)))
-end
-
 local DEFAULT_CONFIG = {
   nvim_wezterm_user_var = 'is_nvim_running'
 }
+
+local function set_wezterm_user_var(key, value)
+  io.write(vim.fn.printf("\x1b]1337;SetUserVar=%s=%s\a", key, vim.base64.encode(value)))
+end
 
 local Direction = {
   h = "Left",
@@ -27,11 +27,11 @@ function M.client(_config)
     set_wezterm_user_var(config.nvim_wezterm_user_var, tostring(state))
   end
 
-  function client.set_nvim_running_flag()
+  function client.set_nvim_running_mode()
     update_nvim_wezterm_user_var(true)
   end
 
-  function client.unset_nvim_running_flag()
+  function client.unset_nvim_running_mode()
     update_nvim_wezterm_user_var(false)
   end
 
@@ -40,7 +40,12 @@ function M.client(_config)
   end
 
   function client.is_current_pane_zoomed()
-    -- Wezterm does not support this, would need to create an issue or contribute
+    -- not handling if from here, we set unzoom_on_switch_pane in wezterm config
+    return false
+  end
+
+  function client.is_current_pane_on_edge(nvim_key)
+    -- Wezterm prevents the wrapping around panes by default
     return false
   end
 
