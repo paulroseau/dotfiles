@@ -90,7 +90,7 @@ M.spawn_workspace = act.PromptInputLine {
 M.rename_workspace = wezterm.action_callback(function(window, pane, _)
   local current_workspace = wezterm.mux.get_active_workspace()
   window:perform_action(act.PromptInputLine {
-    description = 'Rename current Workspace (' .. current_workspace .. '):',
+    description = 'Rename current Workspace ("' .. current_workspace .. '"):',
     action = wezterm.action_callback(function(_, _, line)
       if line then
         wezterm.mux.rename_workspace(current_workspace, line)
@@ -119,14 +119,17 @@ function M.activate_tab_relative(offset)
   }
 end
 
-M.rename_tab = act.PromptInputLine {
-  description = 'Rename tab:',
-  action = wezterm.action_callback(function(window, pane, line)
-    if line then
-      window:active_tab():set_title(line)
-    end
-  end),
-}
+M.rename_tab = wezterm.action_callback(function(window, pane, _)
+  local current_tab_title = window:active_tab():get_title()
+  window:perform_action(act.PromptInputLine {
+    description = 'Rename tab ("' .. current_tab_title .. '"):',
+    action = wezterm.action_callback(function(window, pane, line)
+      if line then
+        window:active_tab():set_title(line)
+      end
+    end),
+  }, pane)
+end)
 
 -- Panes
 M.move_pane_to_new_tab = wezterm.action_callback(function(window, pane)
