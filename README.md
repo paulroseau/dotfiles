@@ -144,3 +144,10 @@ paste-buffer
 ```
 
 More details through `man tmux`.
+
+## Wezterm
+
+To debug and check user set variables type `Ctrl+Shift+L` to get to the debug console and run:
+```lua
+wezterm.mux.get_window(0):active_pane():get_user_vars()
+```
