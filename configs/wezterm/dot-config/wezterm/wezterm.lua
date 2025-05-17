@@ -18,6 +18,7 @@ config.keys = {
   { key = 'r', mods = 'LEADER', action = act.ReloadConfiguration },
   { key = 'q', mods = 'LEADER', action = act.QuitApplication },
   { key = '=', mods = 'CTRL', action = act.ResetFontSize },
+  { key = 'f', mods = 'CTRL|SHIFT', action = act.ToggleFullScreen, },
 
   -- sending keys
   { key = 'a', mods = 'LEADER|CTRL', action = act.SendKey { key = 'a', mods = 'CTRL' } },
@@ -39,7 +40,7 @@ config.keys = {
   -- tabs
   { key = 'c', mods = 'LEADER', action = extra_action.spawn_tab },
   { key = ',', mods = 'LEADER', action = extra_action.rename_tab },
-  { key = 'w', mods = 'LEADER', action = extra_action.close_current_tab },
+  { key = 'w', mods = 'CTRL|SHIFT', action = extra_action.close_current_tab },
   { key = 'h', mods = 'CTRL', action = extra_action.activate_tab_relative(-1) },
   { key = 'l', mods = 'CTRL', action = extra_action.activate_tab_relative(1) },
   { key = 'h', mods = 'CTRL|META', action = act.MoveTabRelative(-1) },
@@ -118,6 +119,12 @@ config.key_tables = {
 -- Event handlers
 nvim_support.set_on_pane_focused_in_handler()
 
+wezterm.on('gui-startup', function(cmd)
+  local _, pane, window = wezterm.mux.spawn_window(cmd or {})
+  local gui_window = window:gui_window()
+  gui_window:perform_action(act.ToggleFullScreen, pane)
+end)
+
 wezterm.on('update-right-status', function(window, pane)
   local right_status = "workspace: " .. window:active_workspace()
   if nvim_support.get_ignore_nvim_running_flag() then
@@ -128,14 +135,16 @@ end)
 
 -- TODO
 -- nvim to handle last window resizing better
--- rework tmux plugin to make if fit smart-windows
--- Consider using the Input select for switching workspaces
 -- prettier tabs
 -- prettier statusline
--- Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit
 -- theme and size of window on wezterm
+-- Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit, test
+-- Consider using the Input select for switching workspaces
+-- actually launch nix's zsh if nix is there
+--
 -- Closing a workspace at once (not supported natively, lots of lua code cf. https://github.com/wezterm/wezterm/issues/3658, not worth it)
 -- contribute to add `Ctrl-C` to exit launcher, super-mini change: https://github.com/wezterm/wezterm/issues/4722
+--
 -- Big issues at the moment:
 --   search not intuitive, selection by default also when you come back, case sensitivity, there should be only 1 copy mode
 --   missing choose-tree, more uniforms menus
@@ -145,6 +154,7 @@ end)
 --   move pane/tab to new workspace (1 window/workspace)
 --   customizable keymaps in menu mode and search mode
 --   better vim movements (e not respected, E, etc.)
+--
 -- Enhancement:
 --    change layout like in nvim, right now you can just rotate panes
 --    have a command line (vim style? C-a : and C-a /) with either emacs or vim mappings, but still customizable
