@@ -16,16 +16,10 @@ function M.setup_augroup(augroup_name, client)
   return augroup
 end
 
-local allowed_nvim_keys = { h = {}, j = {}, k = {}, l = {}, }
+local direction = { h = "Left", j = "Down", k = "Up", l = "Right", }
 
-function M.setup_commands(config, client)
-
+local function create_command(config, client, nvim_key)
   local change_nvim_window = function(opts)
-    local nvim_key = opts.fargs[1]
-    if not allowed_nvim_keys[nvim_key] then
-      return
-    end
-
     local start_window = vim.fn.winnr()
     vim.cmd.wincmd(nvim_key)
     local end_window = vim.fn.winnr()
@@ -42,10 +36,17 @@ function M.setup_commands(config, client)
   end
 
   vim.api.nvim_create_user_command(
-    config.command_prefix .. 'Wincmd', 
+    config.command_prefix .. 'Wincmd' .. direction[nvim_key], 
     change_nvim_window,
-    { nargs = 1 }
+    { }
   )
+end
+
+function M.setup_commands(config, client)
+  create_command(config, client, 'h')
+  create_command(config, client, 'j')
+  create_command(config, client, 'k')
+  create_command(config, client, 'l')
 end
 
 return M

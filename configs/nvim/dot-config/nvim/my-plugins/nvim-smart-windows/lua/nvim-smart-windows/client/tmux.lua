@@ -35,10 +35,14 @@ local Direction = {
 function M.client(_config)
   local client = {}
 
+  function client.is_terminal_active()
+    return vim.env.TMUX
+  end
+
   local config = vim.tbl_deep_extend("force", DEFAULT_CONFIG, _config or {})
 
   local tmux_vim_option_name = vim.env.vim_mode_option
-  if not tmux_vim_option_name then
+  if client.is_terminal_active() and not tmux_vim_option_name then
     vim.notify_once("Running in tmux but no 'vim_mode_option' enviornment variable is defined, no smart window navigation", vim.log.levels.WARN)
     return nil
   end
@@ -64,10 +68,6 @@ function M.client(_config)
   function client.unset_nvim_running_mode()
     unset_vim_mode_hook_on_current_pane()
     set_tmux_pane_option(pane_id, tmux_vim_option_name, 'off')
-  end
-
-  function client.is_terminal_active()
-    return vim.env.TMUX
   end
 
   function client.is_current_pane_zoomed()

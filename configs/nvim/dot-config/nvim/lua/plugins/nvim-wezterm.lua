@@ -11,8 +11,8 @@ local nvim_smart_windows = require("nvim-smart-windows").setup({
 }) 
 
 if nvim_smart_windows then
-  vim.keymap.set({'', 't'} , '<M-h>', '<cmd>' .. prefix .. 'Wincmd h<CR>')
-  vim.keymap.set({'', 't'} , '<M-j>', '<cmd>' .. prefix .. 'Wincmd j<CR>')
-  vim.keymap.set({'', 't'} , '<M-k>', '<cmd>' .. prefix .. 'Wincmd k<CR>')
-  vim.keymap.set({'', 't'} , '<M-l>', '<cmd>' .. prefix .. 'Wincmd l<CR>')
+  vim.keymap.set({'', 't'} , '<M-h>', '<cmd>' .. prefix .. 'WincmdLeft<CR>')
+  vim.keymap.set({'', 't'} , '<M-j>', '<cmd>' .. prefix .. 'WincmdDown<CR>')
+  vim.keymap.set({'', 't'} , '<M-k>', '<cmd>' .. prefix .. 'WincmdUp<CR>')
+  vim.keymap.set({'', 't'} , '<M-l>', '<cmd>' .. prefix .. 'WincmdRight<CR>')
 end
