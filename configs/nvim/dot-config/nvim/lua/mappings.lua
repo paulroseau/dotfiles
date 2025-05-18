@@ -105,7 +105,8 @@ end
 
 vim.keymap.set({''} , '<leader>W', clear_trailing_whitespaces)
 
--- Remove scratch buffer
+-- Remove buffer quickly with C-x
+vim.keymap.set({'n'} , '<C-s>', '<C-x>') -- remap substract number to <C-s> first
 vim.keymap.set({'n'} , '<C-x>', '<cmd>bwipeout!<CR>')
 
 -- Hack! <C-Space> is interpreted by the terminal as <C-@> which is a built-in mapping (check :help *i_CTRL-@*)
