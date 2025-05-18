@@ -45,7 +45,7 @@ function M.client(_config)
   end
 
   function client.is_current_pane_on_edge(nvim_key)
-    -- Wezterm prevents the wrapping around panes by default
+    -- Wezterm prevents wrapping around panes by default
     return false
   end
 
