@@ -1,6 +1,8 @@
-require("nvim-resize-window").setup()
-vim.keymap.set({'', 't'} , '<M-<>', '<cmd>ResizeWinLeft<CR>')
-vim.keymap.set({'', 't'} , '<M-+>', '<cmd>ResizeWinDown<CR>')
-vim.keymap.set({'', 't'} , '<M-->', '<cmd>ResizeWinUp<CR>')
-vim.keymap.set({'', 't'} , '<M->>', '<cmd>ResizeWinRight<CR>')
+local resize_window = require("nvim-resize-window")
 
+local increment = 3
+
+vim.keymap.set({'', 't'} , '<M-<>', resize_window.left(increment))
+vim.keymap.set({'', 't'} , '<M-+>', resize_window.down(increment)) 
+vim.keymap.set({'', 't'} , '<M-->', resize_window.up(increment))
+vim.keymap.set({'', 't'} , '<M->>', resize_window.right(increment))
