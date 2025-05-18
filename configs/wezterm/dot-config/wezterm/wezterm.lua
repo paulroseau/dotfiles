@@ -6,12 +6,33 @@ local extra_action = require("utils.extra-action")
 local act = wezterm.action
 local config = wezterm.config_builder()
 
-config.font = wezterm.font("Hurmit Nerd Font")
-config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
+-- we install fonts with nix and we link them there, if nix is not available
+-- let's not bother to install fonts manually and just use the default
+if #wezterm.glob(wezterm.home_dir .. "/.dotfiles/fonts") > 0 then
+  config.font = wezterm.font("Hurmit Nerd Font")
+end
+config.color_scheme = 'Tokyo Night'
+
+local nix_installed_shell = wezterm.home_dir .. "/.nix-profile/bin/zsh"
+if #wezterm.glob(nix_installed_shell) > 0 then
+  config.default_prog = { nix_installed_shell, '--login' }
+end
+
 config.window_decorations = "RESIZE"
+config.window_padding = {
+  left = '0cell',
+  right = '0cell',
+  top = '0.1cell',
+  bottom = '0cell',
+}
+
 config.tab_and_split_indices_are_zero_based = true
-config.tab_bar_at_bottom = true
+config.tab_bar_at_bottom = false
+config.use_fancy_tab_bar = false
+
 config.unzoom_on_switch_pane = false
+
+config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
 
 config.keys = {
   -- terminal
@@ -75,46 +96,34 @@ if wezterm.gui then
   copy_mode = wezterm.gui.default_key_tables().copy_mode
   search_mode = wezterm.gui.default_key_tables().search_mode
 
-  table.insert(
-    copy_mode,
-    { key = 'y', mods = 'NONE', action = extra_action.copy_mode_yank_and_exit }
-  )
-  table.insert(
-    copy_mode,
-    { key = 'n', mods = 'NONE', action = extra_action.copy_mode_next_match }
-  )
-  table.insert(
-    copy_mode,
-    { key = 'n', mods = 'SHIFT', action = extra_action.copy_mode_prior_match }
-  )
-  table.insert(
-    copy_mode,
-    { key = 'Backspace', mods = 'NONE', action = act.CopyMode 'ClearPattern' }
-  )
-  table.insert(
-    copy_mode,
-    { key = '/', mods = 'NONE', action = extra_action.copy_mode_start_search }
-  )
+  local copy_mode_keys = {
+    { key = 'y', mods = 'NONE', action = extra_action.copy_mode_yank_and_exit },
+    { key = 'n', mods = 'NONE', action = extra_action.copy_mode_next_match },
+    { key = 'n', mods = 'SHIFT', action = extra_action.copy_mode_prior_match },
+    { key = 'Backspace', mods = 'NONE', action = act.CopyMode 'ClearPattern' },
+    { key = '/', mods = 'NONE', action = extra_action.copy_mode_start_search },
+  }
 
-  table.insert(
-    search_mode,
-    { key = 'c', mods = 'CTRL', action = extra_action.exit_copy_mode }
-  )
-  table.insert(
-    search_mode,
-    { key = 'w', mods = 'CTRL', action = act.CopyMode 'ClearPattern' }
-  )
+  for _, key in pairs(copy_mode_keys) do
+    table.insert(copy_mode, key)
+  end
 
-  table.insert(
-    search_mode,
-    { key = 'Enter', mods = 'NONE', action = extra_action.search_mode_validate }
-  )
+  local search_mode_keys = {
+    { key = 'c', mods = 'CTRL', action = extra_action.exit_copy_mode },
+    { key = 'w', mods = 'CTRL', action = act.CopyMode 'ClearPattern' },
+    { key = 'Enter', mods = 'NONE', action = extra_action.search_mode_validate },
+  }
+
+  for _, key in pairs(search_mode_keys) do
+    table.insert(search_mode, key)
+  end
+
+  config.key_tables = {
+    copy_mode = copy_mode,
+    search_mode = search_mode
+  }
 end
 
-config.key_tables = {
-  copy_mode = copy_mode,
-  search_mode = search_mode
-}
 
 -- Event handlers
 nvim_support.set_on_pane_focused_in_handler()
@@ -125,35 +134,41 @@ wezterm.on('gui-startup', function(cmd)
   gui_window:perform_action(act.ToggleFullScreen, pane)
 end)
 
-wezterm.on('update-right-status', function(window, pane)
-  local right_status = "workspace: " .. window:active_workspace()
-  if nvim_support.get_ignore_nvim_running_flag() then
-    right_status = right_status .. " | nvim: ignore"
-  end
-  window:set_right_status(right_status)
-end)
+-- wezterm.on('update-right-status', function(window, pane)
+--   local right_status = "workspace: " .. window:active_workspace()
+--   if nvim_support.get_ignore_nvim_running_flag() then
+--     right_status = right_status .. " | nvim: ignore"
+--   end
+--   window:set_right_status(right_status)
+-- end)
 
 -- TODO
--- nvim to handle last window resizing better
+-- fonts make a separate config files with the font size associated to each font
+-- you downlowd with nix, so that if you pick it you already have good settings
+-- (Agave for instance is too small by default)
 -- prettier tabs
 -- prettier statusline
 -- theme and size of window on wezterm
 -- Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit, test
+--
 -- Consider using the Input select for switching workspaces
 -- actually launch nix's zsh if nix is there
 --
 -- Closing a workspace at once (not supported natively, lots of lua code cf. https://github.com/wezterm/wezterm/issues/3658, not worth it)
 -- contribute to add `Ctrl-C` to exit launcher, super-mini change: https://github.com/wezterm/wezterm/issues/4722
 --
--- Big issues at the moment:
+-- Wezterm Big issues at the moment:
 --   search not intuitive, selection by default also when you come back, case sensitivity, there should be only 1 copy mode
 --   missing choose-tree, more uniforms menus
 --     import pane/tab from elsewhere (need choose-tree)
 --   missing focus pane events
 --   export pane/tab to new workspace (1 window/workspace)
 --   move pane/tab to new workspace (1 window/workspace)
---   customizable keymaps in menu mode and search mode
---   better vim movements (e not respected, E, etc.)
+--   customizable keymaps in menu mode and search mode (editing part, emacs style would be good by default)
+--   better vim movements in Copy Mode (e not respected, E, etc.)
+--
+-- Nvim issues:
+--   resizing of the windows in not intuitive
 --
 -- Enhancement:
 --    change layout like in nvim, right now you can just rotate panes
