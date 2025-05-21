@@ -1,16 +1,4 @@
 {
-    "lua-snip": {
-        "branch": "master",
-        "description": "Snippet Engine for Neovim written in Lua.",
-        "homepage": "",
-        "owner": "L3MON4D3",
-        "repo": "LuaSnip",
-        "rev": "v2.2.0",
-        "sha256": "05d5ks3g6a9dl3bmap8m60hnx3hc4acvcp2jzkw85r4anaawl45b",
-        "type": "tarball",
-        "url": "https://github.com/L3MON4D3/LuaSnip/archive/v2.2.0.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "cmp-buffer": {
         "branch": "main",
         "description": "nvim-cmp source for buffer words",
@@ -117,6 +105,30 @@
         "sha256": "1by9092fvfk1v06idfqhnx5bsisj28hk981ngylkzq806j7lbj09",
         "type": "tarball",
         "url": "https://github.com/ibhagwan/fzf-lua/archive/1e03541de4d8a169defe83bb4d7abfba450c63a1.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "gitmoji-nvim": {
+        "branch": "main",
+        "description": "Gitmojis for Neovim",
+        "homepage": "",
+        "owner": "Dynge",
+        "repo": "gitmoji.nvim",
+        "rev": "2659de229c2b26d50732f1220700eebbcdb2d6ef",
+        "sha256": "1klmxfx66snbna0kypbgmybpr953dj0lpc6yybysf8l69zclja3j",
+        "type": "tarball",
+        "url": "https://github.com/Dynge/gitmoji.nvim/archive/2659de229c2b26d50732f1220700eebbcdb2d6ef.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "lua-snip": {
+        "branch": "master",
+        "description": "Snippet Engine for Neovim written in Lua.",
+        "homepage": "",
+        "owner": "L3MON4D3",
+        "repo": "LuaSnip",
+        "rev": "v2.2.0",
+        "sha256": "05d5ks3g6a9dl3bmap8m60hnx3hc4acvcp2jzkw85r4anaawl45b",
+        "type": "tarball",
+        "url": "https://github.com/L3MON4D3/LuaSnip/archive/v2.2.0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lualine-nvim": {
