@@ -1,17 +1,20 @@
 local wezterm = require('wezterm')
 
-local nvim_support = require("utils.nvim-support")
-local extra_action = require("utils.extra-action")
+local nvim_support = require('utils.nvim-support')
+local extra_action = require('utils.extra-action')
+local fonts = require('utils.fonts')
 
 local act = wezterm.action
 local config = wezterm.config_builder()
 
 -- we install fonts with nix and we link them there, if nix is not available
 -- let's not bother to install fonts manually and just use the default
-if #wezterm.glob(wezterm.home_dir .. "/.dotfiles/fonts") > 0 then
-  config.font = wezterm.font("Hurmit Nerd Font")
+nix_installed_fonts_dir = wezterm.home_dir .. '/.dotfiles/fonts'
+if #wezterm.glob(nix_installed_fonts_dir) > 0 then
+  config.font_dirs = { nix_installed_fonts_dir }
+  fonts.set_font('hurmit', config)
 end
-config.color_scheme = 'Tokyo Night'
+config.color_scheme = 'Tokyo Night Moon'
 
 local nix_installed_shell = wezterm.home_dir .. "/.nix-profile/bin/zsh"
 if #wezterm.glob(nix_installed_shell) > 0 then
@@ -19,6 +22,8 @@ if #wezterm.glob(nix_installed_shell) > 0 then
 end
 
 config.window_decorations = "RESIZE"
+config.initial_rows = 45
+config.initial_cols = 150
 config.window_padding = {
   left = '0cell',
   right = '0cell',
@@ -29,6 +34,8 @@ config.window_padding = {
 config.tab_and_split_indices_are_zero_based = true
 config.tab_bar_at_bottom = false
 config.use_fancy_tab_bar = false
+config.show_new_tab_button_in_tab_bar = false
+config.tab_max_width = 32
 
 config.unzoom_on_switch_pane = false
 
@@ -38,8 +45,13 @@ config.keys = {
   -- terminal
   { key = 'r', mods = 'LEADER', action = act.ReloadConfiguration },
   { key = 'q', mods = 'LEADER', action = act.QuitApplication },
-  { key = '=', mods = 'CTRL', action = act.ResetFontSize },
   { key = 'f', mods = 'CTRL|SHIFT', action = act.ToggleFullScreen, },
+  { key = 'c', mods = 'CTRL|SHIFT', action = extra_action.select_color_scheme },
+
+  -- fonts
+  { key = '+', mods = 'CTRL|SHIFT', action = act.IncreaseFontSize },
+  { key = '-', mods = 'CTRL', action = act.DecreaseFontSize },
+  { key = '=', mods = 'CTRL', action = act.ResetFontSize },
 
   -- sending keys
   { key = 'a', mods = 'LEADER|CTRL', action = act.SendKey { key = 'a', mods = 'CTRL' } },
@@ -53,15 +65,15 @@ config.keys = {
   { key = 'd', mods = 'LEADER', action = act.ShowLauncherArgs { flags = 'DOMAINS' } },  -- can't trigger pane-focused-in :-/
 
   -- workspaces
-  { key = 'n', mods = 'LEADER|SHIFT', action = extra_action.spawn_workspace },
+  { key = 'n', mods = 'LEADER|SHIFT', action = extra_action.spawn_new_workspace },
   { key = 'r', mods = 'LEADER|SHIFT', action = extra_action.rename_workspace },
-  { key = 's', mods = 'LEADER', action = act.ShowLauncherArgs { flags = 'WORKSPACES' } }, -- can't trigger pane-focused-in :-/
-  { key = 's', mods = 'LEADER|CTRL', action = act.ShowLauncherArgs { flags = 'WORKSPACES' } }, -- can't trigger pane-focused-in :-/
+  { key = 's', mods = 'LEADER', action = extra_action.select_workspace },
+  { key = 's', mods = 'LEADER|CTRL', action = extra_action.select_workspace },
 
   -- tabs
   { key = 'c', mods = 'LEADER', action = extra_action.spawn_tab },
   { key = ',', mods = 'LEADER', action = extra_action.rename_tab },
-  { key = 'w', mods = 'CTRL|SHIFT', action = extra_action.close_current_tab },
+  { key = 'w', mods = 'LEADER', action = extra_action.close_current_tab },
   { key = 'h', mods = 'CTRL', action = extra_action.activate_tab_relative(-1) },
   { key = 'l', mods = 'CTRL', action = extra_action.activate_tab_relative(1) },
   { key = 'h', mods = 'CTRL|META', action = act.MoveTabRelative(-1) },
@@ -84,8 +96,8 @@ config.keys = {
   nvim_support.assign_key { key = 'r', mods = 'META', action = act.RotatePanes 'Clockwise' },
   nvim_support.assign_key { key = 'R', mods = 'META', action = act.RotatePanes 'CounterClockwise' },
   nvim_support.assign_key { key = '<', mods = 'META|SHIFT', action = act.AdjustPaneSize { 'Left', 2 } },
-  nvim_support.assign_key { key = '-', mods = 'META', action = act.AdjustPaneSize { 'Down', 2 } },
-  nvim_support.assign_key { key = '+', mods = 'META|SHIFT', action = act.AdjustPaneSize { 'Up', 2 } },
+  nvim_support.assign_key { key = '+', mods = 'META|SHIFT', action = act.AdjustPaneSize { 'Down', 2 } },
+  nvim_support.assign_key { key = '-', mods = 'META', action = act.AdjustPaneSize { 'Up', 2 } },
   nvim_support.assign_key { key = '>', mods = 'META|SHIFT', action = act.AdjustPaneSize { 'Right', 2 } },
 }
 
@@ -124,7 +136,6 @@ if wezterm.gui then
   }
 end
 
-
 -- Event handlers
 nvim_support.set_on_pane_focused_in_handler()
 
@@ -143,23 +154,20 @@ end)
 -- end)
 
 -- TODO
--- fonts make a separate config files with the font size associated to each font
--- you downlowd with nix, so that if you pick it you already have good settings
--- (Agave for instance is too small by default)
--- prettier tabs
--- prettier statusline
--- theme and size of window on wezterm
--- Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit, test
---
--- Consider using the Input select for switching workspaces
--- actually launch nix's zsh if nix is there
+-- Consider using the Input select for switching workspaces (fonts? color_scheme? maybe OTT)
+--   -> use the table trick to display clean values / make the selector its own lua module
+--   -> issue with for color_scheme (config_overrides) when creating new workspace it keeps the setting (looks like a bug)
+-- Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit, test with docker container or VM
+-- prettier tabs and statusline: https://github.com/michaelbrusegard/tabline.wez (for status line print Nvim icon if nvim_mode is on but nvim_ignore is off)
+-- nvim prettier tabs by using https://github.com/alvarosevilla95/luatab.nvim
+-- rework conda install: move binaries out of the conda managed folder, one shot thing so they are available at all times even without activating an env
 --
 -- Closing a workspace at once (not supported natively, lots of lua code cf. https://github.com/wezterm/wezterm/issues/3658, not worth it)
 -- contribute to add `Ctrl-C` to exit launcher, super-mini change: https://github.com/wezterm/wezterm/issues/4722
 --
 -- Wezterm Big issues at the moment:
 --   search not intuitive, selection by default also when you come back, case sensitivity, there should be only 1 copy mode
---   missing choose-tree, more uniforms menus
+--   missing choose-tree, more uniform menus
 --     import pane/tab from elsewhere (need choose-tree)
 --   missing focus pane events
 --   export pane/tab to new workspace (1 window/workspace)
@@ -167,11 +175,8 @@ end)
 --   customizable keymaps in menu mode and search mode (editing part, emacs style would be good by default)
 --   better vim movements in Copy Mode (e not respected, E, etc.)
 --
--- Nvim issues:
---   resizing of the windows in not intuitive
---
 -- Enhancement:
 --    change layout like in nvim, right now you can just rotate panes
---    have a command line (vim style? C-a : and C-a /) with either emacs or vim mappings, but still customizable
+--    have a command line (vim style? C-a : and C-a /) with either emacs or vim mappings, but with keys still customizable
 
 return config

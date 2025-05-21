@@ -76,13 +76,13 @@ M.exit_copy_mode = act.Multiple {
 }
 
 -- Workspace
-M.spawn_workspace = act.PromptInputLine {
+M.spawn_new_workspace = act.PromptInputLine {
     description = 'New workspace name:',
     action = wezterm.action_callback(function(window, pane, line)
       if line and line ~= "" then
         wezterm.mux.spawn_window { workspace = line }
         wezterm.mux.set_active_workspace(line)
-        window:perform_action(event.pane_focused_in, pane)
+        window:perform_action(act.EmitEvent(event.pane_focused_in), pane)
       end
     end),
 }
@@ -97,6 +97,57 @@ M.rename_workspace = wezterm.action_callback(function(window, pane, _)
       end
     end)
   }, pane)
+end)
+
+local function workspace_choices(current_window)
+  local workspaces = {}
+  local workspace = ""
+
+  for _, window in pairs(wezterm.mux.all_windows()) do
+    workspace = window:get_workspace()
+    workspaces[workspace] = false
+  end
+
+  local current_workspace = current_window:mux_window():get_workspace()
+  workspaces[current_workspace] = true
+
+  local choices = {}
+
+  for workspace, is_current in pairs(workspaces) do
+    local choice = workspace
+    if is_current then
+      choice = choice .. ' (active)'
+    end
+    table.insert(choices, { label = choice })
+  end
+
+  return choices
+end
+
+M.select_workspace = wezterm.action_callback(function(window, pane, _)
+  local choices = workspace_choices(window)
+
+  local input_selector_callback = wezterm.action_callback(
+    function(window, pane, id, label)
+      if label and not label:find("(active)") then
+        window:perform_action(act_then_fire_event {
+          action = act.SwitchToWorkspace { name = label },
+          event = event.pane_focused_in,
+        }, pane)
+      end
+    end 
+  )
+
+  window:perform_action(
+    act.InputSelector {
+      title = 'Workspace Selector',
+      choices = choices,
+      action = input_selector_callback,
+      fuzzy = true,
+      fuzzy_description = 'Select workspace: '
+    },
+    pane
+  )
 end)
 
 -- Windows
@@ -114,7 +165,7 @@ M.close_current_tab = act_then_fire_event {
 
 function M.activate_tab_relative(offset) 
   return act_then_fire_event {
-    action = act.ActivateTabRelativeNoWrap(offset),
+    action = act.ActivateTabRelative(offset),
     event = event.pane_focused_in
   }
 end
@@ -163,6 +214,39 @@ end
 
 M.toggle_ignore_nvim_running_flag = wezterm.action_callback(function(window, pane)
   nvim_support.toggle_ignore_nvim_running_flag()
+end)
+
+-- Appearance
+
+M.select_color_scheme = wezterm.action_callback(function(window, pane, _)
+  local input_selector_callback = wezterm.action_callback(
+    function(window, pane, id, label)
+      if label then
+        local config_overrides = window:get_config_overrides() or {}
+        config_overrides.color_scheme = label
+        window:set_config_overrides(config_overrides)
+      end
+    end 
+  )
+
+  window:perform_action(
+    act.InputSelector {
+      title = 'Switch color scheme',
+      choices = {
+        { label = 'Tokyo Night' },
+        { label = 'Tokyo Night Day' },
+        { label = 'Tokyo Night Moon' },
+        { label = 'Tokyo Night Storm' },
+        { label = 'Onedark' },
+        { label = 'Solarized (dark) (terminal.sexy)' },
+        { label = 'Solarized (light) (terminal.sexy)' },
+      },
+      action = input_selector_callback,
+      fuzzy = true,
+      fuzzy_description = 'Select scheme: ',
+    },
+    pane
+  )
 end)
 
 return M
