@@ -30,6 +30,11 @@ ln -s ~/.dotfiles/configs/git/dot-config/git/ ~/.config/
 # Install nvim and zsh plugins (issue with ssl certificate chain)
 ~/.dotfiles/scripts/get-plugins.sh
 
+# Install rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+cargo install zoxide --locked
+
 # Create ssh key
 ssh-keygen -t rsa -f ~/.ssh/id_rsa -N ""
 echo "Copy the following to Gitlab"

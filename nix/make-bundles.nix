@@ -30,6 +30,7 @@ rec {
   zsh = [
     pkgs.zsh
     starship
+    zoxide
     zsh-autosuggestions
     zsh-syntax-highlighting
   ];

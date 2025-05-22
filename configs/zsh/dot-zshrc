@@ -2,7 +2,7 @@
 export EDITOR="nvim"
 export VISUAL="nvim"
 
-# Necessary for packages complaining about Locale in nix cf. https://github.com/NixOS/nix/issues/4829 
+# Necessary for packages complaining about Locale in nix cf. https://github.com/NixOS/nix/issues/4829
 # For instance it causes issues with nix installed starship which leaves characters when using Tab completion in zsh
 # cf. https://stackoverflow.com/questions/19305291/remnant-characters-when-tab-completing-with-zsh
 export LC_ALL="C.UTF-8"
@@ -20,6 +20,9 @@ if [ -e $NIX_PROFILE/etc/profile.d/nix.sh ]; then source $NIX_PROFILE/etc/profil
 
 # Prompt
 if [ $(command -v starship) ]; then eval "$(starship init zsh)"; fi
+
+# Zoxide
+if [ $(command -v zoxide) ]; then eval "$(zoxide init zsh)"; fi
 
 # History
 HISTSIZE=10000
@@ -47,7 +50,7 @@ if [ $(command -v rg) ]; then alias grep='rg'; fi
 # Zsh sets keymap to viins if the EDITOR environment variable is set to nvim.
 # Because the emulation is not exact, it is better to use default emacs bindings
 # and resort to full on nvim if advanced editing is needed (cf. edit-command-line)
-bindkey -A emacs main 
+bindkey -A emacs main
 
 # Edit current command in editor
 autoload -Uz edit-command-line
