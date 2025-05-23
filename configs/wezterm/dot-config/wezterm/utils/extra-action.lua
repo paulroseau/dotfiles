@@ -1,7 +1,7 @@
 local wezterm = require('wezterm')
 
 local nvim_support = require('utils.nvim-support')
-local event = require('utils.event')
+local events = require('utils.event')
 
 local act = wezterm.action
 
@@ -82,7 +82,7 @@ M.spawn_new_workspace = act.PromptInputLine {
       if line and line ~= "" then
         wezterm.mux.spawn_window { workspace = line }
         wezterm.mux.set_active_workspace(line)
-        window:perform_action(act.EmitEvent(event.pane_focused_in), pane)
+        window:perform_action(act.EmitEvent(events.pane_focused_in), pane)
       end
     end),
 }
@@ -132,7 +132,7 @@ M.select_workspace = wezterm.action_callback(function(window, pane, _)
       if label and not label:find("(active)") then
         window:perform_action(act_then_fire_event {
           action = act.SwitchToWorkspace { name = label },
-          event = event.pane_focused_in,
+          event = events.pane_focused_in,
         }, pane)
       end
     end 
@@ -155,18 +155,18 @@ end)
 -- Tabs
 M.spawn_tab = act_then_fire_event {
   action = act.SpawnTab 'CurrentPaneDomain',
-  event = event.pane_focused_in
+  event = events.pane_focused_in
 }
 
 M.close_current_tab = act_then_fire_event {
   action = act.CloseCurrentTab { confirm = false },
-  event = event.pane_focused_in
+  event = events.pane_focused_in
 }
 
 function M.activate_tab_relative(offset) 
   return act_then_fire_event {
     action = act.ActivateTabRelative(offset),
-    event = event.pane_focused_in
+    event = events.pane_focused_in
   }
 end
 
@@ -190,25 +190,25 @@ end)
 
 M.send_pane_to_new_tab = act_then_fire_event {
   action = wezterm.action_callback(function(window, pane) pane:move_to_new_tab() end), 
-  event = event.pane_focused_in
+  event = events.pane_focused_in
 }
 
 M.close_current_pane = act_then_fire_event {
   action = act.CloseCurrentPane { confirm = false }, 
-  event = event.pane_focused_in
+  event = events.pane_focused_in
 }
 
 function M.activate_pane_direction(args)
   return act_then_fire_event {
     action = act.ActivatePaneDirection(args), 
-    event = event.pane_focused_in
+    event = events.pane_focused_in
   }
 end
 
 function M.split_pane(args)
   return act_then_fire_event {
     action = act.SplitPane(args), 
-    event = event.pane_focused_in
+    event = events.pane_focused_in
   }
 end
 

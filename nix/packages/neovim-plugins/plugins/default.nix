@@ -1,5 +1,6 @@
 { lib
 , neovim
+, blinkCmpFuzzy
 , treeSitterParsers
 , sources
 , stdenv
@@ -70,6 +71,14 @@ let
             rm -r $target
           fi
           ln -s ${treeSitterParsers} $target
+        '';
+      };
+
+      blink-cmp = super.blink-cmp.overrideAttrs {
+        postBuild = ''
+          target="./target/release"
+          mkdir -p $target
+          ln -s ${blinkCmpFuzzy}/lib/* $target
         '';
       };
     };

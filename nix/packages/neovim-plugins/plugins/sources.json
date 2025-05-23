@@ -1,4 +1,16 @@
 {
+    "blink-cmp": {
+        "branch": "main",
+        "description": "Performant, batteries-included completion plugin for Neovim ",
+        "homepage": "https://cmp.saghen.dev",
+        "owner": "saghen",
+        "repo": "blink.cmp",
+        "rev": "196711b89a97c953877d6c257c62f18920a970f3",
+        "sha256": "0vkjfvbg33zjjv45dn7f74mn2qdpk7vsmlnbshsgafpwk44vh92s",
+        "type": "tarball",
+        "url": "https://github.com/saghen/blink.cmp/archive/196711b89a97c953877d6c257c62f18920a970f3.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "cmp-buffer": {
         "branch": "main",
         "description": "nvim-cmp source for buffer words",

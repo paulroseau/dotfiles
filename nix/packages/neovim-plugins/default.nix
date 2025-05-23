@@ -1,10 +1,13 @@
 { lib
-, stdenv
 , buildEnv
-, neovim-unwrapped
-, tree-sitter
+, fetchFromGitHub
+, gitMinimal
 , linkFarm
+, neovim-unwrapped
 , neovimPluginsSources
+, rustPlatform
+, stdenv
+, tree-sitter
 , treeSitterParsersSources
 }:
 
@@ -15,10 +18,14 @@ let
     neovimVersion = neovim-unwrapped.version;
   };
 
+  blinkCmpFuzzy = import ./blink-cmp-fuzzy {
+    inherit fetchFromGitHub gitMinimal rustPlatform;
+  };
+
   neovimPlugins =
     let 
       plugins = import ./plugins {
-        inherit lib stdenv treeSitterParsers;
+        inherit lib stdenv treeSitterParsers blinkCmpFuzzy;
         neovim = neovim-unwrapped;
         sources = neovimPluginsSources;
       };

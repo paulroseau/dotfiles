@@ -21,10 +21,10 @@ require("plugins.neo-tree")
 require("plugins.nvim-surround")
 require("plugins.nvim-treesitter")
 require("plugins.toggleterm")
-require("plugins.nvim-cmp")
-require("plugins.gitmoji-nvim")
+require("plugins.blink-cmp")
 require("plugins.lspconfig")
 require("plugins.luasnip")
+require("plugins.luatab")
 
 -- Pick colorscheme
 require("plugins.colorschemes.nord")
