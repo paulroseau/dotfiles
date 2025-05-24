@@ -30,7 +30,8 @@ require('blink.cmp').setup({
       ['<C-j>'] = { 'insert_next' },
       ['<C-k>'] = { 'insert_prev' },
       ['<C-c>'] = { 'cancel', 'fallback' },
-      ['<CR>'] = { 'accept_and_enter', 'fallback' },
+      ['<CR>'] = { 'accept', 'fallback' },
+      ['<C-<CR>>'] = { 'accept_and_enter', 'fallback' },
     },
 
     completion = {

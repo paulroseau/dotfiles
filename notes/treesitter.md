@@ -88,20 +88,13 @@
 
 ### Colorscheme
 
-- When running `set colorscheme <name>`, `$VIMRUNTIME/colors/<name>.[vim|lua]` will be
-sourced. Colorscheme files typically contain a set of `highlight` commands
-which specify how to highlight (color/style) particular groups. For instance:
+- When running `set colorscheme <name>`, `$VIMRUNTIME/colors/<name>.[vim|lua]` will be sourced. Colorscheme files typically contain a set of `highlight` commands which specify how to highlight (color/style) particular groups. For instance:
 ```vim
 hi Comment	gui=bold
 ```
-will result in displaying in bold all elements spotted as comments. Note that
-this just adds to the default settings already in place for that particular
-highlight group.
+will result in displaying in bold all elements spotted as comments. Note that this just adds to the default settings already in place for that particular highlight group.
 
-- These highlight groups are traditionnally defined through `syntax match` or
-`syntax region` commands. For instance in the `markdown.vim` file, the
-`markdownBlockquote` group is defined, and it is instructed to highlight it like
-comments through the `highlight def link` command:
+- These highlight groups are traditionnally defined through `syntax match` or `syntax region` commands. For instance in the `markdown.vim` file, the `markdownBlockquote` group is defined, and it is instructed to highlight it like comments through the `highlight def link` command:
 ```vim
 ...
 syn match markdownBlockquote ">\%(\s\|$\)" contained nextgroup=@markdownBlock
@@ -110,22 +103,13 @@ hi def link markdownBlockquote            Comment
 ...
 ```
 
-- The purpose of a colorscheme file is to define a nice color palette and assign
-colors to the built-in highlight groups.
+- The purpose of a colorscheme file is to define a nice color palette and assign colors to the built-in highlight groups.
 
-- Tree-sitter capture groups are usable as highlight groups (ie. treesitter-nvim
-defines group for those) and are linked to neovim default group (cf. `help
-treesitter-highlight-groups`)
+- Tree-sitter capture groups are usable as highlight groups (ie. treesitter-nvim defines group for those) and are linked to neovim default group (cf. `help treesitter-highlight-groups`)
 
-- Note that some colorschemes (for example the `default` one) will refer to some
-variable colors which will change if the you change the value of `backgroud`
-to `dark/light`. This is not the case for all of them (test with `set colorscheme blue`). Also some colorscheme don't define the background color (for example the `default` one) which then results in using the terminal default color.
+- Note that some colorschemes (for example the `default` one) will refer to some variable colors which will change if the you change the value of `backgroud` to `dark/light`. This is not the case for all of them (test with `set colorscheme blue`). Also some colorscheme don't define the background color (for example the `default` one) which then results in using the terminal default color.
 
-- Some colorschemes plugin are available online, they define a
-`colors/theme.{vim|lua}` file (which may refer to other files where they define
-palettes etc. to separate things neatly, check the
-https://github.com/navarasu/onedark.nvim for example). You can just include
-those in your RTP, and then you will be able to set them with `:set colorscheme
+- Some colorschemes plugin are available online, they define a `colors/theme.{vim|lua}` file (which may refer to other files where they define palettes etc. to separate things neatly, check the https://github.com/navarasu/onedark.nvim for example). You can just include those in your RTP, and then you will be able to set them with `:set colorscheme
 my-theme` or `vim.api.nvim_command('colorscheme my-theme')`.
 
 ### Common remark on Indent and Filetype

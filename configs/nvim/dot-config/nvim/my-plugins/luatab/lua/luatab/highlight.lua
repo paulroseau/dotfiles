@@ -24,14 +24,12 @@ end
 
 function M.extract_colors(color_group, scope)
   if vim.fn.hlexists(color_group) == 0 then return nil end
-  local color = vim.api.nvim_get_hl_by_name(color_group, true)
-  if color.background ~= nil then
-    color.bg = string.format('#%06x', color.background)
-    color.background = nil
+  local color = vim.api.nvim_get_hl(0, { name = color_group })
+  if color.bg then
+    color.bg = string.format('#%06x', color.bg)
   end
-  if color.foreground ~= nil then
-    color.fg = string.format('#%06x', color.foreground)
-    color.foreground = nil
+  if color.fg then
+    color.fg = string.format('#%06x', color.fg)
   end
   if scope then return color[scope] end
   return color
