@@ -5,10 +5,10 @@
         "homepage": "https://cmp.saghen.dev",
         "owner": "saghen",
         "repo": "blink.cmp",
-        "rev": "196711b89a97c953877d6c257c62f18920a970f3",
-        "sha256": "0vkjfvbg33zjjv45dn7f74mn2qdpk7vsmlnbshsgafpwk44vh92s",
+        "rev": "v1.3.1",
+        "sha256": "16z9dd3jpf1j7w2imh6dnsdaj67gc8rq0prkvzxh5pfgfp6vpjk4",
         "type": "tarball",
-        "url": "https://github.com/saghen/blink.cmp/archive/196711b89a97c953877d6c257c62f18920a970f3.tar.gz",
+        "url": "https://github.com/saghen/blink.cmp/archive/v1.3.1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "cmp-buffer": {
