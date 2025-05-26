@@ -34,8 +34,8 @@ function link_binaries {
 
 # copying binaries
 echo "Linking binaries ..."
-copy_artifacts bin
-echo "Copying binaries ... DONE"
+link_binaries bin
+echo "Linking binaries ... DONE"
 
 if [ -f $HOME/.zshrc ]; then rm $HOME/.zshrc ; fi
 ln -s $HOME/.dotfiles/configs/zsh/dot-zshrc $HOME/.zshrc
