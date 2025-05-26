@@ -83,7 +83,7 @@ autoload -Uz compinit
 compinit
 
 # FZF
-FZF_SHELL_DIR="$(dirname $(dirname $(which fzf)))/share/fzf"
+FZF_SHELL_DIR="$(dirname $(dirname $(readlink $(which fzf))))/share/fzf"
 
 if [ -f $FZF_SHELL_DIR/shell/completion.zsh ]; then source $FZF_SHELL_DIR/shell/completion.zsh; fi
 if [ -f $FZF_SHELL_DIR/shell/key-bindings.zsh ]; then source $FZF_SHELL_DIR/shell/key-bindings.zsh; fi
