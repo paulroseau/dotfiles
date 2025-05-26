@@ -16,7 +16,13 @@ if [ -e $NIX_PROFILE/share ]; then export ZSH_PLUGINS_DIR="$NIX_PROFILE/share"; 
 if [ -e $NIX_PROFILE/share/neovim-plugins ]; then export NVIM_PLUGINS_DIR="$NIX_PROFILE/share/neovim-plugins"; fi
 
 # Update PATH through nix-env if present
-if [ -e $NIX_PROFILE/etc/profile.d/nix.sh ]; then source $NIX_PROFILE/etc/profile.d/nix.sh; fi
+if [ -e $NIX_PROFILE/etc/profile.d/nix.sh ]
+then 
+  source $NIX_PROFILE/etc/profile.d/nix.sh
+else
+  PATH="$HOME/.local/bin:$PATH"
+  PATH="$HOME/.cargo/bin:$PATH"
+fi
 
 # Prompt
 if [ $(command -v starship) ]; then eval "$(starship init zsh)"; fi

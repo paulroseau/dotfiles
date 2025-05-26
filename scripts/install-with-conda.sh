@@ -1,41 +1,61 @@
 #!/bin/bash
 
-### MANUAL PART ####
-# # Pre-install script start with Docker image condaforge/miniforge-pypy3
-# # Until we properly investigate this certificate issue
-# git clone -c http.sslVerify=false https://github.com/paulroseau/dotfiles ~/.dotfiles
-### MANUAL PART ####
+# clone this repository
+export DOTFILES=$HOME/.dotfiles
+git clone https://github.com/paulroseau/dotfiles.git $DOTFILES
 
-ln -s ~/.dotfiles/configs/conda/dot-condarc ~/.condarc
-conda create --name default
+# install miniforge
+wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+
+# install conda in $HOME/conda
+MINIFORGE_HOME="${HOME}/.conda-local"
+bash Miniforge3-$(uname)-$(uname -m).sh -p $MINIFORGE_HOME -b
+
+# Use the conda you just installed to pull binaries
+PATH="$MINIFORGE_HOME/bin:$PATH"
 conda init
-conda activate default
-source ~/.bashrc
+source $HOME/.bashrc
+conda env create -f $DOTFILES/scripts/conda-local-environment.yaml
 
-# Set up config files (a la mano since stow is not 2.4.x)
-# for package in $(ls configs)
-# do
-#   stow --dotfiles --dir configs --target $HOME $package
-#   echo "$package stowed"
-# done
+source_dir="${MINIFORGE_HOME}/envs/local"
+target_dir="${HOME}/.local"
 
-if [ -f ~/.zshrc ]; then rm ~/.zshrc ; fi
-ln -s ~/.dotfiles/configs/zsh/dot-zshrc ~/.zshrc
-ln -s ~/.dotfiles/configs/tmux/dot-tmux.conf ~/.tmux.conf
-ln -s ~/.dotfiles/configs/nvim/dot-config/nvim ~/.config/
-ln -s ~/.dotfiles/configs/starship/dot-config/starship.toml ~/.config/
-ln -s ~/.dotfiles/configs/git/dot-gitconfig ~/.gitconfig
-ln -s ~/.dotfiles/configs/git/dot-config/git/ ~/.config/
+function link_binaries {
+  source_sub_dir=$1
+  echo "Creating $target_dir/$source_sub_dir/ sub-directory"
+  mkdir -p $target_dir/$source_sub_dir
+
+  for a in $(ls $source_dir/$source_sub_dir)
+  do
+    echo "Linking $source_dir/$source_sub_dir/$a -> $target_dir/$source_sub_dir/$a"
+    ln -s $source_dir/$source_sub_dir/$a $target_dir/$source_sub_dir/$a
+  done
+}
+
+# copying binaries
+echo "Linking binaries ..."
+copy_artifacts bin
+echo "Copying binaries ... DONE"
+
+if [ -f $HOME/.zshrc ]; then rm $HOME/.zshrc ; fi
+ln -s $HOME/.dotfiles/configs/zsh/dot-zshrc $HOME/.zshrc
+ln -s $HOME/.dotfiles/configs/tmux/dot-tmux.conf $HOME/.tmux.conf
+ln -s $HOME/.dotfiles/configs/nvim/dot-config/nvim $HOME/.config/
+ln -s $HOME/.dotfiles/configs/starship/dot-config/starship.toml $HOME/.config/
+ln -s $HOME/.dotfiles/configs/git/dot-gitconfig $HOME/.gitconfig
+ln -s $HOME/.dotfiles/configs/git/dot-config/git/ $HOME/.config/
 
 # Install nvim and zsh plugins (issue with ssl certificate chain)
-~/.dotfiles/scripts/get-plugins.sh
+PATH=$HOME/.local/bin:$PATH
+$HOME/.dotfiles/scripts/get-plugins.sh
 
 # Install rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-cargo install zoxide --locked
+$HOME/.dotfiles/scripts/get-binaries-cargo.sh
 
 # Create ssh key
-ssh-keygen -t rsa -f ~/.ssh/id_rsa -N ""
+ssh-keygen -t rsa -f $HOME/.ssh/id_rsa -N ""
 echo "Copy the following to Gitlab"
-/bin/cat ~/.ssh/id_rsa.pub
+/bin/cat $HOME/.ssh/id_rsa.pub
+
+echo 'if [ -f $HOME/.local/bin/zsh ]; then exec $HOME/.local/bin/zsh --login ; fi' > $HOME/.bashrc
