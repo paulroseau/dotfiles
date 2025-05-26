@@ -35,14 +35,14 @@ local Direction = {
 function M.client(_config)
   local client = {}
 
-  function client.is_terminal_active()
-    return vim.env.TMUX
+  if not vim.env.TMUX then
+      return nil
   end
 
   local config = vim.tbl_deep_extend("force", DEFAULT_CONFIG, _config or {})
 
   local tmux_vim_option_name = vim.env.vim_mode_option
-  if client.is_terminal_active() and not tmux_vim_option_name then
+  if not tmux_vim_option_name then
     vim.notify_once("Running in tmux but no 'vim_mode_option' enviornment variable is defined, no smart window navigation", vim.log.levels.WARN)
     return nil
   end

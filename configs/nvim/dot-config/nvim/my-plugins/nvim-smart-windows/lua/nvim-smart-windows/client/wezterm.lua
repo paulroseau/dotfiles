@@ -16,6 +16,10 @@ local Direction = {
 }
 
 function M.client(_config)
+  if vim.env.TERM_PROGRAM ~= 'WezTerm' then
+    return nil
+  end
+
   local client = {}
 
   local config = vim.tbl_deep_extend("force", DEFAULT_CONFIG, _config or {})
@@ -33,10 +37,6 @@ function M.client(_config)
 
   function client.unset_nvim_running_mode()
     update_nvim_wezterm_user_var(false)
-  end
-
-  function client.is_terminal_active()
-    return vim.env.TERM_PROGRAM == 'WezTerm'
   end
 
   function client.is_current_pane_zoomed()

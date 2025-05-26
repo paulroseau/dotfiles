@@ -9,7 +9,7 @@ local DEFAULT_CONFIG = {
 function M.setup(config)
   local client = require("nvim-smart-windows.client." .. config.client.name).client(config.client)
 
-  if client and client.is_terminal_active() then
+  if client then
     utils.setup_augroup(config.augroup_name, client)
     utils.setup_commands(config, client)
     return true
