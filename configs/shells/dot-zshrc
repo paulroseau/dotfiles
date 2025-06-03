@@ -1,0 +1,58 @@
+# Environment variable (including PATH)
+source $HOME/.env
+
+# Aliases
+source $HOME/.aliases
+
+# Prompt
+if [ $(command -v starship) ]; then eval "$(starship init zsh)"; fi
+
+# Zoxide
+if [ $(command -v zoxide) ]; then eval "$(zoxide init zsh)"; fi
+
+# History
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=$HOME/.zsh_history
+setopt HIST_SAVE_NO_DUPS # not so useful since SHARE_HISTORY adds timestamps to each line
+setopt SHARE_HISTORY
+setopt APPEND_HISTORY
+
+# Default keymap
+
+# Zsh sets keymap to vi if the EDITOR environment variable is set to nvim.
+# Because the emulation is not exact, it is better to use default emacs bindings
+# and resort to full on nvim if advanced editing is needed (cf. edit-command-line)
+bindkey -A emacs main
+
+# Edit current command in editor
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M main '^v' edit-command-line
+
+# Completion
+
+# Configure completion
+zstyle ':completion:*' menu select
+
+# Naviagte the completion menu with vi style bindings
+zmodload zsh/complist
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'j' vi-down-line-or-history
+
+# Add zsh completion for nix installed tools
+if [ -e $ZSH_PLUGINS_DIR/zsh/site-functions ]; then fpath+=($ZSH_PLUGINS_DIR/zsh/site-functions $fpath); fi
+
+# Init completion
+autoload -Uz compinit
+compinit
+
+# Skim key bindings and autocomplete (needs to happen after completion initialization)
+if [ -f $SKIM_SHELL_DIR/completion.zsh ]; then source $SKIM_SHELL_DIR/completion.zsh; fi
+if [ -f $SKIM_SHELL_DIR/key-bindings.zsh ]; then source $SKIM_SHELL_DIR/key-bindings.zsh; fi
+
+# Zsh plugins
+if [ -f $ZSH_PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then source $ZSH_PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh; fi
+if [ -f $ZSH_PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then source $ZSH_PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh; fi

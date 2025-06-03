@@ -1,0 +1,31 @@
+# Path
+export PATH="$HOME/.local/bin:$PATH"
+if [ -e $HOME/.cargo/env ]; then source $HOME/.cargo/env; fi
+
+# Your nvim config looks up this env variable to add plugins to its RTP
+export NVIM_PLUGINS_DIR="$HOME/.nvim-plugins"
+
+# .zshrc and .bashrc expect those to be set to source other scripts
+SKIM_SHELL_DIR="$HOME/.local/share/skim"
+ZSH_PLUGINS_DIR="$HOME/.zsh-plugins"
+
+# Default editor
+if [ $(command -v nvim) ]
+then
+  export EDITOR="nvim"
+  export VISUAL="nvim"
+fi
+
+# Nix aware setup
+NIX_PROFILE="$HOME/.nix-profile"
+
+# Update PATH through nix-env if present
+if [ -e $NIX_PROFILE/etc/profile.d/nix.sh ]; then source $NIX_PROFILE/etc/profile.d/nix.sh; fi
+
+# Necessary for packages complaining about Locale in nix cf. https://github.com/NixOS/nix/issues/4829
+# For instance nix installed starship leaves characters when using Tab completion in zsh without this
+# cf. https://stackoverflow.com/questions/19305291/remnant-characters-when-tab-completing-with-zsh
+if [ -e $NIX_PROFILE ]; then export LC_ALL="C.UTF-8"; fi
+if [ -e $NIX_PROFILE/share ]; then ZSH_PLUGINS_DIR="$NIX_PROFILE/share"; fi
+if [ -e $NIX_PROFILE/share/neovim-plugins ]; then export NVIM_PLUGINS_DIR="$NIX_PROFILE/share/neovim-plugins"; fi
+if [ -e $NIX_PROFILE/share/skim ]; then SKIM_SHELL_DIR="$NIX_PROFILE/share/skim"; fi
