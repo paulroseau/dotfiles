@@ -44,11 +44,11 @@ rec {
     neovim-plugins
   ];
 
-  fzfLuaRequired = [
+  fzf-lua-required = [
     bat
     delta
     fd
-    fzf
+    skim
     ripgrep
   ];
 
@@ -125,7 +125,7 @@ rec {
     ++ misc
     ++ nix
     ++ neovim
-    ++ fzfLuaRequired
+    ++ fzf-lua-required
     ++ zsh;
 
   work =

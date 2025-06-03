@@ -113,10 +113,10 @@
         "homepage": "",
         "owner": "ibhagwan",
         "repo": "fzf-lua",
-        "rev": "1e03541de4d8a169defe83bb4d7abfba450c63a1",
-        "sha256": "1by9092fvfk1v06idfqhnx5bsisj28hk981ngylkzq806j7lbj09",
+        "rev": "758173f499d15410ecb50c5519a41b27c33e645d",
+        "sha256": "13ccnij8sgwqa3azlfv50y7cqki03dl60k7w6nvmid486gpq1lwl",
         "type": "tarball",
-        "url": "https://github.com/ibhagwan/fzf-lua/archive/1e03541de4d8a169defe83bb4d7abfba450c63a1.tar.gz",
+        "url": "https://github.com/ibhagwan/fzf-lua/archive/758173f499d15410ecb50c5519a41b27c33e645d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gitmoji-nvim": {
