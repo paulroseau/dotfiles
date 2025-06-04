@@ -14,6 +14,10 @@ end
 fzf.setup({
   fzf_bin = 'sk',
 
+  fzf_opts = {
+    ["--tiebreak"] = "score,begin,end,length"
+  },
+
   keymap = {
     -- These override the default tables completely so we need to include
     -- everything we need, including what we don't want to modify
