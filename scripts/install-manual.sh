@@ -14,25 +14,61 @@ mkdir -p $ENVIRONMENT_HOME/bin
 SKIM_VERSION="0.18.0"
 DOTFILES=$HOME/.dotfiles
 
-function install_binary_from_github () {
+function download_archive_from_github () {
   owner=$1
   repo=$2
   version=$3
   archive=$4
 
-  mkdir -p $APPS_STORE/${repo}
+  echo "Installing ${repo} (${archive}) from Github"
+  mkdir -p ${APPS_STORE}/${repo}
   curl -sSLO https://github.com/${owner}/${repo}/releases/download/${version}/${archive}
+  case ${archive} in
+    *.tar.gz | *.tgz )
+      tar -zxf ${archive} --directory ${APPS_STORE}/${repo}
+      ;;
+    *.zip )
+      unzip -oq ${archive} -d ${APPS_STORE}/${repo}
+      ;;
+  esac
+  rm ${archive}
+}
+
+function install_binary_from_github () {
+  owner=$1
+  repo=$2
+  version=$3
+  archive=$4
+  bin_parent_directory_name=$5
+
+  download_archive_from_github $owner $repo $version $archive
+
+  bin_parent_path=${APPS_STORE}/${repo}/${bin_parent_directory_name}/bin
+
+  for bin_name in $(ls ${bin_parent_path})
+  do
+    file=${bin_parent_path}/${bin_name}
+    test -x $file && ln -sf $file $ENVIRONMENT_HOME/bin
+  done
+}
+
   tar -zxf ${archive} --directory ${APPS_STORE}/${repo}
   ln -s $APPS_STORE/${repo}/bin/* $ENVIRONMENT_HOME/bin/
-}
 
 function install_binaries_from_github () {
   echo "Installing binaires from Github"
-  install_binary_from_github neovim neovim v0.11.1 nvim-linux-x86_64.tar.gz
-  install_binary_from_github jonas tig v2.5.12 tig-2.5.12.tar.gz
-  install_binary_from_github tmux tmux 3.5a tmux-3.5a.tar.gz
-  install_binary_from_github LuaLS lua-language-server 3.14.0 lua-language-server-3.14.0-linux-x64.tar.gz
+  install_binary_from_github neovim neovim v0.11.1 nvim-linux-x86_64.tar.gz nvim-linux-x86_64
+  install_binary_from_github LuaLS lua-language-server 3.14.0 lua-language-server-3.14.0-linux-x64.tar.gz .
+  install_binary_from_github clangd clangd 19.1.2 clangd-linux-19.1.2.zip clangd_19.1.2
   # todo install wezterm
+  echo "Done"
+}
+
+function download_archives_from_github () {
+  echo "Downloading source archives from Github"
+  install_binary_from_github jonas tig tig-2.5.12 tig-2.5.12.tar.gz
+  install_binary_from_github tmux tmux 3.5a tmux-3.5a.tar.gz
+  echo "Done"
 }
 
 function install_rust () {
@@ -73,9 +109,10 @@ function symlink_config_files () {
 
 function install_skim_shell_bindings () {
   echo "Installing skim shell bindings"
-  SKIM_TMP_DIR=$(mktemp --directory /tmp/skim-shells-XXXX)
-  git clone --quiet --depth 1 --branch "v${SKIM_VERSION}" https://github.com/skim-rs/skim.git $SKIM_TMP_DIR
-  cp $SKIM_TMP_DIR/skim/shell/* $SKIM_SHELL_DIR
+  SKIM_TMP_DIR=$(mktemp --directory /tmp/skim-src-XXXX)
+  git clone --quiet --depth 1 --branch "v${SKIM_VERSION}" https://github.com/skim-rs/skim.git $SKIM_TMP_DIR 2>/dev/null
+  mkdir -p $SKIM_SHELL_DIR
+  cp $SKIM_TMP_DIR/shell/* $SKIM_SHELL_DIR
   rm -rf $SKIM_TMP_DIR
 }
 
