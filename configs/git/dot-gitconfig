@@ -4,6 +4,7 @@
 [core]
 	editor = nvim
   excludesFile = ~/.config/git/ignore
+  pager = delta
 
 [color]
 	ui = true
@@ -22,3 +23,12 @@
 
 [credential]
 	helper = store
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true # use n and N to move between diff sections
+
+[merge]
+  conflictstyle = zdiff3
