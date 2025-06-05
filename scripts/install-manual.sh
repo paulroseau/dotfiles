@@ -14,7 +14,7 @@ mkdir -p $ENVIRONMENT_HOME/bin
 SKIM_VERSION="0.18.0"
 DOTFILES=$HOME/.dotfiles
 
-function download_archive_from_github () {
+download_archive_from_github() {
   owner=$1
   repo=$2
   version=$3
@@ -34,7 +34,7 @@ function download_archive_from_github () {
   rm ${archive}
 }
 
-function install_binary_from_github () {
+install_binary_from_github() {
   owner=$1
   repo=$2
   version=$3
@@ -43,7 +43,7 @@ function install_binary_from_github () {
 
   download_archive_from_github $owner $repo $version $archive
 
-  bin_parent_path=${APPS_STORE}/${repo}/${bin_parent_directory_name}/bin
+  bin_parent_path=${APPS_STORE}/${repo}/${bin_parent_directory_name}
 
   for bin_name in $(ls ${bin_parent_path})
   do
@@ -52,32 +52,36 @@ function install_binary_from_github () {
   done
 }
 
-  tar -zxf ${archive} --directory ${APPS_STORE}/${repo}
-  ln -s $APPS_STORE/${repo}/bin/* $ENVIRONMENT_HOME/bin/
-
-function install_binaries_from_github () {
+install_binaries_from_github() {
   echo "Installing binaires from Github"
-  install_binary_from_github neovim neovim v0.11.1 nvim-linux-x86_64.tar.gz nvim-linux-x86_64
-  install_binary_from_github LuaLS lua-language-server 3.14.0 lua-language-server-3.14.0-linux-x64.tar.gz .
-  install_binary_from_github clangd clangd 19.1.2 clangd-linux-19.1.2.zip clangd_19.1.2
+
+  install_binary_from_github neovim neovim v0.11.1 nvim-linux-x86_64.tar.gz nvim-linux-x86_64/bin
+
+  install_binary_from_github LuaLS lua-language-server 3.14.0 lua-language-server-3.14.0-linux-x64.tar.gz bin
+
+  install_binary_from_github clangd clangd 19.1.2 clangd-linux-19.1.2.zip clangd_19.1.2/bin
+
+  install_binary_from_github mikefarah yq v4.45.4 yq_linux_amd64.tar.gz .
+  mv $ENVIRONMENT_HOME/bin/yq_linux_amd64 $ENVIRONMENT_HOME/bin/yq
+
   # todo install wezterm
   echo "Done"
 }
 
-function download_archives_from_github () {
+download_archives_from_github() {
   echo "Downloading source archives from Github"
   install_binary_from_github jonas tig tig-2.5.12 tig-2.5.12.tar.gz
   install_binary_from_github tmux tmux 3.5a tmux-3.5a.tar.gz
   echo "Done"
 }
 
-function install_rust () {
+install_rust() {
   echo "Installing Rust toolchain"
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-  source ~/.cargo/env
+  . ~/.cargo/env
 }
 
-function install_rust_built_binaries () {
+install_rust_built_binaries() {
   echo "Installing Rust build binaries"
   cargo install bat --version 0.25.0
   cargo install fd-find --version 10.2.0
@@ -87,14 +91,15 @@ function install_rust_built_binaries () {
   cargo install skim --version $SKIM_VERSION
   cargo install starship --version 1.23.0
   cargo install zoxide --version 0.9.8
+  echo "Done"
 }
 
-function clone_this_repository () {
+clone_this_repository() {
   echo "Cloning github.com/paulroseau/dotfiles"
   git clone --quiet https://github.com/paulroseau/dotfiles.git $DOTFILES
 }
 
-function symlink_config_files () {
+symlink_config_files() {
   echo "Creating config files symlinks"
   ln -sf $DOTFILES/configs/shells/dot-env $HOME/.env
   ln -sf $DOTFILES/configs/shells/dot-aliases $HOME/.aliases
@@ -105,9 +110,10 @@ function symlink_config_files () {
   ln -sf $DOTFILES/configs/starship/dot-config/starship.toml $HOME/.config
   ln -sf $DOTFILES/configs/git/dot-gitconfig $HOME/.gitconfig
   ln -sf $DOTFILES/configs/git/dot-config/git $HOME/.config
+  echo "Done"
 }
 
-function install_skim_shell_bindings () {
+install_skim_shell_bindings() {
   echo "Installing skim shell bindings"
   SKIM_TMP_DIR=$(mktemp --directory /tmp/skim-src-XXXX)
   git clone --quiet --depth 1 --branch "v${SKIM_VERSION}" https://github.com/skim-rs/skim.git $SKIM_TMP_DIR 2>/dev/null
@@ -118,16 +124,18 @@ function install_skim_shell_bindings () {
 
 # TODO
 alias jq='jaq'
-$DOTFILES/scripts/get-plugins.sh
-function download_zsh_plugins () {
+download_zsh_plugins() {
   echo "Downloading ZSH plugins"
+  # $DOTFILES/scripts/get-plugins.sh
+  echo "Done"
 }
 
-function download_nvim_plugins () {
+download_nvim_plugins() {
   echo "Downloading Neovim plugins"
+  echo "Done"
 }
 
-function create_ssh_key () {
+create_ssh_key() {
   echo "Generating ssh key"
   ssh-keygen -t rsa -f $HOME/.ssh/id_rsa -N ""
   echo "Export the following key to Github, Gitlab, Bitbucket"
@@ -136,11 +144,11 @@ function create_ssh_key () {
 
 clone_this_repository
 symlink_config_files
-source $HOME/.env
+. $HOME/.env
 install_binaries_from_github
 install_rust
 install_rust_built_binaries
 install_skim_shell_bindings
-download_zsh_plugins
-download_nvim_plugins
+# download_zsh_plugins
+# download_nvim_plugins
 create_ssh_key

@@ -1,6 +1,6 @@
 # Path
 export PATH="$HOME/.local/bin:$PATH"
-if [ -e $HOME/.cargo/env ]; then source $HOME/.cargo/env; fi
+if [ -e $HOME/.cargo/env ]; then . $HOME/.cargo/env; fi
 
 # Your nvim config looks up this env variable to add plugins to its RTP
 export NVIM_PLUGINS_DIR="$HOME/.nvim-plugins"
@@ -20,7 +20,7 @@ fi
 NIX_PROFILE="$HOME/.nix-profile"
 
 # Update PATH through nix-env if present
-if [ -e $NIX_PROFILE/etc/profile.d/nix.sh ]; then source $NIX_PROFILE/etc/profile.d/nix.sh; fi
+if [ -e $NIX_PROFILE/etc/profile.d/nix.sh ]; then . $NIX_PROFILE/etc/profile.d/nix.sh; fi
 
 # Necessary for packages complaining about Locale in nix cf. https://github.com/NixOS/nix/issues/4829
 # For instance nix installed starship leaves characters when using Tab completion in zsh without this
