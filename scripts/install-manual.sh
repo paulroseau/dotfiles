@@ -70,8 +70,8 @@ install_binaries_from_github() {
 
 download_archives_from_github() {
   echo "Downloading source archives from Github"
-  install_binary_from_github jonas tig tig-2.5.12 tig-2.5.12.tar.gz
-  install_binary_from_github tmux tmux 3.5a tmux-3.5a.tar.gz
+  # install_binary_from_github jonas tig tig-2.5.12 tig-2.5.12.tar.gz
+  # install_binary_from_github tmux tmux 3.5a tmux-3.5a.tar.gz
   echo "Done"
 }
 
@@ -79,6 +79,7 @@ install_rust() {
   echo "Installing Rust toolchain"
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
   . ~/.cargo/env
+  echo "Done"
 }
 
 install_rust_built_binaries() {
@@ -97,6 +98,7 @@ install_rust_built_binaries() {
 clone_this_repository() {
   echo "Cloning github.com/paulroseau/dotfiles"
   git clone --quiet https://github.com/paulroseau/dotfiles.git $DOTFILES
+  echo "Done"
 }
 
 symlink_config_files() {
@@ -120,18 +122,78 @@ install_skim_shell_bindings() {
   mkdir -p $SKIM_SHELL_DIR
   cp $SKIM_TMP_DIR/shell/* $SKIM_SHELL_DIR
   rm -rf $SKIM_TMP_DIR
+  echo "Done"
 }
 
-# TODO
-alias jq='jaq'
+clone_repo() {
+  plugin_name=$1
+  owner=$2
+  repo=$3
+  rev=$4
+  parent_dir=$5
+
+  if [ -d "${parent_dir}/${plugin_name}" ]; then
+    rm -rf "${parent_dir}/${plugin_name}"
+  fi
+
+  git clone --quiet --branch ${rev} https://github.com/${owner}/${repo} ${parent_dir}/${plugin_name} 2>/dev/null
+}
+
+clone_all_repos() {
+  plugin_sources_json=$1
+  parent_dir=$2
+
+  cat $plugin_sources_json | jq -r 'to_entries[] | "\(.key) \(.value | .owner) \(.value | .repo) \(.value | .rev)"' | while read -r plugin_name owner repo rev
+  do
+    clone_repo $plugin_name $owner $repo $rev $parent_dir
+  done
+}
+
+download_plugins() {
+  plugin_sources_json=$1
+  parent_dir=$2
+
+  if [[ ${parent_dir} = *".nix-profile"* ]]
+  then
+    echo "Plugins seem to be already managed by Nix, aborting"
+    return
+  fi
+
+  if [ ! -d $parent_dir ]; then mkdir -p $parent_dir; fi
+  if [ $(command -v jaq) ]; then alias jq='jaq'; fi
+  clone_all_repos ${plugin_sources_json} ${parent_dir}
+}
+
+# TODO fixme
+generate_nvim_doc() {
+  if [ -d "./doc" ]; then
+    echo "Building help tags"
+    if ! nvim -u NONE -i NONE -n -c "helptags ./doc" -c "quit"; then
+      echo "Failed to build help tags!"
+      exit 1
+    fi
+  elif [ -f "./$readme" ]; then
+    echo "No docs available for $pname, using $readme"
+    # Force filetype to markdown since nvim sets filetype=help when opening a file through :help
+    echo '<!-- vim: set ft=markdown: -->' >> ./$readme
+    mkdir -p ./doc
+    cp ./$readme ./doc/
+    echo -e "${pname}.$readme\t$readme\t/# " >> ./doc/tags
+  else
+    echo "No docs available for $pname"
+  fi
+}
+
 download_zsh_plugins() {
   echo "Downloading ZSH plugins"
-  # $DOTFILES/scripts/get-plugins.sh
+  download_plugins "$DOTFILES/scripts/plugins-sources/zsh.json" $ZSH_PLUGINS_DIR
   echo "Done"
 }
 
 download_nvim_plugins() {
   echo "Downloading Neovim plugins"
+  download_plugins "$DOTFILES/scripts/plugins-sources/neovim.json" $NVIM_PLUGINS_DIR
+  generate_nvim_doc
   echo "Done"
 }
 
@@ -144,11 +206,14 @@ create_ssh_key() {
 
 clone_this_repository
 symlink_config_files
+
 . $HOME/.env
+
 install_binaries_from_github
 install_rust
 install_rust_built_binaries
 install_skim_shell_bindings
 # download_zsh_plugins
 # download_nvim_plugins
+
 create_ssh_key
