@@ -161,10 +161,10 @@
         "homepage": "",
         "owner": "nvim-neo-tree",
         "repo": "neo-tree.nvim",
-        "rev": "7d3b02073e59ed9ef271795787de76d0de8f5294",
-        "sha256": "0xqy1lxs450w21688a8190jsda8az9745pxyb5l6lbl60r9m9fkh",
+        "rev": "3.33",
+        "sha256": "1vgm0p7dpc17j8yhhg426a3f2v7ww10638qnrvxqpkq0la2k08bq",
         "type": "tarball",
-        "url": "https://github.com/nvim-neo-tree/neo-tree.nvim/archive/7d3b02073e59ed9ef271795787de76d0de8f5294.tar.gz",
+        "url": "https://github.com/nvim-neo-tree/neo-tree.nvim/archive/3.33.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nord.nvim": {
