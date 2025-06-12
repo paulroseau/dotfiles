@@ -5,16 +5,6 @@ channels:
 
 # no curl, no git because it seems they are compiled such that they resolve SSL certificate from the conda environment
 dependencies:
-  - conda-forge::bat
-  - conda-forge::fd-find
-  - conda-forge::fzf
-  - conda-forge::git-delta
-  - conda-forge::jq
-  - conda-forge::nvim
-  - conda-forge::ripgrep
-  - conda-forge::starship
-  - conda-forge::stow # TODO update to 2.4.* when CI goes through: https://github.com/conda-forge/stow-feedstock
   - conda-forge::tig
   - conda-forge::tmux
-  - conda-forge::yq
   - conda-forge::zsh

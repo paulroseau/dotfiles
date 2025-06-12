@@ -26,11 +26,7 @@ let
 
       buildPhase = ''
         if [ -d "./doc" ]; then
-          echo "Building help tags"
-          if ! nvim -u NONE -i NONE -n -c "helptags ./doc" -c "quit"; then
-            echo "Failed to build help tags!"
-            exit 1
-          fi
+          nvim --headless -u NONE -i NONE -n -c "helptags ./doc" -c "quit"
         elif [ -f "./$readme" ]; then
           echo "No docs available for $pname, using $readme"
           # Force filetype to markdown since nvim sets filetype=help when opening a file through :help

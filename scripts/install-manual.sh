@@ -132,11 +132,17 @@ clone_repo() {
   rev=$4
   parent_dir=$5
 
-  if [ -d "${parent_dir}/${plugin_name}" ]; then
-    rm -rf "${parent_dir}/${plugin_name}"
+  url=https://github.com/${owner}/${repo}
+  target_dir="${parent_dir}/${plugin_name}" 
+
+  echo "Cloning ${url} (revision: ${rev})"
+
+  if [ -d ${target_dir} ]; then
+    rm -rf ${target_dir}
   fi
 
-  git clone --quiet --branch ${rev} https://github.com/${owner}/${repo} ${parent_dir}/${plugin_name} 2>/dev/null
+  git clone --quiet ${url} ${target_dir} 2>/dev/null
+  git --work-tree=${target_dir} --git-dir=${target_dir}/.git checkout --quiet ${rev} 
 }
 
 clone_all_repos() {
@@ -164,23 +170,27 @@ download_plugins() {
   clone_all_repos ${plugin_sources_json} ${parent_dir}
 }
 
-# TODO fixme
 generate_nvim_doc() {
-  if [ -d "./doc" ]; then
-    echo "Building help tags"
-    if ! nvim -u NONE -i NONE -n -c "helptags ./doc" -c "quit"; then
-      echo "Failed to build help tags!"
-      exit 1
-    fi
-  elif [ -f "./$readme" ]; then
-    echo "No docs available for $pname, using $readme"
+  parent_dir=$1
+  plugin_name=$2
+  readme="${3:-README.md}"
+
+  plugin_dir=${parent_dir}/${plugin_name}
+
+  doc_dir="${plugin_dir}/doc"
+  readme_file="${plugin_dir}/${readme}"
+
+  if [ -d ${doc_dir} ]; then
+    nvim --headless -u NONE -i NONE -n -c "helptags ${doc_dir}" -c "quit"
+  elif [ -f ${readme_file} ]; then
+    echo "No docs available for ${plugin_name}, using ${readme}"
     # Force filetype to markdown since nvim sets filetype=help when opening a file through :help
-    echo '<!-- vim: set ft=markdown: -->' >> ./$readme
-    mkdir -p ./doc
-    cp ./$readme ./doc/
-    echo -e "${pname}.$readme\t$readme\t/# " >> ./doc/tags
+    echo '<!-- vim: set ft=markdown: -->' >> ${readme_file}
+    mkdir -p ${doc_dir}
+    cp ${readme_file} ${doc_dir}
+    echo -e "${plugin_name}.${readme}\t${readme}\t/# " >> ${doc_dir}/tags
   else
-    echo "No docs available for $pname"
+    echo "No docs available for ${plugin_name}"
   fi
 }
 
@@ -193,7 +203,14 @@ download_zsh_plugins() {
 download_nvim_plugins() {
   echo "Downloading Neovim plugins"
   download_plugins "$DOTFILES/scripts/plugins-sources/neovim.json" $NVIM_PLUGINS_DIR
-  generate_nvim_doc
+  echo "Done"
+}
+
+generate_nvim_doc_for_nvim_plugins() {
+  echo "Generating Neovim plugins doc"
+  for plugin in $(ls $NVIM_PLUGINS_DIR); do
+    generate_nvim_doc $NVIM_PLUGINS_DIR $plugin
+  done
   echo "Done"
 }
 
@@ -213,7 +230,10 @@ install_binaries_from_github
 install_rust
 install_rust_built_binaries
 install_skim_shell_bindings
-# download_zsh_plugins
-# download_nvim_plugins
+export ZSH_PLUGINS_DIR=./test-zsh-plugins
+export NVIM_PLUGINS_DIR=./test-nvim-plugins
+download_zsh_plugins
+download_nvim_plugins
+generate_nvim_doc_for_nvim_plugins
 
 create_ssh_key
