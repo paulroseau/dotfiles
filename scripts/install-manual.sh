@@ -27,6 +27,9 @@ download_archive_from_github() {
     *.tar.gz | *.tgz )
       tar -zxf ${archive} --directory ${APPS_STORE}/${repo}
       ;;
+    *.tar.xz )
+      xz --decompress ${archive} --stdout | tar -x --directory ${APPS_STORE}/${repo}
+      ;;
     *.zip )
       unzip -oq ${archive} -d ${APPS_STORE}/${repo}
       ;;
@@ -64,7 +67,8 @@ install_binaries_from_github() {
   install_binary_from_github mikefarah yq v4.45.4 yq_linux_amd64.tar.gz .
   mv $ENVIRONMENT_HOME/bin/yq_linux_amd64 $ENVIRONMENT_HOME/bin/yq
 
-  # todo install wezterm
+  install_binary_from_github wezterm wezterm 20240203-110809-5046fc22 wezterm-20240203-110809-5046fc22.Ubuntu20.04.tar.xz wezterm/usr/bin
+
   echo "Done"
 }
 

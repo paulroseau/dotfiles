@@ -16,10 +16,11 @@ rec {
     pkgs.nerd-fonts.terminess-ttf
   ];
 
-  alacritty = [
-    pkgs.alacritty
-    alacritty-theme
+  terminal = [
+    pkgs.alacritty  # TODO remove this
+    alacritty-theme # TODO remove this
     nerd-fonts
+    wezterm
   ];
 
   nix = [
@@ -68,7 +69,7 @@ rec {
   ];
 
   misc = [
-    jq
+    jaq
     tmux
     tree
     stow
@@ -137,5 +138,5 @@ rec {
 
   local = 
     base
-    ++ alacritty;
+    ++ terminal;
 }
