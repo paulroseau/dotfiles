@@ -1,11 +1,6 @@
-- Ephemeral environments:
-  - with conda:
-  ```sh
-  
-  ```
-- Wezterm:
-  - POC on Windows:
-    - [x] install wezterm manually (zipfile)
+- POC on Windows:
+    - [x] install wezterm manually (zipfile) or winget?
+    - [ ] copy your wezterm config
     - [x] install coder and configure cli
       ```
       winget install Coder.Coder
@@ -13,8 +8,72 @@
       coder config-ssh
       ssh coder.<...>
       ```
-    - [x] configure coder ssh
-    - [x] install wezterm on Ubuntu docker image
+    - [ ] install wezterm on remote Linux image
+
+- For the office (extra script, maybe in the office's gitlab):
+  - [ ] install missing binaries (tmux, zsh, tig via conda)
+  - [ ] install uv with cargo
+  - [ ] install pyright globally through uv
+
+- [x] review install script
+  - [x] manual install script
+    - [x] pin versions of cargo installed binaries
+    - [x] make get-plugins work in plain bash (source .env manually)
+    - [x] install nvim doc when downloading nvim plugins
+  - [x] replace fzf with skim
+    - [x] install with nix
+    - [x] install shell completions for skim in manual mode (git clone based on skim version, grab just the script and put them ~/.local/share/skim/)
+    - [x] update fzf-lua
+  - [x] install wezterm (mux in particular)
+- [ ] remove lsp-config:
+   - you can set your settings manually (more explicit) through vim.lsp.config() (check :help lsp-quickstart)
+   - root_markers seem to be what lspconfig does "by hand" mostly
+   - signature help
+   - bindings to see types
+- [ ] install blink.cmp and trash out nvim-cmp
+  - [x] update version to v1.3.1 so that you have a prebuilt binary to download at work
+  - [x] have a default setting to rust/fall back lua
+  - [x] config
+  - [ ] double check:
+    - [x] toggle documentation with M-p, and scroll
+    - [ ] lsp signature
+    - [x] lsp
+    - [ ] nvim lua plugin for files which are in `~/.config/nvim`
+    - [ ] snippet: do you still need luasnip in 0.11+?
+  - [ ] remove all nvim-cmp stuff in the nix
+- [x] nvim prettier tabs by using https://github.com/alvarosevilla95/luatab.nvim
+- [ ] Wezterm: prettier tabs and statusline: https://github.com/michaelbrusegard/tabline.wez (for status line print Nvim icon if nvim_mode is on but nvim_ignore is off)
+- [ ] Consider using the Input select for switching workspaces (fonts? color_scheme? maybe OTT)
+  - improve in lua object programming: https://www.lua.org/pil/contents.html#P2 (13. tables & 16. classes)
+  -> checkout those to get inspiration, but you probably will define your own selector (not just for domains, workspaces, but also fonts etc.)
+    - https://github.com/MLFlexer/smart_workspace_switcher.wezterm/blob/main/plugin/init.lua
+    - https://github.com/DavidRR-F/quick_domains.wezterm
+    - https://github.com/mikkasendke/sessionizer.wezterm (maybe the closest to your need)
+  -> use the table trick to display clean values / make the selector its own lua module
+  -> issue with for color_scheme (config_overrides) when creating new workspace it keeps the setting (looks like a bug)
+- Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit, test with docker container or VM
+
+# Wezterm
+
+- Wezterm missing:
+  - Closing a workspace at once (not supported natively, lots of lua code cf. https://github.com/wezterm/wezterm/issues/3658, not worth it)
+  - contribute to add `Ctrl-C` to exit launcher, super-mini change: https://github.com/wezterm/wezterm/issues/4722
+
+- Wezterm Big issues at the moment:
+  - search not intuitive, selection by default also when you come back, case sensitivity, there should be only 1 copy mode
+  - missing choose-tree, more uniform menus
+      import pane/tab from elsewhere (need choose-tree)
+  - missing focus pane events
+  - export pane/tab to new workspace (1 window/workspace)
+  - move pane/tab to new workspace (1 window/workspace)
+  - customizable keymaps in menu mode and search mode (editing part, emacs style would be good by default)
+  - better vim movements in Copy Mode (e not respected, E, etc.)
+
+- Wezterm potential enhancement:
+   change layout like in nvim, right now you can just rotate panes
+   have a command line (vim style? C-a : and C-a /) with either emacs or vim mappings, but with keys still customizable
+
+- Wezterm:
     - [ ] configure multiplexing session and check that clipboard is working fine
   - Karabiner:
     - [ ] check if conditions for karabiner could not be factored out
@@ -31,17 +90,21 @@
     - [x] copy paste in copy mode
     - [ ] remove default mappings
     - [ ] navigation in nvim
+      - [ ] nvim inside TMUX (find the right escape code)
     - [ ] search
     - [ ] reload config
+
     - [ ] Session navigation
   - [ ] check how it works on Linux, you probably need to do the same `ld` hack than on Alacritty to use the LibGL
-  - [ ] contribute to add `Ctrl-C` to exit launcher, super-mini change: https://github.com/wezterm/wezterm/issues/4722
+  - [ ] contribute to:
+    - [ ] add `Ctrl-C` to exit launcher, super-mini change: https://github.com/wezterm/wezterm/issues/4722
+    - [ ] add pane-is-zoomed or pane-info to the cli
 
 - shells:
   - [ ] add git completions with nix (understand whether you should add
    .nix-profile/share/git/contrib/completion/ to the fpath or source .nix-profile/share/git/contrib/completion/git-completion.zsh
-  - [ ] setup bash completions by linking 
-    ~/.nix-profile/share/bash-completion/completions   
+  - [ ] setup bash completions by linking
+    ~/.nix-profile/share/bash-completion/completions
 
 - docker:
   - mv install-docker.sh close to the Dockerfile, add in README docker command to build it from the root of this repo
@@ -189,6 +252,10 @@
   - [ ] understand the pipe / NVIM env variable
 
 - neovim:
+  - [x] maybe update how you expand windows, and swap the effect of the keys `<` and `>` when on a right most window and `+` and `-` when on a bottom window
+  - [ ] replace nvim-cmp by https://github.com/Saghen/blink.cmp
+  - [ ] try indent-blankline.nvim
+  - [ ] do you still need lspconfig in nvim 0.11?
   - [ ] setup formatting (autoformatting?) for all relevant filetype. Options are:
     - rely on vim.lsp.buf.format() (works only if server supports formatting, check it with `:lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)` for rust, python, sh, etc. It seems that you need to see
   `documentFormattingProvider = true,` in the results
@@ -197,7 +264,7 @@
     - questions:
       - we probably want to map gq to *vim.lsp.buf.format()* if it works (check
       - how can the formatter pick up local options to the project? if the lsp.format works then ok, but in the case where it is not??
-  - [ ] try nvim-tree instead of neotree - not sure it is better, but neo-tree is slow, background a bit weird, too configurable, nvim-tree sounds simpler
+  - [ ] try nvim-tree instead of neotree - not sure it is better, but neo-tree is slow, background a bit weird, too configurable, nvim-tree looks simpler
   - [ ] try noice.nvim
   - [ ] install LSP for Rust:
     - [x] rust-analyser and other tools (cargo, etc.) with nix
@@ -206,11 +273,3 @@
     - [ ] see if you want to use other tools such as the one listed here https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins:
       - https://github.com/mrcjkb/rustaceanvim
       - https://github.com/Saecki/crates.nvim
-  - [x] install LSP for Python
-  - [ ] install LSP for Go
-    - how to disable LSP (useful for big projects like GDCH for instance) -> use LspStop from lspconfig plugin. Check the memory usage of that process, and if it calms down after you stop the client (the server still keeps running)
-    - check if you can reference external index for LSP servers (big projects again), basically try to see how it goes with GDCH code base
-    - test on gdch code base
-  - [ ] install LSP for Scala
-  - [ ] install LSP for OCaml
-  - [ ] install LSP for Haskell
