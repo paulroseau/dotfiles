@@ -14,39 +14,37 @@ mkdir -p $ENVIRONMENT_HOME/bin
 SKIM_VERSION="0.18.0"
 DOTFILES=$HOME/.dotfiles
 
-download_archive_from_github() {
-  owner=$1
-  repo=$2
-  version=$3
-  archive=$4
+download_archive() {
+  url=$1
+  archive=$2
+  target_dir=$3
 
-  echo "Installing ${repo} (${archive}) from Github"
-  mkdir -p ${APPS_STORE}/${repo}
-  curl -sSLO https://github.com/${owner}/${repo}/releases/download/${version}/${archive}
+  echo "Downloading ${url}"
+  mkdir -p ${target_dir}
+  curl -sSLO ${url}/${archive}
   case ${archive} in
     *.tar.gz | *.tgz )
-      tar -zxf ${archive} --directory ${APPS_STORE}/${repo}
+      tar -zxf ${archive} --directory ${target_dir}
       ;;
     *.tar.xz )
-      xz --decompress ${archive} --stdout | tar -x --directory ${APPS_STORE}/${repo}
+      xz --decompress ${archive} --stdout | tar -x --directory ${target_dir}
       ;;
     *.zip )
-      unzip -oq ${archive} -d ${APPS_STORE}/${repo}
+      unzip -oq ${archive} -d ${target_dir}
       ;;
   esac
   rm ${archive}
 }
 
-install_binary_from_github() {
-  owner=$1
-  repo=$2
-  version=$3
-  archive=$4
+install_binary() {
+  url=$1
+  archive=$2
+  target_dir=$3
   bin_parent_directory_name=$5
 
-  download_archive_from_github $owner $repo $version $archive
+  download_archive ${url} ${archive} ${target_dir}
 
-  bin_parent_path=${APPS_STORE}/${repo}/${bin_parent_directory_name}
+  bin_parent_path=${target_dir}/${bin_parent_directory_name}
 
   for bin_name in $(ls ${bin_parent_path})
   do
@@ -55,27 +53,46 @@ install_binary_from_github() {
   done
 }
 
-install_binaries_from_github() {
+install_binaries() {
   echo "Installing binaires from Github"
 
-  install_binary_from_github neovim neovim v0.11.1 nvim-linux-x86_64.tar.gz nvim-linux-x86_64/bin
+  install_binary \
+    https://github.com/neovim/neovim/releases/download/v0.11.1 \
+    nvim-linux-x86_64.tar.gz \
+    ${APPS_STORE}/neovim \
+    nvim-linux-x86_64/bin
 
-  install_binary_from_github LuaLS lua-language-server 3.14.0 lua-language-server-3.14.0-linux-x64.tar.gz bin
+  install_binary \
+    https://github.com/LuaLS/lua-language-server/releases/download/3.14.0 \
+    lua-language-server-3.14.0-linux-x64.tar.gz \
+    ${APPS_STORE}/lua-language-server \
+    bin
 
-  install_binary_from_github clangd clangd 19.1.2 clangd-linux-19.1.2.zip clangd_19.1.2/bin
+  install_binary \
+    https://github.com/clangd/clangd/releases/download/19.1.2 \
+    clangd-linux-19.1.2.zip \
+    ${APPS_STORE}/clangd \
+    clangd_19.1.2/bin
 
-  install_binary_from_github mikefarah yq v4.45.4 yq_linux_amd64.tar.gz .
+  install_binary \
+    https://github.com/mikefarah/yq/releases/download/v4.45.4 \
+    yq_linux_amd64.tar.gz \
+    ${APPS_STORE}/yq \
+    .
   mv $ENVIRONMENT_HOME/bin/yq_linux_amd64 $ENVIRONMENT_HOME/bin/yq
 
-  install_binary_from_github wezterm wezterm 20240203-110809-5046fc22 wezterm-20240203-110809-5046fc22.Ubuntu20.04.tar.xz wezterm/usr/bin
+  install_binary \
+    https://github.com/wezterm/wezterm/releases/download/20240203-110809-5046fc22 \
+    wezterm-20240203-110809-5046fc22.Ubuntu20.04.tar.xz \
+    ${APPS_STORE}/wezterm \
+    wezterm/usr/bin
 
-  echo "Done"
-}
+  install_binary \
+    https://releases.hashicorp.com/terraform-ls/0.36.4 \
+    terraform-ls_0.36.4_linux_amd64.zip \
+    ${APPS_STORE}/terraform-ls \
+    .
 
-download_archives_from_github() {
-  echo "Downloading source archives from Github"
-  # install_binary_from_github jonas tig tig-2.5.12 tig-2.5.12.tar.gz
-  # install_binary_from_github tmux tmux 3.5a tmux-3.5a.tar.gz
   echo "Done"
 }
 
@@ -137,7 +154,7 @@ clone_repo() {
   parent_dir=$5
 
   url=https://github.com/${owner}/${repo}
-  target_dir="${parent_dir}/${plugin_name}" 
+  target_dir="${parent_dir}/${plugin_name}"
 
   echo "Cloning ${url} (revision: ${rev})"
 
@@ -146,7 +163,7 @@ clone_repo() {
   fi
 
   git clone --quiet ${url} ${target_dir} 2>/dev/null
-  git --work-tree=${target_dir} --git-dir=${target_dir}/.git checkout --quiet ${rev} 
+  git --work-tree=${target_dir} --git-dir=${target_dir}/.git checkout --quiet ${rev}
 }
 
 clone_all_repos() {
@@ -230,7 +247,7 @@ symlink_config_files
 
 . $HOME/.env
 
-install_binaries_from_github
+install_binaries
 install_rust
 install_rust_built_binaries
 install_skim_shell_bindings

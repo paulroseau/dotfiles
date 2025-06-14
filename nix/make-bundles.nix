@@ -107,6 +107,10 @@ rec {
       pyright
     ];
 
+    terraform = [
+      terraform-ls
+    ];
+
     all =
       c ++
       go ++
@@ -114,7 +118,8 @@ rec {
       lua ++
       nix ++
       python ++
-      rust;
+      rust ++
+      terraform;
   };
 
   google = [
