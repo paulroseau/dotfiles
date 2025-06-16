@@ -40,7 +40,7 @@ install_binary() {
   url=$1
   archive=$2
   target_dir=$3
-  bin_parent_directory_name=$5
+  bin_parent_directory_name=$4
 
   download_archive ${url} ${archive} ${target_dir}
 
