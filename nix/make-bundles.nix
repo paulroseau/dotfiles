@@ -49,8 +49,9 @@ rec {
     bat
     delta
     fd
-    skim
+    fzf
     ripgrep
+    skim
   ];
 
   kubernetes = [
