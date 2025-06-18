@@ -1,4 +1,13 @@
-require('blink.cmp').setup({
+local blink = require('blink.cmp')
+
+-- Make all LSP clients communicate to LSP servers blink supported capabilities
+-- NB: vim.lsp.config has __call set to expand exsisting settings, so this won't override previous settings for '*'
+-- refer to runtime/lua/vim/lsp.lua
+vim.lsp.config('*', {
+  capabilities = blink.get_lsp_capabilities({}, true)
+})
+
+blink.setup({
   keymap = {
     ['<C-j>'] = { 'insert_next' },
     ['<C-k>'] = { 'insert_prev' },
@@ -74,7 +83,7 @@ require('blink.cmp').setup({
           filetypes = { 'gitcommit' },
           completion = {
             append_space = true,
-            complete_as = 'text',
+            complete_as = 'emoji',
           },
         },
       },
