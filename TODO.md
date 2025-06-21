@@ -25,11 +25,20 @@
     - [x] install shell completions for skim in manual mode (git clone based on skim version, grab just the script and put them ~/.local/share/skim/)
     - [x] update fzf-lua
   - [x] install wezterm (mux in particular)
+- [ ] install fzf manually again (shell expansion) but keep skim in the manual install to allow switching between the 2
+- [ ] allow to install js based stuff
+  - [ ] install nvm (little dance probably with your store)
+  - [ ] install node version (set node version in env variable)
+  - [ ] check where npm list -g (maybe add that directly to the PATH) or have a wrapper around to npm to install + link (maybe cleaner)
 - [ ] remove lsp-config:
-   - you can set your settings manually (more explicit) through vim.lsp.config() (check :help lsp-quickstart)
-   - root_markers seem to be what lspconfig does "by hand" mostly
-   - signature help
-   - bindings to see types
+   -> Won't do, the configs are already in `./lsp` so will keep them
+   - [ ] find a way to customize lua-ls to include vim.env :help lsp-quickstart
+   - [/] root_markers seem to be what lspconfig does "by hand" mostly 
+     -> rust-analyzer config seems a bit oldish but not worth trashing lspconfig for that
+   - [x] signature help
+     -> automatically mapped to Ctrl-s in insert mode
+   - [x] bindings to see types
+     -> just use hover
 - [ ] install blink.cmp and trash out nvim-cmp
   - [x] update version to v1.3.1 so that you have a prebuilt binary to download at work
   - [x] have a default setting to rust/fall back lua
@@ -52,6 +61,7 @@
   -> use the table trick to display clean values / make the selector its own lua module
   -> issue with for color_scheme (config_overrides) when creating new workspace it keeps the setting (looks like a bug)
 - Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit, test with docker container or VM
+- [ ] fix clangd
 
 # Wezterm
 
@@ -100,7 +110,7 @@
     - [ ] add `Ctrl-C` to exit launcher, super-mini change: https://github.com/wezterm/wezterm/issues/4722
     - [ ] add pane-is-zoomed or pane-info to the cli
 
-- shells:
+- shells (for nix setup):
   - [ ] add git completions with nix (understand whether you should add
    .nix-profile/share/git/contrib/completion/ to the fpath or source .nix-profile/share/git/contrib/completion/git-completion.zsh
   - [ ] setup bash completions by linking
