@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Prerequisites:
-# - curl
+# - gcc
 # - git
 # - curl
 # - xz-utils
@@ -135,11 +135,15 @@ install_rust_built_applications() {
 }
 
 install_node() {
-  echo "Installing node and npm through nvm"
-  NVM_DIR="$HOME/.nvm" # stick default
-  git clone --quiet --depth 1 --branch "v0.40.3" https://github.com/nvm-sh/nvm.git "$NVM_DIR" 2>/dev/null
+  echo "Installing nvm"
+  NVM_VERSION="0.40.3"
+  git clone --quiet --depth 1 --branch "v${NVM_VERSION}" https://github.com/nvm-sh/nvm.git "$NVM_DIR" 2>/dev/null
   . "$NVM_DIR/nvm.sh"
+  echo "Done"
+
+  echo "Installing node and npm through nvm"
   nvm install node
+
   for bin in $(ls "$NVM_BIN"); do
     ln -sf $NVM_BIN/$bin $ENVIRONMENT_HOME/bin
   done
@@ -148,8 +152,15 @@ install_node() {
 
 install_node_applications() {
   echo "Installing node applications"
+
+  . "$NVM_DIR/nvm.sh"
+
   npm install --global vscode-langservers-extracted@v4.10.0
   npm install --global gitmoji-cli@v9.7.0
+
+  for bin in $(ls "$NVM_BIN"); do
+    ln -sf $NVM_BIN/$bin $ENVIRONMENT_HOME/bin
+  done
   echo "Done"
 }
 
@@ -289,6 +300,7 @@ install_binaries
 install_rust
 install_rust_built_applications
 
+NVM_DIR="$HOME/.nvm" # stick default
 install_node
 install_node_applications
 
