@@ -277,6 +277,49 @@
                 ]
               }
             ]
+          },
+          {
+            "description": "Citrix mappings",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "right_option"
+                },
+                "to": [
+                  {
+                    "key_code": "left_control"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com\\.citrix\\.receiver\\.icaviewer\\.mac$"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "right_command"
+                },
+                "to": [
+                  {
+                    "key_code": "left_command"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": [
+                      "^com\\.citrix\\.receiver\\.icaviewer\\.mac$"
+                    ]
+                  }
+                ]
+              }
+            ]
           }
         ]
       }
