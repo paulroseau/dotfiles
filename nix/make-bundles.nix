@@ -36,10 +36,6 @@ rec {
     zsh-syntax-highlighting
   ];
 
-  macos = [
-    karabiner-elements
-  ];
-
   neovim = [
     neovim-unwrapped
     neovim-plugins
