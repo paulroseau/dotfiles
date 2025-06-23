@@ -123,14 +123,14 @@ install_rust() {
 
 install_rust_built_applications() {
   echo "Installing Rust build binaries"
-  cargo install bat --version 0.25.0
-  cargo install fd-find --version 10.2.0
-  cargo install git-delta --version 0.18.2
+  # cargo install bat --version 0.25.0
+  # cargo install fd-find --version 10.2.0
+  # cargo install git-delta --version 0.18.2
   cargo install jaq --version 2.2.0
-  cargo install ripgrep --version 14.1.1
-  cargo install skim --version $SKIM_VERSION
-  cargo install starship --version 1.23.0
-  cargo install zoxide --version 0.9.8
+  # cargo install ripgrep --version 14.1.1
+  # cargo install skim --version $SKIM_VERSION
+  # cargo install starship --version 1.23.0
+  # cargo install zoxide --version 0.9.8
   echo "Done"
 }
 
@@ -306,10 +306,8 @@ install_node_applications
 
 install_skim_shell_bindings
 
-export ZSH_PLUGINS_DIR=$HOME/.zsh-plugins
 download_zsh_plugins
 
-export NVIM_PLUGINS_DIR=$HOME/.nvim-plugins
 download_nvim_plugins
 generate_nvim_doc_for_nvim_plugins
 
