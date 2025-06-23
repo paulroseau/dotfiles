@@ -3,6 +3,9 @@
 # Prerequisites:
 # - curl
 # - git
+# - curl
+# - xz-utils
+# - unzip
 # Not installed (blocked by office proxy): zsh
 
 APPS_STORE=$HOME/store
@@ -12,6 +15,8 @@ ENVIRONMENT_HOME=$HOME/.local
 mkdir -p $ENVIRONMENT_HOME/bin
 
 SKIM_VERSION="0.18.0"
+FZF_VERSION="0.62.0"
+
 DOTFILES=$HOME/.dotfiles
 
 download_archive() {
@@ -56,41 +61,54 @@ install_binary() {
 install_binaries() {
   echo "Installing binaires from Github"
 
+  NVIM_VERSION="0.11.1"
+  LUA_LS_VERSION="3.14.0"
+  CLANGD_VERSION="19.1.2"
+  YQ_VERSION="4.45.4"
+  TERRAFORM_LS_VERSION="0.36.4"
+  WEZTERM_VERSION="20240203-110809-5046fc22"
+
   install_binary \
-    https://github.com/neovim/neovim/releases/download/v0.11.1 \
+    "https://github.com/neovim/neovim/releases/download/v${NVIM_VERSION}" \
     nvim-linux-x86_64.tar.gz \
-    ${APPS_STORE}/neovim \
+    ${APPS_STORE}/neovim-${NVIM_VERSION} \
     nvim-linux-x86_64/bin
 
   install_binary \
-    https://github.com/LuaLS/lua-language-server/releases/download/3.14.0 \
-    lua-language-server-3.14.0-linux-x64.tar.gz \
-    ${APPS_STORE}/lua-language-server \
+    "https://github.com/LuaLS/lua-language-server/releases/download/${LUA_LS_VERSION}" \
+    lua-language-server-${LUA_LS_VERSION}-linux-x64.tar.gz \
+    ${APPS_STORE}/lua-language-server-${LUA_LS_VERSION} \
     bin
 
   install_binary \
-    https://github.com/clangd/clangd/releases/download/19.1.2 \
-    clangd-linux-19.1.2.zip \
-    ${APPS_STORE}/clangd \
-    clangd_19.1.2/bin
+    "https://github.com/junegunn/fzf/releases/download/v${FZF_VERSION}" \
+    fzf-${FZF_VERSION}-linux_amd64.tar.gz \
+    ${APPS_STORE}/fzf-${FZF_VERSION} \
+    .
 
   install_binary \
-    https://github.com/mikefarah/yq/releases/download/v4.45.4 \
+    "https://github.com/clangd/clangd/releases/download/${CLANGD_VERSION}" \
+    clangd-linux-${CLANGD_VERSION}.zip \
+    ${APPS_STORE}/clangd-${CLANGD_VERSION} \
+    clangd_${CLANGD_VERSION}/bin
+
+  install_binary \
+    "https://github.com/mikefarah/yq/releases/download/v${YQ_VERSION}" \
     yq_linux_amd64.tar.gz \
-    ${APPS_STORE}/yq \
+    ${APPS_STORE}/yq-${YQ_VERSION} \
     .
   mv $ENVIRONMENT_HOME/bin/yq_linux_amd64 $ENVIRONMENT_HOME/bin/yq
 
   install_binary \
-    https://github.com/wezterm/wezterm/releases/download/20240203-110809-5046fc22 \
-    wezterm-20240203-110809-5046fc22.Ubuntu20.04.tar.xz \
-    ${APPS_STORE}/wezterm \
+    "https://github.com/wezterm/wezterm/releases/download/${WEZTERM_VERSION}" \
+    wezterm-${WEZTERM_VERSION}.Ubuntu20.04.tar.xz \
+    ${APPS_STORE}/wezterm-${WEZTERM_VERSION} \
     wezterm/usr/bin
 
   install_binary \
-    https://releases.hashicorp.com/terraform-ls/0.36.4 \
-    terraform-ls_0.36.4_linux_amd64.zip \
-    ${APPS_STORE}/terraform-ls \
+    https://releases.hashicorp.com/terraform-ls/${TERRAFORM_LS_VERSION} \
+    terraform-ls_${TERRAFORM_LS_VERSION}_linux_amd64.zip \
+    ${APPS_STORE}/terraform-ls-${TERRAFORM_LS_VERSION} \
     .
 
   echo "Done"
@@ -103,7 +121,7 @@ install_rust() {
   echo "Done"
 }
 
-install_rust_built_binaries() {
+install_rust_built_applications() {
   echo "Installing Rust build binaries"
   cargo install bat --version 0.25.0
   cargo install fd-find --version 10.2.0
@@ -113,6 +131,25 @@ install_rust_built_binaries() {
   cargo install skim --version $SKIM_VERSION
   cargo install starship --version 1.23.0
   cargo install zoxide --version 0.9.8
+  echo "Done"
+}
+
+install_node() {
+  echo "Installing node and npm through nvm"
+  NVM_DIR="$HOME/.nvm" # stick default
+  git clone --quiet --depth 1 --branch "v0.40.3" https://github.com/nvm-sh/nvm.git "$NVM_DIR" 2>/dev/null
+  . "$NVM_DIR/nvm.sh"
+  nvm install node
+  for bin in $(ls "$NVM_BIN"); do
+    ln -sf $NVM_BIN/$bin $ENVIRONMENT_HOME/bin
+  done
+  echo "Done"
+}
+
+install_node_applications() {
+  echo "Installing node applications"
+  npm install --global vscode-langservers-extracted@v4.10.0
+  npm install --global gitmoji-cli@v9.7.0
   echo "Done"
 }
 
@@ -248,12 +285,19 @@ symlink_config_files
 . $HOME/.env
 
 install_binaries
+
 install_rust
-install_rust_built_binaries
+install_rust_built_applications
+
+install_node
+install_node_applications
+
 install_skim_shell_bindings
+
 export ZSH_PLUGINS_DIR=./test-zsh-plugins
-export NVIM_PLUGINS_DIR=./test-nvim-plugins
 download_zsh_plugins
+
+export NVIM_PLUGINS_DIR=./test-nvim-plugins
 download_nvim_plugins
 generate_nvim_doc_for_nvim_plugins
 
