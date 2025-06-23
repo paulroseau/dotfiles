@@ -6,6 +6,7 @@ if [ -e $HOME/.cargo/env ]; then . $HOME/.cargo/env; fi
 export NVIM_PLUGINS_DIR="$HOME/.nvim-plugins"
 
 # .zshrc and .bashrc expect those to be set to source other scripts
+FZF_SHELL_DIR="$HOME/.local/share/fzf"
 SKIM_SHELL_DIR="$HOME/.local/share/skim"
 ZSH_PLUGINS_DIR="$HOME/.zsh-plugins"
 
@@ -28,4 +29,5 @@ if [ -e $NIX_PROFILE/etc/profile.d/nix.sh ]; then . $NIX_PROFILE/etc/profile.d/n
 if [ -e $NIX_PROFILE ]; then export LC_ALL="C.UTF-8"; fi
 if [ -e $NIX_PROFILE/share ]; then ZSH_PLUGINS_DIR="$NIX_PROFILE/share"; fi
 if [ -e $NIX_PROFILE/share/neovim-plugins ]; then export NVIM_PLUGINS_DIR="$NIX_PROFILE/share/neovim-plugins"; fi
+if [ -e $NIX_PROFILE/share/fzf ]; then FZF_SHELL_DIR="$NIX_PROFILE/share/fzf"; fi
 if [ -e $NIX_PROFILE/share/skim ]; then SKIM_SHELL_DIR="$NIX_PROFILE/share/skim"; fi

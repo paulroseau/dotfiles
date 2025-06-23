@@ -123,14 +123,14 @@ install_rust() {
 
 install_rust_built_applications() {
   echo "Installing Rust build binaries"
-  # cargo install bat --version 0.25.0
-  # cargo install fd-find --version 10.2.0
-  # cargo install git-delta --version 0.18.2
+  cargo install bat --version 0.25.0
+  cargo install fd-find --version 10.2.0
+  cargo install git-delta --version 0.18.2
   cargo install jaq --version 2.2.0
-  # cargo install ripgrep --version 14.1.1
-  # cargo install skim --version $SKIM_VERSION
-  # cargo install starship --version 1.23.0
-  # cargo install zoxide --version 0.9.8
+  cargo install ripgrep --version 14.1.1
+  cargo install skim --version $SKIM_VERSION
+  cargo install starship --version 1.23.0
+  cargo install zoxide --version 0.9.8
   echo "Done"
 }
 
@@ -191,6 +191,16 @@ install_skim_shell_bindings() {
   mkdir -p $SKIM_SHELL_DIR
   cp $SKIM_TMP_DIR/shell/* $SKIM_SHELL_DIR
   rm -rf $SKIM_TMP_DIR
+  echo "Done"
+}
+
+install_fzf_shell_bindings() {
+  echo "Installing fzf shell bindings"
+  FZF_TMP_DIR=$(mktemp --directory /tmp/fzf-src-XXXX)
+  git clone --quiet --depth 1 --branch "v${FZF_VERSION}" https://github.com/junegunn/fzf.git $FZF_TMP_DIR 2>/dev/null
+  mkdir -p $FZF_SHELL_DIR
+  cp $FZF_TMP_DIR/shell/* $FZF_SHELL_DIR
+  rm -rf $FZF_TMP_DIR
   echo "Done"
 }
 
@@ -305,6 +315,7 @@ install_node
 install_node_applications
 
 install_skim_shell_bindings
+install_fzf_shell_bindings
 
 download_zsh_plugins
 

@@ -49,9 +49,9 @@ if [ -e $ZSH_PLUGINS_DIR/zsh/site-functions ]; then fpath+=($ZSH_PLUGINS_DIR/zsh
 autoload -Uz compinit
 compinit
 
-# Skim key bindings and autocomplete (needs to happen after completion initialization)
-if [ -f $SKIM_SHELL_DIR/completion.zsh ]; then source $SKIM_SHELL_DIR/completion.zsh; fi
-if [ -f $SKIM_SHELL_DIR/key-bindings.zsh ]; then source $SKIM_SHELL_DIR/key-bindings.zsh; fi
+# FZF key bindings and autocomplete (needs to happen after completion initialization)
+if [ -f $FZF_SHELL_DIR/completion.zsh ]; then source $FZF_SHELL_DIR/completion.zsh; fi
+if [ -f $FZF_SHELL_DIR/key-bindings.zsh ]; then source $FZF_SHELL_DIR/key-bindings.zsh; fi
 
 # Zsh plugins
 if [ -f $ZSH_PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then source $ZSH_PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh; fi

@@ -10,6 +10,6 @@ if [ $(command -v starship) ]; then eval "$(starship init bash)"; fi
 # Zoxide
 if [ $(command -v zoxide) ]; then eval "$(zoxide init bash)"; fi
 
-# Skim key bindings and autocomplete
-if [ -f $SKIM_SHELL_DIR/completion.bash ]; then source $SKIM_SHELL_DIR/completion.bash; fi
-if [ -f $SKIM_SHELL_DIR/key-bindings.bash ]; then source $SKIM_SHELL_DIR/key-bindings.bash; fi
+# FZF key bindings and autocomplete
+if [ -f $FZF_SHELL_DIR/completion.bash ]; then source $FZF_SHELL_DIR/completion.bash; fi
+if [ -f $FZF_SHELL_DIR/key-bindings.bash ]; then source $FZF_SHELL_DIR/key-bindings.bash; fi
