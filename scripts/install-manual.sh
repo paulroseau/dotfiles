@@ -218,7 +218,7 @@ clone_all_repos() {
   plugin_sources_json=$1
   parent_dir=$2
 
-  cat $plugin_sources_json | jq -r 'to_entries[] | "\(.key) \(.value | .owner) \(.value | .repo) \(.value | .rev)"' | while read -r plugin_name owner repo rev
+  cat $plugin_sources_json | jaq -r 'to_entries[] | "\(.key) \(.value | .owner) \(.value | .repo) \(.value | .rev)"' | while read -r plugin_name owner repo rev
   do
     clone_repo $plugin_name $owner $repo $rev $parent_dir
   done
@@ -228,14 +228,14 @@ download_plugins() {
   plugin_sources_json=$1
   parent_dir=$2
 
-  if [[ ${parent_dir} = *".nix-profile"* ]]
-  then
-    echo "Plugins seem to be already managed by Nix, aborting"
-    return
-  fi
+  case ${parent_dir} in
+    (*".nix-profile"*)
+      echo "Plugins seem to be already managed by Nix, aborting"
+      return
+      ;;
+  esac
 
   if [ ! -d $parent_dir ]; then mkdir -p $parent_dir; fi
-  if [ $(command -v jaq) ]; then alias jq='jaq'; fi
   clone_all_repos ${plugin_sources_json} ${parent_dir}
 }
 
@@ -306,10 +306,10 @@ install_node_applications
 
 install_skim_shell_bindings
 
-export ZSH_PLUGINS_DIR=./test-zsh-plugins
+export ZSH_PLUGINS_DIR=$HOME/.zsh-plugins
 download_zsh_plugins
 
-export NVIM_PLUGINS_DIR=./test-nvim-plugins
+export NVIM_PLUGINS_DIR=$HOME/.nvim-plugins
 download_nvim_plugins
 generate_nvim_doc_for_nvim_plugins
 
