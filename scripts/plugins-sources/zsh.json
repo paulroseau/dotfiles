@@ -1,26 +1,26 @@
 {
-    "zsh-autosuggestions": {
-        "branch": "master",
-        "description": "Fish-like autosuggestions for zsh",
-        "homepage": null,
-        "owner": "zsh-users",
-        "repo": "zsh-autosuggestions",
-        "rev": "v0.7.1",
-        "sha256": "02p5wq93i12w41cw6b00hcgmkc8k80aqzcy51qfzi0armxig555y",
-        "type": "tarball",
-        "url": "https://github.com/zsh-users/zsh-autosuggestions/archive/v0.7.1.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "zsh-syntax-highlighting": {
-        "branch": "master",
-        "description": "Fish shell like syntax highlighting for Zsh.",
-        "homepage": "github.com/zsh-users/zsh-syntax-highlighting",
-        "owner": "zsh-users",
-        "repo": "zsh-syntax-highlighting",
-        "rev": "0.8.0",
-        "sha256": "1yl8zdip1z9inp280sfa5byjbf2vqh2iazsycar987khjsi5d5w8",
-        "type": "tarball",
-        "url": "https://github.com/zsh-users/zsh-syntax-highlighting/archive/0.8.0.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    }
+  "zsh-autosuggestions": {
+    "branch": "master",
+    "description": "Fish-like autosuggestions for zsh",
+    "homepage": null,
+    "owner": "zsh-users",
+    "repo": "zsh-autosuggestions",
+    "rev": "v0.7.1",
+    "sha256": "02p5wq93i12w41cw6b00hcgmkc8k80aqzcy51qfzi0armxig555y",
+    "type": "tarball",
+    "url": "https://github.com/zsh-users/zsh-autosuggestions/archive/v0.7.1.tar.gz",
+    "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+  },
+  "zsh-syntax-highlighting": {
+    "branch": "master",
+    "description": "Fish shell like syntax highlighting for Zsh.",
+    "homepage": "github.com/zsh-users/zsh-syntax-highlighting",
+    "owner": "zsh-users",
+    "repo": "zsh-syntax-highlighting",
+    "rev": "0.8.0",
+    "sha256": "1yl8zdip1z9inp280sfa5byjbf2vqh2iazsycar987khjsi5d5w8",
+    "type": "tarball",
+    "url": "https://github.com/zsh-users/zsh-syntax-highlighting/archive/0.8.0.tar.gz",
+    "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+  }
 }
