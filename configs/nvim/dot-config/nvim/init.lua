@@ -24,6 +24,7 @@ require('plugins.nvim-treesitter')
 require('plugins.toggleterm')
 require('plugins.blink-cmp')
 require('plugins.lspconfig')
+require('plugins.lazydev')
 require('plugins.luasnip')
 require('plugins.luatab')
 

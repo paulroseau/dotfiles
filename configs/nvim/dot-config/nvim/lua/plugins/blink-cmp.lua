@@ -40,7 +40,7 @@ blink.setup({
       ['<C-k>'] = { 'insert_prev' },
       ['<C-c>'] = { 'cancel', 'fallback' },
       ['<CR>'] = { 'accept', 'fallback' },
-      ['<C-<CR>>'] = { 'accept_and_enter', 'fallback' },
+      ['<S-<CR>>'] = { 'accept_and_enter', 'fallback' },
     },
 
     completion = {
@@ -61,7 +61,7 @@ blink.setup({
     },
   },
 
-  sources = { 
+  sources = {
 
     default = { 'lsp', 'path', 'snippets', 'buffer' },
 
@@ -73,12 +73,14 @@ blink.setup({
 
     per_filetype = {
       gitcommit = { 'gitmoji', 'path', 'buffer' },
+      lua = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
     },
 
     providers = {
       gitmoji = {
         name = 'gitmoji',
         module = 'gitmoji.blink',
+        score_offset = 100,
         opts = {
           filetypes = { 'gitcommit' },
           completion = {
@@ -86,6 +88,12 @@ blink.setup({
             complete_as = 'emoji',
           },
         },
+      },
+
+      lazydev = {
+        name = 'LazyDev',
+        module = 'lazydev.integrations.blink',
+        score_offset = 100,
       },
     },
   }
