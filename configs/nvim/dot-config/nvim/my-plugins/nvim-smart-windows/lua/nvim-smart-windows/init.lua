@@ -1,12 +1,8 @@
-local utils = require("nvim-smart-windows.utils")
-
 local M = {}
 
-local DEFAULT_CONFIG = {
-  do_preserve_zoomed_pane = true,
-}
-
 function M.setup(config)
+  local utils = require("nvim-smart-windows.utils")
+
   local client = require("nvim-smart-windows.client." .. config.client.name).client(config.client)
 
   if client then

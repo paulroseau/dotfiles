@@ -11,7 +11,7 @@
     - [ ] install wezterm on remote Linux image
 
 - For the office (extra script, maybe in the office's gitlab):
-  - [ ] install missing binaries (tmux, zsh, tig via conda)
+  - [ ] install missing binaries (tmux, zsh, tig via conda?)
   - [ ] install uv with cargo
   - [ ] install pyright globally through uv
 
@@ -25,32 +25,49 @@
     - [x] install shell completions for skim in manual mode (git clone based on skim version, grab just the script and put them ~/.local/share/skim/)
     - [x] update fzf-lua
   - [x] install wezterm (mux in particular)
-- [ ] install fzf manually again (shell expansion) but keep skim in the manual install to allow switching between the 2
-- [ ] allow to install js based stuff
-  - [ ] install nvm (little dance probably with your store)
-  - [ ] install node version (set node version in env variable)
-  - [ ] check where npm list -g (maybe add that directly to the PATH) or have a wrapper around to npm to install + link (maybe cleaner)
-- [ ] remove lsp-config:
+- [x] install fzf manually again (shell expansion) but keep skim in the manual install to allow switching between the 2
+- [x] allow to install js based stuff
+  - [x] install nvm (little dance probably with your store)
+  - [x] install node version (set node version in env variable)
+  - [x] check where npm list -g (maybe add that directly to the PATH) or have a wrapper around to npm to install + link (maybe cleaner)
+- [/] remove lsp-config:
    -> Won't do, the configs are already in `./lsp` so will keep them
-   - [ ] find a way to customize lua-ls to include vim.env :help lsp-quickstart
+   - [x] find a way to customize lua-ls to include vim.env :help lsp-quickstart
+     -> looks like you need to install lazydev...
    - [/] root_markers seem to be what lspconfig does "by hand" mostly 
      -> rust-analyzer config seems a bit oldish but not worth trashing lspconfig for that
    - [x] signature help
      -> automatically mapped to Ctrl-s in insert mode
    - [x] bindings to see types
      -> just use hover
-- [ ] install blink.cmp and trash out nvim-cmp
+- [x] install blink.cmp and trash out nvim-cmp
   - [x] update version to v1.3.1 so that you have a prebuilt binary to download at work
   - [x] have a default setting to rust/fall back lua
   - [x] config
-  - [ ] double check:
+  - [x] double check:
     - [x] toggle documentation with M-p, and scroll
-    - [ ] lsp signature
+    - [/] lsp signature
+      -> nvim kinda does what we want by default, disable it
     - [x] lsp
-    - [ ] nvim lua plugin for files which are in `~/.config/nvim`
-    - [ ] snippet: do you still need luasnip in 0.11+?
-  - [ ] remove all nvim-cmp stuff in the nix
+    - [x] nvim lua plugin for files which are in `~/.config/nvim`
+- [x] lsp:
+  - [x] fix on_attach not working
+- [x] lsp pyright:
+  - [x] fix loading of on_attach
+- [x] lsp rust:
+  - [x] install rustaceanvim
+  - [x] check auto-formatting
+  - [x] check signature
+  - [x] check hover
+- [ ] snippet: do you still need luasnip in 0.11+? -> No
+  - [ ] let's replace LuaSnip with the built-in 
+  - [ ] check what friednly snippets brought to you with blink.cmp and make sure snippet expansion works
+- [ ] remove all nvim-cmp stuff in nix
+- [ ] install mini-pairs or autopairs
+- [ ] install zen-mode
+- [ ] install todo-comment
 - [x] nvim prettier tabs by using https://github.com/alvarosevilla95/luatab.nvim
+
 - [ ] Wezterm: prettier tabs and statusline: https://github.com/michaelbrusegard/tabline.wez (for status line print Nvim icon if nvim_mode is on but nvim_ignore is off)
 - [ ] Consider using the Input select for switching workspaces (fonts? color_scheme? maybe OTT)
   - improve in lua object programming: https://www.lua.org/pil/contents.html#P2 (13. tables & 16. classes)
@@ -62,6 +79,20 @@
   -> issue with for color_scheme (config_overrides) when creating new workspace it keeps the setting (looks like a bug)
 - Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit, test with docker container or VM
 - [ ] fix clangd
+- [ ] Neovim: 
+  - rework your smart windows by separating configuration/initialization (ie. no setup(config)): https://github.com/nvim-neorocks/nvim-best-practices?tab=readme-ov-file#sleeping_bed-lazy-loading
+  - check plugins listed on lazyvim (in particular conform for formatting, dashboard)
+  - check snacks:
+    - file explorer -> mouais, not convinced neo-tree is better
+    - same for picker, fzf-lua better
+    - picker -> not a fan, but there is search projects, recent files, undo which are really nice
+  - check zen mode from folke
+  - check how snacks implement toggling
+  - rework mapping like snacks default
+
+# Neovim
+
+- NB: on hover and signature help, monitor this issue: https://github.com/neovim/neovim/issues/28140 which asks for the ability to toggle the preview window (links to this more general issue: https://github.com/neovim/neovim/issues/31206), right now you just map K to calling vim.lsp.buf.hover twice, but you would still need to press `q` to exit, ideally we just exit with `K` as well
 
 # Wezterm
 
@@ -263,6 +294,7 @@
 
 - neovim:
   - [x] maybe update how you expand windows, and swap the effect of the keys `<` and `>` when on a right most window and `+` and `-` when on a bottom window
+  - [ ] create a fzf lua source which prints the current servers capabilities :lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)
   - [ ] replace nvim-cmp by https://github.com/Saghen/blink.cmp
   - [ ] try indent-blankline.nvim
   - [ ] do you still need lspconfig in nvim 0.11?

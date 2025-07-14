@@ -155,4 +155,17 @@ vim.keymap.set({ 'n' }, '<leader>R', vim.lsp.buf.rename)
 vim.keymap.set({ 'n' }, '<leader>M', rename_with_substitute)
 
 -- Formatting
-vim.keymap.set({ 'n' }, '<leader>F', vim.lsp.buf.format)
+vim.keymap.set({ 'n', 'v' }, '<leader>F', vim.lsp.buf.format)
+
+local function call_twice(fn)
+  return function()
+    fn()
+    fn()
+  end
+end
+
+-- Signature help (call twice to focus inside the preview window)
+vim.keymap.set({ 'i' }, '<C-s>', call_twice(vim.lsp.buf.signature_help))
+
+-- Hover (call twice to focus inside the preview window)
+vim.keymap.set({ 'n' }, 'K', call_twice(vim.lsp.buf.hover))

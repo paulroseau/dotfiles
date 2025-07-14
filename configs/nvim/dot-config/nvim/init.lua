@@ -2,7 +2,7 @@
 require('settings')
 require('mappings')
 require('commands')
-require('lsp')
+require('lsp').configure()
 
 -- Add plugins to runtimepath
 local utils = require('utils')
@@ -23,10 +23,10 @@ require('plugins.nvim-surround')
 require('plugins.nvim-treesitter')
 require('plugins.toggleterm')
 require('plugins.blink-cmp')
-require('plugins.lspconfig')
 require('plugins.lazydev')
 require('plugins.luasnip')
 require('plugins.luatab')
+require('plugins.rustaceanvim')
 
 -- Pick colorscheme
 require('plugins.colorschemes.nord')

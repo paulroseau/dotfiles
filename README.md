@@ -71,7 +71,7 @@ nix-channel --list
 nix-channel --list-generations
 
 # Update the nixpkgs channel
-nix-channel --update nixpkgs
+sudo nix-channel --update nixpkgs
 ```
 
 You can then reinstall packages based of the latest version of `<nixpkgs>`:
@@ -104,7 +104,7 @@ nix-env --install --file nix/default.nix -A '<package>'
 
 ```sh
 # Delete a package (creates a new environment without the package)
-nix-env --uninstall --file nix/default -A '<package>'
+nix-env --uninstall --file nix/default '<package>'
 
 # List all nix environment generations
 nix-env --list-generations

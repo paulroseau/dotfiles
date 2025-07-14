@@ -4,10 +4,7 @@ with pkgs;
 
 rec {
   # for a more uniform experience across MacOS X and Linux
-  core = [
-    coreutils
-    findutils
-  ];
+  core = [ coreutils findutils ];
 
   nerd-fonts = [
     pkgs.nerd-fonts.agave
@@ -16,129 +13,46 @@ rec {
     pkgs.nerd-fonts.terminess-ttf
   ];
 
-  terminal = [
-    pkgs.alacritty  # TODO remove this
-    alacritty-theme # TODO remove this
-    nerd-fonts
-    wezterm
-  ];
+  terminal = [ nerd-fonts wezterm ];
 
-  nix = [
-    niv
-    pkgs.nix
-  ];
+  zsh =
+    [ pkgs.zsh starship zoxide zsh-autosuggestions zsh-syntax-highlighting ];
 
-  zsh = [
-    pkgs.zsh
-    starship
-    zoxide
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-  ];
+  neovim = [ neovim-unwrapped neovim-plugins ];
 
-  neovim = [
-    neovim-unwrapped
-    neovim-plugins
-  ];
+  fzf-lua-required = [ bat delta fd fzf ripgrep skim ];
 
-  fzf-lua-required = [
-    bat
-    delta
-    fd
-    fzf
-    ripgrep
-    skim
-  ];
+  kubernetes = [ k9s kubectl kubectl-tree ];
 
-  kubernetes = [
-    k9s
-    kubectl
-    kubectl-tree
-  ];
+  versioning = [ git tig ];
 
-  versioning = [
-    git
-    tig
-  ];
+  networking = [ ipcalc ];
 
-  networking = [
-    ipcalc
-  ];
-
-  misc = [
-    jaq
-    tmux
-    tree
-    stow
-    yq
-  ];
+  misc = [ jaq tmux tree stow yq ];
 
   development = rec {
-    c = [
-      clang
-      clang-tools
-      cmake
-    ];
+    c = [ clang clang-tools cmake ];
 
-    go = [
-      gopls
-    ];
+    go = [ gopls ];
 
-    json = [
-      vscode-langservers-extracted
-    ];
+    json = [ vscode-langservers-extracted ];
 
-    lua = [
-      lua-language-server
-    ];
+    lua = [ lua-language-server ];
 
-    nix = [
-      nil
-    ];
+    nix = [ nil niv nixfmt pkgs.nix ];
 
-    rust = [
-      rustup
-    ];
+    rust = [ rustup ];
 
-    python = [
-      pyright
-    ];
+    python = [ python3 pyright ];
 
-    terraform = [
-      terraform-ls
-    ];
+    terraform = [ pkgs.terraform terraform-ls ];
 
-    all =
-      c ++
-      go ++
-      json ++
-      lua ++
-      nix ++
-      python ++
-      rust ++
-      terraform;
+    all = c ++ go ++ json ++ lua ++ nix ++ python ++ rust ++ terraform;
   };
 
-  google = [
-    google-cloud-sdk
-  ];
+  google = [ google-cloud-sdk ];
 
-  base =
-    core
-    ++ misc
-    ++ nix
-    ++ neovim
-    ++ fzf-lua-required
-    ++ zsh;
+  base = core ++ misc ++ neovim ++ fzf-lua-required ++ zsh;
 
-  work =
-    base
-    ++ kubernetes
-    ++ versioning
-    ++ networking
-    ++ development.all;
-
-  local = 
-    base
-    ++ terminal;
+  local = base ++ terminal;
 }

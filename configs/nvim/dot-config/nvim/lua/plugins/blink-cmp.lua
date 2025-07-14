@@ -16,7 +16,6 @@ blink.setup({
     ['<M-p>'] = { 'show_documentation', 'hide_documentation', },
     ['<M-e>'] = { 'scroll_documentation_up', 'fallback' },
     ['<M-d>'] = { 'scroll_documentation_down', 'fallback' },
-    ['<C-s>'] = { 'show_signature', 'hide_signature', 'fallback' }
   },
 
   completion = {
@@ -51,14 +50,9 @@ blink.setup({
   },
 
   signature = {
-    enabled = true,
-    trigger = {
-      enabled = false,
-      show_on_keyword = false,
-      show_on_trigger_character = false,
-      show_on_insert = false,
-      show_on_insert_on_trigger_character = false,
-    },
+    -- neovim already binds C-s to vim.lsp.buf.signature_help() by default
+    -- enable this only if you want the signature window to pop automatically on trigger characters
+    enabled = false,
   },
 
   sources = {

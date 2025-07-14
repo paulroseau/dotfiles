@@ -1,11 +1,6 @@
-local function toggle_diagnostic()
-  if vim.diagnostic.is_disabled() then
-    vim.diagnostic.enable()
-  else
-    vim.diagnostic.disable()
-  end
-end
+vim.api.nvim_create_user_command('DiagnosticToggle',
+  function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end, {}
+)
 
-vim.api.nvim_create_user_command('DiagnosticToggle', toggle_diagnostic, {})
-vim.api.nvim_create_user_command('DiagnosticEnable', function () vim.diagnostic.enable() end, {})
-vim.api.nvim_create_user_command('DiagnosticDisable', function () vim.diagnostic.disable() end, {})
+vim.api.nvim_create_user_command('LspInfo', function() vim.cmd.checkhealth('vim.lsp') end, {})
+vim.api.nvim_create_user_command('LspStopAll', function() vim.lsp.stop_client(vim.lsp.get_clients()) end, {})

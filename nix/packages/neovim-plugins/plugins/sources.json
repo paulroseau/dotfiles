@@ -107,6 +107,18 @@
         "url": "https://github.com/willothy/flatten.nvim/archive/92c59ae6200e6b04aff167577ebb8a9035a6d2b3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "friendly-snippets": {
+        "branch": "main",
+        "description": "Set of preconfigured snippets for different languages. ",
+        "homepage": "",
+        "owner": "rafamadriz",
+        "repo": "friendly-snippets",
+        "rev": "572f5660cf05f8cd8834e096d7b4c921ba18e175",
+        "sha256": "08q7vs7p4grav819b6hl5y9zla8bbb461b6m1w0mjz6n6rqjjc0p",
+        "type": "tarball",
+        "url": "https://github.com/rafamadriz/friendly-snippets/archive/572f5660cf05f8cd8834e096d7b4c921ba18e175.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "fzf-lua": {
         "branch": "main",
         "description": "Improved fzf.vim written in lua",
@@ -215,18 +227,6 @@
         "url": "https://github.com/hrsh7th/nvim-cmp/archive/04e0ca376d6abdbfc8b52180f8ea236cbfddf782.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "nvim-lspconfig": {
-        "branch": "master",
-        "description": "Quickstart configs for Nvim LSP",
-        "homepage": "",
-        "owner": "neovim",
-        "repo": "nvim-lspconfig",
-        "rev": "v2.3.0",
-        "sha256": "0xlad1n0jzk1cir2fp4mnry7l6rbsq3rh2j1y1i5v7j25nk81rf0",
-        "type": "tarball",
-        "url": "https://github.com/neovim/nvim-lspconfig/archive/v2.3.0.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "nvim-surround": {
         "branch": "main",
         "description": "Add/change/delete surrounding delimiter pairs with ease. Written with :heart: in Lua.",
@@ -285,6 +285,18 @@
         "sha256": "0kr8c5fgvv7ijsvk4z0c9dawqy58mg5yz9yzx0al2ljax32lfqh1",
         "type": "tarball",
         "url": "https://github.com/nvim-lua/plenary.nvim/archive/4f71c0c4a196ceb656c824a70792f3df3ce6bb6d.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "rustaceanvim": {
+        "branch": "master",
+        "description": "🦀 Supercharge your Rust experience in Neovim! A heavily modified fork of rust-tools.nvim",
+        "homepage": "",
+        "owner": "mrcjkb",
+        "repo": "rustaceanvim",
+        "rev": "v6.4.1",
+        "sha256": "1xmj9k83gfi99dpjh0z24syx5qf1nj5ixfvzf9imdk514yqw32aj",
+        "type": "tarball",
+        "url": "https://github.com/mrcjkb/rustaceanvim/archive/v6.4.1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "toggleterm-nvim": {
