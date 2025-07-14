@@ -76,8 +76,8 @@ local function toogle_boolean_option(option_name)
     vim.o[option_name] = not vim.o[option_name]
   end
 end
-vim.keymap.set({ '' }, '<leader><Space>', toogle_boolean_option("list"))
-vim.keymap.set({ '' }, '<leader>w', toogle_boolean_option("wrap"))
+vim.keymap.set({ '' }, '<leader><Space>', toogle_boolean_option('list'))
+vim.keymap.set({ '' }, '<leader>w', toogle_boolean_option('wrap'))
 
 -- Better * and # searches
 local function visual_selection_search(search_character)
@@ -125,8 +125,14 @@ local function locationlist_or_quickfixlist(action)
   end
 end
 
-vim.keymap.set({ 'n' }, '<C-p>', locationlist_or_quickfixlist("previous"))
-vim.keymap.set({ 'n' }, '<C-n>', locationlist_or_quickfixlist("next"))
+-- vim.keymap.set({ 'n' }, '<C-p>', locationlist_or_quickfixlist('previous'))
+-- vim.keymap.set({ 'n' }, '<C-n>', locationlist_or_quickfixlist('next'))
+
+-- Snippet
+vim.keymap.set({ 'n', 'i', 's' }, '<C-p>', function() vim.snippet.jump(-1) end,
+  { desc = 'Snippet jump backward', silent = true })
+vim.keymap.set({ 'n', 'i', 's' }, '<C-n>', function() vim.snippet.jump(1) end,
+  { desc = 'Snippet jump forward', silent = true })
 
 -- Renaming
 

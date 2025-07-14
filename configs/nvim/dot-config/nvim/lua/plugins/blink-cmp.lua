@@ -11,6 +11,8 @@ blink.setup({
   keymap = {
     ['<C-j>'] = { 'insert_next' },
     ['<C-k>'] = { 'insert_prev' },
+    ['<C-n>'] = {}, -- blink binds this by default to insert_next
+    ['<C-p>'] = {}, -- blink binds this by default to insert_prev
     ['<C-c>'] = { 'cancel', 'fallback' },
     ['<CR>'] = { 'accept', 'fallback' },
     ['<M-p>'] = { 'show_documentation', 'hide_documentation', },
@@ -28,8 +30,8 @@ blink.setup({
     enabled = true,
 
     sources = function()
+      -- Commands only (no autocomplete for '/' or '?' intentionally)
       local type = vim.fn.getcmdtype()
-      -- Commands (only - no autocomplete for '/' or '?' intentionally)
       if type == ':' or type == '@' then return { 'cmdline' } end
       return {}
     end,
@@ -50,13 +52,12 @@ blink.setup({
   },
 
   signature = {
-    -- neovim already binds C-s to vim.lsp.buf.signature_help() by default
-    -- enable this only if you want the signature window to pop automatically on trigger characters
+    -- use C-s to display the signature_help floating window from insert mode
+    -- enable this only if you want the signature floating window to pop automatically on trigger characters
     enabled = false,
   },
 
   sources = {
-
     default = { 'lsp', 'path', 'snippets', 'buffer' },
 
     min_keyword_length = function(ctx)
@@ -66,11 +67,27 @@ blink.setup({
     end,
 
     per_filetype = {
-      gitcommit = { 'gitmoji', 'path', 'buffer' },
-      lua = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
+      gitcommit = { 'gitmoji', 'path' },
+      lua = { 'lazydev', 'lsp', 'snippets', 'path', 'buffer' },
     },
 
     providers = {
+      lsp = {
+        score_offset = 3,
+      },
+
+      snippets = {
+        score_offset = 3,
+      },
+
+      path = {
+        score_offset = 0,
+      },
+
+      buffer = {
+        score_offset = -3,
+      },
+
       gitmoji = {
         name = 'gitmoji',
         module = 'gitmoji.blink',

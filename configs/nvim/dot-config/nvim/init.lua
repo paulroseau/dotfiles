@@ -24,9 +24,11 @@ require('plugins.nvim-treesitter')
 require('plugins.toggleterm')
 require('plugins.blink-cmp')
 require('plugins.lazydev')
-require('plugins.luasnip')
 require('plugins.luatab')
 require('plugins.rustaceanvim')
+require('plugins.minipairs')
+require('plugins.zen-mode')
+require('plugins.todo-comments')
 
 -- Pick colorscheme
 require('plugins.colorschemes.nord')

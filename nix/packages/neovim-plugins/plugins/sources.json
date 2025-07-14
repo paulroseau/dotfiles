@@ -11,78 +11,6 @@
         "url": "https://github.com/saghen/blink.cmp/archive/v1.3.1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "cmp-buffer": {
-        "branch": "main",
-        "description": "nvim-cmp source for buffer words",
-        "homepage": "",
-        "owner": "hrsh7th",
-        "repo": "cmp-buffer",
-        "rev": "3022dbc9166796b644a841a02de8dd1cc1d311fa",
-        "sha256": "1cwx8ky74633y0bmqmvq1lqzmphadnhzmhzkddl3hpb7rgn18vkl",
-        "type": "tarball",
-        "url": "https://github.com/hrsh7th/cmp-buffer/archive/3022dbc9166796b644a841a02de8dd1cc1d311fa.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "cmp-cmdline": {
-        "branch": "main",
-        "description": "nvim-cmp source for vim's cmdline",
-        "homepage": "",
-        "owner": "hrsh7th",
-        "repo": "cmp-cmdline",
-        "rev": "8ee981b4a91f536f52add291594e89fb6645e451",
-        "sha256": "03j79ncxnnpilx17x70my7s8vvc4w81kipraq29g4vp32dggzjsv",
-        "type": "tarball",
-        "url": "https://github.com/hrsh7th/cmp-cmdline/archive/8ee981b4a91f536f52add291594e89fb6645e451.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "cmp-nvim-lsp": {
-        "branch": "main",
-        "description": "nvim-cmp source for neovim builtin LSP client",
-        "homepage": "",
-        "owner": "hrsh7th",
-        "repo": "cmp-nvim-lsp",
-        "rev": "5af77f54de1b16c34b23cba810150689a3a90312",
-        "sha256": "03q0v6wgi1lphcfjjdsc26zhnmj3ab9xxsiyp1adl3s1ybv22jzz",
-        "type": "tarball",
-        "url": "https://github.com/hrsh7th/cmp-nvim-lsp/archive/5af77f54de1b16c34b23cba810150689a3a90312.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "cmp-nvim-lsp-signature-help": {
-        "branch": "main",
-        "description": "cmp-nvim-lsp-signature-help",
-        "homepage": "",
-        "owner": "hrsh7th",
-        "repo": "cmp-nvim-lsp-signature-help",
-        "rev": "3d8912ebeb56e5ae08ef0906e3a54de1c66b92f1",
-        "sha256": "0bkviamzpkw6yv4cyqa9pqm1g2gsvzk87v8xc4574yf86jz5hg68",
-        "type": "tarball",
-        "url": "https://github.com/hrsh7th/cmp-nvim-lsp-signature-help/archive/3d8912ebeb56e5ae08ef0906e3a54de1c66b92f1.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "cmp-nvim-lua": {
-        "branch": "main",
-        "description": "nvim-cmp source for nvim lua",
-        "homepage": "",
-        "owner": "hrsh7th",
-        "repo": "cmp-nvim-lua",
-        "rev": "f12408bdb54c39c23e67cab726264c10db33ada8",
-        "sha256": "18qqcqjyxrmzvpj7m7wyjx1313h66vg8992n6y9lwawmb4mwxrg9",
-        "type": "tarball",
-        "url": "https://github.com/hrsh7th/cmp-nvim-lua/archive/f12408bdb54c39c23e67cab726264c10db33ada8.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "cmp-path": {
-        "branch": "main",
-        "description": "nvim-cmp source for path",
-        "homepage": "",
-        "owner": "hrsh7th",
-        "repo": "cmp-path",
-        "rev": "91ff86cd9c29299a64f968ebb45846c485725f23",
-        "sha256": "18ixx14ibc7qrv32nj0ylxrx8w4ggg49l5vhcqd35hkp4n56j6mn",
-        "type": "tarball",
-        "url": "https://github.com/hrsh7th/cmp-path/archive/91ff86cd9c29299a64f968ebb45846c485725f23.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "comment-nvim": {
         "branch": "master",
         "description": ":brain: :muscle: // Smart and powerful comment plugin for neovim. Supports treesitter, dot repeat, left-right/up-down motions, hooks, and more",
@@ -155,18 +83,6 @@
         "url": "https://github.com/folke/lazydev.nvim/archive/v1.9.0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "lua-snip": {
-        "branch": "master",
-        "description": "Snippet Engine for Neovim written in Lua.",
-        "homepage": "",
-        "owner": "L3MON4D3",
-        "repo": "LuaSnip",
-        "rev": "v2.2.0",
-        "sha256": "05d5ks3g6a9dl3bmap8m60hnx3hc4acvcp2jzkw85r4anaawl45b",
-        "type": "tarball",
-        "url": "https://github.com/L3MON4D3/LuaSnip/archive/v2.2.0.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "lualine-nvim": {
         "branch": "master",
         "description": "A blazing fast and easy to configure neovim statusline plugin written in pure lua.",
@@ -177,6 +93,18 @@
         "sha256": "00ns525n4a3yqsnrsfbffj38nhh03s39g0dffjq6r71air2irhrc",
         "type": "tarball",
         "url": "https://github.com/nvim-lualine/lualine.nvim/archive/7d131a8d3ba5016229e8a1d08bf8782acea98852.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "mini-pairs": {
+        "branch": "main",
+        "description": "Neovim Lua plugin to automatically manage character pairs. Part of 'mini.nvim' library.",
+        "homepage": "",
+        "owner": "echasnovski",
+        "repo": "mini.pairs",
+        "rev": "v0.16.0",
+        "sha256": "0avjjikmz3b8676hzcqck3r2lv0zxsdr8hqs65zn2dr12q8zh41r",
+        "type": "tarball",
+        "url": "https://github.com/echasnovski/mini.pairs/archive/v0.16.0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "neo-tree-nvim": {
@@ -299,6 +227,18 @@
         "url": "https://github.com/mrcjkb/rustaceanvim/archive/v6.4.1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "todo-comments-nvim": {
+        "branch": "main",
+        "description": "✅  Highlight, list and search todo comments in your projects",
+        "homepage": "",
+        "owner": "folke",
+        "repo": "todo-comments.nvim",
+        "rev": "v1.4.0",
+        "sha256": "0v6vn3f9svj756ds8cp0skpw65xixlx1f3aj0fh374wdpb5i4zhh",
+        "type": "tarball",
+        "url": "https://github.com/folke/todo-comments.nvim/archive/v1.4.0.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "toggleterm-nvim": {
         "branch": "main",
         "description": "A neovim lua plugin to help easily manage multiple terminal windows",
@@ -333,6 +273,18 @@
         "sha256": "11xskz5qkld0fqgp7a4rrsrzwphf0jzil0vx7j6yy91adhvqbzqr",
         "type": "tarball",
         "url": "https://github.com/tpope/vim-fugitive/archive/4bc9d989930e37989b038540cc49e63728d3f220.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "zen-mode-nvim": {
+        "branch": "main",
+        "description": "🧘  Distraction-free coding for Neovim",
+        "homepage": "",
+        "owner": "folke",
+        "repo": "zen-mode.nvim",
+        "rev": "v1.4.0",
+        "sha256": "0s07ar6brzcqn7qzc8xqarpyanm3sa21gcwb8fpx3lvx3a1bgz73",
+        "type": "tarball",
+        "url": "https://github.com/folke/zen-mode.nvim/archive/v1.4.0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

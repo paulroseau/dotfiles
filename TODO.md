@@ -59,14 +59,14 @@
   - [x] check auto-formatting
   - [x] check signature
   - [x] check hover
-- [ ] snippet: do you still need luasnip in 0.11+? -> No
-  - [ ] let's replace LuaSnip with the built-in 
-  - [ ] check what friednly snippets brought to you with blink.cmp and make sure snippet expansion works
-- [ ] remove all nvim-cmp stuff in nix
-- [ ] install mini-pairs or autopairs
-- [ ] install zen-mode
-- [ ] install todo-comment
+- [x] snippet: do you still need luasnip in 0.11+? -> No
+  - [x] let's replace LuaSnip with the built-in 
+  - [x] check what friednly snippets brought to you with blink.cmp and make sure snippet expansion works
+- [x] remove all nvim-cmp stuff in nix
+- [x] install mini-pairs or autopairs
 - [x] nvim prettier tabs by using https://github.com/alvarosevilla95/luatab.nvim
+- [x] install zen-mode
+- [ ] install todo-comment
 
 - [ ] Wezterm: prettier tabs and statusline: https://github.com/michaelbrusegard/tabline.wez (for status line print Nvim icon if nvim_mode is on but nvim_ignore is off)
 - [ ] Consider using the Input select for switching workspaces (fonts? color_scheme? maybe OTT)
@@ -78,15 +78,16 @@
   -> use the table trick to display clean values / make the selector its own lua module
   -> issue with for color_scheme (config_overrides) when creating new workspace it keeps the setting (looks like a bug)
 - Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit, test with docker container or VM
-- [ ] fix clangd
 - [ ] Neovim: 
-  - rework your smart windows by separating configuration/initialization (ie. no setup(config)): https://github.com/nvim-neorocks/nvim-best-practices?tab=readme-ov-file#sleeping_bed-lazy-loading
+  - [ ] rework your smart windows by separating configuration/initialization (ie. no setup(config)): https://github.com/nvim-neorocks/nvim-best-practices?tab=readme-ov-file#sleeping_bed-lazy-loading
+  - [ ] add luacats annotations in your config: https://luals.github.io/wiki/annotations (also for wezterm)
+  - [ ] review all dos and don'ts in https://github.com/nvim-neorocks/nvim-best-practices
+  - [ ] fix clangd
   - check plugins listed on lazyvim (in particular conform for formatting, dashboard)
   - check snacks:
     - file explorer -> mouais, not convinced neo-tree is better
     - same for picker, fzf-lua better
     - picker -> not a fan, but there is search projects, recent files, undo which are really nice
-  - check zen mode from folke
   - check how snacks implement toggling
   - rework mapping like snacks default
 
