@@ -145,6 +145,9 @@ wezterm.on('gui-startup', function(cmd)
   gui_window:perform_action(act.ToggleFullScreen, pane)
 end)
 
+-- local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+-- tabline.setup()
+
 require('tabline').setup({
   theme = {
     color_scheme = config.color_scheme,
@@ -155,8 +158,8 @@ require('tabline').setup({
     icons_only = false,
     padding = 1,
     separators = {
-      left = wezterm.nerdfonts.pl_left_soft_divider,
-      right = wezterm.nerdfonts.pl_right_soft_divider
+      left = '╲',
+      right = '╱'
     }
   },
   tabs = {
@@ -172,20 +175,20 @@ require('tabline').setup({
       { 'zoomed',  padding = 0 },
     },
     separators = {
-      left = wezterm.nerdfonts.pl_left_hard_divider,
-      right = wezterm.nerdfonts.pl_right_hard_divider
+      left = wezterm.nerdfonts.ple_lower_left_triangle,
+      right = wezterm.nerdfonts.ple_lower_right_triangle
     }
   },
   sections = {
-    tabline_a = { 'domain', 'workspace' },
-    tabline_b = { '' },
+    tabline_a = { 'domain', },
+    tabline_b = { 'workspace' },
     tabline_c = { '' },
-    tabline_x = { '' },
-    tabline_y = { 'ram', 'cpu' },
+    tabline_x = { 'cpu' },
+    tabline_y = { 'ram', },
     tabline_z = { 'battery', 'datetime' },
     separators = {
-      left = wezterm.nerdfonts.pl_left_hard_divider,
-      right = wezterm.nerdfonts.pl_right_hard_divider
+      left = '',
+      right = '',
     }
   },
 })
