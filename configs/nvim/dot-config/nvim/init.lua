@@ -28,7 +28,6 @@ require('plugins.luatab')
 require('plugins.rustaceanvim')
 require('plugins.minipairs')
 require('plugins.zen-mode')
-require('plugins.todo-comments')
 
 -- Pick colorscheme
 require('plugins.colorschemes.nord')
