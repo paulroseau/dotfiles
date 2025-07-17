@@ -154,8 +154,10 @@ require('tabline').setup({
     icons_enabled = true,
     icons_only = false,
     padding = 1,
-    separator_left = wezterm.nerdfonts.pl_left_soft_divider,
-    separator_right = wezterm.nerdfonts.pl_right_soft_divider,
+    separators = {
+      left = wezterm.nerdfonts.pl_left_soft_divider,
+      right = wezterm.nerdfonts.pl_right_soft_divider
+    }
   },
   tabs = {
     enabled = true,
@@ -165,8 +167,10 @@ require('tabline').setup({
       { 'zoomed', padding = 0 },
     },
     tab_inactive = { 'index', { 'process', padding = { left = 0, right = 1 } } },
-    separator_left = wezterm.nerdfonts.pl_left_hard_divider,
-    separator_right = wezterm.nerdfonts.pl_right_hard_divider,
+    separators = {
+      left = wezterm.nerdfonts.pl_left_hard_divider,
+      right = wezterm.nerdfonts.pl_right_hard_divider
+    }
   },
   sections = {
     tabline_a = { 'domain', 'workspace' },
@@ -175,8 +179,10 @@ require('tabline').setup({
     tabline_x = { '' },
     tabline_y = { 'ram', 'cpu' },
     tabline_z = { 'battery', 'datetime' },
-    separator_left = wezterm.nerdfonts.pl_left_hard_divider,
-    separator_right = wezterm.nerdfonts.pl_right_hard_divider,
+    separators = {
+      left = wezterm.nerdfonts.pl_left_hard_divider,
+      right = wezterm.nerdfonts.pl_right_hard_divider
+    }
   },
 })
 

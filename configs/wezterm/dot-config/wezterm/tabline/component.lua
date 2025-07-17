@@ -5,10 +5,10 @@ local mode = require('tabline.components.window.mode')
 
 local M = {}
 
-local left_section_separator = { Text = config.sections.separator_left }
-local right_section_separator = { Text = config.sections.separator_right }
-local left_component_separator = { Text = config.components.separator_left }
-local right_component_separator = { Text = config.components.separator_right }
+local left_section_separator = { Text = config.sections.separators.left }
+local right_section_separator = { Text = config.sections.separators.right }
+local left_component_separator = { Text = config.components.separators.left }
+local right_component_separator = { Text = config.components.separators.right }
 
 local attributes_a, attributes_b, attributes_c, attributes_x, attributes_y, attributes_z = {}, {}, {}, {}, {}, {}
 local section_seperator_attributes_a, section_seperator_attributes_b, section_seperator_attributes_c, section_seperator_attributes_x, section_seperator_attributes_y, section_seperator_attributes_z =

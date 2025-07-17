@@ -3,8 +3,8 @@ local util = require('tabline.util')
 
 local M = {}
 
-local left_tab_separator = { Text = config.tabs.separator_left }
-local right_tab_separator = { Text = config.tabs.separator_right }
+local left_tab_separator = { Text = config.tabs.separators.left }
+local right_tab_separator = { Text = config.tabs.separators.right }
 local active_attributes, inactive_attributes, active_separator_attributes, inactive_separator_attributes =
     {}, {}, {}, {}
 local tab_active, tab_inactive = {}, {}
