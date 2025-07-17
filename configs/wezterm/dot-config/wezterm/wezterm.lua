@@ -14,7 +14,7 @@ if #wezterm.glob(nix_installed_fonts_dir) > 0 then
   config.font_dirs = { nix_installed_fonts_dir }
   fonts.set_font('hurmit', config)
 end
-config.color_scheme = 'Tokyo Night Moon'
+config.color_scheme = 'Tokyo Night Storm'
 
 local nix_installed_shell = wezterm.home_dir .. "/.nix-profile/bin/zsh"
 if #wezterm.glob(nix_installed_shell) > 0 then
@@ -145,51 +145,42 @@ wezterm.on('gui-startup', function(cmd)
   gui_window:perform_action(act.ToggleFullScreen, pane)
 end)
 
--- local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
--- tabline.setup()
-
 require('tabline').setup({
   theme = {
-    color_scheme = config.color_scheme,
+    color_scheme = 'Tokyo Night Storm',
     overrides = {},
   },
   components = {
     icons_enabled = true,
     icons_only = false,
     padding = 1,
-    separators = {
-      left = '╲',
-      right = '╱'
-    }
+    separators = { left = '╲', right = '╱', },
   },
   tabs = {
     enabled = true,
     tab_active = {
-      { 'process', padding = { left = 0, right = 1 }, icons_only = true },
+      { 'process', padding = { left = 1, right = 0 }, icons_only = true },
       { 'cwd',     padding = { left = 0, right = 1 } },
       { 'zoomed',  padding = 0 },
     },
     tab_inactive = {
-      { 'process', padding = { left = 0, right = 1 }, icons_only = true },
+      { 'process', padding = { left = 1, right = 0 }, icons_only = true },
       { 'cwd',     padding = { left = 0, right = 1 } },
       { 'zoomed',  padding = 0 },
     },
-    separators = {
-      left = wezterm.nerdfonts.ple_lower_left_triangle,
-      right = wezterm.nerdfonts.ple_lower_right_triangle
-    }
+    -- separators = { left = '', right = '', }
+    -- separators = { left = '', right = '', }
+    separators = { left = '', right = '', },
   },
   sections = {
     tabline_a = { 'domain', },
-    tabline_b = { 'workspace' },
+    tabline_b = { 'workspace', },
     tabline_c = { '' },
-    tabline_x = { 'cpu' },
-    tabline_y = { 'ram', },
+    tabline_x = { '' },
+    tabline_y = { 'ram', 'cpu' },
     tabline_z = { 'battery', 'datetime' },
-    separators = {
-      left = '',
-      right = '',
-    }
+    separators = { left = '', right = '', },
+    -- separators = { left = '', right = '', },
   },
 })
 
