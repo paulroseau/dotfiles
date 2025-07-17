@@ -162,11 +162,15 @@ require('tabline').setup({
   tabs = {
     enabled = true,
     tab_active = {
-      'index',
-      { 'cwd',    padding = { left = 0, right = 1 } },
-      { 'zoomed', padding = 0 },
+      { 'process', padding = { left = 0, right = 1 }, icons_only = true },
+      { 'cwd',     padding = { left = 0, right = 1 } },
+      { 'zoomed',  padding = 0 },
     },
-    tab_inactive = { 'index', { 'process', padding = { left = 0, right = 1 } } },
+    tab_inactive = {
+      { 'process', padding = { left = 0, right = 1 }, icons_only = true },
+      { 'cwd',     padding = { left = 0, right = 1 } },
+      { 'zoomed',  padding = 0 },
+    },
     separators = {
       left = wezterm.nerdfonts.pl_left_hard_divider,
       right = wezterm.nerdfonts.pl_right_hard_divider
