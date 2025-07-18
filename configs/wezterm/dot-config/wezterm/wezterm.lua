@@ -145,10 +145,28 @@ wezterm.on('gui-startup', function(cmd)
   gui_window:perform_action(act.ToggleFullScreen, pane)
 end)
 
+local palette = {
+  grey_blue = '#3b4261'
+}
+
 require('tabline').setup({
   theme = {
     color_scheme = 'Tokyo Night Storm',
-    overrides = {},
+    overrides = {
+      normal_mode = {
+        b = { bg = palette.grey_blue },
+      },
+      copy_mode = {
+        b = { bg = palette.grey_blue },
+      },
+      search_mode = {
+        b = { bg = palette.grey_blue },
+      },
+      tab = {
+        active = { bg = palette.grey_blue },
+        inactive_hover = { bg = palette.grey_blue },
+      },
+    },
   },
   components = {
     icons_enabled = true,
@@ -168,9 +186,7 @@ require('tabline').setup({
       { 'cwd',     padding = { left = 0, right = 1 } },
       { 'zoomed',  padding = 0 },
     },
-    -- separators = { left = '', right = '', }
-    -- separators = { left = '', right = '', }
-    separators = { left = '', right = '', },
+    separators = { left = '', right = '', },
   },
   sections = {
     tabline_a = { 'domain', },
@@ -179,8 +195,7 @@ require('tabline').setup({
     tabline_x = { '' },
     tabline_y = { 'ram', 'cpu' },
     tabline_z = { 'battery', 'datetime' },
-    separators = { left = '', right = '', },
-    -- separators = { left = '', right = '', },
+    separators = { left = '', right = '', },
   },
 })
 
