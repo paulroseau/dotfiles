@@ -6,8 +6,7 @@ local M = {}
 local function get_colors(theme)
   local colors = type(theme) == 'string' and wezterm.color.get_builtin_schemes()[theme] or theme
   local surface = colors.cursor and colors.cursor.bg or colors.ansi[1]
-  local background = colors.tab_bar and colors.tab_bar.inactive_tab and colors.tab_bar.inactive_tab.bg_color
-      or colors.background
+  local background = colors.tab_bar and colors.tab_bar.background or colors.background
 
   return {
     normal_mode = {

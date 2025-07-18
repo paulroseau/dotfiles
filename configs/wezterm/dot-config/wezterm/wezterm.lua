@@ -25,10 +25,10 @@ config.window_decorations = "RESIZE"
 config.initial_rows = 45
 config.initial_cols = 150
 config.window_padding = {
-  left = '0cell',
-  right = '0cell',
-  top = '0.1cell',
-  bottom = '0cell',
+  left = '0px',
+  right = '0px',
+  top = '0px',
+  bottom = '0px',
 }
 
 config.tab_and_split_indices_are_zero_based = true

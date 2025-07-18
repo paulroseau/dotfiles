@@ -47,6 +47,7 @@ return {
       ['powershell.exe'] = { wezterm.nerdfonts.md_console, color = { fg = colors.cursor_bg or nil } },
       ['psql'] = { wezterm.nerdfonts.dev_postgresql, color = { fg = colors.ansi[5] } },
       ['pwsh.exe'] = { wezterm.nerdfonts.md_console, color = { fg = colors.cursor_bg or nil } },
+      ['python'] = { wezterm.nerdfonts.dev_python, color = { fg = colors.cursor_bg or nil } },
       ['rpm'] = { wezterm.nerdfonts.dev_redhat, color = { fg = colors.ansi[2] } },
       ['redis'] = { wezterm.nerdfonts.dev_redis, color = { fg = colors.ansi[5] } },
       ['ruby'] = { wezterm.nerdfonts.cod_ruby, color = { fg = colors.brights[2] } },
