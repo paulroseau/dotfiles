@@ -9,10 +9,9 @@ vim.lsp.config('*', {
 
 blink.setup({
   keymap = {
+    preset = 'none',
     ['<C-j>'] = { 'insert_next' },
     ['<C-k>'] = { 'insert_prev' },
-    ['<C-n>'] = {}, -- blink binds this by default to insert_next
-    ['<C-p>'] = {}, -- blink binds this by default to insert_prev
     ['<C-c>'] = { 'cancel', 'fallback' },
     ['<CR>'] = { 'accept', 'fallback' },
     ['<M-p>'] = { 'show_documentation', 'hide_documentation', },
@@ -37,6 +36,7 @@ blink.setup({
     end,
 
     keymap = {
+      preset = 'none',
       ['<C-j>'] = { 'insert_next' },
       ['<C-k>'] = { 'insert_prev' },
       ['<C-c>'] = { 'cancel', 'fallback' },

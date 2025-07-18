@@ -6,6 +6,15 @@ vim.keymap.set({ '', 's', 'i' }, '<leader>m', '<Esc>')
 vim.keymap.set({ 'c' }, '<leader>m', '<C-c>')
 vim.keymap.set({ 't' }, '<leader>m', [[<C-\><C-n>]])
 
+-- Tcsh for command mode
+vim.keymap.set({ 'c' }, '<C-a>', '<Home>')
+vim.keymap.set({ 'c' }, '<C-e>', '<End>')
+vim.keymap.set({ 'c' }, '<C-f>', '<Right>')
+vim.keymap.set({ 'c' }, '<C-b>', '<Left>')
+vim.keymap.set({ 'c' }, '<C-d>', '<Del>')
+vim.keymap.set({ 'c' }, '<Esc>b', '<S-Left>')
+vim.keymap.set({ 'c' }, '<Esc>f', '<S-Right>')
+
 -- Navigate inside a wrapped line
 vim.keymap.set({ '' }, '<up>', '<cmd>normal! gk<CR>')
 vim.keymap.set({ '' }, '<down>', '<cmd>normal! gj<CR>')
