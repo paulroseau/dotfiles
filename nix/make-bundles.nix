@@ -28,7 +28,7 @@ rec {
 
   networking = [ ipcalc ];
 
-  misc = [ jaq tmux tree stow yq ];
+  misc = [ jaq tmux tree stow yazi-unwrapped yq ];
 
   development = rec {
     c = [ clang clang-tools cmake ];

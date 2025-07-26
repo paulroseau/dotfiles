@@ -130,6 +130,7 @@ install_rust_built_applications() {
   cargo install ripgrep --version 14.1.1
   cargo install skim --version $SKIM_VERSION
   cargo install starship --version 1.23.0
+  cargo install yazi-fm yazi-cli --version 25.4.8
   cargo install zoxide --version 0.9.8
   echo "Done"
 }
@@ -181,6 +182,7 @@ symlink_config_files() {
   ln -sf $DOTFILES/configs/starship/dot-config/starship.toml $HOME/.config
   ln -sf $DOTFILES/configs/git/dot-gitconfig $HOME/.gitconfig
   ln -sf $DOTFILES/configs/git/dot-config/git $HOME/.config
+  ln -sf $DOTFILES/configs/yazi/dot-config/yazi $HOME/.config
   echo "Done"
 }
 
