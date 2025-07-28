@@ -10,13 +10,6 @@ FZF_SHELL_DIR="$HOME/.local/share/fzf"
 SKIM_SHELL_DIR="$HOME/.local/share/skim"
 ZSH_PLUGINS_DIR="$HOME/.zsh-plugins"
 
-# Default editor
-if [ $(command -v nvim) ]
-then
-  export EDITOR="nvim"
-  export VISUAL="nvim"
-fi
-
 # Nix aware setup
 NIX_PROFILE="$HOME/.nix-profile"
 
@@ -31,3 +24,11 @@ if [ -e $NIX_PROFILE/share ]; then ZSH_PLUGINS_DIR="$NIX_PROFILE/share"; fi
 if [ -e $NIX_PROFILE/share/neovim-plugins ]; then export NVIM_PLUGINS_DIR="$NIX_PROFILE/share/neovim-plugins"; fi
 if [ -e $NIX_PROFILE/share/fzf ]; then FZF_SHELL_DIR="$NIX_PROFILE/share/fzf"; fi
 if [ -e $NIX_PROFILE/share/skim ]; then SKIM_SHELL_DIR="$NIX_PROFILE/share/skim"; fi
+
+# Default editor
+if [ $(command -v nvim) ]
+then
+  export EDITOR="nvim"
+  export VISUAL="nvim"
+fi
+

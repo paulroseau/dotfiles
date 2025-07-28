@@ -1,5 +1,6 @@
 # Environment variable (including PATH)
 source $HOME/.env
+export SHELL="bash"
 
 # Aliases
 source $HOME/.aliases
