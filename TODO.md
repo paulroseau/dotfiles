@@ -30,12 +30,11 @@
   - [x] install nvm (little dance probably with your store)
   - [x] install node version (set node version in env variable)
   - [x] check where npm list -g (maybe add that directly to the PATH) or have a wrapper around to npm to install + link (maybe cleaner)
-- [/] remove lsp-config:
-   -> Won't do, the configs are already in `./lsp` so will keep them
+- [x] remove lsp-config:
    - [x] find a way to customize lua-ls to include vim.env :help lsp-quickstart
      -> looks like you need to install lazydev...
    - [/] root_markers seem to be what lspconfig does "by hand" mostly 
-     -> rust-analyzer config seems a bit oldish but not worth trashing lspconfig for that
+     -> rust-analyzer config seems a bit complex, moved to rustaceanvim
    - [x] signature help
      -> automatically mapped to Ctrl-s in insert mode
    - [x] bindings to see types
@@ -66,7 +65,36 @@
 - [x] install mini-pairs or autopairs
 - [x] nvim prettier tabs by using https://github.com/alvarosevilla95/luatab.nvim
 - [x] install zen-mode
-- [ ] install todo-comment
+- [x] install todo-comment
+  => tried it, removed it, obnoxious
+
+# Neovim
+
+- [ ] rework your smart windows by separating configuration/initialization (ie. no setup(config)): https://github.com/nvim-neorocks/nvim-best-practices?tab=readme-ov-file#sleeping_bed-lazy-loading
+- [ ] add luacats annotations in your config: https://luals.github.io/wiki/annotations (also for wezterm)
+- [ ] review all dos and don'ts in https://github.com/nvim-neorocks/nvim-best-practices
+- [ ] fix clangd
+- [ ] check plugins listed on lazyvim (in particular conform for formatting, dashboard)
+- [ ] check snacks:
+    - [x] file explorer -> mouais, not convinced neo-tree is better
+    - [x] same for picker, fzf-lua better
+    - [ ] picker -> not a fan, but there is search projects, recent files, undo which are really nice
+    - [ ] check how snacks implement toggling
+    - [ ] rework mapping like snacks default
+
+- NB: on hover and signature help, monitor this issue: https://github.com/neovim/neovim/issues/28140 which asks for the ability to toggle the preview window (links to this more general issue: https://github.com/neovim/neovim/issues/31206), right now you just map K to calling vim.lsp.buf.hover twice, but you would still need to press `q` to exit, ideally we just exit with `K` as well
+
+# Yazi
+
+- remap using <A-J/K> for changin windows and `J`/`K` for changing tabs cf. https://yazi-rs.github.io/docs/configuration/keymap and `(/)` for swapping tabs https://github.com/sxyazi/yazi/blob/shipped/yazi-config/preset/keymap-default.toml
+
+# Wezterm
+
+- [x] Rabbit-hole #1: how does wezterm link to `lua.so` when built with nix? It looks like lua.so is looked up dynamically with pkg-config, so explore:
+  - [ ] pkg-config
+  - [ ] pkg-config on nix
+  - [ ] wezterm building on nix
+    => wezterm uses the vendored lua code, so pkg-config is irrelevant here
 
 - [ ] Wezterm: prettier tabs and statusline: https://github.com/michaelbrusegard/tabline.wez (for status line print Nvim icon if nvim_mode is on but nvim_ignore is off)
 - [ ] Consider using the Input select for switching workspaces (fonts? color_scheme? maybe OTT)
@@ -77,26 +105,10 @@
     - https://github.com/mikkasendke/sessionizer.wezterm (maybe the closest to your need)
   -> use the table trick to display clean values / make the selector its own lua module
   -> issue with for color_scheme (config_overrides) when creating new workspace it keeps the setting (looks like a bug)
-- Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit, test with docker container or VM
-- [ ] Neovim: 
-  - [ ] rework your smart windows by separating configuration/initialization (ie. no setup(config)): https://github.com/nvim-neorocks/nvim-best-practices?tab=readme-ov-file#sleeping_bed-lazy-loading
-  - [ ] add luacats annotations in your config: https://luals.github.io/wiki/annotations (also for wezterm)
-  - [ ] review all dos and don'ts in https://github.com/nvim-neorocks/nvim-best-practices
-  - [ ] fix clangd
-  - check plugins listed on lazyvim (in particular conform for formatting, dashboard)
-  - check snacks:
-    - file explorer -> mouais, not convinced neo-tree is better
-    - same for picker, fzf-lua better
-    - picker -> not a fan, but there is search projects, recent files, undo which are really nice
-  - check how snacks implement toggling
-  - rework mapping like snacks default
-
-# Neovim
-
-- NB: on hover and signature help, monitor this issue: https://github.com/neovim/neovim/issues/28140 which asks for the ability to toggle the preview window (links to this more general issue: https://github.com/neovim/neovim/issues/31206), right now you just map K to calling vim.lsp.buf.hover twice, but you would still need to press `q` to exit, ideally we just exit with `K` as well
-
-# Wezterm
-
+- [ ] Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit, test with docker container or VM
+- [ ] If you ended up using external plugins with `wezterm.plugin.require()`, see how you can:
+  - [ ] download the plugins with nix in the same vein as what are doing for neovim-plugins (through `niv`)
+  - [ ] write a little utility to add each folder inside there to the lua path/cpath
 - Wezterm missing:
   - Closing a workspace at once (not supported natively, lots of lua code cf. https://github.com/wezterm/wezterm/issues/3658, not worth it)
   - contribute to add `Ctrl-C` to exit launcher, super-mini change: https://github.com/wezterm/wezterm/issues/4722
@@ -112,8 +124,8 @@
   - better vim movements in Copy Mode (e not respected, E, etc.)
 
 - Wezterm potential enhancement:
-   change layout like in nvim, right now you can just rotate panes
-   have a command line (vim style? C-a : and C-a /) with either emacs or vim mappings, but with keys still customizable
+  - change layout like in nvim, right now you can just rotate panes
+  - have a command line (vim style? C-a : and C-a /) with either emacs or vim mappings, but with keys still customizable
 
 - Wezterm:
     - [ ] configure multiplexing session and check that clipboard is working fine
@@ -296,9 +308,9 @@
 - neovim:
   - [x] maybe update how you expand windows, and swap the effect of the keys `<` and `>` when on a right most window and `+` and `-` when on a bottom window
   - [ ] create a fzf lua source which prints the current servers capabilities :lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)
-  - [ ] replace nvim-cmp by https://github.com/Saghen/blink.cmp
+  - [x] replace nvim-cmp by https://github.com/Saghen/blink.cmp
   - [ ] try indent-blankline.nvim
-  - [ ] do you still need lspconfig in nvim 0.11?
+  - [x] do you still need lspconfig in nvim 0.11? -> NO
   - [ ] setup formatting (autoformatting?) for all relevant filetype. Options are:
     - rely on vim.lsp.buf.format() (works only if server supports formatting, check it with `:lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)` for rust, python, sh, etc. It seems that you need to see
   `documentFormattingProvider = true,` in the results
@@ -312,7 +324,7 @@
   - [ ] install LSP for Rust:
     - [x] rust-analyser and other tools (cargo, etc.) with nix
     - [x] setup lspconfig
-    - [ ] setup auto formatting with rustfmt
-    - [ ] see if you want to use other tools such as the one listed here https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins:
+    - [x] setup auto formatting with rustfmt
+    - [x] see if you want to use other tools such as the one listed here https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins:
       - https://github.com/mrcjkb/rustaceanvim
       - https://github.com/Saecki/crates.nvim
