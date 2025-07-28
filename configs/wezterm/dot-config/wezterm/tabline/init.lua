@@ -8,6 +8,14 @@ function M.setup(opts)
   require('tabline.config').set(opts)
 
   wezterm.on('update-status', function(window)
+    toto = {
+      { Foreground = { Color = 'blue' } },
+      { Background = { Color = 'white' } },
+      { Text = 'hello ' },
+      { Foreground = { Color = 'red' } },
+      { Text = 'red' },
+    }
+    -- window:set_left_status(wezterm.format(toto))
     require('tabline.component').set_status(window)
   end)
 

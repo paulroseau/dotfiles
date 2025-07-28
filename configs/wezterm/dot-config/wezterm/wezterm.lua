@@ -16,12 +16,12 @@ if #wezterm.glob(nix_installed_fonts_dir) > 0 then
 end
 config.color_scheme = 'Tokyo Night Storm'
 
-local nix_installed_shell = wezterm.home_dir .. "/.nix-profile/bin/zsh"
+local nix_installed_shell = wezterm.home_dir .. '/.nix-profile/bin/zsh'
 if #wezterm.glob(nix_installed_shell) > 0 then
   config.default_prog = { nix_installed_shell, '--login' }
 end
 
-config.window_decorations = "RESIZE"
+config.window_decorations = 'RESIZE'
 config.initial_rows = 45
 config.initial_cols = 150
 config.window_padding = {
@@ -145,8 +145,59 @@ wezterm.on('gui-startup', function(cmd)
   gui_window:perform_action(act.ToggleFullScreen, pane)
 end)
 
+-- local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+--
+-- tabline.setup({
+--   options = {
+--     icons_enabled = true,
+--     theme = 'Catppuccin Mocha',
+--     tabs_enabled = true,
+--     theme_overrides = {},
+--     section_separators = {
+--       left = wezterm.nerdfonts.pl_left_hard_divider,
+--       right = wezterm.nerdfonts.pl_right_hard_divider,
+--     },
+--     component_separators = {
+--       left = wezterm.nerdfonts.pl_left_soft_divider,
+--       right = wezterm.nerdfonts.pl_right_soft_divider,
+--     },
+--     tab_separators = {
+--       left = wezterm.nerdfonts.pl_left_hard_divider,
+--       right = wezterm.nerdfonts.pl_right_hard_divider,
+--     },
+--   },
+--   sections = {
+--     tabline_a = { 'mode', },
+--     tabline_b = { 'workspace' },
+--     tabline_c = { ' ' },
+--     tab_active = {
+--       'index',
+--       { 'parent', padding = 0 },
+--       '/',
+--       { 'cwd',    padding = { left = 0, right = 1 } },
+--       { 'zoomed', padding = 0 },
+--     },
+--     tab_inactive = {
+--       'index',
+--       { 'process', padding = { left = 0, right = 1 } }
+--     },
+--     tabline_x = { 'ram', 'cpu' },
+--     tabline_y = { 'datetime', 'battery' },
+--     tabline_z = { 'datetime', 'battery', },
+--   },
+--   extensions = {},
+-- })
+
 local palette = {
-  grey_blue = '#3b4261'
+  black = "#1d202f",
+  red = "#f7768e",
+  green = "#9ece6a",
+  yellow = "#e0af68",
+  blue = "#7aa2f7",
+  magenta = "#bb9af7",
+  cyan = "#7dcfff",
+  grey = "#a9b1d6",
+  grey_blue = '#3b4261',
 }
 
 require('tabline').setup({
@@ -185,16 +236,17 @@ require('tabline').setup({
       { 'process', padding = { left = 1, right = 0 }, icons_only = true },
       { 'cwd',     padding = { left = 0, right = 1 } },
       { 'zoomed',  padding = 0 },
+      { 'output',  padding = 0 },
     },
     separators = { left = '', right = '', },
   },
   sections = {
     tabline_a = { 'domain', },
     tabline_b = { 'workspace', },
-    tabline_c = { '' },
+    tabline_c = { 'datetime' },
     tabline_x = { '' },
     tabline_y = { 'ram', 'cpu' },
-    tabline_z = { 'battery', 'datetime' },
+    tabline_z = { { 'battery' }, { 'datetime' } },
     separators = { left = '', right = '', },
   },
 })

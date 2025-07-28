@@ -1,7 +1,7 @@
 local cwd = ''
 
 return {
-  default_opts = { max_length = 30 },
+  default_opts = { max_length = 10 },
   update = function(tab, opts)
     local cwd_uri = tab.active_pane.current_working_dir
     if cwd_uri then
