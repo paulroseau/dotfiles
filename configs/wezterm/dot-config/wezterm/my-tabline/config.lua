@@ -1,8 +1,4 @@
-local M = {}
-
-local default_color_scheme = 'Tokyo Night Storm'
-
-local config = {
+return {
   default_options = {
     padding = { left = 1, right = 1 },
     icons_only = false,
@@ -37,21 +33,7 @@ local config = {
       ['zoomed'] = { padding = { left = 0, right = 0 } },
     },
   },
-  colors = require('wezterm').color.get_builtin_schemes()[default_color_scheme]
 }
-
-function M.set_colors(color_scheme)
-  if type(color_scheme) == "string" then
-    config.colors = require('wezterm').color.get_builtin_schemes()[color_scheme]
-  else
-    config.colors = color_scheme
-  end
-end
-
-return setmetatable(M, {
-  __index = config,
-  __newindex = function(t, k, v) error('Config is read-only, use set_* methods to update', 2) end
-})
 
 -- opts:
 -- zero_indexed: tabs -> use config.tab_and_split_indices_are_zero_based
