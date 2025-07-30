@@ -1,5 +1,5 @@
 local wezterm = require('wezterm')
-local Component = require('my-tabline.component')
+local component = require('my-tabline.component')
 local colors = require('my-tabline.colors')
 
 return {
@@ -9,5 +9,5 @@ return {
   tab = {
 
   },
-  invalid = Component:new('N/A', wezterm.nerdfonts.fa_skull, colors.red)
+  invalid = component.new('N/A', wezterm.nerdfonts.fa_skull, colors.red)
 }

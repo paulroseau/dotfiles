@@ -28,9 +28,9 @@ return {
   tabs = {
     separators = { left = '', right = '', },
     components = {
-      ['process'] = { padding = { left = 1, right = 0 }, icons_only = true },
-      ['cwd'] = { padding = { left = 0, right = 1 } },
-      ['zoomed'] = { padding = { left = 0, right = 0 } },
+      process = { padding = { left = 1, right = 0 }, icons_only = true },
+      cwd = { padding = { left = 0, right = 1 } },
+      zoomed = { padding = { left = 0, right = 0 } },
     },
   },
 }

@@ -188,67 +188,70 @@ end)
 --   extensions = {},
 -- })
 
-local palette = {
-  black = "#1d202f",
-  red = "#f7768e",
-  green = "#9ece6a",
-  yellow = "#e0af68",
-  blue = "#7aa2f7",
-  magenta = "#bb9af7",
-  cyan = "#7dcfff",
-  grey = "#a9b1d6",
-  grey_blue = '#3b4261',
-}
+-- local palette = {
+--   black = "#1d202f",
+--   red = "#f7768e",
+--   green = "#9ece6a",
+--   yellow = "#e0af68",
+--   blue = "#7aa2f7",
+--   magenta = "#bb9af7",
+--   cyan = "#7dcfff",
+--   grey = "#a9b1d6",
+--   grey_blue = '#3b4261',
+-- }
+--
+-- require('tabline').setup({
+--   theme = {
+--     color_scheme = 'Tokyo Night Storm',
+--     overrides = {
+--       normal_mode = {
+--         b = { bg = palette.grey_blue },
+--       },
+--       copy_mode = {
+--         b = { bg = palette.grey_blue },
+--       },
+--       search_mode = {
+--         b = { bg = palette.grey_blue },
+--       },
+--       tab = {
+--         active = { bg = palette.grey_blue },
+--         inactive_hover = { bg = palette.grey_blue },
+--       },
+--     },
+--   },
+--   components = {
+--     icons_enabled = true,
+--     icons_only = false,
+--     padding = 1,
+--     separators = { left = '╲', right = '╱', },
+--   },
+--   tabs = {
+--     enabled = true,
+--     tab_active = {
+--       { 'process', padding = { left = 1, right = 0 }, icons_only = true },
+--       { 'cwd',     padding = { left = 0, right = 1 } },
+--       { 'zoomed',  padding = 0 },
+--     },
+--     tab_inactive = {
+--       { 'process', padding = { left = 1, right = 0 }, icons_only = true },
+--       { 'cwd',     padding = { left = 0, right = 1 } },
+--       { 'zoomed',  padding = 0 },
+--       { 'output',  padding = 0 },
+--     },
+--     separators = { left = '', right = '', },
+--   },
+--   sections = {
+--     tabline_a = { 'domain', },
+--     tabline_b = { 'workspace', },
+--     tabline_c = { 'datetime' },
+--     tabline_x = { '' },
+--     tabline_y = { 'ram', 'cpu' },
+--     tabline_z = { { 'battery' }, { 'datetime' } },
+--     separators = { left = '', right = '', },
+--   },
+-- })
 
-require('tabline').setup({
-  theme = {
-    color_scheme = 'Tokyo Night Storm',
-    overrides = {
-      normal_mode = {
-        b = { bg = palette.grey_blue },
-      },
-      copy_mode = {
-        b = { bg = palette.grey_blue },
-      },
-      search_mode = {
-        b = { bg = palette.grey_blue },
-      },
-      tab = {
-        active = { bg = palette.grey_blue },
-        inactive_hover = { bg = palette.grey_blue },
-      },
-    },
-  },
-  components = {
-    icons_enabled = true,
-    icons_only = false,
-    padding = 1,
-    separators = { left = '╲', right = '╱', },
-  },
-  tabs = {
-    enabled = true,
-    tab_active = {
-      { 'process', padding = { left = 1, right = 0 }, icons_only = true },
-      { 'cwd',     padding = { left = 0, right = 1 } },
-      { 'zoomed',  padding = 0 },
-    },
-    tab_inactive = {
-      { 'process', padding = { left = 1, right = 0 }, icons_only = true },
-      { 'cwd',     padding = { left = 0, right = 1 } },
-      { 'zoomed',  padding = 0 },
-      { 'output',  padding = 0 },
-    },
-    separators = { left = '', right = '', },
-  },
-  sections = {
-    tabline_a = { 'domain', },
-    tabline_b = { 'workspace', },
-    tabline_c = { 'datetime' },
-    tabline_x = { '' },
-    tabline_y = { 'ram', 'cpu' },
-    tabline_z = { { 'battery' }, { 'datetime' } },
-    separators = { left = '', right = '', },
-  },
-})
+
+require('my-tabline').setup(config)
 
 return config
