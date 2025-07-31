@@ -51,7 +51,7 @@ function M.get_section_colors(window, section_index)
     { foreground = palette.foreground, background = background },
   }
 
-  return section_colors[math.fmod(section_index, 3) + 1]
+  return section_colors[math.fmod(section_index - 1, 3) + 1]
 end
 
 function M.get_tab_colors(is_active, is_hover, mode)

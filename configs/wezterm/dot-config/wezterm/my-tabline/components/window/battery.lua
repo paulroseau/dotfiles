@@ -1,37 +1,32 @@
 local wezterm = require('wezterm')
-local util = require('tabline.util')
-local config = require('tabline.config')
-local colors = config.theme.colors
+local component = require('my-tabline.component')
+local colors = require('my-tabline.colors')
 
-return {
-  default_opts = {
-    battery_to_icon = {
-      empty = { wezterm.nerdfonts.fa_battery_empty, color = { fg = colors.ansi[2] } },
-      quarter = wezterm.nerdfonts.fa_battery_quarter,
-      half = wezterm.nerdfonts.fa_battery_half,
-      three_quarters = wezterm.nerdfonts.fa_battery_three_quarters,
-      full = wezterm.nerdfonts.fa_battery_full,
-    },
-  },
-  update = function(_, opts)
-    local bat = ''
-    for _, b in ipairs(wezterm.battery_info()) do
-      local charge = b.state_of_charge * 100
-      bat = string.format('%.0f%%', charge)
-      if opts.icons_enabled and opts.battery_to_icon then
-        if charge <= 10 then
-          util.overwrite_icon(opts, opts.battery_to_icon.empty)
-        elseif charge <= 25 then
-          util.overwrite_icon(opts, opts.battery_to_icon.quarter)
-        elseif charge <= 50 then
-          util.overwrite_icon(opts, opts.battery_to_icon.half)
-        elseif charge <= 75 then
-          util.overwrite_icon(opts, opts.battery_to_icon.three_quarters)
-        else
-          util.overwrite_icon(opts, opts.battery_to_icon.full)
-        end
-      end
-    end
-    return bat
-  end,
-}
+local function battery_icon(battery_level, is_charging)
+  local suffix = nil
+  if battery_level < 10 then
+    suffix = '_outline'
+  else
+    suffix = '_' .. string.format('%d', battery_level // 10) .. '0'
+  end
+
+  if is_charging then
+    return wezterm.nerdfonts['md_battery_charging' .. suffix]
+  end
+  return wezterm.nerdfonts['md_battery' .. (battery_level < 100 and suffix or '')]
+end
+
+local function F(_)
+  -- wezterm.battery_info() returns an array in case we have several batteries
+  local battery_info = wezterm.battery_info()[1]
+  local is_charging = battery_info.state == 'Charging'
+  local battery_level = battery_info.state_of_charge * 100
+  local text = string.format('%.0f%%', battery_level)
+  local icon = battery_icon(battery_level, is_charging)
+  if battery_level < 20 and not is_charging then
+    return component.new(text, icon, colors.red)
+  end
+  return component.new(text, icon)
+end
+
+return F

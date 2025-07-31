@@ -11,7 +11,7 @@ return {
       secondary = '╲'
     },
     sections = {
-      { components = { domain = {}, }, },
+      { components = { domain = { bold = true }, }, },
       { components = { workspace = {}, }, }
     },
   },

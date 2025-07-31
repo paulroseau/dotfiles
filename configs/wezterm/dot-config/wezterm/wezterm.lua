@@ -251,7 +251,6 @@ end)
 --   },
 -- })
 
-
 require('my-tabline').setup(config)
 
 return config

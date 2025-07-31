@@ -97,6 +97,7 @@
     => wezterm uses the vendored lua code, so pkg-config is irrelevant here
 
 - [ ] Wezterm: prettier tabs and statusline: https://github.com/michaelbrusegard/tabline.wez (for status line print Nvim icon if nvim_mode is on but nvim_ignore is off)
+  - [ ] fix swapping on right side
 - [ ] Consider using the Input select for switching workspaces (fonts? color_scheme? maybe OTT)
   - improve in lua object programming: https://www.lua.org/pil/contents.html#P2 (13. tables & 16. classes)
   -> checkout those to get inspiration, but you probably will define your own selector (not just for domains, workspaces, but also fonts etc.)

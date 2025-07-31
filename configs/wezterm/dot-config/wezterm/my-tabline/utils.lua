@@ -19,29 +19,22 @@ function M.deep_extend(t1, t2)
   return result
 end
 
-function M.concatenate(t1, t2)
-  local result = {}
-  for _, elem in ipairs(t1) do
-    table.insert(result, elem)
-  end
-  for _, elem in ipairs(t2) do
-    table.insert(result, elem)
-  end
-  return result
-end
-
 function M.flatten(arrays, separator)
   local result = {}
   local is_first = true
 
   for _, array in ipairs(arrays) do
-    if not is_first then table.insert(result, separator) end
+    if not is_first and #array > 0 then
+      table.insert(result, separator)
+    end
 
     for _, value in ipairs(array) do
       table.insert(result, value)
     end
 
-    if is_first then is_first = false end
+    if is_first then
+      is_first = false
+    end
   end
 
   return result
