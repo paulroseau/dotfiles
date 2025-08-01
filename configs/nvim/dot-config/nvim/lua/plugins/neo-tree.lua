@@ -2,8 +2,8 @@
 
 local function open_all_subnodes(state)
   local node = state.tree:get_node()
-	local filesystem_commands = require("neo-tree.sources.filesystem.commands")
-	filesystem_commands.expand_all_nodes(state, node)
+  local filesystem_commands = require("neo-tree.sources.filesystem.commands")
+  filesystem_commands.expand_all_nodes(state, node)
 end
 
 require("neo-tree").setup({
@@ -31,6 +31,7 @@ require("neo-tree").setup({
       ["P"] = "paste_from_clipboard",
       ["p"] = "paste_from_clipboard",
       ["i"] = "noop",
+      ["b"] = "noop",
       ["l"] = "noop", -- don't know why move right is blocked
       ["y"] = "noop",
       ["w"] = "noop",
@@ -55,5 +56,5 @@ require("neo-tree").setup({
   },
 })
 
-vim.keymap.set({'n'} , '<leader>x', '<cmd>Neotree reveal toggle show<CR>')
-vim.keymap.set({'n'} , '<leader>X', '<cmd>Neotree reveal_force_cwd focus<CR>')
+vim.keymap.set({ 'n' }, '<leader>x', '<cmd>Neotree reveal toggle show<CR>')
+vim.keymap.set({ 'n' }, '<leader>X', '<cmd>Neotree reveal_force_cwd focus<CR>')
