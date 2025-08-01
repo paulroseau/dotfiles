@@ -1,3 +1,5 @@
+local grey_blue = '#3b4261'
+
 return {
   default_options = {
     padding = { left = 1, right = 1 },
@@ -11,8 +13,22 @@ return {
       secondary = '╲'
     },
     sections = {
-      { components = { domain = { bold = true }, }, },
-      { components = { workspace = {}, }, }
+      {
+        components = {
+          { name = 'domain', options = { bold = true } },
+          { name = 'mode',   options = { italic = true } },
+        },
+        colors = {
+        }
+      },
+      {
+        components = {
+          { name = 'workspace', options = {} },
+        },
+        colors = {
+          background = grey_blue
+        }
+      }
     },
   },
   right_status = {
@@ -21,8 +37,22 @@ return {
       secondary = '╱'
     },
     sections = {
-      { components = { ram = {}, cpu = {} }, },
-      { components = { battery = {}, datetime = {} }, }
+      {
+        components = {
+          { name = 'ram', options = {} },
+          { name = 'cpu', options = {} },
+        },
+        colors = {
+          background = grey_blue
+        }
+      },
+      {
+        components = {
+          { name = 'battery',  options = {} },
+          { name = 'datetime', options = {} },
+        },
+        colors = {}
+      },
     }
   },
   tabs = {

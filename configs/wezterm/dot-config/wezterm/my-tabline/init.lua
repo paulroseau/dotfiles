@@ -6,13 +6,13 @@ local render = require('my-tabline.render')
 
 local M = {}
 
-local function section(window, default_options, colors, component_config, separator)
+local function section(window, default_options, colors, components_config, separator)
   local rendered_components = {}
 
-  for component_name, component_options in pairs(component_config) do
-    local options = utils.deep_extend(default_options, component_options)
-    local component = components.window[component_name] and components.window[component_name](window) or
-        components.invalid
+  for _, component_config in ipairs(components_config) do
+    local options = utils.deep_extend(default_options, component_config.options)
+    local make_component = components[component_config.name] or components.invalid
+    local component = make_component.window(window)
     table.insert(rendered_components, render.component(component, options, colors))
   end
   return utils.flatten(rendered_components, render.make_text(separator))
@@ -25,7 +25,10 @@ local function status(window, default_options, status_config, is_left)
 
   local section_configs = is_left and status_config.sections or utils.reverse(status_config.sections)
   for section_index, section_config in ipairs(section_configs) do
-    local section_colors = colors.get_section_colors(window, section_index)
+    local section_colors = utils.deep_extend(
+      colors.get_section_colors(window, section_index),
+      section_config.colors or {}
+    )
 
     if previous_section_background_color then
       separator = render.separator(status_config.separators.primary, previous_section_background_color,
