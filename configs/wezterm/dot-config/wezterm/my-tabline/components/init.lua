@@ -6,6 +6,8 @@ return {
   window = {
     battery = require('my-tabline.components.window.battery'),
     datetime = require('my-tabline.components.window.datetime'),
+    domain = require('my-tabline.components.window.domain'),
+    workspace = require('my-tabline.components.window.workspace'),
   },
   tab = {
 

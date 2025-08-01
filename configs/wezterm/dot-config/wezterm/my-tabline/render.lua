@@ -3,10 +3,7 @@ local utils = require('my-tabline.utils')
 local M = {}
 
 function M.make_text(str)
-  if str and str ~= "" then
-    return { Text = str }
-  end
-  return {}
+  return { Text = str or '' }
 end
 
 local function surround_with_text(elements, text_left, text_right)
@@ -73,8 +70,6 @@ local function change_foreground_color(elements, color, previous_color)
 end
 
 function M.component(component, options, colors)
-  local result = {}
-
   local icon = {}
   if not options.text_only then
     icon = { M.make_text(component.icon) }
@@ -96,7 +91,7 @@ function M.component(component, options, colors)
     if options.underline then text = change_underline_style(text, options.underline) end
   end
 
-  result = utils.flatten({ icon, text }, M.make_text(' '))
+  local result = utils.flatten({ icon, text }, M.make_text(' '))
 
   result = surround_with_text(
     result,

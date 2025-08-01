@@ -19,12 +19,23 @@ function M.deep_extend(t1, t2)
   return result
 end
 
+local function filter(array, predicate)
+  local result = {}
+  for _, elem in ipairs(array) do
+    if predicate(elem) then
+      table.insert(result, elem)
+    end
+  end
+  return result
+end
+
 function M.flatten(arrays, separator)
   local result = {}
+  local filtered_arrays = filter(arrays, function(array) return #array > 0 end)
   local is_first = true
 
-  for _, array in ipairs(arrays) do
-    if not is_first and #array > 0 then
+  for _, array in ipairs(filtered_arrays) do
+    if not is_first then
       table.insert(result, separator)
     end
 
