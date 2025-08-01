@@ -6,10 +6,10 @@ require('lualine').setup({
   sections = {
     lualine_a = { 'mode' },
     lualine_b = { 'filename' },
-    lualine_c = { '' },
-    lualine_x = { 'branch', 'diagnostics' },
+    lualine_c = { 'progress' },
+    lualine_x = { 'diagnostics' },
     lualine_y = { 'filetype' },
-    lualine_z = { 'progress' },
+    lualine_z = { 'branch' },
   },
   -- unfortunately cannot use this for tabline
   -- https://github.com/nvim-lualine/lualine.nvim/pull/1013 to be merged and
