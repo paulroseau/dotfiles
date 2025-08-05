@@ -71,7 +71,7 @@ end
 
 function M.component(component, options, colors)
   local icon = {}
-  if not options.text_only then
+  if not options.text_only and component.icon then
     icon = { M.make_text(component.icon) }
     icon = change_foreground_color(icon, component.icon_foreground_color, colors.foreground)
   end

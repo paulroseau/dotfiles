@@ -16,10 +16,8 @@ return {
       {
         components = {
           { name = 'domain', options = { bold = true } },
-          { name = 'mode',   options = { italic = true } },
         },
-        colors = {
-        }
+        colors = {}
       },
       {
         components = {
