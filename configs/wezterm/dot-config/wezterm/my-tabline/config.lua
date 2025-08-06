@@ -21,7 +21,8 @@ return {
       },
       {
         components = {
-          { name = 'workspace', options = {} },
+          { name = 'workspace',                 options = {} },
+          { name = 'current_working_directory', options = {} },
         },
         colors = {
           background = grey_blue
