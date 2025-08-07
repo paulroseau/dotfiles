@@ -52,6 +52,36 @@ local function status(window, default_options, status_config, is_left)
   return utils.flatten(rendered_sections)
 end
 
+local function tab(tab_info, tab_infos, is_hover, default_options, tab_config)
+  local window = wezterm.mux.get_window(tab_info.window_id)
+  local tab_colors = colors.get_tab_colors(tab_info.is_active, is_hover, window)
+  local rendered_components = section(tab_info, default_options, tab_colors, tab_config.components, '')
+
+  local tab_index = tab_info.tab_index
+
+  local left_separator_previous_background_color = nil
+  if tab_index == 1 then
+    left_separator_previous_background_color = colors.background
+  else
+    left_separator_previous_background_color = colors.get_tab_background_color(tab_infos[tab_index - 1].is_active)
+  end
+  local left_separator = render.separator(tab_config.separators.left, left_separator_previous_background_color,
+    tab_colors.background)
+
+  local right_separator_next_background_color = nil
+  if tab_index == #tab_infos then
+    right_separator_next_background_color = colors.background
+  else
+    right_separator_next_background_color = colors.get_tab_background_color(tab_infos[tab_index - 1].is_active)
+  end
+  local right_separator = render.separator(tab_config.separators.right, tab_colors.background,
+    right_separator_next_background_color)
+
+  table.insert(rendered_components, 1, left_separator)
+  table.insert(rendered_components, right_separator)
+  return rendered_components
+end
+
 function M.setup(wezterm_config)
   local config = require('my-tabline.config')
   local colors = require('my-tabline.colors')
@@ -64,8 +94,8 @@ function M.setup(wezterm_config)
     window:set_right_status(wezterm.format(right_status))
   end)
 
-  wezterm.on('format-tab-title', function(tab, _, _, _, hover, _)
-    -- return require('tabline.tabs').set_title(tab, hover)
+  wezterm.on('format-tab-title', function(tab_info, tabs_info, _, _, hover, _)
+    -- return tab(tab_info, is_hover, )
   end)
 end
 

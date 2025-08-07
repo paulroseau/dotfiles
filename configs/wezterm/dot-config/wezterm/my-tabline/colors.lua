@@ -54,17 +54,32 @@ function M.get_section_colors(window, section_index)
   return section_colors[math.fmod(section_index - 1, 3) + 1]
 end
 
-function M.get_tab_colors(is_active, is_hover, mode)
-  local surface = surface()
-  local background = background()
-
+-- NB: we can't depend on is_hover here because this information is not in
+-- tab_info, hence we can't know if the tab on the left/right is hovered to
+-- adjust the separator background colors
+function M.get_tab_background_color(is_active)
   if is_active then
-    return { foreground = palette.ansi[mode_color[mode]], background = surface }
-  elseif is_hover then
-    return { foreground = palette.ansi[ansi_codes.magenta], background = surface }
+    return surface()
   end
+  return background()
+end
 
-  return { foreground = palette.foreground, background = background }
+function M.get_tab_foreground_color(is_active, is_hover, mode_color)
+  if is_active then
+    return mode_color
+  elseif is_hover then
+    return palette.ansi[ansi_codes.magenta]
+  end
+  return palette.foreground
+end
+
+function M.get_tab_colors(is_active, is_hover, window)
+  local surface = surface()
+  local mode_color = get_mode_color(window)
+  local foreground_color = M.get_tab_foreground_color(is_active, is_hover, mode_color)
+  local background_color = M.get_tab_background_color(is_active)
+
+  return { foreground = foreground_color, background = background_color }
 end
 
 function M.set_palette(color_scheme)

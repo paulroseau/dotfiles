@@ -97,7 +97,12 @@
     => wezterm uses the vendored lua code, so pkg-config is irrelevant here
 
 - [ ] Wezterm: prettier tabs and statusline: https://github.com/michaelbrusegard/tabline.wez (for status line print Nvim icon if nvim_mode is on but nvim_ignore is off)
-  - [ ] fix swapping on right side
+  - [x] fix swapping on right side
+  - [ ] set up tab rendering
+  - [ ] test all existing components in the tab
+  - [ ] make the map for all components programmatically launch require('tabline.components' .. name) (if it fails return nil), through a setmetatable({}, {__index = function(k, t)})
+  - [ ] convert all old components
+  - [ ] add nvim-mode component
 - [ ] Consider using the Input select for switching workspaces (fonts? color_scheme? maybe OTT)
   - improve in lua object programming: https://www.lua.org/pil/contents.html#P2 (13. tables & 16. classes)
   -> checkout those to get inspiration, but you probably will define your own selector (not just for domains, workspaces, but also fonts etc.)
