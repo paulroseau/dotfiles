@@ -24,6 +24,7 @@ M.configure = function()
   vim.lsp.enable('nil_ls')
   vim.lsp.enable('pyright')
   vim.lsp.enable('terraformls')
+  vim.lsp.enable('yaml_ls')
 end
 
 return M

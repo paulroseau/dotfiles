@@ -47,7 +47,9 @@ rec {
 
     terraform = [ pkgs.terraform terraform-ls ];
 
-    all = c ++ go ++ json ++ lua ++ nix ++ python ++ rust ++ terraform;
+    yaml = [ yaml-language-server ];
+
+    all = c ++ go ++ json ++ lua ++ nix ++ python ++ rust ++ terraform ++ yaml;
   };
 
   google = [ google-cloud-sdk ];
