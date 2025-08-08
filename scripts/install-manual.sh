@@ -157,6 +157,7 @@ install_node_applications() {
   . "$NVM_DIR/nvm.sh"
 
   npm install --global vscode-langservers-extracted@v4.10.0
+  npm install --global prettier@3.6.2
   npm install --global yaml-language-server@1.18.0
   npm install --global gitmoji-cli@v9.7.0
 
