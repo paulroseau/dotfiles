@@ -28,3 +28,10 @@ vim.o.shiftwidth = 2   -- column offset when using keys '>' and '<' in normal mo
 
 -- Disable diagnostics by default
 vim.diagnostic.enable(false)
+
+-- Filetype (terraform can be confused for tinyfugue, cf. https://www.reddit.com/r/neovim/comments/18xg9na/terraform_file_recognition)
+vim.filetype.add({
+  extension = {
+    tf = "terraform"
+  }
+})
