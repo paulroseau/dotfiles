@@ -1,14 +1,11 @@
 local wezterm = require('wezterm')
 local component = require('my-tabline.component')
 
-local function make(pane)
-  local cwd_uri = pane:get_current_working_dir()
-  local hostname = ''
-
-  if cwd_uri == nil then
+local function make(current_working_dir_uri)
+  if current_working_dir_uri == nil then
     hostname = wezterm.hostname()
-  elseif type(cwd_uri) == 'userdata' then
-    hostname = cwd_uri.host or wezterm.hostname()
+  elseif type(current_working_dir_uri) == 'userdata' then
+    hostname = current_working_dir_uri.host or wezterm.hostname()
   end
 
   local dot = hostname:find('[.]')
@@ -20,6 +17,6 @@ local function make(pane)
 end
 
 return {
-  window = function(window) return make(window:active_pane()) end,
-  tab = function(tab_info) return make(tab_info:active_pane()) end
+  window = function(args) return make(args.pane:get_current_working_dir()) end,
+  tab = function(args) return make(args.tab_info.active_pane.current_working_dir) end
 }

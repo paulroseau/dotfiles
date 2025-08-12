@@ -7,15 +7,15 @@ local key_table_to_mode = {
   search_mode = component.new('SEARCH', wezterm.nerdfonts.cod_search)
 }
 
-local function make(window)
-  local key_table = window:active_key_table()
-  return key_table_to_mode[key_table] or key_table_to_mode.normal_mode
-end
-
 return {
-  window = make,
-  tab = function(tab_info)
-    local window = wezterm.mux.get_window(tab_info.window_id)
-    return make(window)
-  end
+  for_window = function(args)
+    local key_table = args.window:active_key_table()
+    return key_table_to_mode[key_table] or key_table_to_mode.normal_mode
+  end,
+  -- There is no way to get the active_key_table from tab_info since we can't
+  -- perform any asynchronous calls in the callback to format-tab-title and
+  -- wezterm.gui.gui_window_for_mux_window(tab_info.window_id) is
+  -- asynchronous
+  -- Hence for_tab is not supported
+  for_tab = nil
 }

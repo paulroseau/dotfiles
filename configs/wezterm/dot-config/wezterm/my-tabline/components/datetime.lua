@@ -37,6 +37,6 @@ local function make(_)
 end
 
 return {
-  window = make,
-  tab = make
+  for_window = function(_) return make() end,
+  for_tab = function(_) return make() end
 }

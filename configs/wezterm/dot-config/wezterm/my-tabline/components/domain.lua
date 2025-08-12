@@ -12,8 +12,7 @@ local domain_type_to_icon = {
   unix = wezterm.nerdfonts.cod_terminal_linux,
 }
 
-local function make(pane)
-  local domain_name = pane:get_domain_name()
+local function make(domain_name)
   local domain_type, new_domain_name = domain_name:match('^([^:]+):?(.*)')
   domain_type = domain_type:lower()
   local text = new_domain_name ~= '' and new_domain_name or domain_name
@@ -23,6 +22,6 @@ local function make(pane)
 end
 
 return {
-  window = function(window) return make(window:active_pane()) end,
-  tab = function(tab_info) return make(tab_info:active_pane()) end
+  for_window = function(args) return make(args.pane:get_domain_name()) end,
+  for_tab = function(args) return make(args.tab_info.active_pane.domain_name) end
 }

@@ -1,12 +1,24 @@
--- TODO add an __index which launches the require
+local components_for_window = setmetatable({}, {
+  __index = function(_, component_name)
+    local component_exists, component = pcall(require, 'my-tabline.components.' .. component_name)
+    if component_exists then
+      return component.for_window
+    end
+    return require('my-tabline.components.invalid').for_window
+  end
+})
+
+local components_for_tab = setmetatable({}, {
+  __index = function(_, component_name)
+    local component_exists, component = pcall(require, 'my-tabline.components.' .. component_name)
+    if component_exists then
+      return component.for_tab
+    end
+    return require('my-tabline.components.invalid').for_tab
+  end
+})
+
 return {
-  battery = require('my-tabline.components.battery'),
-  current_working_directory = require('my-tabline.components.current-working-directory'),
-  datetime = require('my-tabline.components.datetime'),
-  domain = require('my-tabline.components.domain'),
-  hostname = require('my-tabline.components.hostname'),
-  invalid = require('my-tabline.components.invalid'),
-  mode = require('my-tabline.components.mode'),
-  window = require('my-tabline.components.window'),
-  workspace = require('my-tabline.components.workspace'),
+  for_window = components_for_window,
+  for_tab = components_for_tab,
 }
