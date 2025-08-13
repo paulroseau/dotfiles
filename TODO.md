@@ -99,7 +99,9 @@
 
 - [ ] Wezterm: prettier tabs and statusline: https://github.com/michaelbrusegard/tabline.wez (for status line print Nvim icon if nvim_mode is on but nvim_ignore is off)
   - [x] fix swapping on right side
-  - [ ] set up tab rendering
+  - [x] set up tab rendering
+  - [ ] allow to customize tabs colors
+  - [ ] factorize even further the components.init (explicit arguments not an {} for each function and handle the args unwrapping in there)
   - [x] make the map for all components programmatically launch require('tabline.components' .. name) (if it fails return nil), through a setmetatable({}, {__index = function(k, t)})
   - [ ] convert all old components
   - [ ] test all existing components in the tab
