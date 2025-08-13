@@ -1,5 +1,6 @@
 local wezterm = require('wezterm')
 local events = require('utils.events')
+local utils = require('my-tabline.utils')
 
 local M = {}
 
@@ -83,12 +84,8 @@ function M.get_tab_colors(is_active, is_hover)
   return { foreground = foreground_color, background = background_color }
 end
 
-function M.set_palette(color_scheme)
-  if type(color_scheme) == 'string' then
-    palette = wezterm.color.get_builtin_schemes()[color_scheme]
-  else
-    palette = color_scheme
-  end
+function M.set_palette(color_scheme, colors_override)
+  palette = utils.deep_extend(wezterm.color.get_builtin_schemes()[color_scheme], colors_override or {})
 end
 
 return setmetatable(M, {

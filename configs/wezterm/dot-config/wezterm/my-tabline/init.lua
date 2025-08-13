@@ -73,7 +73,7 @@ end
 function M.setup(wezterm_config)
   local config = require('my-tabline.config')
   local colors = require('my-tabline.colors')
-  colors.set_palette(wezterm_config.color_scheme)
+  colors.set_palette(wezterm_config.color_scheme, config.palette_overrides)
 
   wezterm.on('update-status', function(window, pane)
     colors.update_current_mode_color(window)

@@ -7,6 +7,9 @@ return {
     text_only = false,
     max_text_width = 10,
   },
+  palette_overrides = {
+    cursor_bg = grey_blue
+  },
   left_status = {
     separators = {
       primary = '',
@@ -24,9 +27,7 @@ return {
           { name = 'workspace',                 options = {} },
           { name = 'current-working-directory', options = {} },
         },
-        colors = {
-          background = grey_blue
-        }
+        colors = {}
       }
     },
   },
@@ -41,9 +42,7 @@ return {
           { name = 'ram', options = {} },
           { name = 'cpu', options = {} },
         },
-        colors = {
-          background = grey_blue
-        }
+        colors = {}
       },
       {
         components = {
@@ -55,7 +54,7 @@ return {
     }
   },
   tabs = {
-    separators = { left = '', right = '', },
+    separators = { left = '', right = '', },
     components = {
       -- process = { padding = { left = 1, right = 0 }, icons_only = true },
       { name = 'current-working-directory', options = { padding = { left = 0, right = 1 } } },
