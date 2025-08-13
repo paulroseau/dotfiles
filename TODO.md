@@ -76,7 +76,6 @@
 - [ ] add luacats annotations in your config: https://luals.github.io/wiki/annotations (also for wezterm)
 - [ ] review all dos and don'ts in https://github.com/nvim-neorocks/nvim-best-practices
 - [ ] fix clangd
-- [ ] check plugins listed on lazyvim (in particular conform for formatting, dashboard)
 - [ ] check snacks:
     - [x] file explorer -> mouais, not convinced neo-tree is better
     - [x] same for picker, fzf-lua better
@@ -101,9 +100,9 @@
 - [ ] Wezterm: prettier tabs and statusline: https://github.com/michaelbrusegard/tabline.wez (for status line print Nvim icon if nvim_mode is on but nvim_ignore is off)
   - [x] fix swapping on right side
   - [ ] set up tab rendering
-  - [ ] test all existing components in the tab
-  - [ ] make the map for all components programmatically launch require('tabline.components' .. name) (if it fails return nil), through a setmetatable({}, {__index = function(k, t)})
+  - [x] make the map for all components programmatically launch require('tabline.components' .. name) (if it fails return nil), through a setmetatable({}, {__index = function(k, t)})
   - [ ] convert all old components
+  - [ ] test all existing components in the tab
   - [ ] add nvim-mode component
 - [ ] Consider using the Input select for switching workspaces (fonts? color_scheme? maybe OTT)
   - improve in lua object programming: https://www.lua.org/pil/contents.html#P2 (13. tables & 16. classes)
@@ -114,6 +113,7 @@
   -> use the table trick to display clean values / make the selector its own lua module
   -> issue with for color_scheme (config_overrides) when creating new workspace it keeps the setting (looks like a bug)
 - [ ] Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit, test with docker container or VM
+- [ ] Select tab fuzzily (through title)
 - [ ] If you ended up using external plugins with `wezterm.plugin.require()`, see how you can:
   - [ ] download the plugins with nix in the same vein as what are doing for neovim-plugins (through `niv`)
   - [ ] write a little utility to add each folder inside there to the lua path/cpath
@@ -126,6 +126,7 @@
   - missing choose-tree, more uniform menus
       import pane/tab from elsewhere (need choose-tree)
   - missing focus pane events
+  - missing active key changed event
   - export pane/tab to new workspace (1 window/workspace)
   - move pane/tab to new workspace (1 window/workspace)
   - customizable keymaps in menu mode and search mode (editing part, emacs style would be good by default)
