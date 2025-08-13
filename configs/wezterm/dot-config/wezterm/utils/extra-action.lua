@@ -1,23 +1,23 @@
 local wezterm = require('wezterm')
 
 local nvim_support = require('utils.nvim-support')
-local events = require('utils.event')
+local events = require('utils.events')
 
 local act = wezterm.action
 
 local M = {}
 
-local function act_then_fire_event(args)
+local function act_then_fire_focused_in_event(action)
   return wezterm.action_callback(function(window, pane, _)
     local current_pane_id = pane:pane_id()
 
     local fire_pane_focused_in_event = wezterm.action_callback(function(window, new_pane, _)
       if new_pane:pane_id() ~= current_pane_id then
-        window:perform_action(wezterm.action.EmitEvent(args.event), new_pane)
+        window:perform_action(wezterm.action.EmitEvent(events.pane_focused_in), new_pane)
       end
     end)
 
-    window:perform_action(args.action, pane)
+    window:perform_action(action, pane)
     window:perform_action(fire_pane_focused_in_event, pane)
   end)
 end
@@ -28,12 +28,14 @@ M.copy_mode_activate_no_selection = wezterm.action_callback(function(window, pan
   window:perform_action(act.ActivateCopyMode, pane)
   window:perform_action(act.CopyMode 'MoveToSelectionOtherEnd', pane)
   window:perform_action(act.CopyMode 'ClearSelectionMode', pane)
+  window:perform_action(wezterm.action.EmitEvent(events.active_key_table_changed), pane)
 end)
 
 M.copy_mode_yank_and_exit = act.Multiple {
   act.CopyTo 'ClipboardAndPrimarySelection',
   act.ClearSelection,
   act.CopyMode 'Close',
+  wezterm.action.EmitEvent(events.active_key_table_changed),
 }
 
 M.copy_mode_yank = act.Multiple {
@@ -57,7 +59,8 @@ M.copy_mode_prior_match = act.Multiple {
 
 M.copy_mode_start_search = act.Multiple {
   act.CopyMode 'ClearPattern',
-  act.CopyMode 'EditPattern'
+  act.CopyMode 'EditPattern',
+  wezterm.action.EmitEvent(events.active_key_table_changed),
 }
 
 M.search_mode_validate = act.Multiple {
@@ -73,6 +76,7 @@ M.exit_copy_mode = act.Multiple {
   act.CopyMode 'ClearPattern',
   act.ClearSelection,
   act.CopyMode 'Close',
+  wezterm.action.EmitEvent(events.active_key_table_changed),
 }
 
 -- Workspace
@@ -130,10 +134,10 @@ M.select_workspace = wezterm.action_callback(function(window, pane, _)
   local input_selector_callback = wezterm.action_callback(
     function(window, pane, id, label)
       if label and not label:find("(active)") then
-        window:perform_action(act_then_fire_event {
-          action = act.SwitchToWorkspace { name = label },
-          event = events.pane_focused_in,
-        }, pane)
+        window:perform_action(
+          act_then_fire_focused_in_event(act.SwitchToWorkspace { name = label }),
+          pane
+        )
       end
     end
   )
@@ -153,21 +157,18 @@ end)
 -- Windows
 
 -- Tabs
-M.spawn_tab = act_then_fire_event {
-  action = act.SpawnTab 'CurrentPaneDomain',
-  event = events.pane_focused_in
-}
+M.spawn_tab = act_then_fire_focused_in_event(
+  act.SpawnTab 'CurrentPaneDomain'
+)
 
-M.close_current_tab = act_then_fire_event {
-  action = act.CloseCurrentTab { confirm = false },
-  event = events.pane_focused_in
-}
+M.close_current_tab = act_then_fire_focused_in_event(
+  act.CloseCurrentTab { confirm = false }
+)
 
 function M.activate_tab_relative(offset)
-  return act_then_fire_event {
-    action = act.ActivateTabRelative(offset),
-    event = events.pane_focused_in
-  }
+  return act_then_fire_focused_in_event(
+    act.ActivateTabRelative(offset)
+  )
 end
 
 M.rename_tab = wezterm.action_callback(function(window, pane, _)
@@ -188,28 +189,24 @@ M.move_pane_to_new_tab = wezterm.action_callback(function(window, pane)
   tab:activate()
 end)
 
-M.send_pane_to_new_tab = act_then_fire_event {
-  action = wezterm.action_callback(function(window, pane) pane:move_to_new_tab() end),
-  event = events.pane_focused_in
-}
+M.send_pane_to_new_tab = act_then_fire_focused_in_event(
+  wezterm.action_callback(function(window, pane) pane:move_to_new_tab() end)
+)
 
-M.close_current_pane = act_then_fire_event {
-  action = act.CloseCurrentPane { confirm = false },
-  event = events.pane_focused_in
-}
+M.close_current_pane = act_then_fire_focused_in_event(
+  act.CloseCurrentPane { confirm = false }
+)
 
 function M.activate_pane_direction(args)
-  return act_then_fire_event {
-    action = act.ActivatePaneDirection(args),
-    event = events.pane_focused_in
-  }
+  return act_then_fire_focused_in_event(
+    act.ActivatePaneDirection(args)
+  )
 end
 
 function M.split_pane(args)
-  return act_then_fire_event {
-    action = act.SplitPane(args),
-    event = events.pane_focused_in
-  }
+  return act_then_fire_focused_in_event(
+    act.SplitPane(args)
+  )
 end
 
 M.toggle_ignore_nvim_running_flag = wezterm.action_callback(function(window, pane)

@@ -1,4 +1,5 @@
 local wezterm = require('wezterm')
+local events = require('utils.events')
 
 local M = {}
 
@@ -22,15 +23,19 @@ local mode_color = {
   search_mode = ansi_codes.red,
 }
 
-local function get_mode_color(window)
+local current_mode_color = palette.ansi[mode_color.normal_mode]
+
+local function update_current_mode_color(window, _)
   local key_table = window:active_key_table()
 
   if mode_color[key_table] then
-    return palette.ansi[mode_color[key_table]]
+    current_mode_color = palette.ansi[mode_color[key_table]]
+  else
+    current_mode_color = palette.ansi[mode_color.normal_mode]
   end
-
-  return palette.ansi[mode_color.normal_mode]
 end
+
+wezterm.on(events.active_key_table_changed, update_current_mode_color)
 
 local function background()
   return palette.tab_bar and palette.tab_bar.background or palette.background
@@ -40,14 +45,13 @@ local function surface()
   return palette.cursor_bg or palette.bright[ansi_codes.grey] or palette.ansi[ansi_codes.grey]
 end
 
-function M.get_section_colors(window, section_index)
+function M.get_section_colors(section_index)
   local surface = surface()
   local background = background()
-  local mode_color = get_mode_color(window)
 
   local section_colors = {
-    { foreground = background,         background = mode_color },
-    { foreground = mode_color,         background = surface },
+    { foreground = background,         background = current_mode_color },
+    { foreground = current_mode_color, background = surface },
     { foreground = palette.foreground, background = background },
   }
 
@@ -73,10 +77,9 @@ function M.get_tab_foreground_color(is_active, is_hover, mode_color)
   return palette.foreground
 end
 
-function M.get_tab_colors(is_active, is_hover, window)
+function M.get_tab_colors(is_active, is_hover)
   local surface = surface()
-  local mode_color = get_mode_color(window)
-  local foreground_color = M.get_tab_foreground_color(is_active, is_hover, mode_color)
+  local foreground_color = M.get_tab_foreground_color(is_active, is_hover, current_mode_color)
   local background_color = M.get_tab_background_color(is_active)
 
   return { foreground = foreground_color, background = background_color }

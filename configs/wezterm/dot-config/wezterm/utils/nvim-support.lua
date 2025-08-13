@@ -2,7 +2,7 @@ local M = {}
 
 local wezterm = require('wezterm')
 
-local event = require('utils.event')
+local event = require('utils.events')
 
 local NVIM_RUNNING_USER_VAR = "is_nvim_running"
 

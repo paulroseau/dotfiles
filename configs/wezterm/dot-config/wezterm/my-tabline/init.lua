@@ -26,7 +26,7 @@ local function status(window, pane, default_options, status_config, is_left)
   local section_configs = is_left and status_config.sections or utils.reverse(status_config.sections)
   for section_index, section_config in ipairs(section_configs) do
     local section_colors = utils.deep_extend(
-      colors.get_section_colors(window, section_index),
+      colors.get_section_colors(section_index),
       section_config.colors or {}
     )
 
@@ -54,12 +54,11 @@ local function status(window, pane, default_options, status_config, is_left)
 end
 
 local function tab(tab_info, tabs_info, is_hover, default_options, tab_config)
-  local window = wezterm.gui.gui_window_for_mux_window(tab_info.window_id)
-  local tab_colors = colors.get_tab_colors(tab_info.is_active, is_hover, window)
+  local tab_colors = colors.get_tab_colors(tab_info.is_active, is_hover)
   local rendered_components = section(components.for_window, { tab_info = tab_info }, default_options, tab_colors,
     tab_config.components, '')
 
-  local tab_index = tab_info.tab_index
+  local tab_index = tab_info.tab_index + 1
 
   local left_separator_previous_background_color = nil
   if tab_index == 1 then
@@ -97,7 +96,7 @@ function M.setup(wezterm_config)
   end)
 
   wezterm.on('format-tab-title', function(tab_info, tabs_info, _, _, hover, _)
-    -- return tab(tab_info, tabs_info, hover, config.default_options, config.tabs)
+    return tab(tab_info, tabs_info, hover, config.default_options, config.tabs)
   end)
 end
 
