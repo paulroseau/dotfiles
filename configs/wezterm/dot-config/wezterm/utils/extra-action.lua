@@ -28,14 +28,12 @@ M.copy_mode_activate_no_selection = wezterm.action_callback(function(window, pan
   window:perform_action(act.ActivateCopyMode, pane)
   window:perform_action(act.CopyMode 'MoveToSelectionOtherEnd', pane)
   window:perform_action(act.CopyMode 'ClearSelectionMode', pane)
-  window:perform_action(wezterm.action.EmitEvent(events.active_key_table_changed), pane)
 end)
 
 M.copy_mode_yank_and_exit = act.Multiple {
   act.CopyTo 'ClipboardAndPrimarySelection',
   act.ClearSelection,
   act.CopyMode 'Close',
-  wezterm.action.EmitEvent(events.active_key_table_changed),
 }
 
 M.copy_mode_yank = act.Multiple {
@@ -60,7 +58,6 @@ M.copy_mode_prior_match = act.Multiple {
 M.copy_mode_start_search = act.Multiple {
   act.CopyMode 'ClearPattern',
   act.CopyMode 'EditPattern',
-  wezterm.action.EmitEvent(events.active_key_table_changed),
 }
 
 M.search_mode_validate = act.Multiple {
@@ -76,7 +73,6 @@ M.exit_copy_mode = act.Multiple {
   act.CopyMode 'ClearPattern',
   act.ClearSelection,
   act.CopyMode 'Close',
-  wezterm.action.EmitEvent(events.active_key_table_changed),
 }
 
 -- Workspace

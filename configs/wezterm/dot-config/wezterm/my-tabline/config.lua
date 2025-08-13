@@ -58,7 +58,7 @@ return {
     separators = { left = '', right = '', },
     components = {
       -- process = { padding = { left = 1, right = 0 }, icons_only = true },
-      -- ['current-working-directory'] = { padding = { left = 0, right = 1 } },
+      { name = 'current-working-directory', options = { padding = { left = 0, right = 1 } } },
       -- zoomed = { padding = { left = 0, right = 0 } },
     },
   },

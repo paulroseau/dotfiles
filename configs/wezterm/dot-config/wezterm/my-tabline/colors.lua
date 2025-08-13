@@ -25,7 +25,15 @@ local mode_color = {
 
 local current_mode_color = palette.ansi[mode_color.normal_mode]
 
-local function update_current_mode_color(window, _)
+local function background()
+  return palette.tab_bar and palette.tab_bar.background or palette.background
+end
+
+local function surface()
+  return palette.cursor_bg or palette.bright[ansi_codes.grey] or palette.ansi[ansi_codes.grey]
+end
+
+function M.update_current_mode_color(window, _)
   local key_table = window:active_key_table()
 
   if mode_color[key_table] then
@@ -33,16 +41,6 @@ local function update_current_mode_color(window, _)
   else
     current_mode_color = palette.ansi[mode_color.normal_mode]
   end
-end
-
-wezterm.on(events.active_key_table_changed, update_current_mode_color)
-
-local function background()
-  return palette.tab_bar and palette.tab_bar.background or palette.background
-end
-
-local function surface()
-  return palette.cursor_bg or palette.bright[ansi_codes.grey] or palette.ansi[ansi_codes.grey]
 end
 
 function M.get_section_colors(section_index)

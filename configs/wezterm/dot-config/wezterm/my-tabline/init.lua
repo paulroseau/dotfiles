@@ -55,32 +55,19 @@ end
 
 local function tab(tab_info, tabs_info, is_hover, default_options, tab_config)
   local tab_colors = colors.get_tab_colors(tab_info.is_active, is_hover)
-  local rendered_components = section(components.for_window, { tab_info = tab_info }, default_options, tab_colors,
-    tab_config.components, '')
+  local rendered_components = {
+    section(components.for_tab, { tab_info = tab_info }, default_options, tab_colors, tab_config.components, '')
+  }
 
   local tab_index = tab_info.tab_index + 1
 
-  local left_separator_previous_background_color = nil
-  if tab_index == 1 then
-    left_separator_previous_background_color = colors.background
-  else
-    left_separator_previous_background_color = colors.get_tab_background_color(tabs_info[tab_index - 1].is_active)
-  end
-  local left_separator = render.separator(tab_config.separators.left, left_separator_previous_background_color,
-    tab_colors.background)
-
-  local right_separator_next_background_color = nil
-  if tab_index == #tabs_info then
-    right_separator_next_background_color = colors.background
-  else
-    right_separator_next_background_color = colors.get_tab_background_color(tabs_info[tab_index - 1].is_active)
-  end
-  local right_separator = render.separator(tab_config.separators.right, tab_colors.background,
-    right_separator_next_background_color)
+  local left_separator = render.separator(tab_config.separators.left, tab_colors.background, colors.background)
+  local right_separator = render.separator(tab_config.separators.right, tab_colors.background, colors.background)
 
   table.insert(rendered_components, 1, left_separator)
   table.insert(rendered_components, right_separator)
-  return rendered_components
+
+  return utils.flatten(rendered_components)
 end
 
 function M.setup(wezterm_config)
@@ -89,6 +76,7 @@ function M.setup(wezterm_config)
   colors.set_palette(wezterm_config.color_scheme)
 
   wezterm.on('update-status', function(window, pane)
+    colors.update_current_mode_color(window)
     local left_status = status(window, pane, config.default_options, config.left_status, true)
     local right_status = status(window, pane, config.default_options, config.right_status, false)
     window:set_left_status(wezterm.format(left_status))
