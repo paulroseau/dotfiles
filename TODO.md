@@ -100,9 +100,10 @@
 - [ ] Wezterm: prettier tabs and statusline: https://github.com/michaelbrusegard/tabline.wez (for status line print Nvim icon if nvim_mode is on but nvim_ignore is off)
   - [x] fix swapping on right side
   - [x] set up tab rendering
-  - [ ] allow to customize tabs colors
-  - [ ] factorize even further the components.init (explicit arguments not an {} for each function and handle the args unwrapping in there)
+  - [x] factorize even further the components.init (explicit arguments not an {} for each function and handle the args unwrapping in there)
   - [x] make the map for all components programmatically launch require('tabline.components' .. name) (if it fails return nil), through a setmetatable({}, {__index = function(k, t)})
+  - [ ] allow to customize tabs colors & attributes (test with a rainbow)
+  - [ ] rename section_config.colors in section_config.color_overrides
   - [ ] convert all old components
   - [ ] test all existing components in the tab
   - [ ] add nvim-mode component
@@ -116,9 +117,7 @@
   -> issue with for color_scheme (config_overrides) when creating new workspace it keeps the setting (looks like a bug)
 - [ ] Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit, test with docker container or VM
 - [ ] Select tab fuzzily (through title)
-- [ ] If you ended up using external plugins with `wezterm.plugin.require()`, see how you can:
-  - [ ] download the plugins with nix in the same vein as what are doing for neovim-plugins (through `niv`)
-  - [ ] write a little utility to add each folder inside there to the lua path/cpath
+
 - Wezterm missing:
   - Closing a workspace at once (not supported natively, lots of lua code cf. https://github.com/wezterm/wezterm/issues/3658, not worth it)
   - contribute to add `Ctrl-C` to exit launcher, super-mini change: https://github.com/wezterm/wezterm/issues/4722

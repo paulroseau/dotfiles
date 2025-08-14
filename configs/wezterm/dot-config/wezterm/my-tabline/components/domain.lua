@@ -22,6 +22,6 @@ local function make(domain_name)
 end
 
 return {
-  for_window = function(args) return make(args.pane:get_domain_name()) end,
-  for_tab = function(args) return make(args.tab_info.active_pane.domain_name) end
+  for_window = function(window, pane) return make(pane:get_domain_name()) end,
+  for_tab = function(tab_info) return make(tab_info.active_pane.domain_name) end
 }

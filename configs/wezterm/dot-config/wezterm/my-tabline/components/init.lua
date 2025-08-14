@@ -1,24 +1,28 @@
-local components_for_window = setmetatable({}, {
-  __index = function(_, component_name)
-    local component_exists, component = pcall(require, 'my-tabline.components.' .. component_name)
-    if component_exists then
-      return component.for_window
+local function make_factory(select)
+  return setmetatable({}, {
+    __index = function(_, component_name)
+      local component_exists, make_component_functions = pcall(require, 'my-tabline.components.' .. component_name)
+      if component_exists then
+        return select(make_component_functions)
+      end
+      return select(require('my-tabline.components.invalid'))
     end
-    return require('my-tabline.components.invalid').for_window
-  end
-})
+  })
+end
 
-local components_for_tab = setmetatable({}, {
-  __index = function(_, component_name)
-    local component_exists, component = pcall(require, 'my-tabline.components.' .. component_name)
-    if component_exists then
-      return component.for_tab
-    end
-    return require('my-tabline.components.invalid').for_tab
+local function select_for_window(make_component_functions)
+  return function(args)
+    return make_component_functions.for_window(args.window, args.pane)
   end
-})
+end
+
+local function select_for_tab(make_component_functions)
+  return function(args)
+    return make_component_functions.for_tab(args.tab_info)
+  end
+end
 
 return {
-  for_window = components_for_window,
-  for_tab = components_for_tab,
+  for_window = make_factory(select_for_window),
+  for_tab = make_factory(select_for_tab)
 }

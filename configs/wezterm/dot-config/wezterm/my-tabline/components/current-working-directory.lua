@@ -7,12 +7,12 @@ local function make(current_working_dir_uri)
 end
 
 return {
-  for_window = function(args)
-    local current_working_dir_uri = args.pane:get_current_working_dir()
+  for_window = function(window, pane)
+    local current_working_dir_uri = pane:get_current_working_dir()
     return make(current_working_dir_uri)
   end,
-  for_tab = function(args)
-    local current_working_dir_uri = args.tab_info.active_pane.current_working_dir
+  for_tab = function(tab_info)
+    local current_working_dir_uri = tab_info.active_pane.current_working_dir
     return make(current_working_dir_uri)
   end
 }
