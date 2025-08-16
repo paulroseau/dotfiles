@@ -1,12 +1,19 @@
 local wezterm = require('wezterm')
 local utils = require('my-tabline.utils')
 local components = require('my-tabline.components')
-local colors = require('my-tabline.colors')
+local palette = require('my-tabline.palette')
 local render = require('my-tabline.render')
 
 local M = {}
 
-local function section(available_components, component_args, default_options, colors, components_configs, separator)
+local function section(
+    available_components,
+    component_args,
+    default_options,
+    colors,
+    components_configs,
+    internal_separator
+)
   local rendered_components = {}
 
   for _, component_config in ipairs(components_configs) do
@@ -15,24 +22,27 @@ local function section(available_components, component_args, default_options, co
     local component = make_component(component_args)
     table.insert(rendered_components, render.component(component, options, colors))
   end
-  return utils.flatten(rendered_components, render.make_text(separator))
+  return utils.flatten(rendered_components, render.make_text(internal_separator))
 end
 
-local function status(window, pane, default_options, status_config, is_left)
+local function status(window, pane, default_options, status_config, is_left, edge_color)
   local rendered_sections = {}
   local previous_section_background_color = nil
   local separator = nil
 
   local section_configs = is_left and status_config.sections or utils.reverse(status_config.sections)
   for section_index, section_config in ipairs(section_configs) do
-    local section_colors = utils.deep_extend(
-      colors.get_section_colors(section_index),
-      section_config.colors or {}
-    )
+    local section_colors = {
+      foreground = section_config.colors.foreground(),
+      background = section_config.colors.background(),
+    }
 
     if previous_section_background_color then
-      separator = render.separator(status_config.separators.primary, previous_section_background_color,
-        section_colors.background)
+      separator = render.separator(
+        status_config.separators.primary,
+        previous_section_background_color,
+        section_colors.background
+      )
       table.insert(rendered_sections, separator)
     end
     previous_section_background_color = section_colors.background
@@ -43,7 +53,7 @@ local function status(window, pane, default_options, status_config, is_left)
     table.insert(rendered_sections, section)
   end
 
-  separator = render.separator(status_config.separators.primary, previous_section_background_color, colors.background)
+  separator = render.separator(status_config.separators.primary, previous_section_background_color, edge_color)
   table.insert(rendered_sections, separator)
 
   if not is_left then
@@ -54,32 +64,48 @@ local function status(window, pane, default_options, status_config, is_left)
 end
 
 local function tab(tab_info, tabs_info, is_hover, default_options, tab_config)
-  local tab_colors = colors.get_tab_colors(tab_info.is_active, is_hover)
+  local tab_index = tab_info.tab_index + 1
+
+  local tab_colors = {
+    foreground = tab_config.colors.foreground(tab_info.is_active, is_hover, tab_index),
+    background = tab_config.colors.background(tab_info.is_active, tab_index),
+  }
+
+  default_options = utils.deep_extend(
+    default_options,
+    tab_config.options(tab_info.is_active, is_hover, tab_index)
+  )
+
   local rendered_components = {
     section(components.for_tab, { tab_info = tab_info }, default_options, tab_colors, tab_config.components, '')
   }
+  local next_background_color = palette.background
+  if tab_index < #tabs_info then
+    local next_tab_info = tabs_info[tab_index + 1]
+    next_background_color = tab_config.colors.background(next_tab_info.is_active, tab_index + 1)
+  end
 
-  local tab_index = tab_info.tab_index + 1
-
-  local left_separator = render.separator(tab_config.separators.left, tab_colors.background, colors.background)
-  local right_separator = render.separator(tab_config.separators.right, tab_colors.background, colors.background)
-
-  table.insert(rendered_components, 1, left_separator)
-  table.insert(rendered_components, right_separator)
+  local separator = render.separator(tab_config.separator, tab_colors.background, next_background_color)
+  table.insert(rendered_components, separator)
 
   return utils.flatten(rendered_components)
 end
 
 function M.setup(wezterm_config)
   local config = require('my-tabline.config')
-  local colors = require('my-tabline.colors')
-  colors.set_palette(wezterm_config.color_scheme, config.palette_overrides)
+  local palette = require('my-tabline.palette')
+  palette.set(wezterm_config.color_scheme)
 
   wezterm.on('update-status', function(window, pane)
-    colors.update_current_mode_color(window)
-    local left_status = status(window, pane, config.default_options, config.left_status, true)
-    local right_status = status(window, pane, config.default_options, config.right_status, false)
+    palette.update_current_mode_color(window)
+
+    local first_tab_index = 1
+    local first_tab = window:mux_window():tabs_with_info()[first_tab_index]
+    local first_tab_background_color = config.tabs.colors.background(first_tab.is_active, first_tab_index)
+    local left_status = status(window, pane, config.default_options, config.left_status, true, first_tab_background_color)
     window:set_left_status(wezterm.format(left_status))
+
+    local right_status = status(window, pane, config.default_options, config.right_status, false, palette.background)
     window:set_right_status(wezterm.format(right_status))
   end)
 

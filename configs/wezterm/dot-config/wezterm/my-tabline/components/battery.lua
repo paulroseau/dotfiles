@@ -1,6 +1,6 @@
 local wezterm = require('wezterm')
 local component = require('my-tabline.component')
-local colors = require('my-tabline.colors')
+local palette = require('my-tabline.palette')
 
 local function battery_icon(battery_level, is_charging)
   local suffix = nil
@@ -24,7 +24,7 @@ local function make()
   local text = string.format('%.0f%%', battery_level)
   local icon = battery_icon(battery_level, is_charging)
   if battery_level < 20 and not is_charging then
-    return component.new(text, icon, colors.red)
+    return component.new(text, icon, palette.red)
   end
   return component.new(text, icon)
 end

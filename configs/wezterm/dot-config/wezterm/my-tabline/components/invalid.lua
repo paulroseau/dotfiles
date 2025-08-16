@@ -1,9 +1,9 @@
 local wezterm = require('wezterm')
 local component = require('my-tabline.component')
-local colors = require('my-tabline.colors')
+local palette = require('my-tabline.palette')
 
 local function make(_)
-  return component.new('N/A', wezterm.nerdfonts.fa_skull, colors.red)
+  return component.new('N/A', wezterm.nerdfonts.fa_skull, palette.red)
 end
 
 return {
