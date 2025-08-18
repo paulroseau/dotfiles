@@ -73,6 +73,7 @@
 - [ ] check plugins listed on lazyvim (in particular conform for formatting, dashboard)
   - [ ] for conform see if you need to install prettier, if so add it with nix (not in nixpkgs)
 - [ ] rework your smart windows by separating configuration/initialization (ie. no setup(config)): https://github.com/nvim-neorocks/nvim-best-practices?tab=readme-ov-file#sleeping_bed-lazy-loading
+- [ ] allow to specify count in the mapping to resize window (like typing 20 and <M->> should resize by increment * 20)
 - [ ] add luacats annotations in your config: https://luals.github.io/wiki/annotations (also for wezterm)
 - [ ] review all dos and don'ts in https://github.com/nvim-neorocks/nvim-best-practices
 - [ ] fix clangd
@@ -84,6 +85,10 @@
     - [ ] rework mapping like snacks default
 
 - NB: on hover and signature help, monitor this issue: https://github.com/neovim/neovim/issues/28140 which asks for the ability to toggle the preview window (links to this more general issue: https://github.com/neovim/neovim/issues/31206), right now you just map K to calling vim.lsp.buf.hover twice, but you would still need to press `q` to exit, ideally we just exit with `K` as well
+
+# Alacritty
+
+- <Meta + Shift> does not work outside of Tmux (cannot resize nvim windows)
 
 # Yazi
 
