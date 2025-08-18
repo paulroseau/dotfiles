@@ -29,13 +29,13 @@ local rainbow = {
 local tab_rainbow_colors = {
   foreground = function(is_active, is_hover, tab_index)
     if is_active then
-      return palette.current_mode
+      return palette.black
     end
     return palette.cursor_bg
   end,
   background = function(is_active, tab_index)
     if is_active then
-      return palette.background
+      return palette.foreground
     end
     return rainbow[math.fmod(tab_index - 1, #rainbow) + 1]
   end
@@ -131,9 +131,9 @@ return {
       if is_active then
         return { bold = true }
       elseif is_hover then
-        return { italic = true }
+        return {}
       end
-      return {}
+      return { italic = true }
     end
   },
 }
