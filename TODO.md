@@ -123,6 +123,14 @@
   -> issue with for color_scheme (config_overrides) when creating new workspace it keeps the setting (looks like a bug)
 - [ ] Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit, test with docker container or VM
 - [ ] Select tab fuzzily (through title)
+- [ ] issue with the clipboard:
+  - you need to use 
+  ```lua
+  vim.g.clipboard = 'osc52' 
+  vim.o.clipboard = 'unnamedplus'
+  ```
+  but the issue is that wezterm can *write* fine to the terminal clipboard through the `osc52` sequence but it cannot read from it! Hence `p` (for paste in neovim blocks)
+  people are aware of the issue: https://github.com/wezterm/wezterm/issues/2050 and there is even a PR for it: https://github.com/wezterm/wezterm/pull/6239 but not reviewed for the last 10 months. Otherwise we can make a workaround to paste directly from nvim registers and resort to `Ctrl+Shift+V` to paste from clipboard
 
 - Wezterm missing:
   - Closing a workspace at once (not supported natively, lots of lua code cf. https://github.com/wezterm/wezterm/issues/3658, not worth it)
