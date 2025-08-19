@@ -15,15 +15,16 @@ local function get_new_plugin_rtp_insertion_indexes(rtp)
     end
   end
   return
-    (user_config_directory_rtp_index + 1) or 1,
-    user_config_after_directory_rtp_index or (#rtp + 1)
+      (user_config_directory_rtp_index + 1) or 1,
+      user_config_after_directory_rtp_index or (#rtp + 1)
 end
 
 -- Insert plugins after ~/.config/nvim and in reverse order before
 -- ~/.config/nvim/after for their ./after sub-directories
 function M.add_child_directories_to_rtp(parent_path)
   if not vim.loop.fs_stat(parent_path) then
-    vim.notify_once("Plugin directory " .. parent_path .. " does not exist, no external plugins loaded", vim.log.levels.WARN)
+    vim.notify_once("Plugin directory " .. parent_path .. " does not exist, no external plugins loaded",
+      vim.log.levels.WARN)
     return nil
   end
 
