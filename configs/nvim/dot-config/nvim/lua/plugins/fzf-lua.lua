@@ -12,6 +12,7 @@ local buf_del = function(selected, opts)
 end
 
 fzf.setup({
+  fzf_bin = 'fzf',
   keymap = {
     -- These override the default tables completely so we need to include
     -- everything we need, including what we don't want to modify
