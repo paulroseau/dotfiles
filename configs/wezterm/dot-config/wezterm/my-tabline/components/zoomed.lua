@@ -2,11 +2,11 @@ local wezterm = require('wezterm')
 local component = require('my-tabline.component')
 local utils = require('my-tabline.utils')
 
-local function make(panes_unseen_output)
+local function make(panes_is_zoomed)
   local icon = nil
-  for _, unseen_output in ipairs(panes_unseen_output) do
-    if unseen_output then
-      icon = wezterm.nerdfonts.md_bell_badge_outline
+  for _, is_zoomed in ipairs(panes_is_zoomed) do
+    if is_zoomed then
+      icon = wezterm.nerdfonts.oct_zoom_in
       return component.new(nil, icon)
     end
   end
@@ -18,14 +18,14 @@ return {
     local panes = gui_window:active_tab():panes()
     local unseen_outputs = utils.map(
       panes,
-      function(pane) return pane:has_unseen_output() end
+      function(pane) return pane:is_zoomed() end
     )
-    return make(unseen_outputs, extra)
+    return make(unseen_outputs)
   end,
   for_tab = function(tab_info, extra)
     local unseen_outputs = utils.map(
       tab_info.panes,
-      function(pane_info) return pane_info.has_unseen_output end
+      function(pane_info) return pane_info.is_zoomed end
     )
     return make(unseen_outputs)
   end
