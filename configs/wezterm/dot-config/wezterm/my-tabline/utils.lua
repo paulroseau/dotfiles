@@ -19,6 +19,14 @@ function M.deep_extend(t1, t2)
   return result
 end
 
+function M.map(t, func)
+  local result = {}
+  for _, elem in ipairs(t) do
+    table.insert(result, func(elem))
+  end
+  return result
+end
+
 local function filter(array, predicate)
   local result = {}
   for _, elem in ipairs(array) do
