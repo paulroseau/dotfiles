@@ -108,11 +108,13 @@
   - [x] set up tab rendering
   - [x] factorize even further the components.init (explicit arguments not an {} for each function and handle the args unwrapping in there)
   - [x] make the map for all components programmatically launch require('tabline.components' .. name) (if it fails return nil), through a setmetatable({}, {__index = function(k, t)})
-  - [ ] allow to customize tabs colors & attributes (test with a rainbow)
-  - [ ] rename section_config.colors in section_config.color_overrides
+  - [x] allow to customize tabs colors & attributes (test with a rainbow)
+  - [x] rename section_config.colors in section_config.color_overrides
+  - [ ] create a constant component (need to pass args from config - not rendering options)
+  - [ ] pass down the parameter for tab numbering from config (config.setup)
   - [ ] convert all old components
   - [ ] test all existing components in the tab
-  - [ ] add nvim-mode component
+  - [ ] add nvim-mode component and put it in position `x` (right side)
 - [ ] Consider using the Input select for switching workspaces (fonts? color_scheme? maybe OTT)
   - improve in lua object programming: https://www.lua.org/pil/contents.html#P2 (13. tables & 16. classes)
   -> checkout those to get inspiration, but you probably will define your own selector (not just for domains, workspaces, but also fonts etc.)
