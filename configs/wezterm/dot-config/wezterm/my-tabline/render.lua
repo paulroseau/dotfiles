@@ -3,7 +3,7 @@ local utils = require('my-tabline.utils')
 local M = {}
 
 function M.make_text(str)
-  return { Text = str or '' }
+  return str and { Text = str } or {}
 end
 
 local function surround_with_text(elements, text_left, text_right)
@@ -77,8 +77,8 @@ function M.component(component, options, colors)
   end
 
   local text = {}
-  if not options.icon_only then
-    local text_content = component.text or ''
+  if not options.icon_only and component.text then
+    local text_content = component.text
     local max_text_width = options.max_text_width or 1000
     if string.len(text_content) > max_text_width then
       text_content = text_content:sub(1, max_text_width - 1) .. '…'
@@ -93,13 +93,13 @@ function M.component(component, options, colors)
 
   local result = utils.flatten({ icon, text }, M.make_text(' '))
 
-  result = surround_with_text(
-    result,
-    string.rep(' ', options.padding and options.padding.left or 0),
-    string.rep(' ', options.padding and options.padding.right or 0)
-  )
-
   if #result > 0 then
+    result = surround_with_text(
+      result,
+      string.rep(' ', options.padding and options.padding.left or 0),
+      string.rep(' ', options.padding and options.padding.right or 0)
+    )
+
     table.insert(result, 1, { Background = { Color = colors.background } })
     table.insert(result, 1, { Foreground = { Color = colors.foreground } })
   end
