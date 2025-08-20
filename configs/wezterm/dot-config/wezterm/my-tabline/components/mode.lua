@@ -9,7 +9,7 @@ local key_table_to_mode = {
 }
 
 return {
-  for_window = function(window, pane)
+  for_window = function(window, pane, extra)
     local key_table = window:active_key_table()
     return key_table_to_mode[key_table] or key_table_to_mode.normal_mode
   end,

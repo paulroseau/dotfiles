@@ -18,8 +18,9 @@ local function section(
 
   for _, component_config in ipairs(components_configs) do
     local options = utils.deep_extend(default_options, component_config.options)
+    local args = utils.deep_extend(component_args, component_config.args or {})
     local make_component = available_components[component_config.name]
-    local component = make_component(component_args)
+    local component = make_component(args)
     table.insert(rendered_components, render.component(component, options, colors))
   end
   return utils.flatten(rendered_components, render.make_text(internal_separator))
@@ -47,9 +48,14 @@ local function status(window, pane, default_options, status_config, is_left, edg
     end
     previous_section_background_color = section_colors.background
 
-    local section = section(components.for_window, { window = window, pane = pane }, default_options, section_colors,
+    local section = section(
+      components.for_window,
+      { window = window, pane = pane },
+      default_options,
+      section_colors,
       section_config.components,
-      status_config.separators.secondary)
+      status_config.separators.secondary
+    )
     table.insert(rendered_sections, section)
   end
 
@@ -77,7 +83,14 @@ local function tab(tab_info, tabs_info, is_hover, default_options, tab_config)
   )
 
   local rendered_components = {
-    section(components.for_tab, { tab_info = tab_info }, default_options, tab_colors, tab_config.components, '')
+    section(
+      components.for_tab,
+      { tab_info = tab_info },
+      default_options,
+      tab_colors,
+      tab_config.components,
+      ''
+    )
   }
   local next_background_color = palette.background
   if tab_index < #tabs_info then

@@ -14,11 +14,11 @@ local function make(current_working_dir_uri)
 end
 
 return {
-  for_window = function(window, pane)
+  for_window = function(window, pane, extra)
     local current_working_dir_uri = pane:get_current_working_dir()
     return make(current_working_dir_uri)
   end,
-  for_tab = function(tab_info)
+  for_tab = function(tab_info, extra)
     local current_working_dir_uri = tab_info.active_pane.current_working_dir
     return make(current_working_dir_uri)
   end

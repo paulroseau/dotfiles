@@ -7,6 +7,6 @@ local function make(window_title)
 end
 
 return {
-  for_window = function(window, pane) return make(window:mux_window():get_title()) end,
-  for_tab = function(tab_info) return make(tab_info.window_title) end
+  for_window = function(window, pane, extra) return make(window:mux_window():get_title()) end,
+  for_tab = function(tab_info, extra) return make(tab_info.window_title) end
 }

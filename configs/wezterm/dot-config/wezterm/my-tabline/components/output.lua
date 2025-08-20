@@ -16,13 +16,13 @@ local function make(unseen_outputs)
 end
 
 return {
-  for_window = function(gui_window, pane)
+  for_window = function(gui_window, pane, extra)
     local panes = gui_window:active_tab():panes()
     local unseen_outputs = utils.map(
       panes,
       function(pane) return pane:has_unseen_output() end
     )
-    return make(unseen_outputs)
+    return make(unseen_outputs, extra)
   end,
   for_tab = function(tab_info)
     local unseen_outputs = utils.map(
