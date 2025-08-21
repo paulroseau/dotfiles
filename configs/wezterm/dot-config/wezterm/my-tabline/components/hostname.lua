@@ -17,6 +17,6 @@ local function make(current_working_dir_uri)
 end
 
 return {
-  window = function(window, pane, extra) return make(pane:get_current_working_dir()) end,
-  tab = function(tab_info, extra) return make(tab_info.active_pane.current_working_dir) end
+  window = function(args) return make(args.pane:get_current_working_dir()) end,
+  tab = function(args) return make(args.tab_info.active_pane.current_working_dir) end
 }

@@ -9,8 +9,8 @@ local key_table_to_mode = {
 }
 
 return {
-  for_window = function(window, pane, extra)
-    local key_table = window:active_key_table()
+  for_window = function(args)
+    local key_table = args.window:active_key_table()
     return key_table_to_mode[key_table] or key_table_to_mode.normal_mode
   end,
   -- There is no way to get the active_key_table from tab_info since we can't

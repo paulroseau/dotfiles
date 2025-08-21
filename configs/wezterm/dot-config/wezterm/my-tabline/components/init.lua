@@ -10,19 +10,7 @@ local function make_factory(select)
   })
 end
 
-local function select_for_window(make_component_functions)
-  return function(args)
-    return make_component_functions.for_window(args.window, args.pane, args)
-  end
-end
-
-local function select_for_tab(make_component_functions)
-  return function(args)
-    return make_component_functions.for_tab(args.tab_info, args)
-  end
-end
-
 return {
-  for_window = make_factory(select_for_window),
-  for_tab = make_factory(select_for_tab)
+  for_window = make_factory(function(component_builders) return component_builders.for_window end),
+  for_tab = make_factory(function(component_builders) return component_builders.for_tab end),
 }

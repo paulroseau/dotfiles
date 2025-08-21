@@ -1,9 +1,10 @@
 local palette = require('my-tabline.palette')
 
+local M = {}
+
 -- NB: we can't depend on `is_hover` in the background function because this information is not in the format-tab-title callback
 -- tab_info, hence we can't know if the tab on the left/right is hovered on from
 -- tabs_info -- and build the separator with the proper colors
-
 local tab_default_colors = {
   foreground = function(is_active, is_hover, tab_index)
     if is_active then
@@ -41,7 +42,7 @@ local tab_rainbow_colors = {
   end
 }
 
-return {
+local config = {
   default_options = {
     padding = { left = 1, right = 1 },
     icon_only = false,
@@ -106,10 +107,16 @@ return {
     separator = '',
     components = {
       {
-        name = 'process',
+        name = 'index',
         options = {
-          padding = { left = 1, right = 1 },
-          icon_only = true
+          padding = { left = 1, right = 0 },
+        }
+      },
+      {
+        name = 'text',
+        args = { text = ':' },
+        options = {
+          padding = { left = 0, right = 1 },
         }
       },
       {
@@ -136,7 +143,26 @@ return {
       return { italic = true }
     end
   },
+  extra = {}
 }
+
+function M.set_extra(key, value)
+  config.extra[key] = value
+end
+
+return setmetatable(M, {
+  __index = function(table, key)
+    if config[key] then
+      return config[key]
+    end
+    return config.extra[key]
+  end,
+  __newindex = function(table, key, value)
+    local message = 'Error: tried to set "' .. key .. ' = ' .. value .. '" on my-tabline.config but it is read-only.\n'
+    message = message .. 'Use set_extra method to add extra fields to config.'
+    error(message, 2)
+  end
+})
 
 -- opts:
 -- zero_indexed: tabs -> use config.tab_and_split_indices_are_zero_based

@@ -7,6 +7,6 @@ local function make(_)
 end
 
 return {
-  for_window = function(window, pane, extra) return make() end,
-  for_tab = function(tab_info, extra) return make() end
+  for_window = make,
+  for_tab = make
 }

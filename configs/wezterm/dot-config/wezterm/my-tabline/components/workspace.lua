@@ -1,7 +1,7 @@
 local wezterm = require('wezterm')
 local component = require('my-tabline.component')
 
-local function make()
+local function make(_)
   local workspace = wezterm.mux.get_active_workspace()
   local text = string.match(workspace, '[^/\\]+$')
   local icon = wezterm.nerdfonts.cod_terminal_tmux
@@ -9,6 +9,6 @@ local function make()
 end
 
 return {
-  for_window = function(window, pane, extra) return make() end,
-  for_tab = function(tab_info, extra) return make() end
+  for_window = make,
+  for_tab = make
 }

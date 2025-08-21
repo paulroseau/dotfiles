@@ -106,6 +106,8 @@ end
 
 function M.setup(wezterm_config)
   local config = require('my-tabline.config')
+  config.set_extra('zero_based_tabs_index', wezterm_config.tab_and_split_indices_are_zero_based)
+
   local palette = require('my-tabline.palette')
   palette.set(wezterm_config.color_scheme)
 
