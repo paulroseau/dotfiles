@@ -59,7 +59,7 @@ local common_palette_overrides = {
   }
 }
 
-function M.set(color_scheme, overrides)
+function M.set(color_scheme)
   current_palette = utils.deep_extend(
     wezterm.color.get_builtin_schemes()[color_scheme],
     common_palette_overrides[color_scheme] or {}

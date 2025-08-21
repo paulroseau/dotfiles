@@ -23,6 +23,7 @@ local function section(
     local component = make_component(args)
     table.insert(rendered_components, render.component(component, options, colors))
   end
+
   return utils.flatten(rendered_components, render.make_text(internal_separator))
 end
 
@@ -92,12 +93,12 @@ local function tab(tab_info, tabs_info, is_hover, default_options, tab_config)
       ''
     )
   }
+
   local next_background_color = palette.background
   if tab_index < #tabs_info then
     local next_tab_info = tabs_info[tab_index + 1]
     next_background_color = tab_config.colors.background(next_tab_info.is_active, tab_index + 1)
   end
-
   local separator = render.separator(tab_config.separator, tab_colors.background, next_background_color)
   table.insert(rendered_components, separator)
 
