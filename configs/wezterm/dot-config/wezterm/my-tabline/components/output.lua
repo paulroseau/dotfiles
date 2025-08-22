@@ -14,17 +14,21 @@ local function make(panes_unseen_output)
 end
 
 return {
-  for_window = function(args)
-    local panes = args.window:active_tab():panes()
+  for_window = function(gui_window, pane)
+    local tabs = gui_window:mux_window():tabs()
+    local all_panes = utils.flatten(
+      utils.map(tabs, function(tabs) return tabs:panes() end),
+      nil
+    )
     local unseen_outputs = utils.map(
-      panes,
+      all_panes,
       function(pane) return pane:has_unseen_output() end
     )
-    return make(unseen_outputs, extra)
+    return make(unseen_outputs)
   end,
-  for_tab = function(args)
+  for_tab = function(tab_info)
     local unseen_outputs = utils.map(
-      args.tab_info.panes,
+      tab_info.panes,
       function(pane_info) return pane_info.has_unseen_output end
     )
     return make(unseen_outputs)

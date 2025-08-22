@@ -8,7 +8,6 @@ local M = {}
 
 local function section(
     available_components,
-    component_args,
     default_options,
     colors,
     components_configs,
@@ -17,10 +16,12 @@ local function section(
   local rendered_components = {}
 
   for _, component_config in ipairs(components_configs) do
-    local options = utils.deep_extend(default_options, component_config.options)
-    local args = utils.deep_extend(component_args, component_config.args or {})
-    local make_component = available_components[component_config.name]
-    local component = make_component(args)
+    local component = available_components(component_config.name)
+    if type(component) == 'function' then
+      component = component(component_config.args or {})
+    end
+
+    local options = utils.deep_extend(default_options, component_config.options or {})
     table.insert(rendered_components, render.component(component, options, colors))
   end
 
@@ -50,8 +51,7 @@ local function status(window, pane, default_options, status_config, is_left, edg
     previous_section_background_color = section_colors.background
 
     local section = section(
-      components.for_window,
-      { window = window, pane = pane },
+      components.for_window(window, pane),
       default_options,
       section_colors,
       section_config.components,
@@ -85,8 +85,7 @@ local function tab(tab_info, tabs_info, is_hover, default_options, tab_config)
 
   local rendered_components = {
     section(
-      components.for_tab,
-      { tab_info = tab_info },
+      components.for_tab(tab_info),
       default_options,
       tab_colors,
       tab_config.components,

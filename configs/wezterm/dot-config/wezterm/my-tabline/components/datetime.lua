@@ -28,7 +28,7 @@ local hour_to_icon = {
   ['23'] = wezterm.nerdfonts.md_clock_time_eleven,
 }
 
-local function make(_)
+local function make()
   local time = wezterm.time.now()
   local text = time:format('%H:%M')
   local icon = hour_to_icon[time:format('%H')]
@@ -37,6 +37,6 @@ local function make(_)
 end
 
 return {
-  for_window = make,
-  for_tab = make
+  for_window = function(gui_window, pane) return make() end,
+  for_tab = function(tab_info) return make() end,
 }

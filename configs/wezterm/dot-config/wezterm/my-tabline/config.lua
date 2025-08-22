@@ -83,8 +83,8 @@ local config = {
     sections = {
       {
         components = {
-          { name = 'ram', options = {} },
-          { name = 'cpu', options = {} },
+          { name = 'ram' },
+          { name = 'cpu' },
         },
         colors = {
           foreground = function() return palette.current_mode end,
@@ -93,8 +93,8 @@ local config = {
       },
       {
         components = {
-          { name = 'battery',  options = {} },
-          { name = 'datetime', options = {} },
+          { name = 'battery' },
+          { name = 'datetime' },
         },
         colors = {
           foreground = function() return palette.background end,
@@ -107,16 +107,9 @@ local config = {
     separator = '',
     components = {
       {
-        name = 'index',
+        name = 'process',
         options = {
-          padding = { left = 1, right = 0 },
-        }
-      },
-      {
-        name = 'text',
-        args = { text = ':' },
-        options = {
-          padding = { left = 0, right = 1 },
+          icon_only = true,
         }
       },
       {

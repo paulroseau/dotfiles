@@ -14,17 +14,17 @@ local function make(panes_is_zoomed)
 end
 
 return {
-  for_window = function(args)
-    local panes = args.window:active_tab():panes()
+  for_window = function(gui_window, pane)
+    local panes_with_info = gui_window:active_tab():panes_with_info()
     local unseen_outputs = utils.map(
-      panes,
-      function(pane) return pane:is_zoomed() end
+      panes_with_info,
+      function(info) return info.is_zoomed end
     )
     return make(unseen_outputs)
   end,
-  for_tab = function(args)
+  for_tab = function(tab_info)
     local unseen_outputs = utils.map(
-      args.tab_info.panes,
+      tab_info.panes,
       function(pane_info) return pane_info.is_zoomed end
     )
     return make(unseen_outputs)

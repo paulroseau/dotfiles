@@ -16,7 +16,7 @@ local function battery_icon(battery_level, is_charging)
   return wezterm.nerdfonts['md_battery' .. (battery_level < 100 and suffix or '')]
 end
 
-local function make(_)
+local function make()
   -- wezterm.battery_info() returns an array in case we have several batteries
   local battery_info = wezterm.battery_info()[1]
   local is_charging = battery_info.state == 'Charging'
@@ -30,6 +30,6 @@ local function make(_)
 end
 
 return {
-  for_window = make,
-  for_tab = make
+  for_window = function(gui_window, pane) return make() end,
+  for_tab = function(tab_info) return make() end,
 }

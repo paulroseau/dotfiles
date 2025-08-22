@@ -7,8 +7,8 @@ local function make(zero_based_active_tab_index)
 end
 
 return {
-  for_window = function(args)
-    local tabs_with_info = args.window:mux_window():tabs_with_info()
+  for_window = function(gui_window, pane)
+    local tabs_with_info = gui_window:mux_window():tabs_with_info()
     local active_tab_index = -1
     for _, tab_info in ipairs(tabs_with_info) do
       if tab_info.is_active then
@@ -18,7 +18,7 @@ return {
     end
     return make(active_tab_index)
   end,
-  for_tab = function(args)
-    return make(args.tab_info.tab_index)
+  for_tab = function(tab_info)
+    return make(tab_info.tab_index)
   end
 }

@@ -1,11 +1,11 @@
 local wezterm = require('wezterm')
 local component = require('my-tabline.component')
 
-local function make(text, icon)
-  return component.new(text, icon)
+local function make(args)
+  return component.new(args.text)
 end
 
 return {
-  for_window = function(args) return make(args.text, args.icon) end,
-  for_tab = function(args) return make(args.text, args.icon) end
+  for_window = function(gui_window, pane) return make end,
+  for_tab = function(tab_info) return make end
 }
