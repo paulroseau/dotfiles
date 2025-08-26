@@ -30,13 +30,13 @@ local rainbow = {
 local tab_rainbow_colors = {
   foreground = function(is_active, is_hover, tab_index)
     if is_active then
-      return palette.black
+      return palette.foreground
     end
-    return palette.cursor_bg
+    return palette.cursor_bg or palette.black
   end,
   background = function(is_active, tab_index)
     if is_active then
-      return palette.foreground
+      return palette.background
     end
     return rainbow[math.fmod(tab_index - 1, #rainbow) + 1]
   end
@@ -119,7 +119,7 @@ local config = {
         }
       },
       {
-        name = 'output',
+        name = 'zoomed',
         options = {
           padding = { left = 0, right = 1 },
           icon_only = true

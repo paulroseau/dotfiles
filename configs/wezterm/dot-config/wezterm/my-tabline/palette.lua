@@ -26,12 +26,14 @@ local mode_color = {
 
 local current_mode_color = current_palette.ansi[mode_color.normal_mode]
 
-local function background()
+function tab_bar_middle_background()
   return current_palette.tab_bar and current_palette.tab_bar.background or current_palette.background
 end
 
-local function surface()
-  return current_palette.cursor_bg or current_palette.bright[ansi_codes.grey] or current_palette.ansi[ansi_codes.grey]
+function surface()
+  return current_palette.cursor_bg or
+      (current_palette.brights and current_palette.brights[ansi_codes.grey]) or
+      (current_palette.ansi and current_palette.ansi[ansi_codes.grey])
 end
 
 function M.update_current_mode_color(window)
@@ -54,9 +56,23 @@ end
 local grey_blue = '#3b4261'
 
 local common_palette_overrides = {
+  ['Tokyo Night'] = {
+    cursor_bg = grey_blue
+  },
+  ['Tokyo Night Moon'] = {
+    cursor_bg = grey_blue
+  },
   ['Tokyo Night Storm'] = {
     cursor_bg = grey_blue
-  }
+  },
+  ['Solarized (dark) (terminal.sexy)'] = {
+    surface = '#586e75',                   -- TODO
+    tab_bar_middle_background = '#ff8822', -- TODO
+  },
+  ['Solarized (light) (terminal.sexy)'] = {
+    surface = '#586e75',                   -- TODO
+    tab_bar_middle_background = '#ff8822', -- TODO
+  },
 }
 
 function M.set(color_scheme)
@@ -70,12 +86,12 @@ return setmetatable(M, {
   __index = function(table, key)
     if key == 'current_mode' then
       return current_mode_color
-    elseif key == 'background' then
-      return background()
-    elseif key == 'surface' then
-      return surface()
     elseif current_palette[key] then
       return current_palette[key]
+    elseif key == 'surface' then
+      return surface()
+    elseif key == 'tab_bar_middle_background' then
+      return tab_bar_middle_background()
     elseif ansi_codes[key] then
       return current_palette.ansi[ansi_codes[key]]
     end

@@ -1,8 +1,11 @@
 local wezterm = require('wezterm')
-local utils = require('my-tabline.utils')
+
 local components = require('my-tabline.components')
+local config = require('my-tabline.config')
+local palette = require('my-tabline.palette')
 local palette = require('my-tabline.palette')
 local render = require('my-tabline.render')
+local utils = require('my-tabline.utils')
 
 local M = {}
 
@@ -93,7 +96,7 @@ local function tab(tab_info, tabs_info, is_hover, default_options, tab_config)
     )
   }
 
-  local next_background_color = palette.background
+  local next_background_color = palette.tab_bar_middle_background
   if tab_index < #tabs_info then
     local next_tab_info = tabs_info[tab_index + 1]
     next_background_color = tab_config.colors.background(next_tab_info.is_active, tab_index + 1)
@@ -104,11 +107,17 @@ local function tab(tab_info, tabs_info, is_hover, default_options, tab_config)
   return utils.flatten(rendered_components)
 end
 
-function M.setup(wezterm_config)
-  local config = require('my-tabline.config')
-  config.set_extra('zero_based_tabs_index', wezterm_config.tab_and_split_indices_are_zero_based)
+function reload(config_overrides)
+  if config_overrides.color_scheme then
+    palette.set(config_overrides.color_scheme)
+  end
+  if config_overrides.tab_and_split_indices_are_zero_based then
+    config.set_extra('zero_based_tabs_index', config_overrides.tab_and_split_indices_are_zero_based)
+  end
+end
 
-  local palette = require('my-tabline.palette')
+function M.setup(wezterm_config)
+  config.set_extra('zero_based_tabs_index', wezterm_config.tab_and_split_indices_are_zero_based)
   palette.set(wezterm_config.color_scheme)
 
   wezterm.on('update-status', function(window, pane)
@@ -120,12 +129,18 @@ function M.setup(wezterm_config)
     local left_status = status(window, pane, config.default_options, config.left_status, true, first_tab_background_color)
     window:set_left_status(wezterm.format(left_status))
 
-    local right_status = status(window, pane, config.default_options, config.right_status, false, palette.background)
+    local right_status = status(window, pane, config.default_options, config.right_status, false,
+      palette.tab_bar_middle_background)
     window:set_right_status(wezterm.format(right_status))
   end)
 
   wezterm.on('format-tab-title', function(tab_info, tabs_info, _, _, hover, _)
     return tab(tab_info, tabs_info, hover, config.default_options, config.tabs)
+  end)
+
+  wezterm.on('window-config-reloaded', function(window, pane)
+    local overrides = window:get_config_overrides() or {}
+    reload(overrides)
   end)
 end
 
