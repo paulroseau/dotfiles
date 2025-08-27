@@ -134,13 +134,13 @@ local function locationlist_or_quickfixlist(action)
   end
 end
 
-vim.keymap.set({ 'n' }, '[q', locationlist_or_quickfixlist('previous'))
-vim.keymap.set({ 'n' }, ']q', locationlist_or_quickfixlist('next'))
+vim.keymap.set({ 'n' }, '<C-p>', locationlist_or_quickfixlist('previous'))
+vim.keymap.set({ 'n' }, '<C-n>', locationlist_or_quickfixlist('next'))
 
 -- Snippet
-vim.keymap.set({ 'n', 'i', 's' }, '<C-p>', function() vim.snippet.jump(-1) end,
+vim.keymap.set({ 'i', 's' }, '<C-p>', function() vim.snippet.jump(-1) end,
   { desc = 'Snippet jump backward', silent = true })
-vim.keymap.set({ 'n', 'i', 's' }, '<C-n>', function() vim.snippet.jump(1) end,
+vim.keymap.set({ 'i', 's' }, '<C-n>', function() vim.snippet.jump(1) end,
   { desc = 'Snippet jump forward', silent = true })
 
 -- Renaming
