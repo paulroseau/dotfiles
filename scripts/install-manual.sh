@@ -122,18 +122,18 @@ install_binaries() {
 install_work_binaries() {
   echo "Installing work binaries from Github"
 
-  KIND_VERSION="v0.29.0"
+  KIND_VERSION="0.29.0"
   install_binary \
-    https://github.com/kubernetes-sigs/kind/releases/download/${KIND_VERSION} \
+    https://github.com/kubernetes-sigs/kind/releases/download/v${KIND_VERSION} \
     kind-linux-amd64 \
     ${APPS_STORE}/kind-${KIND_VERSION} \
     .
   mv $ENVIRONMENT_HOME/bin/kind-linux-amd64 $ENVIRONMENT_HOME/bin/kind
 
-  HELM_VERSION="v3.18.6"
+  HELM_VERSION="3.18.6"
   install_binary \
     https://get.helm.sh \
-    helm-${HELM_VERSION}-linux-amd64.tar.gz \
+    helm-v${HELM_VERSION}-linux-amd64.tar.gz \
     ${APPS_STORE}/helm-${HELM_VERSION} \
     linux-amd64
 
