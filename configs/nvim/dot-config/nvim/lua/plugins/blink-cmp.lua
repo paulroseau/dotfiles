@@ -41,7 +41,7 @@ blink.setup({
       ['<C-k>'] = { 'insert_prev' },
       ['<C-c>'] = { 'cancel', 'fallback' },
       ['<CR>'] = { 'accept', 'fallback' },
-      ['<S-<CR>>'] = { 'accept_and_enter', 'fallback' },
+      ['<C-<CR>>'] = { 'accept_and_enter', 'fallback' },
     },
 
     completion = {
