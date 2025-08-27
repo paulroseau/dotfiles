@@ -114,6 +114,19 @@ install_binaries() {
   echo "Done"
 }
 
+install_work_binaries() {
+  echo "Installing work binaries from Github"
+
+  HELM_VERSION="v3.18.6"
+  install_binary \
+    https://get.helm.sh \
+    helm-${HELM_VERSION}-linux-amd64.tar.gz \
+    ${APPS_STORE}/helm-${HELM_VERSION} \
+    linux-amd64
+
+  echo "Done"
+}
+
 install_rust() {
   echo "Installing Rust toolchain"
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
