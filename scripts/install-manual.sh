@@ -30,15 +30,21 @@ download_archive() {
   case ${archive} in
     *.tar.gz | *.tgz )
       tar -zxf ${archive} --directory ${target_dir}
+      rm ${archive}
       ;;
     *.tar.xz )
       xz --decompress ${archive} --stdout | tar -x --directory ${target_dir}
+      rm ${archive}
       ;;
     *.zip )
       unzip -oq ${archive} -d ${target_dir}
+      rm ${archive}
       ;;
+    * )
+      # Assume we download the executable directly
+      mv ${archive} ${target_dir}
+      chmod +x ${target_dir}/${archive}
   esac
-  rm ${archive}
 }
 
 install_binary() {
@@ -62,18 +68,13 @@ install_binaries() {
   echo "Installing binaires from Github"
 
   NVIM_VERSION="0.11.1"
-  LUA_LS_VERSION="3.14.0"
-  CLANGD_VERSION="19.1.2"
-  YQ_VERSION="4.45.4"
-  TERRAFORM_LS_VERSION="0.36.4"
-  WEZTERM_VERSION="20240203-110809-5046fc22"
-
   install_binary \
     "https://github.com/neovim/neovim/releases/download/v${NVIM_VERSION}" \
     nvim-linux-x86_64.tar.gz \
     ${APPS_STORE}/neovim-${NVIM_VERSION} \
     nvim-linux-x86_64/bin
 
+  LUA_LS_VERSION="3.14.0"
   install_binary \
     "https://github.com/LuaLS/lua-language-server/releases/download/${LUA_LS_VERSION}" \
     lua-language-server-${LUA_LS_VERSION}-linux-x64.tar.gz \
@@ -86,12 +87,14 @@ install_binaries() {
     ${APPS_STORE}/fzf-${FZF_VERSION} \
     .
 
+  CLANGD_VERSION="19.1.2"
   install_binary \
     "https://github.com/clangd/clangd/releases/download/${CLANGD_VERSION}" \
     clangd-linux-${CLANGD_VERSION}.zip \
     ${APPS_STORE}/clangd-${CLANGD_VERSION} \
     clangd_${CLANGD_VERSION}/bin
 
+  YQ_VERSION="4.45.4"
   install_binary \
     "https://github.com/mikefarah/yq/releases/download/v${YQ_VERSION}" \
     yq_linux_amd64.tar.gz \
@@ -99,12 +102,14 @@ install_binaries() {
     .
   mv $ENVIRONMENT_HOME/bin/yq_linux_amd64 $ENVIRONMENT_HOME/bin/yq
 
+  WEZTERM_VERSION="20240203-110809-5046fc22"
   install_binary \
     "https://github.com/wezterm/wezterm/releases/download/${WEZTERM_VERSION}" \
     wezterm-${WEZTERM_VERSION}.Ubuntu20.04.tar.xz \
     ${APPS_STORE}/wezterm-${WEZTERM_VERSION} \
     wezterm/usr/bin
 
+  TERRAFORM_LS_VERSION="0.36.4"
   install_binary \
     https://releases.hashicorp.com/terraform-ls/${TERRAFORM_LS_VERSION} \
     terraform-ls_${TERRAFORM_LS_VERSION}_linux_amd64.zip \
@@ -116,6 +121,14 @@ install_binaries() {
 
 install_work_binaries() {
   echo "Installing work binaries from Github"
+
+  KIND_VERSION="v0.29.0"
+  install_binary \
+    https://github.com/kubernetes-sigs/kind/releases/download/${KIND_VERSION} \
+    kind-linux-amd64 \
+    ${APPS_STORE}/kind-${KIND_VERSION} \
+    .
+  mv $ENVIRONMENT_HOME/bin/kind-linux-amd64 $ENVIRONMENT_HOME/bin/kind
 
   HELM_VERSION="v3.18.6"
   install_binary \
