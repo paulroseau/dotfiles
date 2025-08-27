@@ -139,8 +139,8 @@ function M.setup(wezterm_config)
   end)
 
   wezterm.on('window-config-reloaded', function(window, pane)
-    local overrides = window:get_config_overrides() or {}
-    reload(overrides)
+    local overrides = window:get_config_overrides()
+    if overrides then reload(overrides) end
   end)
 end
 

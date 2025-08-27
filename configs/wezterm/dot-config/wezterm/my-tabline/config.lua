@@ -8,14 +8,14 @@ local M = {}
 local tab_default_colors = {
   foreground = function(is_active, is_hover, tab_index)
     if is_active then
-      return palette.current_mode
+      return palette.foreground
     elseif is_hover then
       return palette.magenta
     end
-    return palette.foreground
+    return palette.current_mode
   end,
   background = function(is_active, tab_index)
-    return (is_active and palette.surface) or palette.background
+    return (is_active and palette.background) or palette.surface
   end
 }
 

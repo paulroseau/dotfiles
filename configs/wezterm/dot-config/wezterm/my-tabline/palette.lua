@@ -66,12 +66,12 @@ local common_palette_overrides = {
     cursor_bg = grey_blue
   },
   ['Solarized (dark) (terminal.sexy)'] = {
-    surface = '#586e75',                   -- TODO
-    tab_bar_middle_background = '#ff8822', -- TODO
+    surface = '#000000',
+    tab_bar_middle_background = '#333333',
   },
   ['Solarized (light) (terminal.sexy)'] = {
-    surface = '#586e75',                   -- TODO
-    tab_bar_middle_background = '#ff8822', -- TODO
+    surface = '#223944', -- TODO
+    tab_bar_middle_background = '#333333',
   },
 }
 
@@ -84,10 +84,10 @@ end
 
 return setmetatable(M, {
   __index = function(table, key)
-    if key == 'current_mode' then
-      return current_mode_color
-    elseif current_palette[key] then
+    if current_palette[key] then
       return current_palette[key]
+    elseif key == 'current_mode' then
+      return current_mode_color
     elseif key == 'surface' then
       return surface()
     elseif key == 'tab_bar_middle_background' then
