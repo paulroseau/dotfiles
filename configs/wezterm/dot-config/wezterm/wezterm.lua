@@ -3,17 +3,16 @@ local wezterm = require('wezterm')
 local act = wezterm.action
 local config = wezterm.config_builder()
 
-local nvim_support = require('utils.nvim-support')
-local extra_actions = require('utils.extra-action')
-local fonts = require('utils.fonts')
+local nvim_support = require('nvim-support')
+local extra_actions = require('extra-action')
 
--- we install fonts with nix and we link them to ~/.dotfiles/fonts
--- if nix is not available let's not bother to install fonts manually, let's just use the default
-local nix_installed_fonts_dir = wezterm.home_dir .. '/.dotfiles/fonts'
-if #wezterm.glob(nix_installed_fonts_dir) > 0 then
-  config.font_dirs = { nix_installed_fonts_dir }
-  fonts.set_font('hurmit', config)
-end
+local fonts = require('fonts')
+-- Need to check the presence of the directory here because of https://github.com/wezterm/wezterm/issues/2401
+local nix_installed_fonts_dir = wezterm.home_dir .. '/.nix-profile/share/fonts'
+local nix_installed_fonts_dir_exists = #wezterm.glob(nix_installed_fonts_dir) > 0
+fonts.setup(nix_installed_fonts_dir_exists)
+fonts.set_font_if_available('hurmit', config)
+
 config.color_scheme = 'Tokyo Night Storm'
 
 local nix_installed_shell = wezterm.home_dir .. '/.nix-profile/bin/zsh'
@@ -46,7 +45,8 @@ config.keys = {
   { key = 'r',  mods = 'LEADER',       action = act.ReloadConfiguration },
   { key = 'q',  mods = 'LEADER',       action = act.QuitApplication },
   { key = 'f',  mods = 'CTRL|SHIFT',   action = act.ToggleFullScreen, },
-  { key = 'c',  mods = 'CTRL|SHIFT',   action = extra_actions.select_color_scheme },
+  { key = 'c',  mods = 'CTRL|SHIFT',   action = require('selector').color_schemes },
+  { key = 'f',  mods = 'META',         action = require('selector').fonts },
 
   -- fonts
   { key = '+',  mods = 'CTRL|SHIFT',   action = act.IncreaseFontSize },
@@ -67,8 +67,8 @@ config.keys = {
   -- workspaces
   { key = 'n',  mods = 'LEADER|SHIFT', action = extra_actions.spawn_new_workspace },
   { key = 'r',  mods = 'LEADER|SHIFT', action = extra_actions.rename_workspace },
-  { key = 's',  mods = 'LEADER',       action = extra_actions.select_workspace },
-  { key = 's',  mods = 'LEADER|CTRL',  action = extra_actions.select_workspace },
+  { key = 's',  mods = 'LEADER',       action = require('selector').workspaces },
+  { key = 's',  mods = 'LEADER|CTRL',  action = require('selector').workspaces },
 
   -- tabs
   { key = 'c',  mods = 'LEADER',       action = extra_actions.spawn_tab },
@@ -84,7 +84,7 @@ config.keys = {
   { key = 'b',  mods = 'LEADER|SHIFT', action = extra_actions.send_pane_to_new_tab },
   { key = 'x',  mods = 'LEADER',       action = extra_actions.close_current_pane },
   { key = 'z',  mods = 'META',         action = act.TogglePaneZoomState },
-  { key = '\\', mods = 'META',         action = extra_actions.toggle_ignore_nvim_running_flag },
+  { key = '\\', mods = 'META',         action = nvim_support.toggle_ignore_nvim_running_flag },
   nvim_support.assign_key { key = 's', mods = 'META', action = extra_actions.split_pane { direction = 'Up' } },
   nvim_support.assign_key { key = 'v', mods = 'META', action = extra_actions.split_pane { direction = 'Right' } },
   nvim_support.assign_key { key = 'n', mods = 'META', action = extra_actions.split_pane { direction = 'Up' } },

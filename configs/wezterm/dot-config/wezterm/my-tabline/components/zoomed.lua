@@ -1,6 +1,6 @@
 local wezterm = require('wezterm')
 local component = require('my-tabline.component')
-local utils = require('my-tabline.utils')
+local utils = require('utils')
 
 local function make(panes_is_zoomed)
   local icon = nil

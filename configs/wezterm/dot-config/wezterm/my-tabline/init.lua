@@ -3,9 +3,8 @@ local wezterm = require('wezterm')
 local components = require('my-tabline.components')
 local config = require('my-tabline.config')
 local palette = require('my-tabline.palette')
-local palette = require('my-tabline.palette')
 local render = require('my-tabline.render')
-local utils = require('my-tabline.utils')
+local utils = require('utils')
 
 local M = {}
 

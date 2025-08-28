@@ -1,4 +1,4 @@
-local utils = require('my-tabline.utils')
+local utils = require('utils')
 
 local M = {}
 
@@ -91,7 +91,10 @@ function M.component(component, options, colors)
     if options.underline then text = change_underline_style(text, options.underline) end
   end
 
-  local result = utils.flatten({ icon, text }, M.make_text(' '))
+  local result = utils.flatten(
+    { icon, text },
+    M.make_text(string.rep(' ', options.padding and options.padding.center or 1))
+  )
 
   if #result > 0 then
     result = surround_with_text(

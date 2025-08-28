@@ -44,9 +44,9 @@ local tab_rainbow_colors = {
 
 local config = {
   default_options = {
-    padding = { left = 1, right = 1 },
-    icon_only = false,
+    padding = { left = 1, center = 1, right = 1, },
     text_only = false,
+    icon_only = false,
     max_text_width = 10,
   },
   left_status = {
@@ -110,6 +110,7 @@ local config = {
         name = 'process',
         options = {
           icon_only = true,
+          padding = { left = 1, right = 1 }
         }
       },
       {

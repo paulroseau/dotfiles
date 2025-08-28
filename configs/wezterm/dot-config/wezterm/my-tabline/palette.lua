@@ -1,6 +1,6 @@
 local wezterm = require('wezterm')
-local events = require('utils.events')
-local utils = require('my-tabline.utils')
+local events = require('events')
+local utils = require('utils')
 
 local M = {}
 

@@ -27,6 +27,14 @@ function M.map(t, func)
   return result
 end
 
+function M.map_key_value(t, func)
+  local result = {}
+  for key, value in pairs(t) do
+    table.insert(result, func(key, value))
+  end
+  return result
+end
+
 local function filter(array, predicate)
   local result = {}
   for _, elem in ipairs(array) do
