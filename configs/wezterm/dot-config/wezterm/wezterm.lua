@@ -72,7 +72,6 @@ config.keys = {
 
   -- tabs
   { key = 'c',  mods = 'LEADER',       action = extra_actions.spawn_tab },
-  { key = ',',  mods = 'LEADER',       action = extra_actions.rename_tab },
   { key = 'w',  mods = 'LEADER',       action = extra_actions.close_current_tab },
   { key = 'h',  mods = 'CTRL',         action = extra_actions.activate_tab_relative(-1) },
   { key = 'l',  mods = 'CTRL',         action = extra_actions.activate_tab_relative(1) },
