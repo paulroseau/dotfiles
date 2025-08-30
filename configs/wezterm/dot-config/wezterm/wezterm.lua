@@ -77,6 +77,7 @@ config.keys = {
   { key = 'l',  mods = 'CTRL',         action = extra_actions.activate_tab_relative(1) },
   { key = 'h',  mods = 'CTRL|META',    action = act.MoveTabRelative(-1) },
   { key = 'l',  mods = 'CTRL|META',    action = act.MoveTabRelative(1) },
+  { key = 't',  mods = 'LEADER',       action = require('selector').tabs },
 
   -- panes
   { key = 'b',  mods = 'LEADER',       action = extra_actions.move_pane_to_new_tab },

@@ -85,15 +85,13 @@ local function tab(tab_info, tabs_info, is_hover, default_options, tab_config)
     tab_config.options(tab_info.is_active, is_hover, tab_index)
   )
 
-  local rendered_components = {
-    section(
-      components.for_tab(tab_info),
-      default_options,
-      tab_colors,
-      tab_config.components,
-      ''
-    )
-  }
+  local title = section(
+    components.for_tab(tab_info),
+    default_options,
+    tab_colors,
+    tab_config.components,
+    ''
+  )
 
   local next_background_color = palette.tab_bar_middle_background
   if tab_index < #tabs_info then
@@ -101,9 +99,8 @@ local function tab(tab_info, tabs_info, is_hover, default_options, tab_config)
     next_background_color = tab_config.colors.background(next_tab_info.is_active, tab_index + 1)
   end
   local separator = render.separator(tab_config.separator, tab_colors.background, next_background_color)
-  table.insert(rendered_components, separator)
 
-  return utils.flatten(rendered_components)
+  return title, separator
 end
 
 function reload(config_overrides)
@@ -134,7 +131,10 @@ function M.setup(wezterm_config)
   end)
 
   wezterm.on('format-tab-title', function(tab_info, tabs_info, _, _, hover, _)
-    return tab(tab_info, tabs_info, hover, config.default_options, config.tabs)
+    local title, separator = tab(tab_info, tabs_info, hover, config.default_options, config.tabs)
+    local mux_tab = wezterm.mux.get_tab(tab_info.tab_id)
+    mux_tab:set_title(wezterm.format(title)) -- to allow to fuzzy select the title (otherwise titles remain empty)
+    return utils.flatten({ title, separator })
   end)
 
   wezterm.on('window-config-reloaded', function(window, pane)
