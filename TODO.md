@@ -70,6 +70,9 @@
 
 # Neovim
 
+- [ ] install Solarized
+- [ ] install codecompanion
+- [ ] checkout this guy's repos and dotfiles https://github.com/olimorris/onedarkpro.nvim he also does codecompanion
 - [ ] install https://github.com/jackMort/ChatGPT.nvim (make sure you can start if no API key is found and DO NOT PUSH your api key to Github)
 - [ ] check plugins listed on lazyvim (in particular conform for formatting, dashboard)
   - [ ] for conform see if you need to install prettier, if so add it with nix (not in nixpkgs)
@@ -103,6 +106,8 @@
   - [ ] wezterm building on nix
     => wezterm uses the vendored lua code, so pkg-config is irrelevant here
 
+## Tab bar
+
 - [ ] Wezterm: prettier tabs and statusline: https://github.com/michaelbrusegard/tabline.wez (for status line print Nvim icon if nvim_mode is on but nvim_ignore is off)
   - [x] fix swapping on right side
   - [x] set up tab rendering
@@ -110,21 +115,44 @@
   - [x] make the map for all components programmatically launch require('tabline.components' .. name) (if it fails return nil), through a setmetatable({}, {__index = function(k, t)})
   - [x] allow to customize tabs colors & attributes (test with a rainbow)
   - [x] rename section_config.colors in section_config.color_overrides
-  - [ ] create a constant component (need to pass args from config - not rendering options)
-  - [ ] pass down the parameter for tab numbering from config (config.setup)
-  - [ ] convert all old components
-  - [ ] test all existing components in the tab
+  - [x] create a constant component (need to pass args from config - not rendering options)
+  - [x] pass down the parameter for tab numbering from config (config.setup)
+  - [x] overrides colors for Solarized and one dark (surface, middle_tab_bar)
+  - [x] reload tab bar dynamically when changing colorscheme
+  -> GOTO picker first (needed to change domains + color_scheme)
+  - [ ] convert all old components (just need the last 3):
+    - [ ] issue with process, does not work on remote tab, understand multiplexing better, set it up (local socket?), and test
+  - [ ] test all existing components in the tab (just need the last 3)
   - [ ] add nvim-mode component and put it in position `x` (right side)
-- [ ] Consider using the Input select for switching workspaces (fonts? color_scheme? maybe OTT)
-  - improve in lua object programming: https://www.lua.org/pil/contents.html#P2 (13. tables & 16. classes)
+  - [ ] add time with timezone
+
+## Picker
+
+- [ ] Consider using the Input select for switching:
+  - [x] fonts
+    - [x] include only fonts that are available inside ~/.fonts (question: why not check nix directly? I guess this leaves us room to download fonts directly there, to think about it)
+  - [x] colorschemes
+  - [x] workspaces
+  - [x] tabs
+    - [x] need to rework my-tabline to set the title (mark fields to be included? how to concatenate them)
+    - test in debug mode with:
+    ```lua
+    window = wezterm.mux.all_windows()[1]
+    tab = window:tabs()[1]
+    tab:get_title()
+    ```
+  - [ ] domains
+  - [ ] Refacto:
+    - [ ] extra-action split in 2:
+      - [ ] better copy mode
+      - [ ] focused-in events
   -> checkout those to get inspiration, but you probably will define your own selector (not just for domains, workspaces, but also fonts etc.)
     - https://github.com/MLFlexer/smart_workspace_switcher.wezterm/blob/main/plugin/init.lua
     - https://github.com/DavidRR-F/quick_domains.wezterm
     - https://github.com/mikkasendke/sessionizer.wezterm (maybe the closest to your need)
   -> use the table trick to display clean values / make the selector its own lua module
   -> issue with for color_scheme (config_overrides) when creating new workspace it keeps the setting (looks like a bug)
-- [ ] Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit, test with docker container or VM
-- [ ] Select tab fuzzily (through title)
+    - [ ] Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit, test with docker container or VM
 - [ ] issue with the clipboard:
   - you need to use 
   ```lua
@@ -159,7 +187,7 @@
     - [ ] check if conditions for karabiner could not be factored out
     - [x] find how to apply changes to when wezterm is launched from the command line -> use FilePath instead of bundle identifier
   - Default program:
-    - [ ] (same issue on Alacritty) on MacOS the default PATH is prepended, so /bin/zsh is started instead of the nix one. Modifications to the path are not taken into account unless you launch it via command line (for which karabiner does not work ...)
+    - [x] (same issue on Alacritty) on MacOS the default PATH is prepended, so /bin/zsh is started instead of the nix one. Modifications to the path are not taken into account unless you launch it via command line (for which karabiner does not work ...)
       -> potential solution, wrap it in Nix
   - [ ] replicate your tmux setup (in particular nvim integration remotely)
     - [ ] lua what is userdata vs metatable

@@ -12,14 +12,6 @@ On conda:
   - [-] populate autocomplete folder with sitefunctions
     - uhoh, not downloaded for most of them
 
-- [ ] Setup Windows Terminal with Nerdfonts
-  - https://medium.com/@vedantkadam541/beautify-your-windows-terminal-using-nerd-fonts-and-oh-my-posh-4f4393f097
-
-- [ ] Install the following manually:
-  - [ ] rustup
-  - [ ] tree
-  - [ ] lemonade
-
 - [x] Intall the following through conda
   - [x] git
   - [x] bat
