@@ -19,14 +19,17 @@ end
 local function make()
   -- wezterm.battery_info() returns an array in case we have several batteries
   local battery_info = wezterm.battery_info()[1]
-  local is_charging = battery_info.state == 'Charging'
-  local battery_level = battery_info.state_of_charge * 100
-  local text = string.format('%.0f%%', battery_level)
-  local icon = battery_icon(battery_level, is_charging)
-  if battery_level < 20 and not is_charging then
-    return component.new(text, icon, palette.red)
+  if battery_info then
+    local is_charging = battery_info.state == 'Charging'
+    local battery_level = battery_info.state_of_charge * 100
+    local text = string.format('%.0f%%', battery_level)
+    local icon = battery_icon(battery_level, is_charging)
+    if battery_level < 20 and not is_charging then
+      return component.new(text, icon, palette.red)
+    end
+    return component.new(text, icon)
   end
-  return component.new(text, icon)
+  return component.new()
 end
 
 return {
