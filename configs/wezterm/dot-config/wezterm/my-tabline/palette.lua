@@ -65,6 +65,9 @@ local common_palette_overrides = {
   ['Tokyo Night Storm'] = {
     cursor_bg = grey_blue
   },
+  ['One Dark (Gogh)'] = {
+    tab_bar_middle_background = '#333333',
+  },
   ['Solarized (dark) (terminal.sexy)'] = {
     surface = '#000000',
     tab_bar_middle_background = '#333333',
