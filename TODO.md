@@ -128,6 +128,16 @@
 
 ## Picker
 
+- [ ] install wezterm mux server inside docker at work. Possible strategies:
+  - [ ] build it headless with the following command:
+  ```sh
+  cargo --package wezterm --package wezterm-mux-server
+  ```
+  - [ ] use AppImage
+  - [ ] test with:
+  ```sh
+  wezterm connect coder.eu-west-1
+  ```
 - [ ] Consider using the Input select for switching:
   - [x] fonts
     - [x] include only fonts that are available inside ~/.fonts (question: why not check nix directly? I guess this leaves us room to download fonts directly there, to think about it)
