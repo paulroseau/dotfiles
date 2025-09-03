@@ -1,3 +1,4 @@
+local wezterm = require('wezterm')
 local palette = require('my-tabline.palette')
 
 local M = {}
@@ -51,8 +52,8 @@ local config = {
   },
   left_status = {
     separators = {
-      primary = '',
-      secondary = '╲'
+      primary = wezterm.nerdfonts.ple_lower_left_triangle,
+      secondary = wezterm.nerdfonts.ple_backslash_separator
     },
     sections = {
       {
@@ -77,8 +78,8 @@ local config = {
   },
   right_status = {
     separators = {
-      primary = '',
-      secondary = '╱'
+      primary = wezterm.nerdfonts.ple_lower_right_triangle,
+      secondary = wezterm.nerdfonts.ple_forwardslash_separator,
     },
     sections = {
       {
