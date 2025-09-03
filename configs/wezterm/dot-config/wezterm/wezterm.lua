@@ -253,4 +253,13 @@ end)
 
 require('my-tabline').setup(config)
 
+config.ssh_domains = {
+  {
+    name = 'eu-west-1',
+    remote_address = '127.0.0.1:2222',
+    username = 'coder',
+    remote_wezterm_path = '/home/coder/.local/bin/wezterm',
+  }
+}
+
 return config
