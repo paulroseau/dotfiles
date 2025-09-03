@@ -114,12 +114,12 @@ local config = {
           padding = { left = 1, right = 1 }
         }
       },
-      {
-        name = 'current-working-directory',
-        options = {
-          padding = { left = 0, right = 1 }
-        }
-      },
+      -- {
+      --   name = 'current-working-directory',
+      --   options = {
+      --     padding = { left = 0, right = 1 }
+      --   }
+      -- },
       {
         name = 'zoomed',
         options = {
