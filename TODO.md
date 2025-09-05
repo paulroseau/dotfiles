@@ -119,25 +119,58 @@
   - [x] pass down the parameter for tab numbering from config (config.setup)
   - [x] overrides colors for Solarized and one dark (surface, middle_tab_bar)
   - [x] reload tab bar dynamically when changing colorscheme
-  -> GOTO picker first (needed to change domains + color_scheme)
-  - [ ] convert all old components (just need the last 3):
-    - [ ] issue with process, does not work on remote tab, understand multiplexing better, set it up (local socket?), and test
+  - [ ] convert all old components (just need the last 3): <- BACK HERE
+    - [ ] cpu
+    - [ ] ram
+    - [ ] process
+      - [ ] issue with process, does not work on remote tab, understand multiplexing better, set it up (local socket?), and test
   - [ ] test all existing components in the tab (just need the last 3)
+  - [ ] remove old tabline and rename my-tabline to tabline
   - [ ] add nvim-mode component and put it in position `x` (right side)
   - [ ] add time with timezone
 
+## Windows / remote setup
+
+- [ ] launch zsh if available for eu-west-1 domain
+- [x] nvim is glitchy (screen is not recomputed properly, especially on repeat keys, but not only, eg. expanding neo-tree next to an empty buffer) -> fixed in nightly
+- [ ] issue with the clipboard:
+  - you need to use 
+  ```lua
+  vim.g.clipboard = 'osc52' 
+  vim.o.clipboard = 'unnamedplus'
+  ```
+  but the issue is that wezterm can *write* fine to the terminal clipboard through the `osc52` sequence but it cannot read from it! Hence `p` (for paste in neovim blocks)
+  people are aware of the issue: https://github.com/wezterm/wezterm/issues/2050 and there is even a PR for it: https://github.com/wezterm/wezterm/pull/6239 but not reviewed for the last 10 months. Otherwise we can make a workaround to paste directly from nvim registers and resort to `Ctrl+Shift+V` to paste from clipboard
+- [x] install wezterm mux server inside docker at work. Possible strategies:
+  - [x] build it headless with the following command:
+  ```sh
+  mkdir -p ${HOME}/sources
+  pushd ${HOME}/sources
+  git clone https://github.com/wezterm/wezterm.git
+  pushd wezterm
+  git checkout 20240203-110809-5046fc22 # finally no, get the nightly tag
+  echo '1.78.0' > rust-toolchain # might need to make sure the toolchain is installed before
+  cargo build --release --package wezterm --package wezterm-mux-server
+  popd
+  popd
+  # crate links
+  ```
+  - [ ] test use wezterm ssh
+  ```ps1
+  C:\Users\proseau\AppData\Local\Microsoft\WinGet\Packages\Coder.Coder_Microsoft.Winget.Source_8wekyb3d8bbwe\coder.exe port-forward proseau/eu-west-1 --tcp 127.0.0.1:2222:22
+  # direct ssh
+  C:\Users\proseau\apps\WezTerm-windows-20240203-110809-5046fc22\wezterm.exe ssh coder@127.0.0.1:2222
+
+  # ssh domains
+  C:\Users\proseau\apps\WezTerm-windows-20240203-110809-5046fc22\wezterm.exe connect eu-west-1
+  ```
+  - [x] test use wezterm connect (probably need a port-forward dance for the mux-server)
+  - [x] fix neovim change windows remotely
+  - [ ] handle the PATH on Windows to simplify the above commands, add coder + wezterm
+- [ ] Productionize the above item (`install-manual.sh` etc.)
+
 ## Picker
 
-- [ ] install wezterm mux server inside docker at work. Possible strategies:
-  - [ ] build it headless with the following command:
-  ```sh
-  cargo --package wezterm --package wezterm-mux-server
-  ```
-  - [ ] use AppImage
-  - [ ] test with:
-  ```sh
-  wezterm connect coder.eu-west-1
-  ```
 - [ ] Consider using the Input select for switching:
   - [x] fonts
     - [x] include only fonts that are available inside ~/.fonts (question: why not check nix directly? I guess this leaves us room to download fonts directly there, to think about it)
@@ -151,6 +184,7 @@
     tab = window:tabs()[1]
     tab:get_title()
     ```
+    - [ ] using `set title` on top of returning the formatted string in the `format-tab-title` event is an issue remotely
   - [ ] domains
   - [ ] Refacto:
     - [ ] extra-action split in 2:
@@ -163,14 +197,6 @@
   -> use the table trick to display clean values / make the selector its own lua module
   -> issue with for color_scheme (config_overrides) when creating new workspace it keeps the setting (looks like a bug)
     - [ ] Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit, test with docker container or VM
-- [ ] issue with the clipboard:
-  - you need to use 
-  ```lua
-  vim.g.clipboard = 'osc52' 
-  vim.o.clipboard = 'unnamedplus'
-  ```
-  but the issue is that wezterm can *write* fine to the terminal clipboard through the `osc52` sequence but it cannot read from it! Hence `p` (for paste in neovim blocks)
-  people are aware of the issue: https://github.com/wezterm/wezterm/issues/2050 and there is even a PR for it: https://github.com/wezterm/wezterm/pull/6239 but not reviewed for the last 10 months. Otherwise we can make a workaround to paste directly from nvim registers and resort to `Ctrl+Shift+V` to paste from clipboard
 
 - Wezterm missing:
   - Closing a workspace at once (not supported natively, lots of lua code cf. https://github.com/wezterm/wezterm/issues/3658, not worth it)
@@ -181,6 +207,7 @@
   - missing choose-tree, more uniform menus
       import pane/tab from elsewhere (need choose-tree)
   - missing focus pane events
+  - set title bug, what is returned by the format-tab-title event should be the title
   - missing active key changed event
   - export pane/tab to new workspace (1 window/workspace)
   - move pane/tab to new workspace (1 window/workspace)
@@ -381,8 +408,7 @@
     - setup a `formatprg` and `formatoptions` in a personal `./ftplugin`
     - add information to lsp.md nodes about this
     - questions:
-      - we probably want to map gq to *vim.lsp.buf.format()* if it works (check
-      - how can the formatter pick up local options to the project? if the lsp.format works then ok, but in the case where it is not??
+      - we probably want to map gq to *vim.lsp.buf.format()* if it works (check how can the formatter pick up local options to the project? if the lsp.format works then ok, but in the case where it is not??
   - [ ] try nvim-tree instead of neotree - not sure it is better, but neo-tree is slow, background a bit weird, too configurable, nvim-tree looks simpler
   - [ ] try noice.nvim
   - [ ] install LSP for Rust:
