@@ -176,7 +176,7 @@
     - [x] include only fonts that are available inside ~/.fonts (question: why not check nix directly? I guess this leaves us room to download fonts directly there, to think about it)
   - [x] colorschemes
   - [x] workspaces
-  - [x] tabs
+  - [ ] tabs
     - [x] need to rework my-tabline to set the title (mark fields to be included? how to concatenate them)
     - test in debug mode with:
     ```lua
