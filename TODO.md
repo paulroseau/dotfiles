@@ -122,8 +122,10 @@
   - [ ] convert all old components (just need the last 3): <- BACK HERE
     - [ ] cpu
     - [ ] ram
-    - [ ] process
-      - [ ] issue with process, does not work on remote tab, understand multiplexing better, set it up (local socket?), and test
+    - [x] process
+    - [ ] issue with process, does not work on remote tab, understand multiplexing better, set it up (local socket?), and test
+      - [ ] test at the office
+      - [ ] test with a linux box on GCP
   - [ ] test all existing components in the tab (just need the last 3)
   - [ ] remove old tabline and rename my-tabline to tabline
   - [ ] add nvim-mode component and put it in position `x` (right side)
