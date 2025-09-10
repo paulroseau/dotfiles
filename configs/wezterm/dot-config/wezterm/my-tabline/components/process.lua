@@ -4,8 +4,8 @@ local palette = require('my-tabline.palette')
 
 local default_icon = wezterm.nerdfonts.md_application
 
-local process_to_icon = {
-  ['air'] = compoenent.new('air', wezterm.nerdfonts.md_language_go, palette.cyan),
+local process_to_component = {
+  ['air'] = component.new('air', wezterm.nerdfonts.md_language_go, palette.cyan),
   ['apt'] = component.new('apt', wezterm.nerdfonts.dev_debian, palette.red),
   ['bacon'] = component.new('bacon', wezterm.nerdfonts.dev_rust, palette.red),
   ['bash'] = component.new('bash', wezterm.nerdfonts.cod_terminal_bash, palette.surface),
@@ -65,35 +65,8 @@ local process_to_icon = {
   ['zsh'] = component.new('zsh', wezterm.nerdfonts.dev_terminal, palette.surface),
 }
 
-local function make(current_working_dir_uri)
-  if current_working_dir_uri == nil then
-    hostname = wezterm.hostname()
-  elseif type(current_working_dir_uri) == 'userdata' then
-    hostname = current_working_dir_uri.host or wezterm.hostname()
-  end
-
-  local dot = hostname:find('[.]')
-  if dot then
-    hostname = hostname:sub(1, dot - 1)
-  end
-
-  return component.new(hostname, nil)
-end
-
-return {
-  for_window = function(gui_window, pane) return make(pane:get_current_working_dir()) end,
-  for_tab = function(tab_info) return make(tab_info.active_pane.current_working_dir) end
-}
-
-
-local wezterm = require('wezterm')
-local util = require('tabline.util')
-local config = require('tabline.config')
-local colors = config.theme.colors
-local foreground_process_name = ''
-
-local function make(tab_info)
-  local foreground_process_name = tab.active_pane and tab.active_pane.foreground_process_name
+local function make(pane)
+  local foreground_process_name = pane:get_foreground_process_name()
   if foreground_process_name then
     foreground_process_name = foreground_process_name:match('([^/\\]+)[/\\]?$') or foreground_process_name
   end
@@ -101,16 +74,23 @@ local function make(tab_info)
   -- fallback to the title if the foreground process name is unavailable
   -- Wezterm uses OSC 1/2 escape sequences to guess the process name and set the title
   -- see https://wezfurlong.org/wezterm/config/lua/pane/get_title.html
-  -- title defaults to 'wezterm' if another name is unavailable
+  -- title defaults to 'wezterm' if another name is unavailable.
   -- Also, when running under WSL, try to use the OSC 1/2 escape sequences as well
   if foreground_process_name == '' or foreground_process_name == 'wslhost.exe' then
-    foreground_process_name = (tab.tab_title and #tab.tab_title > 0) and tab.tab_title or tab.active_pane.title
+    foreground_process_name = pane:get_title()
   end
 
-  -- if the tab active pane contains a non-local domain, use the domain name
+  -- FIXME: Wezterm wezterm-mux-server does not report the current process for
+  -- panes running remotely, hopefully future versions will support this
+  -- If the tab active pane contains a non-local domain, use the domain name
   if foreground_process_name == 'wezterm' then
-    foreground_process_name = tab.active_pane.domain_name ~= 'local' and tab.active_pane.domain_name or 'wezterm'
+    foreground_process_name = pane:get_domain_name() ~= 'local' and pane:get_domain_name() or 'wezterm'
   end
 
-  return foreground_process_name
+  return process_to_component[foreground_process_name] or component.new(foreground_process_name, default_icon)
 end
+
+return {
+  for_window = function(gui_window, pane) return make(pane) end,
+  for_tab = function(tab_info) return make(wezterm.mux.get_pane(tab_info.active_pane.pane_id)) end
+}
