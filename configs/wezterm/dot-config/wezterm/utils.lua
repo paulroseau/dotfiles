@@ -1,3 +1,5 @@
+local wezterm = require('wezterm')
+
 local M = {}
 
 function M.deep_extend(t1, t2)
@@ -73,6 +75,22 @@ function M.reverse(t)
     table.insert(result, 1, elem)
   end
   return result
+end
+
+local function is_os(os_name)
+  return string.match(wezterm.target_triple, os_name)
+end
+
+function M.is_linux()
+  return is_os('linux')
+end
+
+function M.is_windows()
+  return is_os('windows')
+end
+
+function M.is_macos()
+  return is_os('darwin')
 end
 
 return M
