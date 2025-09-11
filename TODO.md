@@ -122,7 +122,7 @@
   - [ ] convert all old components (just need the last 3): <- BACK HERE
     - [ ] cpu
       - [x] implem
-      - [ ] add space to move the percent sign
+      - [x] add space to move the percent sign -> ok %% is to escape %, but stuck is better
       - [ ] fix on Windows
     - [ ] ram
       - [x] implem
@@ -131,9 +131,9 @@
     - [ ] issue with process, does not work on remote tab, understand multiplexing better, set it up (local socket?), and test
       - [x] test at the office
       - [ ] test with a linux box on GCP
-  - [ ] test all existing components in the tab (just need the last 3)
+  - [x] test all existing components in the tab (just need the last 3)
+  - [x] add nvim-mode component and put it in position `x` (right side)
   - [ ] remove old tabline and rename my-tabline to tabline
-  - [ ] add nvim-mode component and put it in position `x` (right side)
   - [ ] add time with timezone
 
 ## Windows / remote setup

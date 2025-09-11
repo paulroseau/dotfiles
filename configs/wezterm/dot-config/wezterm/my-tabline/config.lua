@@ -85,6 +85,18 @@ local config = {
       {
         components = {
           {
+            name = 'nvim-key-passthrough',
+            options = { icon_only = true }
+          },
+        },
+        colors = {
+          foreground = function() return palette.current_mode end,
+          background = function() return palette.black end,
+        }
+      },
+      {
+        components = {
+          {
             name = 'ram',
             args = { throttle = 3 }
           },

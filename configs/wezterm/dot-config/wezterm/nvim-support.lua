@@ -18,12 +18,19 @@ local function send_keys_or_else(predicate, key, mods, fallback_action)
   return { key = key, mods = mods, action = action }
 end
 
-function M.assign_key(args)
-  local is_nvim_running = function(window, pane)
-    return pane:get_user_vars()[NVIM_RUNNING_USER_VAR] == "true" and not DO_IGNORE_NVIM_RUNNING_USER_VAR
-  end
+function M.do_pass_keys_to_nvim(pane_user_vars)
+  return pane_user_vars[NVIM_RUNNING_USER_VAR] == "true" and not DO_IGNORE_NVIM_RUNNING_USER_VAR
+end
 
-  return send_keys_or_else(is_nvim_running, args.key, args.mods, args.action)
+function M.assign_key(args)
+  return send_keys_or_else(
+    function(window, pane)
+      return M.do_pass_keys_to_nvim(pane:get_user_vars())
+    end,
+    args.key,
+    args.mods,
+    args.action
+  )
 end
 
 M.toggle_ignore_nvim_running_flag = wezterm.action_callback(function(window, pane)
