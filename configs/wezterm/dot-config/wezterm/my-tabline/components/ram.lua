@@ -3,7 +3,7 @@ local component = require('my-tabline.component')
 local utils = require('utils')
 
 local icon = wezterm.nerdfonts.cod_server
-local unknown_memory_component = component.new('? GB', icon)
+local unknown_memory_component = component.new('?GB', icon)
 local last_update_time = 0
 local last_result = unknown_memory_component
 
@@ -11,7 +11,7 @@ local function ram_component(memory_used_in_gb)
   if not memory_used_in_gb then
     return unknown_memory_component
   end
-  local text = string.format('%.1f GB', memory_used_in_gb)
+  local text = string.format('%.1fGB', memory_used_in_gb)
   return component.new(text, icon)
 end
 
