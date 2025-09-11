@@ -11,7 +11,7 @@ local function cpu_component(cpu_load)
   if not cpu_load then
     return unknown_cpu_component
   end
-  local text = string.format('%.2f%%', cpu_load)
+  local text = string.format('%.1f%%', cpu_load)
   return component.new(text, icon)
 end
 
