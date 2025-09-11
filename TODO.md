@@ -138,10 +138,6 @@
 
 ## Windows / remote setup
 
-- [ ] launch zsh if available for eu-west-1 domain
-  -> the issue comes from the entrypoint being `bash -l` which does not read .bashrc, you could find a temporary workaround but probably this will be the start of creating your own image
-- [x] nvim is glitchy (screen is not recomputed properly, especially on repeat keys, but not only, eg. expanding neo-tree next to an empty buffer) 
-  -> fixed in nightly
 - [ ] issue with the clipboard:
   - you need to use 
   ```lua
@@ -150,6 +146,8 @@
   ```
   but the issue is that wezterm can *write* fine to the terminal clipboard through the `osc52` sequence but it cannot read from it! Hence `p` (for paste in neovim blocks)
   people are aware of the issue: https://github.com/wezterm/wezterm/issues/2050 and there is even a PR for it: https://github.com/wezterm/wezterm/pull/6239 but not reviewed for the last 10 months. Otherwise we can make a workaround to paste directly from nvim registers and resort to `Ctrl+Shift+V` to paste from clipboard
+- [x] nvim is glitchy (screen is not recomputed properly, especially on repeat keys, but not only, eg. expanding neo-tree next to an empty buffer) 
+  -> fixed in nightly
 - [x] install wezterm mux server inside docker at work. Possible strategies:
   - [x] build it headless with the following command:
   ```sh
@@ -164,7 +162,7 @@
   popd
   # crate links
   ```
-  - [ ] test use wezterm ssh
+  - [x] test use wezterm ssh
   ```ps1
   C:\Users\proseau\AppData\Local\Microsoft\WinGet\Packages\Coder.Coder_Microsoft.Winget.Source_8wekyb3d8bbwe\coder.exe port-forward proseau/eu-west-1 --tcp 127.0.0.1:2222:22
   # direct ssh
@@ -175,8 +173,11 @@
   ```
   - [x] test use wezterm connect (probably need a port-forward dance for the mux-server)
   - [x] fix neovim change windows remotely
-  - [ ] handle the PATH on Windows to simplify the above commands, add coder + wezterm
+  - [x] handle the PATH on Windows to simplify the above commands, add coder + wezterm (coder was already done, wezterm added manually)
 - [ ] Productionize the above item (`install-manual.sh` etc.)
+  - [ ] see if you can avoid spawning 2 windows, or show only the windows from the current domain (maybe assign a workspace), maybe finalize the picker here
+- [ ] launch zsh if available for eu-west-1 domain
+  -> the issue comes from the entrypoint being `bash -l` which does not read .bashrc, you could find a temporary workaround but probably this will be the start of creating your own image
 
 ## Picker
 
