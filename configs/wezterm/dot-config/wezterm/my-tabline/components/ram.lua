@@ -11,7 +11,7 @@ local function ram_component(memory_used_in_gb)
   if not memory_used_in_gb then
     return unknown_memory_component
   end
-  local text = string.format('%.2f GB', memory_used_in_gb)
+  local text = string.format('%.1f GB', memory_used_in_gb)
   return component.new(text, icon)
 end
 
