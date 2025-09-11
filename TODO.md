@@ -121,10 +121,15 @@
   - [x] reload tab bar dynamically when changing colorscheme
   - [ ] convert all old components (just need the last 3): <- BACK HERE
     - [ ] cpu
+      - [x] implem
+      - [ ] add space to move the percent sign
+      - [ ] fix on Windows
     - [ ] ram
+      - [x] implem
+      - [ ] fix on Windows
     - [x] process
     - [ ] issue with process, does not work on remote tab, understand multiplexing better, set it up (local socket?), and test
-      - [ ] test at the office
+      - [x] test at the office
       - [ ] test with a linux box on GCP
   - [ ] test all existing components in the tab (just need the last 3)
   - [ ] remove old tabline and rename my-tabline to tabline
