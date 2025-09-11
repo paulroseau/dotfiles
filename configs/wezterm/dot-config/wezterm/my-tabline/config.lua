@@ -84,8 +84,14 @@ local config = {
     sections = {
       {
         components = {
-          { name = 'ram' },
-          { name = 'cpu' },
+          {
+            name = 'ram',
+            args = { throttle = 3 }
+          },
+          {
+            name = 'cpu',
+            args = { throttle = 3 }
+          },
         },
         colors = {
           foreground = function() return palette.current_mode end,

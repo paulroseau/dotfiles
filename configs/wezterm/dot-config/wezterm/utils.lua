@@ -81,16 +81,10 @@ local function is_os(os_name)
   return string.match(wezterm.target_triple, os_name)
 end
 
-function M.is_linux()
-  return is_os('linux')
-end
+M.is_linux = is_os('linux')
 
-function M.is_windows()
-  return is_os('windows')
-end
+M.is_macos = is_os('darwin')
 
-function M.is_macos()
-  return is_os('darwin')
-end
+M.is_windows = is_os('windows')
 
 return M
