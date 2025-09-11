@@ -139,7 +139,9 @@
 ## Windows / remote setup
 
 - [ ] launch zsh if available for eu-west-1 domain
-- [x] nvim is glitchy (screen is not recomputed properly, especially on repeat keys, but not only, eg. expanding neo-tree next to an empty buffer) -> fixed in nightly
+  -> the issue comes from the entrypoint being `bash -l` which does not read .bashrc, you could find a temporary workaround but probably this will be the start of creating your own image
+- [x] nvim is glitchy (screen is not recomputed properly, especially on repeat keys, but not only, eg. expanding neo-tree next to an empty buffer) 
+  -> fixed in nightly
 - [ ] issue with the clipboard:
   - you need to use 
   ```lua
@@ -220,6 +222,7 @@
   - move pane/tab to new workspace (1 window/workspace)
   - customizable keymaps in menu mode and search mode (editing part, emacs style would be good by default)
   - better vim movements in Copy Mode (e not respected, E, etc.)
+  - foreground process from remote tabs
 
 - Wezterm potential enhancement:
   - change layout like in nvim, right now you can just rotate panes
