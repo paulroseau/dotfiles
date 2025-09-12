@@ -1,5 +1,5 @@
 local wezterm = require('wezterm')
-local component = require('my-tabline.component')
+local component = require('tabline.component')
 
 local function make()
   local workspace = wezterm.mux.get_active_workspace()

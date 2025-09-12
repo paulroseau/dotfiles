@@ -1,4 +1,4 @@
-local component = require('my-tabline.component')
+local component = require('tabline.component')
 
 local function make(current_working_dir_uri)
   local file_path = current_working_dir_uri and current_working_dir_uri.file_path

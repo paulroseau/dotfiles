@@ -1,5 +1,5 @@
-local component = require('my-tabline.component')
-local config = require('my-tabline.config')
+local component = require('tabline.component')
+local config = require('tabline.config')
 
 local function make(zero_based_active_tab_index)
   local tab_index = config.zero_based_tabs_index and zero_based_active_tab_index or zero_based_active_tab_index + 1

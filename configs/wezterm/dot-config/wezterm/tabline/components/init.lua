@@ -2,11 +2,11 @@ local function all_available_components(select_builder)
   return setmetatable({}, {
     __index = function(_, component_name)
       local component_builder = nil
-      local component_exists, component_builders = pcall(require, 'my-tabline.components.' .. component_name)
+      local component_exists, component_builders = pcall(require, 'tabline.components.' .. component_name)
       if component_exists then
         component_builder = select_builder(component_builders)
       end
-      return component_builder or select_builder(require('my-tabline.components.invalid'))
+      return component_builder or select_builder(require('tabline.components.invalid'))
     end
   })
 end

@@ -1,5 +1,5 @@
 local wezterm = require('wezterm')
-local component = require('my-tabline.component')
+local component = require('tabline.component')
 
 local hour_to_icon = {
   ['00'] = wezterm.nerdfonts.md_clock_time_twelve_outline,

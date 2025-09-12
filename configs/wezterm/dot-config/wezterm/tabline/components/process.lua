@@ -1,6 +1,6 @@
 local wezterm = require('wezterm')
-local component = require('my-tabline.component')
-local palette = require('my-tabline.palette')
+local component = require('tabline.component')
+local palette = require('tabline.palette')
 
 local default_icon = wezterm.nerdfonts.md_application
 

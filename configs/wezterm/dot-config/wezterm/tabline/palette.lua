@@ -100,6 +100,6 @@ return setmetatable(M, {
     end
   end,
   __newindex = function(table, key, value)
-    error('my-tabline.colors is read-only, use set_palette method to update', 2)
+    error('tabline.colors is read-only, use set_palette method to update', 2)
   end
 })

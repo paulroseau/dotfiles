@@ -1,7 +1,7 @@
 local wezterm = require('wezterm')
-local component = require('my-tabline.component')
+local component = require('tabline.component')
 local nvim_support = require('nvim-support')
-local palette = require('my-tabline.palette')
+local palette = require('tabline.palette')
 
 local keys_passed_to_nvim_component = component.new('on', wezterm.nerdfonts.custom_neovim, palette.green)
 local keys_passed_to_wezterm_component = component.new('off', wezterm.nerdfonts.custom_neovim, palette.surface)

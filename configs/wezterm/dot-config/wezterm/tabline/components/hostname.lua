@@ -1,5 +1,5 @@
 local wezterm = require('wezterm')
-local component = require('my-tabline.component')
+local component = require('tabline.component')
 
 local function make(current_working_dir_uri)
   if current_working_dir_uri == nil then

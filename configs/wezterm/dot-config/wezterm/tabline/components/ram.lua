@@ -1,5 +1,5 @@
 local wezterm = require('wezterm')
-local component = require('my-tabline.component')
+local component = require('tabline.component')
 local utils = require('utils')
 
 local icon = wezterm.nerdfonts.cod_server

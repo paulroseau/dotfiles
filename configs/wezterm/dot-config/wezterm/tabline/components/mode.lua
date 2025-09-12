@@ -1,5 +1,5 @@
 local wezterm = require('wezterm')
-local component = require('my-tabline.component')
+local component = require('tabline.component')
 
 local key_table_to_mode = {
   normal_mode = component.new('NORMAL', wezterm.nerdfonts.cod_terminal),

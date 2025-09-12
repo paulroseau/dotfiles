@@ -1,5 +1,5 @@
 local wezterm = require('wezterm')
-local component = require('my-tabline.component')
+local component = require('tabline.component')
 
 local function make(window_title)
   local text = (window_title == '' and 'default') or window_title
