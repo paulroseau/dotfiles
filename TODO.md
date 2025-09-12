@@ -228,6 +228,7 @@
 - Wezterm potential enhancement:
   - change layout like in nvim, right now you can just rotate panes
   - have a command line (vim style? C-a : and C-a /) with either emacs or vim mappings, but with keys still customizable
+  - have an unlock key like in zellij
 
 - Wezterm:
     - [ ] configure multiplexing session and check that clipboard is working fine
@@ -255,6 +256,37 @@
   - [ ] contribute to:
     - [ ] add `Ctrl-C` to exit launcher, super-mini change: https://github.com/wezterm/wezterm/issues/4722
     - [ ] add pane-is-zoomed or pane-info to the cli
+
+# TMUX
+
+- [x] read https://tao-of-tmux.readthedocs.io
+- [x] checkout tmux capture-pane, tmux save-buffer
+  -> ok capture-pane saves you from getting into copy-mode and selecting
+  -> to paste you can use `Prefix+]` or use `:paste-buffer`, you can also send it to stdout
+- [ ] make status bar pretty:
+  - [ ] use conditionals (from `man tmux`) and fg/bg colors
+  ```
+    FORMATS
+         Certain commands accept the -F flag with a format argument.  This is a string which controls the output format of the command.  Format variables are enclosed in ‘#{’ and ‘}’, for
+         example ‘#{session_name}’.  The possible variables are listed in the table below, or the name of a tmux option may be used for an option's value.  Some variables have a shorter alias
+         such as ‘#S’; ‘##’ is replaced by a single ‘#’, ‘#,’ by a ‘,’ and ‘#}’ by a ‘}’.
+
+         Conditionals are available by prefixing with ‘?’ and separating two alternatives with a comma; if the specified variable exists and is not zero, the first alternative is chosen,
+         otherwise the second is used.  For example ‘#{?session_attached,attached,not attached}’ will include the string ‘attached’ if the session is attached and the string ‘not attached’ if it
+         is unattached, or ‘#{?automatic-rename,yes,no}’ will include ‘yes’ if automatic-rename is enabled, or ‘no’ if not.  Conditionals can be nested arbitrarily.  Inside a conditional, ‘,’
+         and ‘}’ must be escaped as ‘#,’ and ‘#}’, unless they are part of a ‘#{...}’ replacement.  For example:
+
+               #{?pane_in_mode,#[fg=white#,bg=red],#[fg=red#,bg=white]}#W .
+
+         String comparisons may be expressed by prefixing two comma-separated alternatives by ‘==’, ‘!=’, ‘<’, ‘>’, ‘<=’ or ‘>=’ and a colon.  For example ‘#{==:#{host},myhost}’ will be replaced
+         by ‘1’ if running on ‘myhost’, otherwise by ‘0’.  ‘||’ and ‘&&’ evaluate to true if either or both of two comma-separated alternatives are true, for example
+         ‘#{||:#{pane_in_mode},#{alternate_on}}’.
+  ```
+  - [ ] see if you can make the nvim_mode just a flag and not a string
+  - [ ] make use of `set-option -ag` to append
+  - useful link: https://arcolinux.com/everything-you-need-to-know-about-tmux-status-bar/
+  - status line can print output of a command at regular interval
+  - [ ] set the window name to cwd by default (dynamically?)
 
 - shells (for nix setup):
   - [ ] add git completions with nix (understand whether you should add
@@ -378,20 +410,6 @@
   ```sh
   rustup component add rust-analyzer
   ```
-
-- tmux:
-  - [x] read https://tao-of-tmux.readthedocs.io
-    - [x] checkout tmux capture-pane, tmux save-buffer
-      -> ok capture-pane saves you from getting into copy-mode and selecting
-      -> to paste you can use `Prefix+]` or use `:paste-buffer`, you can also send it to stdout
-  - [ ] make status bar pretty
-    - status line can print output of a command at regular interval
-    - checkout https://medium.com/hackernoon/customizing-tmux-b3d2a5050207 for more help
-    - checkout https://tao-of-tmux.readthedocs.io/en/latest/manuscript/09-status-bar.html
-    - looks like the only nice on-the-shelf thing for that is powerline, let's see how it plays, you can also toggle the status bar on and off, but I guess you want it always there
-    - would be nice to style the window list as well, not sure powerline can do that
-    - maybe powerline is overkill (gadget), but check if you can setup some nice colors
-  - [ ] set the window name to cwd by default (dynamically?)
 
 - theory:
   - [ ] how does FFI work
