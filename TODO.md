@@ -1,14 +1,19 @@
-- POC on Windows:
-    - [x] install wezterm manually (zipfile) or winget?
-    - [ ] copy your wezterm config
-    - [x] install coder and configure cli
-      ```
-      winget install Coder.Coder
-      coder login http://...
-      coder config-ssh
-      ssh coder.<...>
-      ```
-    - [ ] install wezterm on remote Linux image
+# Office setup
+
+- [x] install wezterm manually (zipfile) or winget?
+- [x] copy your wezterm config
+- [x] install coder and configure cli
+  ```
+  winget install Coder.Coder
+  coder login http://...
+  coder config-ssh
+  ssh coder.<...>
+  ```
+- [x] install wezterm on remote Linux image (cf. wezterm)
+- [ ] rework `install-manual.sh`
+  - [ ] separate all binaries versions in a separate file
+  - [ ] separate installation of each binary
+  - [ ] split in several scripts? -> not sure
 
 - For the office (extra script, maybe in the office's gitlab):
   - [ ] install missing binaries (tmux, zsh, tig via conda?)
@@ -72,6 +77,7 @@
 
 - [ ] install Solarized
 - [ ] install codecompanion
+- [ ] undo tree
 - [ ] checkout this guy's repos and dotfiles https://github.com/olimorris/onedarkpro.nvim he also does codecompanion
 - [ ] install https://github.com/jackMort/ChatGPT.nvim (make sure you can start if no API key is found and DO NOT PUSH your api key to Github)
 - [ ] check plugins listed on lazyvim (in particular conform for formatting, dashboard)
@@ -87,6 +93,27 @@
     - [ ] picker -> not a fan, but there is search projects, recent files, undo which are really nice
     - [ ] check how snacks implement toggling
     - [ ] rework mapping like snacks default
+- [x] maybe update how you expand windows, and swap the effect of the keys `<` and `>` when on a right most window and `+` and `-` when on a bottom window
+- [ ] create a fzf lua source which prints the current servers capabilities :lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)
+- [x] replace nvim-cmp by https://github.com/Saghen/blink.cmp
+- [ ] try indent-blankline.nvim
+- [x] do you still need lspconfig in nvim 0.11? -> NO
+- [ ] setup formatting (autoformatting?) for all relevant filetype. Options are:
+- rely on vim.lsp.buf.format() (works only if server supports formatting, check it with `:lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)` for rust, python, sh, etc. It seems that you need to see
+`documentFormattingProvider = true,` in the results
+- setup a `formatprg` and `formatoptions` in a personal `./ftplugin`
+- add information to lsp.md nodes about this
+- questions:
+  - we probably want to map gq to *vim.lsp.buf.format()* if it works (check how can the formatter pick up local options to the project? if the lsp.format works then ok, but in the case where it is not??
+- [ ] try nvim-tree instead of neotree - not sure it is better, but neo-tree is slow, background a bit weird, too configurable, nvim-tree looks simpler
+- [ ] try noice.nvim
+- [ ] install LSP for Rust:
+- [x] rust-analyser and other tools (cargo, etc.) with nix
+- [x] setup lspconfig
+- [x] setup auto formatting with rustfmt
+- [x] see if you want to use other tools such as the one listed here https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins:
+  - https://github.com/mrcjkb/rustaceanvim
+  - https://github.com/Saecki/crates.nvim
 
 - NB: on hover and signature help, monitor this issue: https://github.com/neovim/neovim/issues/28140 which asks for the ability to toggle the preview window (links to this more general issue: https://github.com/neovim/neovim/issues/31206), right now you just map K to calling vim.lsp.buf.hover twice, but you would still need to press `q` to exit, ideally we just exit with `K` as well
 
@@ -252,7 +279,7 @@
     - [ ] reload config
 
     - [ ] Session navigation
-  - [ ] check how it works on Linux, you probably need to do the same `ld` hack than on Alacritty to use the LibGL
+  - [ ] check how it works on Linux, you probably need to do the same `ld` hack as on Alacritty to use the LibGL
   - [ ] contribute to:
     - [ ] add `Ctrl-C` to exit launcher, super-mini change: https://github.com/wezterm/wezterm/issues/4722
     - [ ] add pane-is-zoomed or pane-info to the cli
@@ -288,7 +315,9 @@
   - status line can print output of a command at regular interval
   - [ ] set the window name to cwd by default (dynamically?)
 
-- shells (for nix setup):
+# Shells
+
+- for nix setup:
   - [ ] add git completions with nix (understand whether you should add
    .nix-profile/share/git/contrib/completion/ to the fpath or source .nix-profile/share/git/contrib/completion/git-completion.zsh
   - [ ] setup bash completions by linking
@@ -424,26 +453,3 @@
   sockopen and pipes which maps to libuv under the hood (decompose all the way
   down to the processor level)
   - [ ] understand the pipe / NVIM env variable
-
-- neovim:
-  - [x] maybe update how you expand windows, and swap the effect of the keys `<` and `>` when on a right most window and `+` and `-` when on a bottom window
-  - [ ] create a fzf lua source which prints the current servers capabilities :lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)
-  - [x] replace nvim-cmp by https://github.com/Saghen/blink.cmp
-  - [ ] try indent-blankline.nvim
-  - [x] do you still need lspconfig in nvim 0.11? -> NO
-  - [ ] setup formatting (autoformatting?) for all relevant filetype. Options are:
-    - rely on vim.lsp.buf.format() (works only if server supports formatting, check it with `:lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)` for rust, python, sh, etc. It seems that you need to see
-  `documentFormattingProvider = true,` in the results
-    - setup a `formatprg` and `formatoptions` in a personal `./ftplugin`
-    - add information to lsp.md nodes about this
-    - questions:
-      - we probably want to map gq to *vim.lsp.buf.format()* if it works (check how can the formatter pick up local options to the project? if the lsp.format works then ok, but in the case where it is not??
-  - [ ] try nvim-tree instead of neotree - not sure it is better, but neo-tree is slow, background a bit weird, too configurable, nvim-tree looks simpler
-  - [ ] try noice.nvim
-  - [ ] install LSP for Rust:
-    - [x] rust-analyser and other tools (cargo, etc.) with nix
-    - [x] setup lspconfig
-    - [x] setup auto formatting with rustfmt
-    - [x] see if you want to use other tools such as the one listed here https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins:
-      - https://github.com/mrcjkb/rustaceanvim
-      - https://github.com/Saecki/crates.nvim
