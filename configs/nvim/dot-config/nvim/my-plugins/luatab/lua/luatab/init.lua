@@ -39,11 +39,6 @@ M.modified = function(bufnr)
   return vim.fn.getbufvar(bufnr, '&modified') == 1 and '[+] ' or ''
 end
 
-M.windowCount = function(index)
-  local nwins = vim.fn.tabpagewinnr(index, '$')
-  return nwins > 1 and '(' .. nwins .. ') ' or ''
-end
-
 M.devicon = function(bufnr, is_selected)
   local icon, icon_highlight_name
   local file = vim.fn.fnamemodify(vim.fn.bufname(bufnr), ':t')
@@ -83,7 +78,6 @@ M.cell = function(index)
   local hl = (is_selected and '%#TabLineSel#' or '%#TabLine#')
 
   return hl .. '%' .. index .. 'T' .. ' ' ..
-      M.windowCount(index) ..
       M.title(bufnr) .. ' ' ..
       M.modified(bufnr) ..
       M.devicon(bufnr, is_selected) .. '%T' ..
