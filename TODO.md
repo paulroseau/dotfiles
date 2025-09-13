@@ -157,11 +157,11 @@
     - [x] process
     - [ ] issue with process, does not work on remote tab, understand multiplexing better, set it up (local socket?), and test
       - [x] test at the office
-      - [ ] test with a linux box on GCP
+      - [ ] test with a Linux box on GCP
   - [x] test all existing components in the tab (just need the last 3)
   - [x] add nvim-mode component and put it in position `x` (right side)
-  - [ ] remove old tabline and rename my-tabline to tabline
-  - [ ] add time with timezone
+  - [x] remove old tabline and rename my-tabline to tabline
+  - [-] add time with timezone -> (won't do, not available natively, would need to fork process)
 
 ## Windows / remote setup
 
@@ -290,6 +290,7 @@
 - [x] checkout tmux capture-pane, tmux save-buffer
   -> ok capture-pane saves you from getting into copy-mode and selecting
   -> to paste you can use `Prefix+]` or use `:paste-buffer`, you can also send it to stdout
+- [x] resize windows by more increments
 - [ ] make status bar pretty:
   - [ ] use conditionals (from `man tmux`) and fg/bg colors
   ```
@@ -309,8 +310,11 @@
          by ‘1’ if running on ‘myhost’, otherwise by ‘0’.  ‘||’ and ‘&&’ evaluate to true if either or both of two comma-separated alternatives are true, for example
          ‘#{||:#{pane_in_mode},#{alternate_on}}’.
   ```
-  - [ ] see if you can make the nvim_mode just a flag and not a string
-  - [ ] make use of `set-option -ag` to append
+    - [ ] see if you can make the nvim_mode just a flag and not a string
+    - [ ] make use of `set-option -ag` to append
+    - [ ] make use of window-status-activity, etc. for the window display
+  - [ ] create some fuzzy finding with fzf for searching through sessions & tabs
+  - [ ] see what you can do for panes (pane border style, etc.)
   - useful link: https://arcolinux.com/everything-you-need-to-know-about-tmux-status-bar/
   - status line can print output of a command at regular interval
   - [ ] set the window name to cwd by default (dynamically?)
@@ -405,16 +409,32 @@
 
 - [ ] install json5 (to convert from `json5` to `json`), it is a simple node module, but you need to write the derivation for it ...
 
-- develop your own stow version in Rust:
-    - [x] init project
-    - [x] implementation:
-    - [x] how do you allocate a vector's data on the heap ?
-      - [x] read https://fasterthanli.me/series/making-our-own-executable-packer/part-14 and take notes
-    - [ ] follow this https://rust-cli.github.io/book/tutorial/index.html - don't get lost in looking up the sources too much
-    - [ ] https://veykril.github.io/tlborm/syntax-extensions/source-analysis.html on macros
+# Rust applications ideas (needs)
 
-- other idea of something to do in Rust:
-  - a small CLI which allows to output up to N lines to stdout and then pass on the rest (this would allow to print the header and then grep for example for ps, kubectl, readelf etc.) (it's a bit like `tee` basically)
+- Your own stow version in Rust (look into what chez-moi does):
+  - [x] init project
+  - [x] implementation:
+  - [x] how do you allocate a vector's data on the heap ?
+    - [x] read https://fasterthanli.me/series/making-our-own-executable-packer/part-14 and take notes
+  - [ ] finish the nomicon
+  - [ ] follow this https://rust-cli.github.io/book/tutorial/index.html - don't get lost in looking up the sources too much
+  - [ ] https://veykril.github.io/tlborm/syntax-extensions/source-analysis.html on macros
+
+- A utility to generate a beautiful status bar in TMUX
+  - would accept a config in lua
+
+- Your own TMUX that could:
+  - be configured in lua
+  - have nerdfonts embedded
+  - have colorscheme embedded
+  - have a fuzzy finder embedded and be a first class citizen to select stuff
+  - be able to multiplex across machines
+  => basically a fork of Wezterm, but without: the weird launch menu, the UI tabline, focus events, maybe rework the architecture (event/async) to allow async calls in the tabstatus, configurarble keyspace for command line, copy mode (better vi/emacs support), etc.
+
+- a small CLI which allows to output up to N lines to stdout and then pass on the rest to a pipe
+  - this would allow to print the header and then grep for example for ps, kubectl, readelf etc. (a bit like `tee` basically)
+
+# Nix setup
 
 - install scripts:
   - [ ] try to make your setup work with the ./overlay.nix inside ~/.config/nixpkgs
@@ -440,16 +460,17 @@
   rustup component add rust-analyzer
   ```
 
-- theory:
-  - [ ] how does FFI work
-  - [ ] how does a Rust program handle signals, are the handlers set by exec?
-  - [ ] read about https://computationstructures.org/lectures/interrupts/interrupts.html :
+# Theory
+
+- [ ] how does FFI work
+- [ ] how does a Rust program handle signals, are the handlers set by exec?
+- [ ] read about https://computationstructures.org/lectures/interrupts/interrupts.html :
     - how do we keep up with interrupts? Example of a network card bombing the system
     - how is the interrupt wire checked at each cycle?
     - which PC is saved when interrupted? how do we make sure some instructions are complete
-  - [ ] update the notes on ComputerArchitecture especially about asynchronous IOs
-  - [ ] once that is done explore libluv and understand how IOs are handled
-  - [ ] then you should be able to understand flatten.nvim with the use of
-  sockopen and pipes which maps to libuv under the hood (decompose all the way
-  down to the processor level)
-  - [ ] understand the pipe / NVIM env variable
+- [ ] update the notes on ComputerArchitecture especially about asynchronous IOs
+- [ ] once that is done explore libluv and understand how IOs are handled
+- [ ] then you should be able to understand flatten.nvim with the use of
+sockopen and pipes which maps to libuv under the hood (decompose all the way
+down to the processor level)
+- [ ] understand the pipe / NVIM env variable
