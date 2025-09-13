@@ -11,6 +11,7 @@
   ```
 - [x] install wezterm on remote Linux image (cf. wezterm)
 - [ ] rework `install-manual.sh`
+  - [ ] check out chezmoi seriously first, otherswise:
   - [ ] separate all binaries versions in a separate file
   - [ ] separate installation of each binary
   - [ ] split in several scripts? -> not sure
@@ -75,6 +76,8 @@
 
 # Neovim
 
+- [ ] when splitting horizontally, new is at the bottom
+- [x] update tabs for it not to show numbers when pop up autocomplete shows up
 - [ ] install Solarized
 - [ ] install codecompanion
 - [ ] undo tree
@@ -94,26 +97,26 @@
     - [ ] check how snacks implement toggling
     - [ ] rework mapping like snacks default
 - [x] maybe update how you expand windows, and swap the effect of the keys `<` and `>` when on a right most window and `+` and `-` when on a bottom window
-- [ ] create a fzf lua source which prints the current servers capabilities :lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)
+- [ ] create a fzf-lua source which prints the current servers capabilities :lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)
 - [x] replace nvim-cmp by https://github.com/Saghen/blink.cmp
 - [ ] try indent-blankline.nvim
 - [x] do you still need lspconfig in nvim 0.11? -> NO
 - [ ] setup formatting (autoformatting?) for all relevant filetype. Options are:
-- rely on vim.lsp.buf.format() (works only if server supports formatting, check it with `:lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)` for rust, python, sh, etc. It seems that you need to see
-`documentFormattingProvider = true,` in the results
-- setup a `formatprg` and `formatoptions` in a personal `./ftplugin`
-- add information to lsp.md nodes about this
-- questions:
-  - we probably want to map gq to *vim.lsp.buf.format()* if it works (check how can the formatter pick up local options to the project? if the lsp.format works then ok, but in the case where it is not??
+    - rely on vim.lsp.buf.format() (works only if server supports formatting, check it with `:lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)` for rust, python, sh, etc. It seems that you need to see
+    `documentFormattingProvider = true,` in the results
+    - setup a `formatprg` and `formatoptions` in a personal `./ftplugin`
+    - add information to lsp.md nodes about this
+    - questions:
+      - we probably want to map gq to *vim.lsp.buf.format()* if it works (check how can the formatter pick up local options to the project? if the lsp.format works then ok, but in the case where it is not??
 - [ ] try nvim-tree instead of neotree - not sure it is better, but neo-tree is slow, background a bit weird, too configurable, nvim-tree looks simpler
 - [ ] try noice.nvim
-- [ ] install LSP for Rust:
-- [x] rust-analyser and other tools (cargo, etc.) with nix
-- [x] setup lspconfig
-- [x] setup auto formatting with rustfmt
-- [x] see if you want to use other tools such as the one listed here https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins:
-  - https://github.com/mrcjkb/rustaceanvim
-  - https://github.com/Saecki/crates.nvim
+- [x] install LSP for Rust:
+  - [x] rust-analyser and other tools (cargo, etc.) with nix
+  - [x] setup lspconfig
+  - [x] setup auto formatting with rustfmt
+  - [x] see if you want to use other tools such as the one listed here https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins:
+    - https://github.com/mrcjkb/rustaceanvim
+    - https://github.com/Saecki/crates.nvim
 
 - NB: on hover and signature help, monitor this issue: https://github.com/neovim/neovim/issues/28140 which asks for the ability to toggle the preview window (links to this more general issue: https://github.com/neovim/neovim/issues/31206), right now you just map K to calling vim.lsp.buf.hover twice, but you would still need to press `q` to exit, ideally we just exit with `K` as well
 
@@ -125,13 +128,23 @@
 
 - remap using <A-J/K> for changin windows and `J`/`K` for changing tabs cf. https://yazi-rs.github.io/docs/configuration/keymap and `(/)` for swapping tabs https://github.com/sxyazi/yazi/blob/shipped/yazi-config/preset/keymap-default.toml
 
+# Chezmoi
+
+- Look into it to set the symlinks, and replace manual install
+
 # Wezterm
+
+## Install
 
 - [x] Rabbit-hole #1: how does wezterm link to `lua.so` when built with nix? It looks like lua.so is looked up dynamically with pkg-config, so explore:
   - [ ] pkg-config
   - [ ] pkg-config on nix
   - [ ] wezterm building on nix
     => wezterm uses the vendored lua code, so pkg-config is irrelevant here
+
+## Misc
+
+- [ ] change opening window to split horizontally to the bottom
 
 ## Tab bar
 
@@ -292,26 +305,9 @@
   -> to paste you can use `Prefix+]` or use `:paste-buffer`, you can also send it to stdout
 - [x] resize windows by more increments
 - [ ] make status bar pretty:
-  - [ ] use conditionals (from `man tmux`) and fg/bg colors
-  ```
-    FORMATS
-         Certain commands accept the -F flag with a format argument.  This is a string which controls the output format of the command.  Format variables are enclosed in ‘#{’ and ‘}’, for
-         example ‘#{session_name}’.  The possible variables are listed in the table below, or the name of a tmux option may be used for an option's value.  Some variables have a shorter alias
-         such as ‘#S’; ‘##’ is replaced by a single ‘#’, ‘#,’ by a ‘,’ and ‘#}’ by a ‘}’.
-
-         Conditionals are available by prefixing with ‘?’ and separating two alternatives with a comma; if the specified variable exists and is not zero, the first alternative is chosen,
-         otherwise the second is used.  For example ‘#{?session_attached,attached,not attached}’ will include the string ‘attached’ if the session is attached and the string ‘not attached’ if it
-         is unattached, or ‘#{?automatic-rename,yes,no}’ will include ‘yes’ if automatic-rename is enabled, or ‘no’ if not.  Conditionals can be nested arbitrarily.  Inside a conditional, ‘,’
-         and ‘}’ must be escaped as ‘#,’ and ‘#}’, unless they are part of a ‘#{...}’ replacement.  For example:
-
-               #{?pane_in_mode,#[fg=white#,bg=red],#[fg=red#,bg=white]}#W .
-
-         String comparisons may be expressed by prefixing two comma-separated alternatives by ‘==’, ‘!=’, ‘<’, ‘>’, ‘<=’ or ‘>=’ and a colon.  For example ‘#{==:#{host},myhost}’ will be replaced
-         by ‘1’ if running on ‘myhost’, otherwise by ‘0’.  ‘||’ and ‘&&’ evaluate to true if either or both of two comma-separated alternatives are true, for example
-         ‘#{||:#{pane_in_mode},#{alternate_on}}’.
-  ```
-    - [ ] see if you can make the nvim_mode just a flag and not a string
-    - [ ] make use of `set-option -ag` to append
+  - [x] use conditionals (from `man tmux`) and fg/bg colors
+    - [x] see if you can make the nvim_mode just a flag and not a string
+    - [x] make use of `set-option -ag` to append
     - [ ] make use of window-status-activity, etc. for the window display
   - [ ] create some fuzzy finding with fzf for searching through sessions & tabs
   - [ ] see what you can do for panes (pane border style, etc.)
