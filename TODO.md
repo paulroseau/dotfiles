@@ -1,3 +1,71 @@
+# TMUX
+
+- [x] read https://tao-of-tmux.readthedocs.io
+- [x] checkout tmux capture-pane, tmux save-buffer
+  -> ok capture-pane saves you from getting into copy-mode and selecting
+  -> to paste you can use `Prefix+]` or use `:paste-buffer`, you can also send it to stdout
+- [x] resize windows by more increments
+- [ ] make status bar pretty:
+  - [x] use conditionals (from `man tmux`) and fg/bg colors
+    - [x] see if you can make the nvim_mode just a flag and not a string
+    - [x] make use of `set-option -ag` to append
+    - [ ] add cpu/ram (requires extrenal script probably - think about how to integrate this in nix and manually ...)
+    - [ ] make use of window-status-activity, etc. for the window display
+  - [ ] create some fuzzy finding with fzf for searching through sessions & tabs
+  - [ ] see what you can do for panes (pane border style, etc.)
+    - useful link: https://arcolinux.com/everything-you-need-to-know-about-tmux-status-bar/
+    - status line can print output of a command at regular interval
+  - [ ] set the window name to cwd by default (dynamically?)
+
+# Chezmoi
+
+- Look into it to set the symlinks, and replace manual install
+
+# Neovim
+
+- [x] update tabs for it not to show numbers when pop up autocomplete shows up
+- [ ] install Solarized
+- [ ] install codecompanion
+- [ ] undo tree
+- [ ] checkout this guy's repos and dotfiles https://github.com/olimorris/onedarkpro.nvim he also does codecompanion
+- [ ] install https://github.com/jackMort/ChatGPT.nvim (make sure you can start if no API key is found and DO NOT PUSH your api key to Github)
+- [ ] check plugins listed on lazyvim (in particular conform for formatting, dashboard)
+  - [ ] for conform see if you need to install prettier, if so add it with nix (not in nixpkgs)
+- [ ] rework your smart windows by separating configuration/initialization (ie. no setup(config)): https://github.com/nvim-neorocks/nvim-best-practices?tab=readme-ov-file#sleeping_bed-lazy-loading
+- [ ] allow to specify count in the mapping to resize window (like typing 20 and <M->> should resize by increment * 20)
+- [ ] add luacats annotations in your config: https://luals.github.io/wiki/annotations (also for wezterm)
+- [ ] review all dos and don'ts in https://github.com/nvim-neorocks/nvim-best-practices
+- [ ] fix clangd
+- [ ] check snacks:
+    - [x] file explorer -> mouais, not convinced neo-tree is better
+    - [x] same for picker, fzf-lua better
+    - [ ] picker -> not a fan, but there is search projects, recent files, undo which are really nice
+    - [ ] check how snacks implement toggling
+    - [ ] rework mapping like snacks default
+- [x] maybe update how you expand windows, and swap the effect of the keys `<` and `>` when on a right most window and `+` and `-` when on a bottom window
+- [ ] create a fzf-lua source which prints the current servers capabilities :lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)
+- [x] replace nvim-cmp by https://github.com/Saghen/blink.cmp
+- [ ] try indent-blankline.nvim
+- [x] do you still need lspconfig in nvim 0.11? -> NO
+- [ ] setup formatting (autoformatting?) for all relevant filetype. Options are:
+    - rely on vim.lsp.buf.format() (works only if server supports formatting, check it with `:lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)` for rust, python, sh, etc. It seems that you need to see
+    `documentFormattingProvider = true,` in the results
+    - setup a `formatprg` and `formatoptions` in a personal `./ftplugin`
+    - add information to lsp.md nodes about this
+    - questions:
+      - we probably want to map gq to *vim.lsp.buf.format()* if it works (check how can the formatter pick up local options to the project? if the lsp.format works then ok, but in the case where it is not??
+- [ ] try nvim-tree instead of neotree - not sure it is better, but neo-tree is slow, background a bit weird, too configurable, nvim-tree looks simpler
+- [ ] try noice.nvim
+- [x] install LSP for Rust:
+  - [x] rust-analyser and other tools (cargo, etc.) with nix
+  - [x] setup lspconfig
+  - [x] setup auto formatting with rustfmt
+  - [x] see if you want to use other tools such as the one listed here https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins:
+    - https://github.com/mrcjkb/rustaceanvim
+    - https://github.com/Saecki/crates.nvim
+
+- NB: on hover and signature help, monitor this issue: https://github.com/neovim/neovim/issues/28140 which asks for the ability to toggle the preview window (links to this more general issue: https://github.com/neovim/neovim/issues/31206), right now you just map K to calling vim.lsp.buf.hover twice, but you would still need to press `q` to exit, ideally we just exit with `K` as well
+
 # Office setup
 
 - [x] install wezterm manually (zipfile) or winget?
@@ -74,52 +142,6 @@
 - [x] install todo-comment
   => tried it, removed it, obnoxious
 
-# Neovim
-
-- [ ] when splitting horizontally, new is at the bottom
-- [x] update tabs for it not to show numbers when pop up autocomplete shows up
-- [ ] install Solarized
-- [ ] install codecompanion
-- [ ] undo tree
-- [ ] checkout this guy's repos and dotfiles https://github.com/olimorris/onedarkpro.nvim he also does codecompanion
-- [ ] install https://github.com/jackMort/ChatGPT.nvim (make sure you can start if no API key is found and DO NOT PUSH your api key to Github)
-- [ ] check plugins listed on lazyvim (in particular conform for formatting, dashboard)
-  - [ ] for conform see if you need to install prettier, if so add it with nix (not in nixpkgs)
-- [ ] rework your smart windows by separating configuration/initialization (ie. no setup(config)): https://github.com/nvim-neorocks/nvim-best-practices?tab=readme-ov-file#sleeping_bed-lazy-loading
-- [ ] allow to specify count in the mapping to resize window (like typing 20 and <M->> should resize by increment * 20)
-- [ ] add luacats annotations in your config: https://luals.github.io/wiki/annotations (also for wezterm)
-- [ ] review all dos and don'ts in https://github.com/nvim-neorocks/nvim-best-practices
-- [ ] fix clangd
-- [ ] check snacks:
-    - [x] file explorer -> mouais, not convinced neo-tree is better
-    - [x] same for picker, fzf-lua better
-    - [ ] picker -> not a fan, but there is search projects, recent files, undo which are really nice
-    - [ ] check how snacks implement toggling
-    - [ ] rework mapping like snacks default
-- [x] maybe update how you expand windows, and swap the effect of the keys `<` and `>` when on a right most window and `+` and `-` when on a bottom window
-- [ ] create a fzf-lua source which prints the current servers capabilities :lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)
-- [x] replace nvim-cmp by https://github.com/Saghen/blink.cmp
-- [ ] try indent-blankline.nvim
-- [x] do you still need lspconfig in nvim 0.11? -> NO
-- [ ] setup formatting (autoformatting?) for all relevant filetype. Options are:
-    - rely on vim.lsp.buf.format() (works only if server supports formatting, check it with `:lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)` for rust, python, sh, etc. It seems that you need to see
-    `documentFormattingProvider = true,` in the results
-    - setup a `formatprg` and `formatoptions` in a personal `./ftplugin`
-    - add information to lsp.md nodes about this
-    - questions:
-      - we probably want to map gq to *vim.lsp.buf.format()* if it works (check how can the formatter pick up local options to the project? if the lsp.format works then ok, but in the case where it is not??
-- [ ] try nvim-tree instead of neotree - not sure it is better, but neo-tree is slow, background a bit weird, too configurable, nvim-tree looks simpler
-- [ ] try noice.nvim
-- [x] install LSP for Rust:
-  - [x] rust-analyser and other tools (cargo, etc.) with nix
-  - [x] setup lspconfig
-  - [x] setup auto formatting with rustfmt
-  - [x] see if you want to use other tools such as the one listed here https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins:
-    - https://github.com/mrcjkb/rustaceanvim
-    - https://github.com/Saecki/crates.nvim
-
-- NB: on hover and signature help, monitor this issue: https://github.com/neovim/neovim/issues/28140 which asks for the ability to toggle the preview window (links to this more general issue: https://github.com/neovim/neovim/issues/31206), right now you just map K to calling vim.lsp.buf.hover twice, but you would still need to press `q` to exit, ideally we just exit with `K` as well
-
 # Alacritty
 
 - <Meta + Shift> does not work outside of Tmux (cannot resize nvim windows)
@@ -127,10 +149,6 @@
 # Yazi
 
 - remap using <A-J/K> for changin windows and `J`/`K` for changing tabs cf. https://yazi-rs.github.io/docs/configuration/keymap and `(/)` for swapping tabs https://github.com/sxyazi/yazi/blob/shipped/yazi-config/preset/keymap-default.toml
-
-# Chezmoi
-
-- Look into it to set the symlinks, and replace manual install
 
 # Wezterm
 
@@ -141,10 +159,6 @@
   - [ ] pkg-config on nix
   - [ ] wezterm building on nix
     => wezterm uses the vendored lua code, so pkg-config is irrelevant here
-
-## Misc
-
-- [ ] change opening window to split horizontally to the bottom
 
 ## Tab bar
 
@@ -296,24 +310,6 @@
   - [ ] contribute to:
     - [ ] add `Ctrl-C` to exit launcher, super-mini change: https://github.com/wezterm/wezterm/issues/4722
     - [ ] add pane-is-zoomed or pane-info to the cli
-
-# TMUX
-
-- [x] read https://tao-of-tmux.readthedocs.io
-- [x] checkout tmux capture-pane, tmux save-buffer
-  -> ok capture-pane saves you from getting into copy-mode and selecting
-  -> to paste you can use `Prefix+]` or use `:paste-buffer`, you can also send it to stdout
-- [x] resize windows by more increments
-- [ ] make status bar pretty:
-  - [x] use conditionals (from `man tmux`) and fg/bg colors
-    - [x] see if you can make the nvim_mode just a flag and not a string
-    - [x] make use of `set-option -ag` to append
-    - [ ] make use of window-status-activity, etc. for the window display
-  - [ ] create some fuzzy finding with fzf for searching through sessions & tabs
-  - [ ] see what you can do for panes (pane border style, etc.)
-  - useful link: https://arcolinux.com/everything-you-need-to-know-about-tmux-status-bar/
-  - status line can print output of a command at regular interval
-  - [ ] set the window name to cwd by default (dynamically?)
 
 # Shells
 
