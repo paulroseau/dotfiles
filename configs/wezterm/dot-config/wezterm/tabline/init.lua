@@ -133,7 +133,7 @@ function M.setup(wezterm_config)
   wezterm.on('format-tab-title', function(tab_info, tabs_info, _, _, hover, _)
     local title, separator = tab(tab_info, tabs_info, hover, config.default_options, config.tabs)
     local mux_tab = wezterm.mux.get_tab(tab_info.tab_id)
-    mux_tab:set_title(wezterm.format(title)) -- to allow to fuzzy select the title (otherwise titles remain empty)
+    -- mux_tab:set_title(wezterm.format(title)) -- to allow to fuzzy select the title (otherwise titles remain empty)
     return utils.flatten({ title, separator })
   end)
 
