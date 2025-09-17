@@ -46,7 +46,7 @@ config.keys = {
   { key = 'q',  mods = 'LEADER',       action = act.QuitApplication },
   { key = 'f',  mods = 'CTRL|SHIFT',   action = act.ToggleFullScreen, },
   { key = 'c',  mods = 'CTRL|SHIFT',   action = require('selector').color_schemes },
-  { key = 'f',  mods = 'META',         action = require('selector').fonts },
+  { key = 'f',  mods = 'LEADER',       action = require('selector').fonts },
 
   -- fonts
   { key = '+',  mods = 'CTRL|SHIFT',   action = act.IncreaseFontSize },
