@@ -9,7 +9,7 @@
   - [x] use conditionals (from `man tmux`) and fg/bg colors
     - [x] see if you can make the nvim_mode just a flag and not a string
     - [x] make use of `set-option -ag` to append
-    - [ ] make use of window-status-activity, etc. for the window display
+    - [x] make use of window-status-activity, etc. for the window display (set the window name to cwd by default dynamically)
     - [-] add cpu/ram: (requires external script probably - think about how to integrate this in nix and manually ...)
       -> won't do because this makes your tmux conf relying on the presence of an extra script + this script would need to test if we are on MacOS or Linux, rely on awk, etc. this makes it fragile. In an ideal world, we would have something akin to starship, which could be configured in lua (exposes cpu, mem, current working directory of a process, etc.) and output the status-left, status-right and window-status-activity strings. Also it could take a theme as an input.
 - [ ] create some fuzzy finding with fzf for searching through sessions & tabs
@@ -17,19 +17,51 @@
 - [ ] see what you can do for panes (pane border style, etc.)
     - useful link: https://arcolinux.com/everything-you-need-to-know-about-tmux-status-bar/
     - status line can print output of a command at regular interval
-- [ ] set the window name to cwd by default (dynamically?)
+
+# Rust binary to develop ideas
+
+- [ ] super simple `icon4` which reads ~/.proc2icon config file which would be a json file (ideally lua though) which returns
+    ```json
+    {
+        "nvim": "",
+        "zsh": ""
+    }
+    ```
+    would be useful for `tmux` status window to:
+    ```
+    set-option -ag window-status-format "#(icon4 #{pane_current_command}) #(basename #{pane_current_path}) "
+    ```
+
+- [ ] rust reimplem of `stow`, not as far as chezmoi which downloads binaries, but with the apply logic, possiblity to copy -r, link and revert
+
+- [ ] fork of Wezterm to address the issues below, namely:
+  - [ ] simplify the menu logic, make a modal feature and fuzzy find over whatever
+  - [ ] understand the relationship between format-tab-title and the title of a tab to be able to fuzzy find through those
+  - [ ] get the process name for remote processes
+  - [ ] fix copy paste when happening remotely
+  - [ ] improve Copy Mode
+  - [ ] maybe add a Command mode
 
 # Chezmoi
 
-- [ ] Look into it to set the symlinks, and replace manual install
+- [x] Look into it to set the symlinks, and replace manual install
+  -> mouais not convinced, you end up writing go template instead of bash, not really cleaner, what would be useful is the management and rollback of configs, secret encryption but `stow` should be good enough for now
 
 # Neovim
 
 - [x] update tabs for it not to show numbers when pop up autocomplete shows up
-- [ ] install Solarized
-- [ ] install codecompanion
+- [x] install Solarized
+- [x] install codecompanion
+- [ ] configure codecompanion (probably need to learn a bit about the AI tooling ecosystem)
+- [ ] checkout this guy's repos and dotfiles https://github.com/olimorris/onedarkpro.nvim he also does codecompanion:
+  - his colorschmeme, fonts style, tab bar are really nice on the README screen records
+- [ ] check snacks:
+  - [x] file explorer -> mouais, not convinced neo-tree is better
+  - [x] same for picker, fzf-lua better
+  - [ ] picker -> not a fan, but there is search projects, recent files, undo which are really nice
+  - [ ] check how snacks implement toggling
+  - [ ] rework mapping like snacks default
 - [ ] undo tree
-- [ ] checkout this guy's repos and dotfiles https://github.com/olimorris/onedarkpro.nvim he also does codecompanion
 - [ ] install https://github.com/jackMort/ChatGPT.nvim (make sure you can start if no API key is found and DO NOT PUSH your api key to Github)
 - [ ] check plugins listed on lazyvim (in particular conform for formatting, dashboard)
   - [ ] for conform see if you need to install prettier, if so add it with nix (not in nixpkgs)
@@ -38,12 +70,6 @@
 - [ ] add luacats annotations in your config: https://luals.github.io/wiki/annotations (also for wezterm)
 - [ ] review all dos and don'ts in https://github.com/nvim-neorocks/nvim-best-practices
 - [ ] fix clangd
-- [ ] check snacks:
-    - [x] file explorer -> mouais, not convinced neo-tree is better
-    - [x] same for picker, fzf-lua better
-    - [ ] picker -> not a fan, but there is search projects, recent files, undo which are really nice
-    - [ ] check how snacks implement toggling
-    - [ ] rework mapping like snacks default
 - [x] maybe update how you expand windows, and swap the effect of the keys `<` and `>` when on a right most window and `+` and `-` when on a bottom window
 - [ ] create a fzf-lua source which prints the current servers capabilities :lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)
 - [x] replace nvim-cmp by https://github.com/Saghen/blink.cmp
