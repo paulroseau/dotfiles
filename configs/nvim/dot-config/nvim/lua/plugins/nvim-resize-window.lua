@@ -1,4 +1,4 @@
-local resize_window = require("nvim-resize-window")
+local resize_window = require('nvim-resize-window')
 
 local increment = 3
 
