@@ -9,17 +9,19 @@
   - [x] use conditionals (from `man tmux`) and fg/bg colors
     - [x] see if you can make the nvim_mode just a flag and not a string
     - [x] make use of `set-option -ag` to append
-    - [ ] add cpu/ram (requires extrenal script probably - think about how to integrate this in nix and manually ...)
     - [ ] make use of window-status-activity, etc. for the window display
-  - [ ] create some fuzzy finding with fzf for searching through sessions & tabs
-  - [ ] see what you can do for panes (pane border style, etc.)
+    - [-] add cpu/ram: (requires external script probably - think about how to integrate this in nix and manually ...)
+      -> won't do because this makes your tmux conf relying on the presence of an extra script + this script would need to test if we are on MacOS or Linux, rely on awk, etc. this makes it fragile. In an ideal world, we would have something akin to starship, which could be configured in lua (exposes cpu, mem, current working directory of a process, etc.) and output the status-left, status-right and window-status-activity strings. Also it could take a theme as an input.
+- [ ] create some fuzzy finding with fzf for searching through sessions & tabs
+  -> hard to get right and maintainable without external script again
+- [ ] see what you can do for panes (pane border style, etc.)
     - useful link: https://arcolinux.com/everything-you-need-to-know-about-tmux-status-bar/
     - status line can print output of a command at regular interval
-  - [ ] set the window name to cwd by default (dynamically?)
+- [ ] set the window name to cwd by default (dynamically?)
 
 # Chezmoi
 
-- Look into it to set the symlinks, and replace manual install
+- [ ] Look into it to set the symlinks, and replace manual install
 
 # Neovim
 
@@ -144,7 +146,14 @@
 
 # Alacritty
 
-- <Meta + Shift> does not work outside of Tmux (cannot resize nvim windows)
+- [ ] <Meta + Shift> does not work outside of Tmux (cannot resize nvim windows)
+  -> this is annoying, Karabiner shows that all 3 <left-option>/<left_shift>/<.> are pressed just like on wezterm, but it is like Alacritty suppresses it. However Tmux running inside alacritty catches it
+- [x] default program
+  - [x] on MacOS the default PATH is prepended, so /bin/zsh is started instead of the nix one. Modifications to the path are not taken into account unless you launch it via command line (for which karabiner does not work ...)
+  -> potential solution, wrap it in Nix
+  -> no need fixed on MacOS, probably thanks to the fact that Alacritty launches zsh by default and hence picks up on zshrc (updates the $PATH environment variables by prepending `/Users/polo/.nix-profile/bin:/Users/polo/.local/bin`) cf:
+  - https://github.com/alacritty/alacritty/issues/8535 
+  - https://github.com/chrisnc/alacritty/blob/6566dd3defa9f080dabb295740dc1dac06e3b8fb/alacritty_terminal/src/tty/unix.rs#L131-L150
 
 # Yazi
 
@@ -290,8 +299,6 @@
     - [ ] check if conditions for karabiner could not be factored out
     - [x] find how to apply changes to when wezterm is launched from the command line -> use FilePath instead of bundle identifier
   - Default program:
-    - [x] (same issue on Alacritty) on MacOS the default PATH is prepended, so /bin/zsh is started instead of the nix one. Modifications to the path are not taken into account unless you launch it via command line (for which karabiner does not work ...)
-      -> potential solution, wrap it in Nix
   - [ ] replicate your tmux setup (in particular nvim integration remotely)
     - [ ] lua what is userdata vs metatable
     - [ ] default program
