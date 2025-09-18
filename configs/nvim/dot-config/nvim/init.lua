@@ -33,6 +33,6 @@ require('plugins.zen-mode')
 -- Pick colorscheme
 require('plugins.colorschemes.nord')
 require('plugins.colorschemes.onedark')
-require('plugins.colorschemes.tokyonight')
 require('plugins.colorschemes.solarized')
-vim.cmd.colorscheme('solarized')
+require('plugins.colorschemes.tokyonight')
+vim.cmd.colorscheme('tokyonight')
