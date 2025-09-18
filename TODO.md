@@ -74,6 +74,7 @@
 - [ ] add luacats annotations in your config: https://luals.github.io/wiki/annotations (also for wezterm)
 - [ ] review all dos and don'ts in https://github.com/nvim-neorocks/nvim-best-practices
 - [ ] fix clangd
+- [ ] would be great if <C-s> could reveal the signature help window, which would remain there until we type <C-s> again (if there were a vim.lsp.buf.signature_help_toggle())
 - [x] maybe update how you expand windows, and swap the effect of the keys `<` and `>` when on a right most window and `+` and `-` when on a bottom window
 - [ ] create a fzf-lua source which prints the current servers capabilities :lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)
 - [x] replace nvim-cmp by https://github.com/Saghen/blink.cmp

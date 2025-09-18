@@ -179,8 +179,5 @@ local function call_twice(fn)
   end
 end
 
--- Signature help (call twice to focus inside the preview window)
-vim.keymap.set({ 'i' }, '<C-s>', call_twice(vim.lsp.buf.signature_help))
-
 -- Hover (call twice to focus inside the preview window)
 vim.keymap.set({ 'n' }, 'K', call_twice(vim.lsp.buf.hover))
