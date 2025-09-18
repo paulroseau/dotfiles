@@ -55,6 +55,10 @@
 - [ ] configure codecompanion (probably need to learn a bit about the AI tooling ecosystem)
 - [ ] checkout this guy's repos and dotfiles https://github.com/olimorris/onedarkpro.nvim he also does codecompanion:
   - his colorschmeme, fonts style, tab bar are really nice on the README screen records
+  - [ ] transition to vim.pack (0.12) but already there in nightly, requires `git`, but nicely enough should write plugins `$HOME/.local/share` (so nix compatible):
+    - [ ] remove neovim plugins from nix
+    - [ ] update install.sh
+  - [ ] install nvimdev/dashboard
 - [ ] check snacks:
   - [x] file explorer -> mouais, not convinced neo-tree is better
   - [x] same for picker, fzf-lua better
