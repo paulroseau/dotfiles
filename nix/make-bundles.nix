@@ -4,7 +4,10 @@ with pkgs;
 
 rec {
   # for a more uniform experience across MacOS X and Linux
-  core = [ coreutils findutils ];
+  core = [
+    coreutils
+    findutils
+  ];
 
   nerd-fonts = [
     pkgs.nerd-fonts.agave
@@ -13,25 +16,61 @@ rec {
     pkgs.nerd-fonts.terminess-ttf
   ];
 
-  terminal = [ nerd-fonts wezterm ];
+  terminal = [
+    nerd-fonts
+    wezterm
+  ];
 
-  zsh =
-    [ pkgs.zsh starship zoxide zsh-autosuggestions zsh-syntax-highlighting ];
+  zsh = [
+    pkgs.zsh
+    starship
+    zoxide
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+  ];
 
-  neovim = [ neovim-unwrapped neovim-plugins ];
+  neovim = [
+    neovim-unwrapped
+    neovim-plugins
+  ];
 
-  fzf-lua-required = [ bat delta fd fzf ripgrep skim ];
+  fzf-lua-required = [
+    bat
+    delta
+    fd
+    fzf
+    ripgrep
+    skim
+  ];
 
-  kubernetes = [ k9s kubectl kubectl-tree ];
+  kubernetes = [
+    k9s
+    kubectl
+    kubectl-tree
+  ];
 
-  versioning = [ git tig ];
+  versioning = [
+    git
+    tig
+  ];
 
   networking = [ ipcalc ];
 
-  misc = [ jaq tmux tree stow yazi-unwrapped yq ];
+  misc = [
+    jaq
+    tmux
+    tree
+    stow
+    yazi-unwrapped
+    yq
+  ];
 
   development = rec {
-    c = [ clang clang-tools cmake ];
+    c = [
+      clang
+      clang-tools
+      cmake
+    ];
 
     go = [ gopls ];
 
@@ -39,22 +78,35 @@ rec {
 
     lua = [ lua-language-server ];
 
-    nix = [ nil niv nixfmt pkgs.nix ];
+    nix = [
+      nil
+      niv
+      nixfmt
+      pkgs.nix
+    ];
 
     rust = [ rustup ];
 
-    python = [ python3 pyright ];
+    python = [
+      python3
+      pyright
+    ];
 
-    terraform = [ pkgs.terraform terraform-ls ];
+    terraform = [
+      pkgs.terraform
+      terraform-ls
+    ];
 
     yaml = [ yaml-language-server ];
 
-    all = c ++ go ++ json ++ lua ++ nix ++ python ++ rust ++ terraform ++ yaml;
+    all-free = c ++ go ++ json ++ lua ++ nix ++ python ++ rust ++ yaml;
+
+    all = all-free ++ terraform;
   };
 
   google = [ google-cloud-sdk ];
 
-  base = core ++ misc ++ neovim ++ fzf-lua-required ++ zsh;
+  base = core ++ misc ++ neovim ++ fzf-lua-required ++ versioning ++ zsh;
 
-  local = base ++ terminal;
+  local = base ++ terminal ++ development.all-free;
 }
