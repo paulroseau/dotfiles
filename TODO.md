@@ -34,7 +34,7 @@
 
 - [ ] rust reimplem of `stow`, not as far as chezmoi which downloads binaries, but with the apply logic, possiblity to copy -r, link and revert
 
-- [ ] fork of Wezterm to address the issues below, namely:
+- [ ] fork of Wezterm to address the issues below:
   - [ ] simplify the menu logic, make a modal feature and fuzzy find over whatever
   - [ ] understand the relationship between format-tab-title and the title of a tab to be able to fuzzy find through those
   - [ ] get the process name for remote processes
@@ -55,10 +55,31 @@
 - [ ] configure codecompanion (probably need to learn a bit about the AI tooling ecosystem)
 - [ ] checkout this guy's repos and dotfiles https://github.com/olimorris/onedarkpro.nvim he also does codecompanion:
   - his colorschmeme, fonts style, tab bar are really nice on the README screen records
+  - [ ] install nvimdev/dashboard
+  - his plugins are:
+    - [ ] his onedarkpro
+    - [ ] switch from lualine to heirline, and remove your tabline plugin
+    - [ ] copilot
+    - [ ] oil                             
+    - [ ] mini.test
+    - [ ] aerial                          
+    - [ ] persisted                       
+    - [ ] overseer               
+    - [x] mason -> No
+    - [ ] conform
+    - [ ] ufo
+    - [ ] troublesum
+    - [ ] nvim-autopairs
+    - [ ] guess-indent
+    - [ ] todo-comments
+    - [ ] render-markdown
+    - [ ] edgy
+    - [ ] gitsigns
+    - [ ] snacks
+    - [ ] check snacks:
   - [ ] transition to vim.pack (0.12) but already there in nightly, requires `git`, but nicely enough should write plugins `$HOME/.local/share` (so nix compatible):
     - [ ] remove neovim plugins from nix
     - [ ] update install.sh
-  - [ ] install nvimdev/dashboard
 - [ ] check snacks:
   - [x] file explorer -> mouais, not convinced neo-tree is better
   - [x] same for picker, fzf-lua better
