@@ -1,52 +1,3 @@
-# TMUX
-
-- [x] read https://tao-of-tmux.readthedocs.io
-- [x] checkout tmux capture-pane, tmux save-buffer
-  -> ok capture-pane saves you from getting into copy-mode and selecting
-  -> to paste you can use `Prefix+]` or use `:paste-buffer`, you can also send it to stdout
-- [x] resize windows by more increments
-- [ ] make status bar pretty:
-  - [x] use conditionals (from `man tmux`) and fg/bg colors
-    - [x] see if you can make the nvim_mode just a flag and not a string
-    - [x] make use of `set-option -ag` to append
-    - [x] make use of window-status-activity, etc. for the window display (set the window name to cwd by default dynamically)
-    - [-] add cpu/ram: (requires external script probably - think about how to integrate this in nix and manually ...)
-      -> won't do because this makes your tmux conf relying on the presence of an extra script + this script would need to test if we are on MacOS or Linux, rely on awk, etc. this makes it fragile. In an ideal world, we would have something akin to starship, which could be configured in lua (exposes cpu, mem, current working directory of a process, etc.) and output the status-left, status-right and window-status-activity strings. Also it could take a theme as an input.
-- [ ] create some fuzzy finding with fzf for searching through sessions & tabs
-  -> hard to get right and maintainable without external script again
-- [ ] see what you can do for panes (pane border style, etc.)
-    - useful link: https://arcolinux.com/everything-you-need-to-know-about-tmux-status-bar/
-    - status line can print output of a command at regular interval
-
-# Rust binary to develop ideas
-
-- [ ] super simple `icon4` which reads ~/.proc2icon config file which would be a json file (ideally lua though) which returns
-    ```json
-    {
-        "nvim": "",
-        "zsh": ""
-    }
-    ```
-    would be useful for `tmux` status window to:
-    ```
-    set-option -ag window-status-format "#(icon4 #{pane_current_command}) #(basename #{pane_current_path}) "
-    ```
-
-- [ ] rust reimplem of `stow`, not as far as chezmoi which downloads binaries, but with the apply logic, possiblity to copy -r, link and revert
-
-- [ ] fork of Wezterm to address the issues below:
-  - [ ] simplify the menu logic, make a modal feature and fuzzy find over whatever
-  - [ ] understand the relationship between format-tab-title and the title of a tab to be able to fuzzy find through those
-  - [ ] get the process name for remote processes
-  - [ ] fix copy paste when happening remotely
-  - [ ] improve Copy Mode
-  - [ ] maybe add a Command mode
-
-# Chezmoi
-
-- [x] Look into it to set the symlinks, and replace manual install
-  -> mouais not convinced, you end up writing go template instead of bash, not really cleaner, what would be useful is the management and rollback of configs, secret encryption but `stow` should be good enough for now
-
 # Neovim
 
 - [x] update tabs for it not to show numbers when pop up autocomplete shows up
@@ -56,27 +7,26 @@
 - [ ] checkout this guy's repos and dotfiles https://github.com/olimorris/onedarkpro.nvim he also does codecompanion:
   - his colorschmeme, fonts style, tab bar are really nice on the README screen records
   - [ ] install nvimdev/dashboard
-  - his plugins are:
-    - [ ] his onedarkpro
-    - [ ] switch from lualine to heirline, and remove your tabline plugin
+  - his plugins are (should you use them?):
+    - [ ] his onedarkpro -> YES
+    - [ ] switch from lualine to heirline, and remove your tabline plugin -> YES
     - [ ] copilot
-    - [ ] oil                             
+    - [ ] oil
     - [ ] mini.test
-    - [ ] aerial                          
-    - [ ] persisted                       
-    - [ ] overseer               
+    - [ ] aerial
+    - [ ] persisted
+    - [ ] overseer
     - [x] mason -> No
     - [ ] conform
     - [ ] ufo
     - [ ] troublesum
     - [ ] nvim-autopairs
     - [ ] guess-indent
-    - [ ] todo-comments
+    - [ ] todo-comments -> No
     - [ ] render-markdown
     - [ ] edgy
     - [ ] gitsigns
-    - [ ] snacks
-    - [ ] check snacks:
+    - [ ] snacks -> Not as a whole but see below
   - [ ] transition to vim.pack (0.12) but already there in nightly, requires `git`, but nicely enough should write plugins `$HOME/.local/share` (so nix compatible):
     - [ ] remove neovim plugins from nix
     - [ ] update install.sh
@@ -120,6 +70,78 @@
 
 - NB: on hover and signature help, monitor this issue: https://github.com/neovim/neovim/issues/28140 which asks for the ability to toggle the preview window (links to this more general issue: https://github.com/neovim/neovim/issues/31206), right now you just map K to calling vim.lsp.buf.hover twice, but you would still need to press `q` to exit, ideally we just exit with `K` as well
 
+# Tmux
+
+- [x] read https://tao-of-tmux.readthedocs.io
+- [x] checkout tmux capture-pane, tmux save-buffer
+  -> ok capture-pane saves you from getting into copy-mode and selecting
+  -> to paste you can use `Prefix+]` or use `:paste-buffer`, you can also send it to stdout
+- [x] resize windows by more increments
+- [x] make status bar pretty:
+  - [x] use conditionals (from `man tmux`) and fg/bg colors
+    - [x] see if you can make the nvim_mode just a flag and not a string
+    - [x] make use of `set-option -ag` to append
+    - [x] make use of window-status-activity, etc. for the window display (set the window name to cwd by default dynamically)
+    - [-] add cpu/ram: (requires external script probably - think about how to integrate this in nix and manually ...)
+      -> won't do because this makes your tmux conf relying on the presence of an extra script + this script would need to test if we are on MacOS or Linux, rely on awk, etc. this makes it fragile. In an ideal world, we would have something akin to starship, which could be configured in lua (exposes cpu, mem, current working directory of a process, etc.) and output the status-left, status-right and window-status-activity strings. Also it could take a theme as an input.
+- [-] create some fuzzy finding with fzf for searching through sessions & tabs
+  -> hard to get right and maintainable without external script again
+- [ ] see what you can do for panes (pane border style, etc.)
+    - useful link: https://arcolinux.com/everything-you-need-to-know-about-tmux-status-bar/
+    - status line can print output of a command at regular interval
+
+# Rust binary to develop ideas
+
+## Small (S)
+
+- [ ] super simple `icon4` which reads ~/.proc2icon config file which would be a json file (ideally lua though) which returns
+    ```json
+    {
+        "nvim": "",
+        "zsh": ""
+    }
+    ```
+    would be useful for `tmux` status window to:
+    ```
+    set-option -ag window-status-format "#(icon4 #{pane_current_command}) #(basename #{pane_current_path}) "
+    ```
+- [ ] a small CLI which allows to output up to N lines to stdout and then pass on the rest to a pipe
+  - this would allow to print the header and then grep for example for ps, kubectl, readelf etc. (a bit like `tee` basically)
+
+## Medium (M)
+
+- [ ] rust reimplem of `stow`, (look into what chez-moi does, do not go as far as chezmoi which downloads binaries, but with the apply logic, possiblity to copy -r, link and revert):
+  - [ ] finish the nomicon
+  - [ ] follow this https://rust-cli.github.io/book/tutorial/index.html - don't get lost in looking up the sources too much
+  - [ ] https://veykril.github.io/tlborm/syntax-extensions/source-analysis.html on macros
+
+- [ ] rust app/library which gives you the current CPU, Memory, Disk, Network and battery usage across Linux, MacOS, Windows - could be useful for tmux, and Wezterm could depend on it
+
+- [ ] a utility to generate a beautiful status bar in TMUX which would be configured in lua
+
+## Extra Large (XL)
+
+- [ ] fork of Wezterm to address the issues below:
+  - [ ] simplify the menu logic, make a modal feature and fuzzy find over whatever
+  - [ ] understand the relationship between format-tab-title and the title of a tab to be able to fuzzy find through those
+  - [ ] get the process name for remote processes
+  - [ ] fix copy paste when happening remotely
+  - [ ] improve Copy Mode
+  - [ ] maybe add a Command mode
+
+- [ ] OR Your own TMUX that could:
+  - be configured in lua
+  - have nerdfonts embedded
+  - have colorscheme embedded
+  - have a fuzzy finder embedded and be a first class citizen to select stuff
+  - be able to multiplex across machines
+  => basically a fork of Wezterm, but without: the weird launch menu, the UI tabline, focus events, maybe rework the architecture (event/async) to allow async calls in the tabstatus, configurarble keyspace for command line, copy mode (better vi/emacs support), etc.
+
+# Chezmoi
+
+- [x] Look into it to set the symlinks, and replace manual install
+  -> mouais not convinced, you end up writing go template instead of bash, not really cleaner, what would be useful is the management and rollback of configs, secret encryption but `stow` should be good enough for now
+
 # Office setup
 
 - [x] install wezterm manually (zipfile) or winget?
@@ -161,7 +183,7 @@
 - [x] remove lsp-config:
    - [x] find a way to customize lua-ls to include vim.env :help lsp-quickstart
      -> looks like you need to install lazydev...
-   - [/] root_markers seem to be what lspconfig does "by hand" mostly 
+   - [/] root_markers seem to be what lspconfig does "by hand" mostly
      -> rust-analyzer config seems a bit complex, moved to rustaceanvim
    - [x] signature help
      -> automatically mapped to Ctrl-s in insert mode
@@ -187,7 +209,7 @@
   - [x] check signature
   - [x] check hover
 - [x] snippet: do you still need luasnip in 0.11+? -> No
-  - [x] let's replace LuaSnip with the built-in 
+  - [x] let's replace LuaSnip with the built-in
   - [x] check what friednly snippets brought to you with blink.cmp and make sure snippet expansion works
 - [x] remove all nvim-cmp stuff in nix
 - [x] install mini-pairs or autopairs
@@ -204,12 +226,12 @@
   - [x] on MacOS the default PATH is prepended, so /bin/zsh is started instead of the nix one. Modifications to the path are not taken into account unless you launch it via command line (for which karabiner does not work ...)
   -> potential solution, wrap it in Nix
   -> no need fixed on MacOS, probably thanks to the fact that Alacritty launches zsh by default and hence picks up on zshrc (updates the $PATH environment variables by prepending `/Users/polo/.nix-profile/bin:/Users/polo/.local/bin`) cf:
-  - https://github.com/alacritty/alacritty/issues/8535 
+  - https://github.com/alacritty/alacritty/issues/8535
   - https://github.com/chrisnc/alacritty/blob/6566dd3defa9f080dabb295740dc1dac06e3b8fb/alacritty_terminal/src/tty/unix.rs#L131-L150
 
 # Yazi
 
-- remap using <A-J/K> for changin windows and `J`/`K` for changing tabs cf. https://yazi-rs.github.io/docs/configuration/keymap and `(/)` for swapping tabs https://github.com/sxyazi/yazi/blob/shipped/yazi-config/preset/keymap-default.toml
+- remap using <A-J/K> for changing windows and `J`/`K` for changing tabs cf. https://yazi-rs.github.io/docs/configuration/keymap and `(/)` for swapping tabs https://github.com/sxyazi/yazi/blob/shipped/yazi-config/preset/keymap-default.toml -> `<M-j>/<M-k>` is taken by Wezterm changing windows
 
 # Wezterm
 
@@ -254,14 +276,14 @@
 ## Windows / remote setup
 
 - [ ] issue with the clipboard:
-  - you need to use 
+  - you need to use
   ```lua
-  vim.g.clipboard = 'osc52' 
+  vim.g.clipboard = 'osc52'
   vim.o.clipboard = 'unnamedplus'
   ```
   but the issue is that wezterm can *write* fine to the terminal clipboard through the `osc52` sequence but it cannot read from it! Hence `p` (for paste in neovim blocks)
   people are aware of the issue: https://github.com/wezterm/wezterm/issues/2050 and there is even a PR for it: https://github.com/wezterm/wezterm/pull/6239 but not reviewed for the last 10 months. Otherwise we can make a workaround to paste directly from nvim registers and resort to `Ctrl+Shift+V` to paste from clipboard
-- [x] nvim is glitchy (screen is not recomputed properly, especially on repeat keys, but not only, eg. expanding neo-tree next to an empty buffer) 
+- [x] nvim is glitchy (screen is not recomputed properly, especially on repeat keys, but not only, eg. expanding neo-tree next to an empty buffer)
   -> fixed in nightly
 - [x] install wezterm mux server inside docker at work. Possible strategies:
   - [x] build it headless with the following command:
@@ -459,31 +481,6 @@
   - [ ] check nix-update script if that could work (`niv` does not seem to be maintained so actively :-( )
 
 - [ ] install json5 (to convert from `json5` to `json`), it is a simple node module, but you need to write the derivation for it ...
-
-# Rust applications ideas (needs)
-
-- Your own stow version in Rust (look into what chez-moi does):
-  - [x] init project
-  - [x] implementation:
-  - [x] how do you allocate a vector's data on the heap ?
-    - [x] read https://fasterthanli.me/series/making-our-own-executable-packer/part-14 and take notes
-  - [ ] finish the nomicon
-  - [ ] follow this https://rust-cli.github.io/book/tutorial/index.html - don't get lost in looking up the sources too much
-  - [ ] https://veykril.github.io/tlborm/syntax-extensions/source-analysis.html on macros
-
-- A utility to generate a beautiful status bar in TMUX
-  - would accept a config in lua
-
-- Your own TMUX that could:
-  - be configured in lua
-  - have nerdfonts embedded
-  - have colorscheme embedded
-  - have a fuzzy finder embedded and be a first class citizen to select stuff
-  - be able to multiplex across machines
-  => basically a fork of Wezterm, but without: the weird launch menu, the UI tabline, focus events, maybe rework the architecture (event/async) to allow async calls in the tabstatus, configurarble keyspace for command line, copy mode (better vi/emacs support), etc.
-
-- a small CLI which allows to output up to N lines to stdout and then pass on the rest to a pipe
-  - this would allow to print the header and then grep for example for ps, kubectl, readelf etc. (a bit like `tee` basically)
 
 # Nix setup
 
