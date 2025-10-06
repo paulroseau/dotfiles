@@ -19,7 +19,6 @@ require('codecompanion').setup({
               default = 'gpt-5',
             }
           }
-
         })
       end,
     }
