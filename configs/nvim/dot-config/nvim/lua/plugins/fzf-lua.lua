@@ -53,6 +53,11 @@ fzf.setup({
       ["ctrl-x"] = { fn = buf_del, reload = true },
     }
   },
+  commands = {
+    actions = {
+      ["enter"] = fzf.actions.ex_run_cr,
+    },
+  },
   tabs = {
     actions = {
       ["ctrl-x"] = { fn = buf_del, reload = true },
