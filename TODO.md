@@ -4,6 +4,14 @@
 - [x] install Solarized
 - [x] install codecompanion
 - [ ] configure codecompanion (probably need to learn a bit about the AI tooling ecosystem)
+  - [ ] take notes on CodeCompanion architecture
+  - [ ] create alternative to `CodeCompanionActions`, because we want to be able to choose how to open chats (vert, bottom, tab) but we can't do that with a heterogenous list of actions (some trigger other pickers, one is inline, others open a chat buffer). The idea is to have the following:
+    - [ ] cycle through the already open chats, seems like we could reuse `fzf.buffer`
+      - [x] create commmand
+      - [ ] create mapping
+      - [ ] allow to rename a CC Chat (use `:file`)
+    - [ ] cycle through the chat creation option: create empty chat, chat with memory, predefined workflow, create git message
+    - [ ] cycle through the inline strategies (empty, `/Fix`, etc.)
 - [ ] checkout this guy's repos and dotfiles https://github.com/olimorris/onedarkpro.nvim he also does codecompanion:
   - his colorschmeme, fonts style, tab bar are really nice on the README screen records
   - [ ] install nvimdev/dashboard
@@ -11,7 +19,7 @@
     - [ ] his onedarkpro -> YES
     - [ ] switch from lualine to heirline, and remove your tabline plugin -> YES
     - [ ] copilot
-    - [ ] oil
+    - [ ] oil -> Probably NO
     - [ ] mini.test
     - [ ] aerial
     - [ ] persisted
@@ -22,7 +30,7 @@
     - [ ] troublesum
     - [ ] nvim-autopairs
     - [ ] guess-indent
-    - [ ] todo-comments -> No
+    - [x] todo-comments -> No
     - [ ] render-markdown
     - [ ] edgy
     - [ ] gitsigns
