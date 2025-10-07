@@ -32,7 +32,7 @@ vim.api.nvim_create_user_command('CCChats', function()
     prompt = 'CC Chats> ',
     show_unlisted = true, -- CodeCompanion creates unlisted buffer with api.nvim_create_buf(false, true), it is not parametrizable
     ignore_current_buffer = true,
-    query = 'codecompanion',
+    query = '[CodeCompanion]',
     winopts = {
       title = 'Code Companion Chats',
       preview = {
