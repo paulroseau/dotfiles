@@ -65,6 +65,10 @@ rec {
     yq
   ];
 
+  ai = [
+    claude-code
+  ];
+
   development = rec {
     c = [
       clang
