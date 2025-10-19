@@ -1,11 +1,3 @@
--- Check if this does not make its way into the plugin: https://github.com/nvim-neo-tree/neo-tree.nvim/issues/777
-
-local function open_all_subnodes(state)
-  local node = state.tree:get_node()
-  local filesystem_commands = require("neo-tree.sources.filesystem.commands")
-  filesystem_commands.expand_all_nodes(state, node)
-end
-
 require("neo-tree").setup({
   default_component_configs = {
     symlink_target = {
@@ -18,7 +10,7 @@ require("neo-tree").setup({
       ["o"] = "open_drop",
       ["T"] = "open_tab_drop",
       ["<M-t>"] = "open_tab_drop",
-      ["O"] = open_all_subnodes,
+      ["O"] = "expand_all_subnodes",
       ["<M-s>"] = "open_split",
       ["<M-v>"] = "open_vsplit",
       ["I"] = "toggle_hidden",
@@ -30,6 +22,8 @@ require("neo-tree").setup({
       ["Z"] = "expand_all_nodes",
       ["P"] = "paste_from_clipboard",
       ["p"] = "paste_from_clipboard",
+      ["<C-p>"] = "prev_source",
+      ["<C-n>"] = "next_source",
       ["i"] = "noop",
       ["b"] = "noop",
       ["l"] = "noop", -- don't know why move right is blocked
