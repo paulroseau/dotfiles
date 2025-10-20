@@ -17,10 +17,10 @@
         "homepage": "https://codecompanion.olimorris.dev",
         "owner": "olimorris",
         "repo": "codecompanion.nvim",
-        "rev": "v17.27.0",
-        "sha256": "0s6sdgji5pjff2fdmcfaw45bfc1z9i87y2s6gj3yl00yzmlh0mz6",
+        "rev": "v17.23.0",
+        "sha256": "0z4cms1l745zgjsy8p46j75fyw00rhz879yli2rms6yd37zrqla5",
         "type": "tarball",
-        "url": "https://github.com/olimorris/codecompanion.nvim/archive/v17.27.0.tar.gz",
+        "url": "https://github.com/olimorris/codecompanion.nvim/archive/v17.23.0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "comment-nvim": {
