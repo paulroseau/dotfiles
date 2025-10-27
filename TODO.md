@@ -7,12 +7,21 @@
   - [ ] take notes on CodeCompanion architecture
   - [ ] create alternative to `CodeCompanionActions`, because we want to be able to choose how to open chats (vert, bottom, tab) but we can't do that with a heterogenous list of actions (some trigger other pickers, one is inline, others open a chat buffer). The idea is to have the following:
     - [ ] cycle through the already open chats, seems like we could reuse `fzf.buffer` -> no manual for more control (display the type of adapter at least using `_G.chat_metadata`. You will need to use `fzf_lua.exec(contents, opts)` with `opts._fmt.from = function(s, _) return '[buf_nb]' end`)
+      - [ ] how are buf lines printed all nice nice (`<leader>l`?), understand coroutine, seems to be the same as python
       - [ ] create commmand
       - [ ] create mapping
       - [ ] allow to rename a CC Chat (use `:file`) -> won't do
+      - [ ] summarize the conversation asynchronously (use _ctx) to display
     - [ ] cycle through the chat creation option: create empty chat, chat with memory, predefined workflow, create git message
     - [ ] cycle through the inline strategies (empty, `/Fix`, etc.)
     - [ ] cycle through the open chats whithin the open window
+    - [ ] in this same occasion add other fzf pickers:
+      - [ ] toggle ignore files with fzf.files
+      - snacks:
+        - [ ] projects (is it necessary now that there is zoxide?)
+        - recent files
+        - undo
+        - check out if there are any others
 - [ ] checkout this guy's repos and dotfiles https://github.com/olimorris/onedarkpro.nvim he also does codecompanion:
   - his colorschmeme, fonts style, tab bar are really nice on the README screen records
   - [ ] install nvimdev/dashboard
