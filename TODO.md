@@ -503,7 +503,7 @@
 # Nix setup
 
 - install scripts:
-  - [ ] try to make your setup work with the ./overlay.nix inside ~/.config/nixpkgs
+  - [x] try to make your setup work with the ./overlay.nix inside ~/.config/nixpkgs
   - [ ] check what git-updater does
   - [ ] arguments whether you are installing it on a local machine or remotely
   - [ ] distinguish whether we are running on Debian or MacOS X to set up the various links (fonts, launch menu, etc.)

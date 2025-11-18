@@ -16,7 +16,9 @@ nix-shell -p curl bash --command "curl -sSL https://raw.githubusercontent.com/pa
 
 You can install any package with:
 ```sh
-nix-env --install -A 'some-package'
+nix-env --file '<nixpkgs>' --install --attr 'some-package'
+# or
+nix-env -f '<nixpkgs>' -iA 'some-package'
 ```
 
 NB: some packages are overriden in this repository (pinned to a particular version for example).
@@ -24,40 +26,41 @@ NB: some packages are overriden in this repository (pinned to a particular versi
 There is a `myPkgs` attribute which gathers "bundles" of packages to install multiple tools more easily. For example:
 ```sh
 # install neovim and its plugins
-nix-env --install --file nix/default.nix -A 'myPkgs.neovim'
+nix-env -f '<nixpkgs>' -iA 'myPkgs.neovim'
 
 # install the required development tools for a rust project
-nix-env --install --file nix/default.nix -A 'myPkgs.development.rust'
+nix-env -f '<nixpkgs>' -iA 'myPkgs.development.rust'
 
-# install all the basic tools on a local workstation (alacritty, zsh & plugins, neovim & plugins, etc.)
-nix-env --install --file nix/default.nix 'myPkgs.local'
+# install all the basic tools on a local workstation (wezterm, zsh & plugins, neovim & plugins, etc.)
+nix-env -f '<nixpkgs>' -iA 'myPkgs.local'
 ```
 
 ### Install new neovim plugins
 
 ```sh
+NVIM_PLUGINS_SOURCES="$HOME/.config/nixpkgs/overlays/10-my-packages/packages/neovim-plugins/plugins/sources.json"
 # Add the plugin to the list of plugins with niv
-niv -s ./nix/packages/neovim-plugins/plugins/sources.json add hrsh7th/cmp-cmdline
+niv -s $NVIM_PLUGINS_SOURCES add hrsh7th/cmp-cmdline
 
 # Install it 
-nix-env --install --file nix/default.nix -A 'neovim-plugins'
+nix-env -f '<nixpkgs>' -iA 'neovim-plugins'
 # or (to reinstal neovim if necessary)
-nix-env --install --file nix/default.nix -A 'myPkgs.neovim'
+nix-env -f '<nixpkgs>' -iA 'myPkgs.neovim'
 ```
 
 ### Add Treesitter support for new languages
 
 ```sh
+TREESITTER_PARSERS_SOURCES="$HOME/.config/nixpkgs/overlays/10-my-packages/packages/neovim-plugins/tree-sitter-parsers/sources.json"
 # Add a tree-sitter parser with a name with -n option and at a particular version
-niv -s nix/packages/neovim-plugins/tree-sitter-parsers/sources.json add -n lua tree-sitter-grammars/tree-sitter-lua -r v0.2.0
-
+niv -s $TREESITTER_PARSERS_SOURCES add -n lua tree-sitter-grammars/tree-sitter-lua -r v0.2.0
 # Install it
-nix-env --install --file nix/default.nix -A 'myPkgs.neovim'
+nix-env -f '<nixpkgs>' -iA 'myPkgs.neovim'
 ```
 
-Remark: the `-n` option is important, because by convention use the keys in `tree-sitter-parsers/sources.json` as the name of the built parser, and `nvim` resolves tree-sitter parsers expecting their name to match the filetype. For example, with the line above it will be `lua.so` (without the `-n` option it would have been `tree-sitter-lua.so` which would cause the parser to not be found by neovim).
+Remark: the `-n` option is important, because by convention we use the keys in `tree-sitter-parsers/sources.json` as the name of the built parser, and `nvim` resolves tree-sitter parsers expecting their name to match the filetype. For example, with the line above it will be `lua.so` (without the `-n` option it would have been `tree-sitter-lua.so` which would cause the parser to not be found by `nvim`).
 
-Remark: `nvim` does come with a few tree-sitter parsers built-in (in the `../lib/nvim/parser` directory - `../lib/nvim` is part of the runtimepath by default), however those sometimes ship with errors, so we override them by downloading our own and setting them in the `nvim-treesitter` plugin `parser` directory. The `nvim-treesitter` plugin searches that directory in priority for parsers.
+Remark: `nvim` does come with a few tree-sitter parsers built-in (in the `../lib/nvim/parser` directory - `../lib/nvim` is part of the runtimepath by default), however those sometimes ship with errors, so we override them by downloading our own and setting them in the `nvim-treesitter` plugin `parser` directory. The `nvim-treesitter` plugin searches parsers in that directory first.
 
 ## Updates 
 
@@ -77,34 +80,40 @@ sudo nix-channel --update nixpkgs
 You can then reinstall packages based of the latest version of `<nixpkgs>`:
 ```sh
 # Example reinstall all my base packages
-nix-env --install --file nix/default.nix -A myPkgs.base
+nix-env -f '<nixpkgs>' -iA 'myPkgs.base'
 ```
 
 ### Update packages with niv
 
 ```sh
+BINARY_SOURCES="$HOME/.config/nixpkgs/overlays/10-my-packages/sources.json"
+NVIM_PLUGINS_SOURCES="$HOME/.config/nixpkgs/overlays/10-my-packages/packages/neovim-plugins/plugins/sources.json"
+TREESITTER_PARSERS_SOURCES="$HOME/.config/nixpkgs/overlays/10-my-packages/packages/neovim-plugins/tree-sitter-parsers/sources.json"
+
 # Add
-niv -s ./nix/packages/neovim-plugins/plugins/sources.json add hrsh7th/cmp-cmdline
+niv -s $NVIM_PLUGINS_SOURCES add hrsh7th/cmp-cmdline
 
 # Add a tree-sitter parser with a name with -n option and at a particular version
-niv -s nix/packages/neovim-plugins/tree-sitter-parsers/sources.json add -n lua tree-sitter-grammars/tree-sitter-lua -r v0.2.0
+niv -s $TREESITTER_PARSERS_SOURCES add -n lua tree-sitter-grammars/tree-sitter-lua -r v0.2.0
 
 # Update to a particular version
-niv -s ./nix/packages/neovim-plugins/plugins/sources.json update nvim-treesitter -r v0.9.1
+niv -s $NVIM_PLUGINS_SOURCES update nvim-treesitter -r v0.9.1
 
-niv -s ./nix/sources.json update neovim -r v0.10.2
+niv -s $BINARY_SOURCES  update neovim -r v0.10.2
 ```
 
 Then you need to reinstall the package with `nix`:
 ```sh
-nix-env --install --file nix/default.nix -A '<package>'
+nix-env -f '<nixpkgs>' -iA '<package>'
 ```
 
 ## Deletions
 
 ```sh
 # Delete a package (creates a new environment without the package)
-nix-env --uninstall --file nix/default '<package>'
+nix-env --file '<nixpkgs>' --uninstall '<package>'
+# or
+nix-env -f '<nixpkgs>' -e '<package>'
 
 # List all nix environment generations
 nix-env --list-generations

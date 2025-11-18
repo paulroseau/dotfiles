@@ -21,8 +21,8 @@ rec {
     wezterm
   ];
 
-  zsh = [
-    pkgs.zsh
+  shell = [
+    zsh
     starship
     zoxide
     zsh-autosuggestions
@@ -110,7 +110,7 @@ rec {
 
   google = [ google-cloud-sdk ];
 
-  base = core ++ misc ++ neovim ++ fzf-lua-required ++ versioning ++ zsh;
+  base = core ++ misc ++ neovim ++ fzf-lua-required ++ versioning ++ shell;
 
   local = base ++ terminal ++ development.all-free;
 }
