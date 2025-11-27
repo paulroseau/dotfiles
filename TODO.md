@@ -4,14 +4,14 @@
 - [x] install Solarized
 - [x] install codecompanion
 - [ ] configure codecompanion (probably need to learn a bit about the AI tooling ecosystem)
-  - [ ] take notes on CodeCompanion architecture
   - [ ] create alternative to `CodeCompanionActions`, because we want to be able to choose how to open chats (vert, bottom, tab) but we can't do that with a heterogenous list of actions (some trigger other pickers, one is inline, others open a chat buffer). The idea is to have the following:
     - [ ] cycle through the already open chats, seems like we could reuse `fzf.buffer` -> no manual for more control (display the type of adapter at least using `_G.chat_metadata`. You will need to use `fzf_lua.exec(contents, opts)` with `opts._fmt.from = function(s, _) return '[buf_nb]' end`)
       - [x] how are buf lines printed all nice nice (`<leader>l`?), understand coroutine, seems to be the same as python
       - [ ] create commmand
       - [ ] create mapping
       - [ ] allow to rename a CC Chat (use `:file`) -> won't do
-      - [ ] summarize the conversation asynchronously (use _ctx) to display
+      - [ ] summarize the conversation asynchronously (use _ctx) to display:
+        it seems like you could hook yourself to the `User` event fired through `utils.fire` from `ChatSubmitted`, check if there is a title on your buffer, if not fire the request in a separate command, passing the context - maybe use treesitter to capture: go to first "## Me" and capture 3 times `##`, `## Me`, `## Me <text>`, and then invoke CodeCompanion Inline "summarize ..." and unconditionally accept the result in a scratch buffer that you keep around just for that purpose, or delete immediately after rather
     - [ ] cycle through the chat creation option: create empty chat, chat with memory, predefined workflow, create git message
     - [ ] cycle through the inline strategies (empty, `/Fix`, etc.)
     - [ ] cycle through the open chats whithin the open window
@@ -22,6 +22,8 @@
         - recent files
         - undo
         - check out if there are any others
+  - [ ] take notes on CodeCompanion architecture
+  - [ ] configure Claude
 - [ ] checkout this guy's repos and dotfiles https://github.com/olimorris/onedarkpro.nvim he also does codecompanion:
   - his colorschmeme, fonts style, tab bar are really nice on the README screen records
   - [ ] install nvimdev/dashboard
