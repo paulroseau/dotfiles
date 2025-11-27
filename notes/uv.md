@@ -6,7 +6,7 @@
 
 - The event loop under the hood delegates to an OS construct to watch a series of file descriptors, on Linux it uses `epoll`.
 
-- One of the core abstraction is a `uv_pipe`, which confusingly on Linux does not map to a pipe, but a unix socket. Those `uv_pipe` end up creating file descriptors that are monitored by the underlying `epoll`.
+- One of the core abstraction is a `uv_pipe`, which confusingly on Linux does not map to a pipe, but to a unix socket. Those `uv_pipe` end up creating file descriptors that are monitored by the underlying `epoll`.
 
 - `epoll` watches file descriptors, not PIDs. A process exiting is not an epoll event. Hence for processes related callbacks, you would use `uv_spawn` which before forking a child process would create a file descriptor through `signalfd` (which is a file descriptor from which you can read which signals were sent to the caller process) such that it can be read when the `SIGCHL` signal is delivered (this signal is delivered to a parent process when one of its child process completes). It then registers `wait` as a callback to the corresponding handle to cleanup that child process.
 
