@@ -1,7 +1,3 @@
-# Path
-export PATH="$HOME/.local/bin:$PATH"
-if [ -e $HOME/.cargo/env ]; then . $HOME/.cargo/env; fi
-
 # Secrets
 if [ -e $HOME/.secrets ]; then . $HOME/.secrets; fi
 
@@ -27,6 +23,13 @@ if [ -e $NIX_PROFILE/share ]; then ZSH_PLUGINS_DIR="$NIX_PROFILE/share"; fi
 if [ -e $NIX_PROFILE/share/neovim-plugins ]; then export NVIM_PLUGINS_DIR="$NIX_PROFILE/share/neovim-plugins"; fi
 if [ -e $NIX_PROFILE/share/fzf ]; then FZF_SHELL_DIR="$NIX_PROFILE/share/fzf"; fi
 if [ -e $NIX_PROFILE/share/skim ]; then SKIM_SHELL_DIR="$NIX_PROFILE/share/skim"; fi
+
+# Update PATH, resulting in this order:
+# 1. manually installed binaries in ~/.local/bin
+# 2. cargo installed binaries in ~/.cargo/bin
+# 3. if using nix, nix installed binaries in ~/.nix-profile/bin
+if [ -e $HOME/.cargo/env ]; then . $HOME/.cargo/env; fi
+export PATH="$HOME/.local/bin:$PATH"
 
 # Default editor
 if [ $(command -v nvim) ]
