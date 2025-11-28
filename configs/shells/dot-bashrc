@@ -1,16 +1,31 @@
+# Helpers
+has() { 
+  command -v "$1" >/dev/null 2>&1
+}
+
+is_interactive() {
+  case $- in
+    *i*) return 0 ;;  # interactive
+    *)   return 1 ;;
+  esac
+}
+
 # Environment variable (including PATH)
-source $HOME/.env
+[ -r "$HOME/.env" ] && . "$HOME/.env"
+
 export SHELL="bash"
 
 # Aliases
-source $HOME/.aliases
+[ -r "$HOME/.aliases" ] && . "$HOME/.aliases"
 
 # Prompt
-if [ $(command -v starship) ]; then eval "$(starship init bash)"; fi
+if is_interactive && has starship; then eval "$(starship init bash)"; fi
 
 # Zoxide
-if [ $(command -v zoxide) ]; then eval "$(zoxide init bash)"; fi
+if is_interactive && has zoxide; then eval "$(zoxide init bash)"; fi
 
-# FZF key bindings and autocomplete
-if [ -f $FZF_SHELL_DIR/completion.bash ]; then source $FZF_SHELL_DIR/completion.bash; fi
-if [ -f $FZF_SHELL_DIR/key-bindings.bash ]; then source $FZF_SHELL_DIR/key-bindings.bash; fi
+# FZF (or skim) key bindings and completion (interactive shells only)
+if is_interactive && { has fzf || has sk; }; then
+  [ -r "$FZF_SHELL_DIR/completion.bash" ] && . "$FZF_SHELL_DIR/completion.bash"
+  [ -r "$FZF_SHELL_DIR/key-bindings.bash" ] &&  . "$FZF_SHELL_DIR/key-bindings.bash"
+fi

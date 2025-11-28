@@ -1,5 +1,5 @@
 # Secrets
-if [ -e $HOME/.secrets ]; then . $HOME/.secrets; fi
+[ -r "$HOME/.secrets" ] && . "$HOME/.secrets"
 
 # Your nvim config looks up this env variable to add plugins to its RTP
 export NVIM_PLUGINS_DIR="$HOME/.nvim-plugins"
@@ -13,28 +13,28 @@ ZSH_PLUGINS_DIR="$HOME/.zsh-plugins"
 NIX_PROFILE="$HOME/.nix-profile"
 
 # Update PATH through nix-env if present
-if [ -e $NIX_PROFILE/etc/profile.d/nix.sh ]; then . $NIX_PROFILE/etc/profile.d/nix.sh; fi
+[ -r $NIX_PROFILE/etc/profile.d/nix.sh ] && . $NIX_PROFILE/etc/profile.d/nix.sh
 
 # Necessary for packages complaining about Locale in nix cf. https://github.com/NixOS/nix/issues/4829
 # For instance nix installed starship leaves characters when using Tab completion in zsh without this
 # cf. https://stackoverflow.com/questions/19305291/remnant-characters-when-tab-completing-with-zsh
-if [ -e $NIX_PROFILE ]; then export LC_ALL="C.UTF-8"; fi
-if [ -e $NIX_PROFILE/share ]; then ZSH_PLUGINS_DIR="$NIX_PROFILE/share"; fi
-if [ -e $NIX_PROFILE/share/neovim-plugins ]; then export NVIM_PLUGINS_DIR="$NIX_PROFILE/share/neovim-plugins"; fi
-if [ -e $NIX_PROFILE/share/fzf ]; then FZF_SHELL_DIR="$NIX_PROFILE/share/fzf"; fi
-if [ -e $NIX_PROFILE/share/skim ]; then SKIM_SHELL_DIR="$NIX_PROFILE/share/skim"; fi
+if [ -d "$NIX_PROFILE" ]; then
+  export LC_ALL="C.UTF-8"
+  [ -d "$NIX_PROFILE/share" ]                 && ZSH_PLUGINS_DIR="$NIX_PROFILE/share"
+  [ -d "$NIX_PROFILE/share/neovim-plugins" ]  && NVIM_PLUGINS_DIR="$NIX_PROFILE/share/neovim-plugins"
+  [ -d "$NIX_PROFILE/share/fzf" ]             && FZF_SHELL_DIR="$NIX_PROFILE/share/fzf"
+  [ -d "$NIX_PROFILE/share/skim" ]            && SKIM_SHELL_DIR="$NIX_PROFILE/share/skim"
+fi
 
 # Update PATH, resulting in this order:
 # 1. manually installed binaries in ~/.local/bin
 # 2. cargo installed binaries in ~/.cargo/bin
 # 3. if using nix, nix installed binaries in ~/.nix-profile/bin
-if [ -e $HOME/.cargo/env ]; then . $HOME/.cargo/env; fi
+if [ -r $HOME/.cargo/env ]; then . $HOME/.cargo/env; fi
 export PATH="$HOME/.local/bin:$PATH"
 
 # Default editor
-if [ $(command -v nvim) ]
-then
+if command -v nvim >/dev/null 2>&1; then
   export EDITOR="nvim"
   export VISUAL="nvim"
 fi
-

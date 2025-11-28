@@ -1,30 +1,33 @@
+# Helpers
+
+has() { (( $+commands[$1] )); }
+is_interactive() { [[ -o interactive ]]; }
+
 # Environment variable (including PATH)
-source $HOME/.env
+[[ -r "$HOME/.env"     ]] && . "$HOME/.env"
+[[ -r "$HOME/.aliases" ]] && . "$HOME/.aliases"
+
 export SHELL="zsh"
 
-# Aliases
-source $HOME/.aliases
 
-# Prompt
-if [ $(command -v starship) ]; then eval "$(starship init zsh)"; fi
-
-# Zoxide
-if [ $(command -v zoxide) ]; then eval "$(zoxide init zsh)"; fi
+# Prompt and Zoxide (interactive only)
+if is_interactive; then
+  has starship && eval "$(starship init zsh)"
+  has zoxide   && eval "$(zoxide init zsh)"
+fi
 
 # History
 HISTSIZE=10000
 SAVEHIST=10000
-HISTFILE=$HOME/.zsh_history
-setopt HIST_SAVE_NO_DUPS # not so useful since SHARE_HISTORY adds timestamps to each line
-setopt SHARE_HISTORY
-setopt APPEND_HISTORY
+HISTFILE="$HOME/.zsh_history"
+setopt APPEND_HISTORY SHARE_HISTORY HIST_SAVE_NO_DUPS EXTENDED_HISTORY
 
 # Default keymap
 
 # Zsh sets keymap to vi if the EDITOR environment variable is set to nvim.
 # Because the emulation is not exact, it is better to use default emacs bindings
 # and resort to full on nvim if advanced editing is needed (cf. edit-command-line)
-bindkey -A emacs main
+bindkey -e
 
 # Edit current command in editor
 autoload -Uz edit-command-line
@@ -32,11 +35,9 @@ zle -N edit-command-line
 bindkey -M main '^v' edit-command-line
 
 # Completion
-
-# Configure completion
 zstyle ':completion:*' menu select
 
-# Naviagte the completion menu with vi style bindings
+# Navigate completion menu with vi style bindings
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'l' vi-forward-char
@@ -51,9 +52,9 @@ autoload -Uz compinit
 compinit
 
 # FZF key bindings and autocomplete (needs to happen after completion initialization)
-if [ -f $FZF_SHELL_DIR/completion.zsh ]; then source $FZF_SHELL_DIR/completion.zsh; fi
-if [ -f $FZF_SHELL_DIR/key-bindings.zsh ]; then source $FZF_SHELL_DIR/key-bindings.zsh; fi
+[ -r $FZF_SHELL_DIR/completion.zsh ] && . $FZF_SHELL_DIR/completion.zsh
+[ -r $FZF_SHELL_DIR/key-bindings.zsh ] && . $FZF_SHELL_DIR/key-bindings.zsh
 
 # Zsh plugins
-if [ -f $ZSH_PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then source $ZSH_PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh; fi
-if [ -f $ZSH_PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then source $ZSH_PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh; fi
+[ -r $ZSH_PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . $ZSH_PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -r $ZSH_PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && . $ZSH_PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

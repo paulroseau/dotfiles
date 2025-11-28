@@ -1,14 +1,26 @@
-alias diff='diff --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias grep='grep --color=auto'
-alias ls='ls --color=auto'
+if diff --color=auto /dev/null /dev/null >/dev/null 2>&1; then
+  alias diff='diff --color=auto'
+fi
+
+if ls --color -d . >/dev/null 2>&1; then
+  alias ls='ls --color=auto'
+elif ls -G -d . >/dev/null 2>&1; then
+  alias ls='ls -G'
+fi
 alias l='ls -CFt'
 alias la='ls -At'
 alias ll='ls -alFt'
 
-if [ $(command -v bat) ]; then alias cat='bat'; fi
-if [ $(command -v fd) ]; then alias find='fd'; fi
-if [ $(command -v jaq) ]; then alias jq='jaq'; fi
-if [ $(command -v rg) ]; then alias grep='rg'; fi
-if [ $(command -v nix-env) ]; then alias nia='nix-env -f "<nixpkgs>" -iA'; fi
+has() { command -v "$1" >/dev/null 2>&1; }
+
+if has rg; then
+  alias grep='rg'
+else
+  if grep --help 2>&1 | grep -q -- '--color'; then
+    alias grep='grep --color=auto'
+  fi
+fi
+
+has bat     && alias cat='bat'
+has jaq     && alias jq='jaq'
+has nix-env && alias nia='nix-env -f "<nixpkgs>" -iA'
