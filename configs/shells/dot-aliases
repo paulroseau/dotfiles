@@ -11,3 +11,4 @@ if [ $(command -v bat) ]; then alias cat='bat'; fi
 if [ $(command -v fd) ]; then alias find='fd'; fi
 if [ $(command -v jaq) ]; then alias jq='jaq'; fi
 if [ $(command -v rg) ]; then alias grep='rg'; fi
+if [ $(command -v nix-env) ]; then alias nia='nix-env -f "<nixpkgs>" -iA'; fi
