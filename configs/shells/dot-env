@@ -9,11 +9,7 @@ FZF_SHELL_DIR="$HOME/.local/share/fzf"
 SKIM_SHELL_DIR="$HOME/.local/share/skim"
 ZSH_PLUGINS_DIR="$HOME/.zsh-plugins"
 
-# Nix aware setup
 NIX_PROFILE="$HOME/.nix-profile"
-
-# Update PATH through nix-env if present
-[ -r $NIX_PROFILE/etc/profile.d/nix.sh ] && . $NIX_PROFILE/etc/profile.d/nix.sh
 
 # Necessary for packages complaining about Locale in nix cf. https://github.com/NixOS/nix/issues/4829
 # For instance nix installed starship leaves characters when using Tab completion in zsh without this
@@ -26,12 +22,30 @@ if [ -d "$NIX_PROFILE" ]; then
   [ -d "$NIX_PROFILE/share/skim" ]            && SKIM_SHELL_DIR="$NIX_PROFILE/share/skim"
 fi
 
-# Update PATH, resulting in this order:
+
+# Update PATH, resulting in this searching binaries with this priority:
 # 1. manually installed binaries in ~/.local/bin
 # 2. cargo installed binaries in ~/.cargo/bin
 # 3. if using nix, nix installed binaries in ~/.nix-profile/bin
-if [ -r $HOME/.cargo/env ]; then . $HOME/.cargo/env; fi
-export PATH="$HOME/.local/bin:$PATH"
+
+if [ -r "$NIX_PROFILE/etc/profile.d/nix.sh" ]; then
+  case ":$PATH:" in
+    *.nix-profile*) : ;;
+    *) . $NIX_PROFILE/etc/profile.d/nix.sh ;;
+  esac
+fi
+
+if [ -r "$HOME/.cargo/env" ]; then
+  case ":$PATH:" in
+    *.cargo*) : ;;
+    *) . $HOME/.cargo/env ;;
+  esac
+fi
+
+case ":$PATH:" in
+  *":$HOME/.local/bin:"*) : ;;
+  *) PATH="$HOME/.local/bin${PATH:+:$PATH}"; export PATH ;;
+esac
 
 # Default editor
 if command -v nvim >/dev/null 2>&1; then
