@@ -1,14 +1,19 @@
 #!/bin/bash
 
+check_command_exists () {
+  if ! command -v ${1} >/dev/null 2>&1; then
+    echo "Error: ${1} required but not found in PATH: ${PATH}." >&2
+    exit 1
+  fi
+}
+
 NIX_PROFILE="$HOME/.nix-profile"
+
+check_command_exists "nix-env"
+check_command_exists "nix-shell"
 
 # Update PATH through nix-env if present
 [ -r $NIX_PROFILE/etc/profile.d/nix.sh ] && . $NIX_PROFILE/etc/profile.d/nix.sh
-
-if ! command -v nix-env >/dev/null 2>&1; then
-  echo "Error: nix-env not found in PATH, install Nix." >&2
-  exit 1
-fi
 
 clone_this_repository () {
   nix-shell -p git --command "git clone https://github.com/paulroseau/dotfiles $HOME/.dotfiles"
@@ -24,5 +29,5 @@ create_config_symlinks () {
 }
 
 clone_this_repository
+
 create_config_symlinks
-nix-env -f '<nixpkgs>' --install --attr bundle.base
