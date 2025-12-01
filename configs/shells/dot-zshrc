@@ -45,7 +45,7 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'j' vi-down-line-or-history
 
 # Add zsh completion for nix installed tools
-if [ -e $ZSH_PLUGINS_DIR/zsh/site-functions ]; then fpath+=($ZSH_PLUGINS_DIR/zsh/site-functions $fpath); fi
+if [ -d $ZSH_PLUGINS_DIR/zsh/site-functions ]; then fpath+=($ZSH_PLUGINS_DIR/zsh/site-functions $fpath); fi
 
 # Init completion
 autoload -Uz compinit
