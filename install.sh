@@ -9,11 +9,11 @@ check_command_exists () {
 
 NIX_PROFILE="$HOME/.nix-profile"
 
-check_command_exists "nix-env"
-check_command_exists "nix-shell"
-
 # Update PATH through nix-env if present
 [ -r $NIX_PROFILE/etc/profile.d/nix.sh ] && . $NIX_PROFILE/etc/profile.d/nix.sh
+
+check_command_exists "nix-env"
+check_command_exists "nix-shell"
 
 clone_this_repository () {
   nix-shell -p git --command "git clone https://github.com/paulroseau/dotfiles $HOME/.dotfiles"
