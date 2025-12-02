@@ -94,6 +94,7 @@ rec {
     python = [
       python3
       pyright
+      ruff
     ];
 
     terraform = [
