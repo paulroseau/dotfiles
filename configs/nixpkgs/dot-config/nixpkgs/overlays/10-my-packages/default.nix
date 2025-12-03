@@ -1,28 +1,28 @@
-self: super:
+final: prev:
 
 let
   sources = import ./sources.nix {
-    pkgs = super;
+    pkgs = prev;
     sourcesFile = ./sources.json;
   };
 
 in
 {
-  alacritty = self.callPackage ./packages/alacritty.nix { alacritty = super.alacritty; };
+  alacritty = final.callPackage ./packages/alacritty.nix { alacritty = prev.alacritty; };
 
-  neovim-unwrapped = self.callPackage ./packages/neovim.nix {
-    neovim-unwrapped = super.neovim-unwrapped;
+  neovim-unwrapped = final.callPackage ./packages/neovim.nix {
+    neovim-unwrapped = prev.neovim-unwrapped;
     source = sources.neovim;
   };
 
-  neovim-plugins = self.callPackage ./packages/neovim-plugins {
+  neovim-plugins = final.callPackage ./packages/neovim-plugins {
     neovimPluginsSources = import ./sources.nix {
-      pkgs = super;
+      pkgs = prev;
       sourcesFile = ./packages/neovim-plugins/plugins/sources.json;
     };
 
     treeSitterParsersSources = import ./sources.nix {
-      pkgs = super;
+      pkgs = prev;
       sourcesFile = ./packages/neovim-plugins/tree-sitter-parsers/sources.json;
     };
   };
@@ -33,9 +33,13 @@ in
   # install it with:
   # nix-env -f <nixpkgs> --install -A rust-analyzer
   # but we removed it from the development.rust bundle
-  rust-analyzer = self.callPackage ./packages/rust-analyzer.nix {
-    rust-analyzer = super.rust-analyzer;
+  rust-analyzer = final.callPackage ./packages/rust-analyzer.nix {
+    rust-analyzer = prev.rust-analyzer;
   };
 
-  bundle = import ./make-bundles.nix self;
+  update-my-repos = final.callPackage ./pkg.nix {
+    pythonPackages = final.python312Packages;
+  };
+
+  bundle = import ./make-bundles.nix final;
 }

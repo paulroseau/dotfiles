@@ -1,0 +1,47 @@
+[project]
+name = "update-my-repos"
+version = "0.1.0"
+description = "Clone or update repositories defined in a JSON file."
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+update-my-repos = "update_my_repos.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+fix = true
+extend-exclude = [
+  ".git",
+  ".mypy_cache",
+  ".ruff_cache",
+  ".venv",
+  "venv",
+  ".tox",
+  ".nox",
+  "__pycache__",
+  "build",
+  "dist",
+  "*.egg-info",
+]
+
+[tool.ruff.lint]
+# Common rule sets: pycodestyle (E), pyflakes (F), isort (I), pep8-naming (N),
+# bugbear (B), pyupgrade (UP), ruff-specific (RUF)
+select = ["E", "F", "I", "N", "B", "UP", "RUF"]
+ignore = ["E501"] # for long lines (string)
+
+[tool.ruff.lint.isort]
+known-first-party = ["update_my_repos"]
+combine-as-imports = true
+force-wrap-aliases = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
