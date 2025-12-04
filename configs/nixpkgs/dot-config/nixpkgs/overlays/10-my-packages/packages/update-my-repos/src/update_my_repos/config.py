@@ -107,7 +107,7 @@ class Config:
                 )
 
             sections[section_name] = SectionSpec(
-                local_path=Path(local_path) if local_path else None,
+                local_path=Path(os.path.expandvars(local_path)) if local_path else None,
                 repositories=repository_specs,
             )
 
