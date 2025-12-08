@@ -23,4 +23,5 @@ fi
 
 has bat     && alias cat='bat'
 has jaq     && alias jq='jaq'
-has nix-env && alias nia='nix-env -f "<nixpkgs>" -iA'
+has nix-env && alias nixi='nix-env --file "<nixpkgs>" --install'
+has nix-env && alias nixu='nix-env --file "<nixpkgs>" --uninstall'
