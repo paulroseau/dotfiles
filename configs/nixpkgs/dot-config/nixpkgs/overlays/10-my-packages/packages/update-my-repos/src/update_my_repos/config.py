@@ -6,14 +6,19 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-DEFAULT_CONFIG_PATH = (
-    Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config"))
-    / "my-repos"
-    / "repositories.json"
+from .result import (
+    ConfigErr,
+    ConfigError,
+    ConfigPathError,
+    InvalidConfigError,
+    InvalidJsonFileError,
+    Result,
+    Success,
 )
 
-
-class ConfigError(Exception): ...
+DEFAULT_CONFIG_PATH = (
+    Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config")) / "my-repos"
+)
 
 
 @dataclass(frozen=True)
@@ -34,59 +39,122 @@ class Config:
     sections: dict[str, SectionSpec]
 
     @classmethod
-    def from_file(cls, file_path: Path) -> Config:
+    def from_path(cls, path: Path) -> Result[Config]:
+        if path.is_file():
+            return cls.from_file(path)
+        elif path.is_dir():
+            sections: dict[str, SectionSpec] = {}
+            errors: dict[Path, ConfigError] = {}
+
+            for file_path in sorted(
+                (p for p in path.iterdir() if p.is_file()), key=lambda p: p.name
+            ):
+                match cls.from_file(file_path):
+                    case Success(value=config):
+                        for name, section in config.sections.items():
+                            if name not in sections:
+                                sections[name] = section
+                    case ConfigError() as error:
+                        errors[file_path] = error
+
+            if errors:
+                return ConfigPathError(errors=errors)
+
+            return Success(cls(sections=sections))
+        else:
+            return InvalidJsonFileError(
+                message="config path is neither a directory nor a file",
+                file_path=path,
+            )
+
+    @classmethod
+    def from_file(cls, file_path: Path) -> Result[Config]:
         try:
             with file_path.open("r", encoding="utf-8") as f:
                 data = json.load(f)
-        except Exception as e:
-            raise ConfigError(f"Failed to load JSON from {file_path}: {e}") from e
+        except Exception as exception:
+            return InvalidJsonFileError(
+                message="failed to load JSON",
+                file_path=file_path,
+                cause=exception,
+            )
         return cls.from_dict(data)
 
     @classmethod
-    def from_dict(cls, data: Any) -> Config:
+    def from_dict(cls, data: Any) -> Result[Config]:
         if not isinstance(data, dict):
-            raise ConfigError(
-                "Top-level JSON must be an object mapping section name -> section config"
+            return InvalidConfigError(
+                config_errors=[
+                    ConfigErr(
+                        json_path="$.",
+                        message="top-level JSON must be an object mapping: section name -> section config",
+                    )
+                ]
             )
 
-        errors: list[str] = []
+        errors: list[ConfigErr] = []
         sections: dict[str, SectionSpec] = {}
 
         for section_name, section in data.items():
             json_path = f"$.{section_name}"
             if not isinstance(section, dict):
-                errors.append(f"{json_path}: must be an object")
+                errors.append(
+                    ConfigErr(
+                        json_path=json_path,
+                        message="must be an object",
+                    )
+                )
                 continue
 
             local_path = section.get("local_path")
             if local_path is not None and not isinstance(local_path, str):
-                errors.append(f"{json_path}.local_path: must be a string when present")
+                errors.append(
+                    ConfigErr(
+                        json_path=f"{json_path}.local_path",
+                        message="must be a string when present",
+                    )
+                )
                 continue
 
             repositories = section.get("repositories")
             if not isinstance(repositories, list):
-                errors.append(f"{json_path}.repositories: must be an array")
+                errors.append(
+                    ConfigErr(
+                        json_path=f"{json_path}.repositories",
+                        message="must be an array",
+                    )
+                )
                 continue
 
             repository_specs: list[RepoSpec] = []
             for index, repository in enumerate(repositories):
                 json_repository_path = f"{json_path}.repositories[{index}]"
                 if not isinstance(repository, dict):
-                    errors.append(f"{json_repository_path}: must be an object")
+                    errors.append(
+                        ConfigErr(
+                            json_path=json_repository_path,
+                            message="must be an object",
+                        )
+                    )
                     continue
 
                 url = repository.get("clone_url")
                 if not isinstance(url, str) or not url.strip():
                     errors.append(
-                        f"{json_repository_path}.clone_url: missing or not a non-empty "
-                        "string"
+                        ConfigErr(
+                            json_path=f"{json_repository_path}.clone_url",
+                            message="`clone_url` is missing or an empty string",
+                        )
                     )
                     continue
 
                 name = repository.get("name")
                 if name is not None and not isinstance(name, str):
                     errors.append(
-                        f"{json_repository_path}.name: must be a string when present"
+                        ConfigErr(
+                            json_path=f"{json_repository_path}.name",
+                            message="`name` must be a string when present",
+                        )
                     )
                     name = None
 
@@ -95,8 +163,10 @@ class Config:
                     recurse_submodules, bool
                 ):
                     errors.append(
-                        f"{json_repository_path}.recurse_submodules: must be a bool "
-                        "when present"
+                        ConfigErr(
+                            json_path=f"{json_repository_path}.recurse_submodules",
+                            message="`recurse_submodules` must be a bool when present",
+                        )
                     )
                     recurse_submodules = None
 
@@ -112,6 +182,6 @@ class Config:
             )
 
         if errors:
-            raise ConfigError("Invalid repositories.json:\n- " + "\n- ".join(errors))
+            return InvalidConfigError(config_errors=errors)
 
-        return cls(sections=sections)
+        return Success(cls(sections=sections))
