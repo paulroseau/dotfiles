@@ -37,7 +37,7 @@ in
     rust-analyzer = prev.rust-analyzer;
   };
 
-  update-my-repos = final.callPackage ./pkg.nix {
+  update-my-repos = final.callPackage ./packages/update-my-repos/pkg.nix {
     pythonPackages = final.python312Packages;
   };
 
