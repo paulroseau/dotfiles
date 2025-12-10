@@ -41,5 +41,5 @@ in
     pythonPackages = final.python312Packages;
   };
 
-  bundle = import ./make-bundles.nix final;
+  bundles = import ./bundles.nix final;
 }
