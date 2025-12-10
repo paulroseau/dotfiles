@@ -1,0 +1,22 @@
+{
+  "sources": {
+    "repositories": [
+      {
+        "clone_url": "https://github.com/mit-pdos/xv6-riscv.git"
+      },
+      {
+        "clone_url": "https://github.com/neovim/neovim.git"
+      },
+      {
+        "clone_url": "https://github.com/python/cpython.git"
+      },
+      {
+        "clone_url": "https://github.com/rust-lang/rust.git"
+      },
+      {
+        "clone_url": "https://github.com/wezterm/wezterm.git"
+      }
+    ],
+    "local_path": "${HOME}/repos/sources"
+  }
+}

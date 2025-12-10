@@ -1,0 +1,25 @@
+{
+  "projects": {
+    "repositories": [
+      {
+        "clone_url": "git@bitbucket.org:paul_roseau/learning-rust.git"
+      },
+      {
+        "clone_url": "git@bitbucket.org:paul_roseau/notes.git"
+      },
+      {
+        "clone_url": "git@bitbucket.org:paul_roseau/personal-documents-infra.git"
+      },
+      {
+        "clone_url": "git@bitbucket.org:paul_roseau/resume.git"
+      },
+      {
+        "clone_url": "git@github.com:paulroseau/rust-executable-packer.git"
+      },
+      {
+        "clone_url": "git@github.com:paulroseau/rustow.git"
+      }
+    ],
+    "local_path": "${HOME}/repos/perso"
+  }
+}
