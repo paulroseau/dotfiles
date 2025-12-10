@@ -6,7 +6,7 @@ requires-python = ">=3.12"
 dependencies = []
 
 [project.scripts]
-update-my-repos = "update_my_repos.cli:main"
+update-my-repos = "update_my_repos.cli:cli"
 
 [build-system]
 requires = ["hatchling"]

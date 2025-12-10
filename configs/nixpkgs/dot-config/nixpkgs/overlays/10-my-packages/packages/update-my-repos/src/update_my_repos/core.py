@@ -54,8 +54,8 @@ def clone_repo(
 
     if completed_process.returncode != 0:
         print("❌")
-        sys.stderr.write(f"[error] failed to clone {repository_path}\n")
-        sys.stderr.write(f"[error] {completed_process.stderr}\n")
+        print(f"[error] failed to clone {repository_path}", file=sys.stderr)
+        print(f"[error] {completed_process.stderr}", file=sys.stderr)
         return False
 
     print("✅")
@@ -71,8 +71,8 @@ def pull_repo(repository_path: Path, recurse_submodules: bool | None) -> bool:
 
     if completed_process.returncode != 0:
         print("❌")
-        sys.stderr.write(f"[error] failed to pull {repository_path}\n")
-        sys.stderr.write(f"[error] {completed_process.stderr}\n")
+        print(f"[error] failed to pull {repository_path}", file=sys.stderr)
+        print(f"[error] {completed_process.stderr}", file=sys.stderr)
         return False
 
     print("✅")

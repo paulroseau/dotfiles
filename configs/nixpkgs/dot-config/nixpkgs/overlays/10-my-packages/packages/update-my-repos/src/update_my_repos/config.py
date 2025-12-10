@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import json
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from enum import Enum
 from pathlib import Path
 from typing import Any
 
@@ -21,6 +22,14 @@ DEFAULT_CONFIG_PATH = (
 )
 
 
+class RepoKey(str, Enum):
+    LOCAL_PATH = "local_path"
+    REPOSITORIES = "repositories"
+    CLONE_URL = "clone_url"
+    NAME = "name"
+    RECURSE_SUBMODULES = "recurse_submodules"
+
+
 @dataclass(frozen=True)
 class RepoSpec:
     clone_url: str
@@ -37,6 +46,7 @@ class SectionSpec:
 @dataclass(frozen=True)
 class Config:
     sections: dict[str, SectionSpec]
+    overridden_sections: dict[Path, list[str]] = field(default_factory=dict)
 
     @classmethod
     def from_path(cls, path: Path) -> Result[Config]:
@@ -44,6 +54,7 @@ class Config:
             return cls.from_file(path)
         elif path.is_dir():
             sections: dict[str, SectionSpec] = {}
+            overridden_sections: dict[Path, list[str]] = {}
             errors: dict[Path, ConfigError] = {}
 
             for file_path in sorted(
@@ -54,17 +65,23 @@ class Config:
                         for name, section in config.sections.items():
                             if name not in sections:
                                 sections[name] = section
+                            else:
+                                overridden_sections.setdefault(file_path, []).append(
+                                    name
+                                )
                     case ConfigError() as error:
                         errors[file_path] = error
 
             if errors:
                 return ConfigPathError(errors=errors)
 
-            return Success(cls(sections=sections))
+            return Success(
+                cls(sections=sections, overridden_sections=overridden_sections)
+            )
         else:
             return InvalidJsonFileError(
-                message="config path is neither a directory nor a file",
-                file_path=path,
+                path=path,
+                reason="config path is neither a directory nor a file",
             )
 
     @classmethod
@@ -74,8 +91,7 @@ class Config:
                 data = json.load(f)
         except Exception as exception:
             return InvalidJsonFileError(
-                message="failed to load JSON",
-                file_path=file_path,
+                path=file_path,
                 cause=exception,
             )
         return cls.from_dict(data)
@@ -106,21 +122,33 @@ class Config:
                 )
                 continue
 
-            local_path = section.get("local_path")
+            if invalid_keys := section.keys() - {
+                RepoKey.LOCAL_PATH,
+                RepoKey.REPOSITORIES,
+            }:
+                errors.append(
+                    ConfigErr(
+                        json_path=json_path,
+                        message=f"invalid key(s) ({', '.join([f'{key}' for key in invalid_keys])})",
+                    )
+                )
+                continue
+
+            local_path = section.get(RepoKey.LOCAL_PATH)
             if local_path is not None and not isinstance(local_path, str):
                 errors.append(
                     ConfigErr(
-                        json_path=f"{json_path}.local_path",
+                        json_path=f"{json_path}.{RepoKey.LOCAL_PATH}",
                         message="must be a string when present",
                     )
                 )
                 continue
 
-            repositories = section.get("repositories")
+            repositories = section.get(RepoKey.REPOSITORIES)
             if not isinstance(repositories, list):
                 errors.append(
                     ConfigErr(
-                        json_path=f"{json_path}.repositories",
+                        json_path=f"{json_path}.{RepoKey.REPOSITORIES}",
                         message="must be an array",
                     )
                 )
@@ -128,7 +156,7 @@ class Config:
 
             repository_specs: list[RepoSpec] = []
             for index, repository in enumerate(repositories):
-                json_repository_path = f"{json_path}.repositories[{index}]"
+                json_repository_path = f"{json_path}.{RepoKey.REPOSITORIES}[{index}]"
                 if not isinstance(repository, dict):
                     errors.append(
                         ConfigErr(
@@ -138,34 +166,47 @@ class Config:
                     )
                     continue
 
-                url = repository.get("clone_url")
-                if not isinstance(url, str) or not url.strip():
+                if invalid_keys := repository.keys() - {
+                    RepoKey.CLONE_URL,
+                    RepoKey.NAME,
+                    RepoKey.RECURSE_SUBMODULES,
+                }:
                     errors.append(
                         ConfigErr(
-                            json_path=f"{json_repository_path}.clone_url",
-                            message="`clone_url` is missing or an empty string",
+                            json_path=json_path,
+                            message=f"invalid key(s) ({', '.join([f'{key}' for key in invalid_keys])})",
                         )
                     )
                     continue
 
-                name = repository.get("name")
+                url = repository.get(RepoKey.CLONE_URL)
+                if not isinstance(url, str) or not url.strip():
+                    errors.append(
+                        ConfigErr(
+                            json_path=f"{json_repository_path}.{RepoKey.CLONE_URL}",
+                            message=f"`{RepoKey.CLONE_URL}` is missing or an empty string",
+                        )
+                    )
+                    continue
+
+                name = repository.get(RepoKey.NAME)
                 if name is not None and not isinstance(name, str):
                     errors.append(
                         ConfigErr(
-                            json_path=f"{json_repository_path}.name",
-                            message="`name` must be a string when present",
+                            json_path=f"{json_repository_path}.{RepoKey.NAME}",
+                            message=f"`{RepoKey.NAME}` must be a string when present",
                         )
                     )
                     name = None
 
-                recurse_submodules = repository.get("recurse_submodules")
+                recurse_submodules = repository.get(RepoKey.REPOSITORIES)
                 if recurse_submodules is not None and not isinstance(
                     recurse_submodules, bool
                 ):
                     errors.append(
                         ConfigErr(
-                            json_path=f"{json_repository_path}.recurse_submodules",
-                            message="`recurse_submodules` must be a bool when present",
+                            json_path=f"{json_repository_path}.{RepoKey.REPOSITORIES}",
+                            message=f"`{RepoKey.RECURSE_SUBMODULES}` must be a bool when present",
                         )
                     )
                     recurse_submodules = None
@@ -185,3 +226,10 @@ class Config:
             return InvalidConfigError(config_errors=errors)
 
         return Success(cls(sections=sections))
+
+    @property
+    def pretty_print_overriden_sections(self):
+        return "\n".join(
+            f"- {file_path}: {', '.join(section_names)}"
+            for file_path, section_names in self.overridden_sections.items()
+        )

@@ -7,11 +7,16 @@ from pathlib import Path
 from .config import DEFAULT_CONFIG_PATH, Config
 from .core import sync_section
 from .result import ConfigError, Success
+from .utils import indent
 
 
-def log_multiline_error(error: ConfigError) -> None:
-    lines = f"{error}".split("\n")
-    sys.stderr.write("\n".join([f"[error] {line}" for line in lines]) + "\n")
+def log_multiline(log: str, log_level: str = "info") -> None:
+    lines = indent(prefix=f"[{log_level}] ", multiline_string=log)
+    match log_level:
+        case "error":
+            print(lines, file=sys.stderr)
+        case _:
+            print(lines)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -33,16 +38,20 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     json_path = Path(args.path).expanduser().resolve()
-    if not json_path.exists():
-        sys.stderr.write(f"[error] JSON file not found: {json_path}\n")
-        return 2
 
     match Config.from_path(json_path):
         case ConfigError() as error:
-            sys.stderr.write("[error] Invalid config files:\n")
-            log_multiline_error(error)
+            log_multiline(log=error.detailed_description, log_level="error")
             return 2
         case Success(config):
+            if config.overridden_sections:
+                log_multiline(
+                    log="The following paths contain overriden sections:",
+                    log_level="warn",
+                )
+                log_multiline(
+                    log=config.pretty_print_overriden_sections, log_level="warn"
+                )
             base_dir = Path(args.target).expanduser().resolve()
             all_succeeded = all(
                 sync_section(section, base_dir) for section in config.sections.values()
@@ -52,5 +61,10 @@ def main(argv: list[str] | None = None) -> int:
     return 1
 
 
-if __name__ == "__main__":
-    raise SystemExit(main(sys.argv[1:]))
+def cli() -> None:
+    try:
+        return_code = main(sys.argv[1:])
+    except KeyboardInterrupt:
+        print("\n\nInterrupted by user (Ctrl-C)", file=sys.stderr)
+        return_code = 130
+    raise SystemExit(return_code)
