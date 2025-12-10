@@ -1,5 +1,5 @@
 {
-  "projects": {
+  "personal_projects": {
     "repositories": [
       {
         "clone_url": "git@bitbucket.org:paul_roseau/learning-rust.git"
