@@ -1,5 +1,6 @@
 # Neovim
 
+- [ ] update nvim-treesitter + incremental selection (check MeanderingProgrammer alternative)
 - [x] update tabs for it not to show numbers when pop up autocomplete shows up
 - [x] install Solarized
 - [x] install codecompanion
@@ -9,7 +10,6 @@
       - [x] how are buf lines printed all nice nice (`<leader>l`?), understand coroutine, seems to be the same as python
       - [ ] create commmand
       - [ ] create mapping
-      - [ ] allow to rename a CC Chat (use `:file`) -> won't do
       - [ ] summarize the conversation asynchronously (use _ctx) to display:
         it seems like you could hook yourself to the `User` event fired through `utils.fire` from `ChatSubmitted`, check if there is a title on your buffer, if not fire the request in a separate command, passing the context - maybe use treesitter to capture: go to first "## Me" and capture 3 times `##`, `## Me`, `## Me <text>`, and then invoke CodeCompanion Inline "summarize ..." and unconditionally accept the result in a scratch buffer that you keep around just for that purpose, or delete immediately after rather
     - [ ] cycle through the chat creation option: create empty chat, chat with memory, predefined workflow, create git message
@@ -127,6 +127,12 @@
     ```
 - [ ] a small CLI which allows to output up to N lines to stdout and then pass on the rest to a pipe
   - this would allow to print the header and then grep for example for ps, kubectl, readelf etc. (a bit like `tee` basically)
+
+## Medium (M)
+
+- [ ] rust reimplem of your update-my-repos, with:
+  - asynchronous downloads and nice lines
+  - config generations handling upgrade strategies (last commit, next_semver, last_semver, last_release)
 
 ## Medium (M)
 
@@ -507,6 +513,7 @@
 - install scripts:
   - [x] try to make your setup work with the ./overlay.nix inside ~/.config/nixpkgs
   - [ ] check what git-updater does
+  - [ ] check out https://github.com/cachix/git-hooks.nix
   - [ ] arguments whether you are installing it on a local machine or remotely
   - [ ] distinguish whether we are running on Debian or MacOS X to set up the various links (fonts, launch menu, etc.)
   - [ ] add a little shell script to automatically add a neovim plugin:
