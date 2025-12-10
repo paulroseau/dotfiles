@@ -49,7 +49,7 @@ class Config:
     overridden_sections: dict[Path, list[str]] = field(default_factory=dict)
 
     @classmethod
-    def from_path(cls, path: Path) -> Result[Config]:
+    def from_path(cls, path: Path, excluded_section: set[str]) -> Result[Config]:
         if path.is_file():
             return cls.from_file(path)
         elif path.is_dir():
@@ -63,12 +63,13 @@ class Config:
                 match cls.from_file(file_path):
                     case Success(value=config):
                         for name, section in config.sections.items():
-                            if name not in sections:
-                                sections[name] = section
-                            else:
-                                overridden_sections.setdefault(file_path, []).append(
-                                    name
-                                )
+                            if name not in excluded_section:
+                                if name not in sections:
+                                    sections[name] = section
+                                else:
+                                    overridden_sections.setdefault(
+                                        file_path, []
+                                    ).append(name)
                     case ConfigError() as error:
                         errors[file_path] = error
 

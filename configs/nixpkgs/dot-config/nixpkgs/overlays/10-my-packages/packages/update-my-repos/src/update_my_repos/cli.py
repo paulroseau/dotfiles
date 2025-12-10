@@ -28,18 +28,29 @@ def main(argv: list[str] | None = None) -> int:
         "--path",
         default=str(DEFAULT_CONFIG_PATH),
         help="Path to a configuration JSON file or a directory containing several configuration JSON files (default: $XDG_CONFIG_HOME/my-repos/). Precedence goes to files which come first in alphabetical order",
+        metavar="PATH"
     )
     parser.add_argument(
         "-t",
         "--target",
         default=str(Path()),
         help="Target path where relative path will be moved under",
+        metavar="PATH"
+    )
+    parser.add_argument(
+        "-e",
+        "--exclude",
+        action="append",
+        default=[],
+        help="Sections in the configuration to exclude",
+        metavar="NAME"
     )
     args = parser.parse_args(argv)
 
     json_path = Path(args.path).expanduser().resolve()
+    excluded_sections = set(args.exclude)
 
-    match Config.from_path(json_path):
+    match Config.from_path(json_path, excluded_sections):
         case ConfigError() as error:
             log_multiline(log=error.detailed_description, log_level="error")
             return 2
@@ -56,9 +67,10 @@ def main(argv: list[str] | None = None) -> int:
             all_succeeded = all(
                 sync_section(section, base_dir) for section in config.sections.values()
             )
-            if all_succeeded:
-                return 0
-    return 1
+            return 0 if all_succeeded else 1
+        case _:
+            log_multiline(log="Unexpected config error, aborting", log_level="error")
+            return 1
 
 
 def cli() -> None:
