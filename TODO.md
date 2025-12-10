@@ -42,7 +42,7 @@
     - [ ] troublesum
     - [ ] nvim-autopairs
     - [ ] guess-indent
-    - [x] todo-comments -> No
+    - [x] todo-comments -> No, tried it, obnoxious
     - [ ] render-markdown
     - [ ] edgy
     - [ ] gitsigns
@@ -131,10 +131,11 @@
 ## Medium (M)
 
 - [ ] rust reimplem of your update-my-repos, with:
-  - asynchronous downloads and nice lines
-  - config generations handling upgrade strategies (last commit, next_semver, last_semver, last_release)
-
-## Medium (M)
+  - asynchronous downloads and nice line updates
+  - per repo extra options:
+    - shallow clones
+    - pinned versions, sha
+    - config generations handling upgrade strategies (last commit, next_semver, last_semver, last_release)
 
 - [ ] rust reimplem of `stow`, (look into what chez-moi does, do not go as far as chezmoi which downloads binaries, but with the apply logic, possiblity to copy -r, link and revert):
   - [ ] finish the nomicon
@@ -191,59 +192,6 @@
   - [ ] install uv with cargo
   - [ ] install pyright globally through uv
 
-- [x] review install script
-  - [x] manual install script
-    - [x] pin versions of cargo installed binaries
-    - [x] make get-plugins work in plain bash (source .env manually)
-    - [x] install nvim doc when downloading nvim plugins
-  - [x] replace fzf with skim
-    - [x] install with nix
-    - [x] install shell completions for skim in manual mode (git clone based on skim version, grab just the script and put them ~/.local/share/skim/)
-    - [x] update fzf-lua
-  - [x] install wezterm (mux in particular)
-- [x] install fzf manually again (shell expansion) but keep skim in the manual install to allow switching between the 2
-- [x] allow to install js based stuff
-  - [x] install nvm (little dance probably with your store)
-  - [x] install node version (set node version in env variable)
-  - [x] check where npm list -g (maybe add that directly to the PATH) or have a wrapper around to npm to install + link (maybe cleaner)
-- [x] remove lsp-config:
-   - [x] find a way to customize lua-ls to include vim.env :help lsp-quickstart
-     -> looks like you need to install lazydev...
-   - [/] root_markers seem to be what lspconfig does "by hand" mostly
-     -> rust-analyzer config seems a bit complex, moved to rustaceanvim
-   - [x] signature help
-     -> automatically mapped to Ctrl-s in insert mode
-   - [x] bindings to see types
-     -> just use hover
-- [x] install blink.cmp and trash out nvim-cmp
-  - [x] update version to v1.3.1 so that you have a prebuilt binary to download at work
-  - [x] have a default setting to rust/fall back lua
-  - [x] config
-  - [x] double check:
-    - [x] toggle documentation with M-p, and scroll
-    - [/] lsp signature
-      -> nvim kinda does what we want by default, disable it
-    - [x] lsp
-    - [x] nvim lua plugin for files which are in `~/.config/nvim`
-- [x] lsp:
-  - [x] fix on_attach not working
-- [x] lsp pyright:
-  - [x] fix loading of on_attach
-- [x] lsp rust:
-  - [x] install rustaceanvim
-  - [x] check auto-formatting
-  - [x] check signature
-  - [x] check hover
-- [x] snippet: do you still need luasnip in 0.11+? -> No
-  - [x] let's replace LuaSnip with the built-in
-  - [x] check what friednly snippets brought to you with blink.cmp and make sure snippet expansion works
-- [x] remove all nvim-cmp stuff in nix
-- [x] install mini-pairs or autopairs
-- [x] nvim prettier tabs by using https://github.com/alvarosevilla95/luatab.nvim
-- [x] install zen-mode
-- [x] install todo-comment
-  => tried it, removed it, obnoxious
-
 # Alacritty
 
 - [ ] <Meta + Shift> does not work outside of Tmux (cannot resize nvim windows)
@@ -257,7 +205,7 @@
 
 # Yazi
 
-- remap using <A-J/K> for changing windows and `J`/`K` for changing tabs cf. https://yazi-rs.github.io/docs/configuration/keymap and `(/)` for swapping tabs https://github.com/sxyazi/yazi/blob/shipped/yazi-config/preset/keymap-default.toml -> `<M-j>/<M-k>` is taken by Wezterm changing windows
+- [-] remap using <A-J/K> for changing windows and `J`/`K` for changing tabs cf. https://yazi-rs.github.io/docs/configuration/keymap and `(/)` for swapping tabs https://github.com/sxyazi/yazi/blob/shipped/yazi-config/preset/keymap-default.toml -> `<M-j>/<M-k>` is taken by Wezterm changing windows
 
 # Wezterm
 
@@ -521,7 +469,7 @@
     niv -s ./nix/neovim-plugins/plugins/sources.json add shaunsingh/nord.nvim
     nix-env --install --file nix/default.nix -A neovim-plugin
   ```
-  - [ ] create small `init-perso-projects.sh` shell script to be installed as a binary with nix which would clone:
+  - [x] create small `init-perso-projects.sh` shell script to be installed as a binary with nix which would clone:
   ```
   git clone git@bitbucket.org:paul_roseau/hlx-gcp-infrastructure.git
   git clone https://github.com/aylei/leetcode-rust.git
