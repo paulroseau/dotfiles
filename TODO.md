@@ -132,8 +132,10 @@
 
 - [ ] rust reimplem of your update-my-repos, with:
   - asynchronous downloads and nice line updates
+  - don't exit if one (update ie. pull) fails, print everything cleanly at the end
   - per repo extra options:
     - shallow clones
+    - merge options
     - pinned versions, sha
     - config generations handling upgrade strategies (last commit, next_semver, last_semver, last_release)
 
