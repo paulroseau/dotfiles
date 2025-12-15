@@ -1,28 +1,28 @@
 [user]
-	name = Paul Roseau
+  name = Paul Roseau
 
 [core]
-	editor = nvim
+  editor = nvim
   excludesFile = ~/.config/git/ignore
   pager = delta
 
 [color]
-	ui = true
+  ui = true
 
 [alias]
-	st = status
-	cm = commit
-	br = branch
-	co = checkout
-	df = diff
-	dc = diff --cached
+  st = status
+  cm = commit
+  br = branch
+  co = checkout
+  df = diff
+  dc = diff --cached
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 
 [push]
-	default = simple
+  default = simple
 
 [credential]
-	helper = store
+  helper = store
 
 [interactive]
   diffFilter = delta --color-only
