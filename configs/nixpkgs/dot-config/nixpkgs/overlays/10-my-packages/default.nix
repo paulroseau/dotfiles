@@ -41,5 +41,7 @@ in
     pythonPackages = final.python312Packages;
   };
 
+  excalidraw = final.callPackage ./packages/excalidraw.nix { };
+
   bundles = import ./bundles.nix final;
 }
