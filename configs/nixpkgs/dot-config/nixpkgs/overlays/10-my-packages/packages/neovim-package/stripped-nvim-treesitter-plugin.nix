@@ -5,11 +5,16 @@
 }:
 
 let
-  name = "nvim-treesitter-grammars";
+  name = "stripped-nvim-treesitter";
 
   queryEntry = {
     name = "queries";
     path = "${nvimTreeSitterPlugin}/runtime/queries";
+  };
+
+  pluginFiletypesEntry = {
+    name = "plugin/filetypes.lua";
+    path = "${nvimTreeSitterPlugin}/plugin/filetypes.lua";
   };
 
   parserEntries = builtins.map (
@@ -24,4 +29,10 @@ let
   ) languages;
 
 in
-linkFarm name ([ queryEntry ] ++ parserEntries)
+linkFarm name (
+  [
+    queryEntry
+    pluginFiletypesEntry
+  ]
+  ++ parserEntries
+)

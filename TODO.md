@@ -1,6 +1,20 @@
 # Neovim
 
-- [ ] update nvim-treesitter + incremental selection (check MeanderingProgrammer alternative)
+- [ ] Rework config using buildVimPlugins in Nix
+  - [x] rework how you place plugins in the RTP
+  - [x] utils to select all treesitters grammar programmatically in nix
+  - [x] add solarized, gitmoji + overriden nvim-treesitter to vimPlugins in overlay
+  - [x] experiment with rtp + override src for some plugins 
+    -> can't do it rtpPath is not part of `vimUtils` attrset, it is bound in a `let rtpPath = "."; in ...` expression
+  - [x] rework neovim-plugins-2 in nvim-packages a bit, using the above point
+  - [ ] update RTP for personal plugins and rm utils in nvim lua config
+  - [ ] add autocommand to enable tree sitters features
+  - [ ] update config to use onedarkpro
+- [ ] check following nvim-treesitter features in new version:
+  - [ ] is highlighting on by default
+  - [ ] indentation
+  - [ ] folding
+  - [ ] incremental selection (check MeanderingProgrammer alternative)
 - [x] update tabs for it not to show numbers when pop up autocomplete shows up
 - [x] install Solarized
 - [x] install codecompanion
@@ -10,7 +24,7 @@
       - [x] how are buf lines printed all nice nice (`<leader>l`?), understand coroutine, seems to be the same as python
       - [ ] create commmand
       - [ ] create mapping
-      - [ ] summarize the conversation asynchronously (use _ctx) to display:
+      - [ ] summarize the conversation asynchronously (use `_ctx`) to display:
         it seems like you could hook yourself to the `User` event fired through `utils.fire` from `ChatSubmitted`, check if there is a title on your buffer, if not fire the request in a separate command, passing the context - maybe use treesitter to capture: go to first "## Me" and capture 3 times `##`, `## Me`, `## Me <text>`, and then invoke CodeCompanion Inline "summarize ..." and unconditionally accept the result in a scratch buffer that you keep around just for that purpose, or delete immediately after rather
     - [ ] cycle through the chat creation option: create empty chat, chat with memory, predefined workflow, create git message
     - [ ] cycle through the inline strategies (empty, `/Fix`, etc.)
@@ -29,6 +43,7 @@
   - [ ] install nvimdev/dashboard
   - his plugins are (should you use them?):
     - [ ] his onedarkpro -> YES
+    - [ ] conform
     - [ ] switch from lualine to heirline, and remove your tabline plugin -> YES
     - [ ] copilot
     - [ ] oil -> Probably NO
@@ -37,7 +52,6 @@
     - [ ] persisted
     - [ ] overseer
     - [x] mason -> No
-    - [ ] conform
     - [ ] ufo
     - [ ] troublesum
     - [ ] nvim-autopairs

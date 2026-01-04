@@ -1,3 +1,10 @@
+# Environment variable (including PATH)
+[ -r "$HOME/.env" ] && . "$HOME/.env"
+export SHELL="bash"
+
+# Aliases
+[ -r "$HOME/.aliases" ] && . "$HOME/.aliases"
+
 # Helpers
 has() { 
   command -v "$1" >/dev/null 2>&1
@@ -9,14 +16,6 @@ is_interactive() {
     *)   return 1 ;;
   esac
 }
-
-# Environment variable (including PATH)
-[ -r "$HOME/.env" ] && . "$HOME/.env"
-
-export SHELL="bash"
-
-# Aliases
-[ -r "$HOME/.aliases" ] && . "$HOME/.aliases"
 
 # Prompt
 if is_interactive && has starship; then eval "$(starship init bash)"; fi

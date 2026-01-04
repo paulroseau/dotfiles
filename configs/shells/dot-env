@@ -1,9 +1,6 @@
 # Secrets
 [ -r "$HOME/.secrets" ] && . "$HOME/.secrets"
 
-# Your nvim config looks up this env variable to add plugins to its RTP
-export NVIM_PLUGINS_DIR="$HOME/.nvim-plugins"
-
 # .zshrc and .bashrc expect those to be set to source other scripts
 FZF_SHELL_DIR="$HOME/.local/share/fzf"
 SKIM_SHELL_DIR="$HOME/.local/share/skim"
@@ -16,10 +13,9 @@ NIX_PROFILE="$HOME/.nix-profile"
 # cf. https://stackoverflow.com/questions/19305291/remnant-characters-when-tab-completing-with-zsh
 if [ -d "$NIX_PROFILE" ]; then
   export LC_ALL="C.UTF-8"
-  [ -d "$NIX_PROFILE/share" ]                 && ZSH_PLUGINS_DIR="$NIX_PROFILE/share"
-  [ -d "$NIX_PROFILE/share/neovim-plugins" ]  && NVIM_PLUGINS_DIR="$NIX_PROFILE/share/neovim-plugins"
-  [ -d "$NIX_PROFILE/share/fzf" ]             && FZF_SHELL_DIR="$NIX_PROFILE/share/fzf"
-  [ -d "$NIX_PROFILE/share/skim" ]            && SKIM_SHELL_DIR="$NIX_PROFILE/share/skim"
+  [ -d "$NIX_PROFILE/share" ]      && ZSH_PLUGINS_DIR="$NIX_PROFILE/share"
+  [ -d "$NIX_PROFILE/share/fzf" ]  && FZF_SHELL_DIR="$NIX_PROFILE/share/fzf"
+  [ -d "$NIX_PROFILE/share/skim" ] && SKIM_SHELL_DIR="$NIX_PROFILE/share/skim"
 fi
 
 

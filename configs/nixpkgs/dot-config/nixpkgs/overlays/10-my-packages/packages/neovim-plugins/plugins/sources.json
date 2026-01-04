@@ -5,10 +5,10 @@
         "homepage": "https://cmp.saghen.dev",
         "owner": "saghen",
         "repo": "blink.cmp",
-        "rev": "v1.7.0",
-        "sha256": "02527v0lnk5r5dpyb3avh4da081wgkd3sdam351fgdc2dn60xibq",
+        "rev": "v1.8.0",
+        "sha256": "0nh0ajmxam9anbk62r71aar48cgakf5n1h90snprzx7g7qz5qf96",
         "type": "tarball",
-        "url": "https://github.com/saghen/blink.cmp/archive/v1.7.0.tar.gz",
+        "url": "https://github.com/saghen/blink.cmp/archive/v1.8.0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "codecompanion-nvim": {

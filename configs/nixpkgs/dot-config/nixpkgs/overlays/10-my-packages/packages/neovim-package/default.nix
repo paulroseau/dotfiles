@@ -10,21 +10,16 @@ let
 
   prefix = "share/nvim/site/pack/nix-managed-plugins";
 
-  nvimTreeSitterPlugin = vimPlugins.nvim-treesitter.overrideAttrs (oldAttrs: rec {
-    name = "${oldAttrs.pname}-${version}";
-    version = "unstable-2026-01-01";
-    src = fetchFromGitHub {
-      owner = "nvim-treesitter";
-      repo = "nvim-treesitter";
-      rev = "c6dd314086f7b471bf6c9110092a94ce1c06d220";
-      hash = "sha256-7HJ0gEFHFzsAGVpZzBxjEKuwuG4zID9eP3GLQdhZAl4=";
-    };
-    postPatch = ":";
-    doCheck = false;
-  });
+  # We override vimPlugins.nvim-treesitter by a simpler derivation which just includes:
+  # - nvim-treesitter/runtime/queries
+  # - nvim-treesitter/plugin/filetypes (necessary to interpret `sh` as `bash` for instance)
+  # - a set of parsers of interest which versions always follow nvim-treesitter's main branch since nixpkgs pulls them from https://raw.githubusercontent.com/nvim-neorocks/nurr/main/tree-sitter-parsers.json
 
-  nvimTreeSitterGrammars = import ./nvim-treesitter-grammars.nix {
-    inherit linkFarm nvimTreeSitterPlugin;
+  # NB: there is a slight risk that the queries diverge from the parsers if you the nvim-treesitter's version is pinned to a too old version in your vimPlugin overlay. This is a problem nixpkgs currently has since nvim-treesitter points to master which is much older than main from which the parsers' version file is generated on https://raw.githubusercontent.com/nvim-neorocks/nurr/main/tree-sitter-parsers.json
+  stripped-nvim-treesitter-plugin = import ./stripped-nvim-treesitter-plugin.nix {
+    inherit linkFarm;
+
+    nvimTreeSitterPlugin = vimPlugins.nvim-treesitter;
 
     languages = [
       "bash"
@@ -52,12 +47,17 @@ let
   };
 
   requiredPlugins = [
+    stripped-nvim-treesitter-plugin
+  ]
+  ++ [
     vimPlugins.blink-cmp
     vimPlugins.codecompanion-nvim
     vimPlugins.comment-nvim
     vimPlugins.flatten-nvim
     vimPlugins.friendly-snippets
     vimPlugins.fzf-lua
+    vimPlugins.gitmoji-nvim
+    vimPlugins.gitmoji-nvim
     vimPlugins.lazydev-nvim
     vimPlugins.lualine-nvim
     vimPlugins.mini-pairs
@@ -69,22 +69,21 @@ let
     vimPlugins.onedarkpro-nvim
     vimPlugins.plenary-nvim
     vimPlugins.rustaceanvim
+    vimPlugins.solarized-nvim
     vimPlugins.toggleterm-nvim
     vimPlugins.tokyonight-nvim
     vimPlugins.vim-fugitive
     vimPlugins.zen-mode-nvim
-    nvimTreeSitterPlugin
   ];
 
-  vimFarm =
-    prefix: name: drvs:
+  neovimPackage =
     let
       entryToDrv = drv: {
         name = "${prefix}/start/${lib.getName drv}";
         path = drv;
       };
     in
-    linkFarm name (map entryToDrv drvs);
+    linkFarm name (map entryToDrv requiredPlugins);
 in
 
-vimFarm prefix name (requiredPlugins ++ [ nvimTreeSitterGrammars ])
+neovimPackage

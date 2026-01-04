@@ -1,14 +1,15 @@
-{ lib
-, buildEnv
-, fetchFromGitHub
-, gitMinimal
-, linkFarm
-, neovim-unwrapped
-, neovimPluginsSources
-, rustPlatform
-, stdenv
-, tree-sitter
-, treeSitterParsersSources
+{
+  lib,
+  buildEnv,
+  fetchFromGitHub,
+  gitMinimal,
+  linkFarm,
+  neovim-unwrapped,
+  neovimPluginsSources,
+  rustPlatform,
+  stdenv,
+  tree-sitter,
+  treeSitterParsersSources,
 }:
 
 let
@@ -19,22 +20,33 @@ let
   };
 
   blinkCmpFuzzy = import ./blink-cmp-fuzzy {
-    inherit fetchFromGitHub gitMinimal rustPlatform;
+    inherit
+      lib
+      fetchFromGitHub
+      gitMinimal
+      rustPlatform
+      ;
   };
 
   neovimPlugins =
-    let 
+    let
       plugins = import ./plugins {
-        inherit lib stdenv treeSitterParsers blinkCmpFuzzy;
+        inherit
+          lib
+          stdenv
+          treeSitterParsers
+          blinkCmpFuzzy
+          ;
         neovim = neovim-unwrapped;
         sources = neovimPluginsSources;
       };
 
     in
-      buildEnv {
-        name = "neovim-plugins";
-        extraPrefix = "/share/neovim-plugins";
-        paths = lib.attrsets.attrValues plugins;
-      };
+    buildEnv {
+      name = "neovim-plugins";
+      extraPrefix = "/share/neovim-plugins";
+      paths = lib.attrsets.attrValues plugins;
+    };
 
-in neovimPlugins
+in
+neovimPlugins

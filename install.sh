@@ -28,6 +28,25 @@ create_config_symlinks () {
   popd
 }
 
-clone_this_repository
+install_binaries () {
+  # TODO select which bundle to install
+  nix-env --install --file '<nixpkgs>' --attr neovim-plugins
+}
 
+link_nvim_package_to_nix_installed () {
+  NVIM_PACKAGES_DIR_PREFIX="$HOME/.local"
+  NVIM_PACKAGES_DIR_SUFFIX="share/nvim/site/pack"
+  NVIM_PACKAGES_DIR="$NVIM_PACKAGES_DIR_PREFIX/$NVIM_PACKAGES_DIR_SUFFIX"
+
+  NIX_INSTALLED_NVIM_PACKAGE_DIR="$NIX_PROFILE/$NVIM_PACKAGES_DIR_SUFFIX"
+
+  mkdir -p $NVIM_PACKAGES_DIR
+  for package in $(ls $NIX_INSTALLED_NVIM_PACKAGE_DIR); do
+    ln -s $NIX_INSTALLED_NVIM_PACKAGE_DIR/$package $NVIM_PACKAGES_DIR 
+  done
+}
+
+clone_this_repository
 create_config_symlinks
+install_binaries
+link_nvim_package_to_nix_installed

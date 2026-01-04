@@ -1,14 +1,13 @@
-# Helpers
-
-has() { (( $+commands[$1] )); }
-is_interactive() { [[ -o interactive ]]; }
-
 # Environment variable (including PATH)
-[[ -r "$HOME/.env"     ]] && . "$HOME/.env"
-[[ -r "$HOME/.aliases" ]] && . "$HOME/.aliases"
-
+[[ -r "$HOME/.env" ]] && . "$HOME/.env"
 export SHELL="zsh"
 
+# Aliases
+[[ -r "$HOME/.aliases" ]] && . "$HOME/.aliases"
+
+# Helpers
+has() { (( $+commands[$1] )); }
+is_interactive() { [[ -o interactive ]]; }
 
 # Prompt and Zoxide (interactive only)
 if is_interactive; then

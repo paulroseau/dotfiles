@@ -1,31 +1,17 @@
 final: prev:
 
-let
-  sources = import ./sources.nix {
-    pkgs = prev;
-    sourcesFile = ./sources.json;
-  };
-
-in
 {
   alacritty = final.callPackage ./packages/alacritty.nix { alacritty = prev.alacritty; };
 
-  neovim-unwrapped = final.callPackage ./packages/neovim.nix {
+  neovim-unwrapped = final.callPackage ./packages/neovim-unwrapped.nix {
     neovim-unwrapped = prev.neovim-unwrapped;
-    source = sources.neovim;
   };
 
-  neovim-plugins = final.callPackage ./packages/neovim-plugins {
-    neovimPluginsSources = import ./sources.nix {
-      pkgs = prev;
-      sourcesFile = ./packages/neovim-plugins/plugins/sources.json;
-    };
-
-    treeSitterParsersSources = import ./sources.nix {
-      pkgs = prev;
-      sourcesFile = ./packages/neovim-plugins/tree-sitter-parsers/sources.json;
-    };
+  vimPlugins = final.callPackage ./packages/vim-plugins.nix {
+    vimPlugins = prev.vimPlugins;
   };
+
+  neovim-package = final.callPackage ./packages/neovim-package { };
 
   # NB: we now decided to rely on rustup which handles the installation of
   # rust related tools, rust-analyzer being one of them, but because the
