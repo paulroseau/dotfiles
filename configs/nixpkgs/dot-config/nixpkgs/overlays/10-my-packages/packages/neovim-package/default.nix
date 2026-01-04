@@ -1,6 +1,5 @@
 {
   lib,
-  fetchFromGitHub,
   linkFarm,
   vimPlugins,
 }:
@@ -46,17 +45,14 @@ let
     ];
   };
 
-  requiredPlugins = [
-    stripped-nvim-treesitter-plugin
-  ]
-  ++ [
+  fromNixpkgsPlugins = [
     vimPlugins.blink-cmp
     vimPlugins.codecompanion-nvim
     vimPlugins.comment-nvim
+    vimPlugins.catppuccin-nvim
     vimPlugins.flatten-nvim
     vimPlugins.friendly-snippets
     vimPlugins.fzf-lua
-    vimPlugins.gitmoji-nvim
     vimPlugins.gitmoji-nvim
     vimPlugins.lazydev-nvim
     vimPlugins.lualine-nvim
@@ -66,6 +62,7 @@ let
     vimPlugins.nui-nvim
     vimPlugins.nvim-surround
     vimPlugins.nvim-web-devicons
+    vimPlugins.nightfox-nvim
     vimPlugins.onedarkpro-nvim
     vimPlugins.plenary-nvim
     vimPlugins.rustaceanvim
@@ -75,6 +72,13 @@ let
     vimPlugins.vim-fugitive
     vimPlugins.zen-mode-nvim
   ];
+
+  requiredPlugins = [
+    stripped-nvim-treesitter-plugin
+  ]
+  ++ fromNixpkgsPlugins;
+
+  repos = [ vimPlugins.nvim-treesitter ] ++ fromNixpkgsPlugins;
 
   neovimPackage =
     let
@@ -86,4 +90,11 @@ let
     linkFarm name (map entryToDrv requiredPlugins);
 in
 
-neovimPackage
+neovimPackage.overrideAttrs (
+  _: prev: {
+    passthru = (prev.passthru or { }) // {
+      # to generate neovim-plugin-sources.json file for manual install
+      repos = repos;
+    };
+  }
+)

@@ -1,0 +1,146 @@
+{
+  "neovim": {
+    "blink.cmp": {
+      "owner": "Saghen",
+      "repo": "blink.cmp",
+      "rev": "refs/tags/v1.8.0"
+    },
+    "catppuccin-nvim": {
+      "owner": "catppuccin",
+      "repo": "nvim",
+      "rev": "ce8d176faa4643e026e597ae3c31db59b63cef09"
+    },
+    "codecompanion.nvim": {
+      "owner": "olimorris",
+      "repo": "codecompanion.nvim",
+      "rev": "e6ec73c06d3ed8ce28f144d2f89c30dec0286961"
+    },
+    "comment.nvim": {
+      "owner": "numtostr",
+      "repo": "comment.nvim",
+      "rev": "e30b7f2008e52442154b66f7c519bfd2f1e32acb"
+    },
+    "flatten.nvim": {
+      "owner": "willothy",
+      "repo": "flatten.nvim",
+      "rev": "72527798e75b5e34757491947c2cb853ce21dc0e"
+    },
+    "friendly-snippets": {
+      "owner": "rafamadriz",
+      "repo": "friendly-snippets",
+      "rev": "572f5660cf05f8cd8834e096d7b4c921ba18e175"
+    },
+    "fzf-lua": {
+      "owner": "ibhagwan",
+      "repo": "fzf-lua",
+      "rev": "a03d68e40eea835a1cdbd9f93049708dab3621e6"
+    },
+    "gitmoji.nvim": {
+      "owner": "Dynge",
+      "repo": "gitmoji.nvim",
+      "rev": "2659de229c2b26d50732f1220700eebbcdb2d6ef"
+    },
+    "lazydev.nvim": {
+      "owner": "folke",
+      "repo": "lazydev.nvim",
+      "rev": "5231c62aa83c2f8dc8e7ba957aa77098cda1257d"
+    },
+    "lualine.nvim": {
+      "owner": "nvim-lualine",
+      "repo": "lualine.nvim",
+      "rev": "47f91c416daef12db467145e16bed5bbfe00add8"
+    },
+    "mini.pairs": {
+      "owner": "nvim-mini",
+      "repo": "mini.pairs",
+      "rev": "d5a29b6254dad07757832db505ea5aeab9aad43a"
+    },
+    "neo-tree.nvim": {
+      "owner": "nvim-neo-tree",
+      "repo": "neo-tree.nvim",
+      "rev": "b0b73273b4f5a1f4b4aac8accd6e0c3b4b5a6967"
+    },
+    "nightfox.nvim": {
+      "owner": "EdenEast",
+      "repo": "nightfox.nvim",
+      "rev": "ba47d4b4c5ec308718641ba7402c143836f35aa9"
+    },
+    "nord.nvim": {
+      "owner": "shaunsingh",
+      "repo": "nord.nvim",
+      "rev": "80c1e5321505aeb22b7a9f23eb82f1e193c12470"
+    },
+    "nui.nvim": {
+      "owner": "MunifTanjim",
+      "repo": "nui.nvim",
+      "rev": "0.4.0"
+    },
+    "nvim-surround": {
+      "owner": "kylechui",
+      "repo": "nvim-surround",
+      "rev": "1098d7b3c34adcfa7feb3289ee434529abd4afd1"
+    },
+    "nvim-treesitter": {
+      "owner": "nvim-treesitter",
+      "repo": "nvim-treesitter",
+      "rev": "f795520371e6563dac17a0d556f41d70ca86a789"
+    },
+    "nvim-web-devicons": {
+      "owner": "nvim-tree",
+      "repo": "nvim-web-devicons",
+      "rev": "6788013bb9cb784e606ada44206b0e755e4323d7"
+    },
+    "onedarkpro.nvim": {
+      "owner": "olimorris",
+      "repo": "onedarkpro.nvim",
+      "rev": "6b12e00bf5e509e1278a84e2aecf918ca6be9aea"
+    },
+    "plenary.nvim": {
+      "owner": "nvim-lua",
+      "repo": "plenary.nvim",
+      "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509"
+    },
+    "rustaceanvim": {
+      "owner": "mrcjkb",
+      "repo": "rustaceanvim",
+      "rev": "50191da212fb867f8bf25ce5e00f55ffb7a7af8b"
+    },
+    "solarized.nvim": {
+      "owner": "maxmx03",
+      "repo": "solarized.nvim",
+      "rev": "c0dfe1cbfabd93b546baf5f1408f5df7e02e2050"
+    },
+    "toggleterm.nvim": {
+      "owner": "akinsho",
+      "repo": "toggleterm.nvim",
+      "rev": "9a88eae817ef395952e08650b3283726786fb5fb"
+    },
+    "tokyonight.nvim": {
+      "owner": "folke",
+      "repo": "tokyonight.nvim",
+      "rev": "5da1b76e64daf4c5d410f06bcb6b9cb640da7dfd"
+    },
+    "vim-fugitive": {
+      "owner": "tpope",
+      "repo": "vim-fugitive",
+      "rev": "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4"
+    },
+    "zen-mode.nvim": {
+      "owner": "folke",
+      "repo": "zen-mode.nvim",
+      "rev": "8564ce6d29ec7554eb9df578efa882d33b3c23a7"
+    }
+  },
+  "zsh": {
+    "zsh-autosuggestions": {
+      "owner": "zsh-users",
+      "repo": "zsh-autosuggestions",
+      "rev": "v0.7.1"
+    },
+    "zsh-syntax-highlighting": {
+      "owner": "zsh-users",
+      "repo": "zsh-syntax-highlighting",
+      "rev": "0.8.0"
+    }
+  }
+}

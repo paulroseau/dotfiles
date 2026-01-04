@@ -19,6 +19,7 @@ FZF_VERSION="0.62.0"
 
 DOTFILES=$HOME/.dotfiles
 
+
 download_archive() {
   url=$1
   archive=$2
@@ -257,8 +258,9 @@ clone_repo() {
 clone_all_repos() {
   plugin_sources_json=$1
   parent_dir=$2
+  json_top_level_key=$3
 
-  cat $plugin_sources_json | jaq -r 'to_entries[] | "\(.key) \(.value | .owner) \(.value | .repo) \(.value | .rev)"' | while read -r plugin_name owner repo rev
+  cat $plugin_sources_json | jaq -r ".${json_top_level_key} | to_entries[] | \"\(.key) \(.value | .owner) \(.value | .repo) \(.value | .rev)\"" | while read -r plugin_name owner repo rev
   do
     clone_repo $plugin_name $owner $repo $rev $parent_dir
   done
@@ -267,6 +269,7 @@ clone_all_repos() {
 download_plugins() {
   plugin_sources_json=$1
   parent_dir=$2
+  json_top_level_key=$3
 
   case ${parent_dir} in
     (*".nix-profile"*)
@@ -276,7 +279,7 @@ download_plugins() {
   esac
 
   if [ ! -d $parent_dir ]; then mkdir -p $parent_dir; fi
-  clone_all_repos ${plugin_sources_json} ${parent_dir}
+  clone_all_repos ${plugin_sources_json} ${parent_dir} ${json_top_level_key}
 }
 
 generate_nvim_doc() {
@@ -305,22 +308,34 @@ generate_nvim_doc() {
 
 download_zsh_plugins() {
   echo "Downloading ZSH plugins"
-  download_plugins "$DOTFILES/scripts/plugins-sources/zsh.json" $ZSH_PLUGINS_DIR
+  download_plugins "$DOTFILES/scripts/plugins-sources.json" $ZSH_PLUGINS_DIR "zsh"
   echo "Done"
 }
 
 download_nvim_plugins() {
-  echo "Downloading Neovim plugins"
-  download_plugins "$DOTFILES/scripts/plugins-sources/neovim.json" $NVIM_PLUGINS_DIR
+  NVIM_PLUGINS_DIR=$APPS_STORE/neovim-plugins
+  mkdir -p $NVIM_PLUGINS_DIR
+  echo "Downloading Neovim plugins in $NVIM_PLUGINS_DIR"
+  download_plugins "$DOTFILES/scripts/plugins-sources.json" $NVIM_PLUGINS_DIR "neovim"
   echo "Done"
+  _generate_nvim_doc_for_nvim_plugins $NVIM_PLUGINS_DIR
 }
 
-generate_nvim_doc_for_nvim_plugins() {
+_generate_nvim_doc_for_nvim_plugins() {
+  NVIM_PLUGINS_DIR=$1
   echo "Generating Neovim plugins doc"
   for plugin in $(ls $NVIM_PLUGINS_DIR); do
     generate_nvim_doc $NVIM_PLUGINS_DIR $plugin
   done
   echo "Done"
+}
+
+_link_nvim_plugins_to_nvim_site_package() {
+  NVIM_PLUGINS_DIR=$1
+  NVIM_PACKAGES_PATH="$HOME/.local/share/nvim/site/pack/downloaded-plugins"
+  mkdir -p ${NVIM_PACKAGES_PATH}
+  echo "Linking downloaded nvim plugins to nvim site packages"
+  ln -sf $NVIM_PLUGINS_DIR ${NVIM_PACKAGES_PATH}/start
 }
 
 create_ssh_key() {
@@ -348,8 +363,6 @@ install_skim_shell_bindings
 install_fzf_shell_bindings
 
 download_zsh_plugins
-
 download_nvim_plugins
-generate_nvim_doc_for_nvim_plugins
 
 create_ssh_key

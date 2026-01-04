@@ -4,7 +4,6 @@ require('mappings')
 require('commands')
 require('lsp').configure()
 
--- Add presonal (vendored) plugins to runtimepath
 local utils = require('utils')
 utils.add_child_directories_to_rtp(vim.fs.normalize(vim.fn.stdpath('config') .. '/my-plugins'))
 
@@ -29,9 +28,10 @@ require('plugins.rustaceanvim')
 require('plugins.minipairs')
 require('plugins.zen-mode')
 
--- Pick colorscheme
+-- Configure colorscheme plugins
 require('plugins.colorschemes.nord')
--- require('plugins.colorschemes.onedark')
 require('plugins.colorschemes.solarized')
 require('plugins.colorschemes.tokyonight')
-vim.cmd.colorscheme('tokyonight')
+
+-- Pick default colorscheme
+vim.cmd.colorscheme('vaporwave')

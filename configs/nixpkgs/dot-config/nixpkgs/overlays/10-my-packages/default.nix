@@ -28,4 +28,10 @@ final: prev:
   excalidraw = final.callPackage ./packages/excalidraw.nix { };
 
   bundles = import ./bundles.nix final;
+
+  # not a package per se, this is only necessary to generate plugins-sources.json
+  # (required for install-manual.sh)
+  plugins-sources = import ./packages/plugins-sources.nix {
+    inherit (final) neovim-package zsh-autosuggestions zsh-syntax-highlighting;
+  };
 }

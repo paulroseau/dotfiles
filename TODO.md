@@ -7,9 +7,17 @@
   - [x] experiment with rtp + override src for some plugins 
     -> can't do it rtpPath is not part of `vimUtils` attrset, it is bound in a `let rtpPath = "."; in ...` expression
   - [x] rework neovim-plugins-2 in nvim-packages a bit, using the above point
-  - [ ] update RTP for personal plugins and rm utils in nvim lua config
+  - [x] update RTP for personal plugins and rm utils in nvim lua config
+  - [x] update config to use onedarkpro
+  - [x] script to generate list of nvim plugins for manual install
   - [ ] add autocommand to enable tree sitters features
-  - [ ] update config to use onedarkpro
+    - for highlighting (just replace `<filetype>` by `*` or something and check in the callback there is a parser for this filetype):
+     ```lua
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = { '<filetype>' },
+      callback = function() vim.treesitter.start() end,
+    })
+     ```
 - [ ] check following nvim-treesitter features in new version:
   - [ ] is highlighting on by default
   - [ ] indentation
@@ -75,10 +83,14 @@
 - [ ] check plugins listed on lazyvim (in particular conform for formatting, dashboard)
   - [ ] for conform see if you need to install prettier, if so add it with nix (not in nixpkgs)
 - [ ] rework your smart windows by separating configuration/initialization (ie. no setup(config)): https://github.com/nvim-neorocks/nvim-best-practices?tab=readme-ov-file#sleeping_bed-lazy-loading
+  - [ ] typing in lua: 
+    - https://mrcjkb.dev/posts/2023-08-17-lua-adts.html
+    - https://mrcjkb.dev/posts/2023-08-22-setup.html
+    - https://luals.github.io/wiki/annotations/
 - [ ] allow to specify count in the mapping to resize window (like typing 20 and <M->> should resize by increment * 20)
 - [ ] add luacats annotations in your config: https://luals.github.io/wiki/annotations (also for wezterm)
 - [ ] review all dos and don'ts in https://github.com/nvim-neorocks/nvim-best-practices
-- [ ] fix clangd
+- [ ] fix clangd (test on nvim or mit project)
 - [ ] would be great if <C-s> could reveal the signature help window, which would remain there until we type <C-s> again (if there were a vim.lsp.buf.signature_help_toggle())
 - [x] maybe update how you expand windows, and swap the effect of the keys `<` and `>` when on a right most window and `+` and `-` when on a bottom window
 - [ ] create a fzf-lua source which prints the current servers capabilities :lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)
