@@ -31,7 +31,7 @@ rec {
 
   neovim = [
     neovim-unwrapped
-    neovim-plugins
+    neovim-package
   ];
 
   fzf-lua-required = [

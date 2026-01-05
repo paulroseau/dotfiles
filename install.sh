@@ -30,7 +30,7 @@ create_config_symlinks () {
 
 install_binaries () {
   # TODO select which bundle to install
-  nix-env --install --file '<nixpkgs>' --attr neovim-plugins
+  nix-env --install --file '<nixpkgs>' --attr neovim-package
 }
 
 link_nvim_package_to_nix_installed () {
