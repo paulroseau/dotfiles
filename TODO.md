@@ -1,6 +1,6 @@
 # Neovim
 
-- [ ] Rework config using buildVimPlugins in Nix
+- [x] Rework config using buildVimPlugins in Nix
   - [x] rework how you place plugins in the RTP
   - [x] utils to select all treesitters grammar programmatically in nix
   - [x] add solarized, gitmoji + overriden nvim-treesitter to vimPlugins in overlay
@@ -10,7 +10,7 @@
   - [x] update RTP for personal plugins and rm utils in nvim lua config
   - [x] update config to use onedarkpro
   - [x] script to generate list of nvim plugins for manual install
-  - [ ] add autocommand to enable tree sitters features
+  - [x] add autocommand to enable tree sitters features
     - for highlighting (just replace `<filetype>` by `*` or something and check in the callback there is a parser for this filetype):
      ```lua
     vim.api.nvim_create_autocmd('FileType', {
@@ -18,11 +18,11 @@
       callback = function() vim.treesitter.start() end,
     })
      ```
-- [ ] check following nvim-treesitter features in new version:
-  - [ ] is highlighting on by default
-  - [ ] indentation
-  - [ ] folding
-  - [ ] incremental selection (check MeanderingProgrammer alternative)
+- [x] check following nvim-treesitter features in new version:
+  - [x] is highlighting on by default
+  - [x] folding
+  - [-] indentation -> no still in the new nvim-treesitter as experimental
+  - [-] incremental selection (check MeanderingProgrammer alternative) -> needs to pull the MeanderingProgrammer plugin, there will be lsp based selection soon built in Nvim
 - [x] update tabs for it not to show numbers when pop up autocomplete shows up
 - [x] install Solarized
 - [x] install codecompanion
@@ -79,6 +79,7 @@
   - [ ] check how snacks implement toggling
   - [ ] rework mapping like snacks default
 - [ ] undo tree
+- [ ] check if we have incremental node selection with lsp in new nvim (0.11.6?) - should include this commit
 - [ ] install https://github.com/jackMort/ChatGPT.nvim (make sure you can start if no API key is found and DO NOT PUSH your api key to Github)
 - [ ] check plugins listed on lazyvim (in particular conform for formatting, dashboard)
   - [ ] for conform see if you need to install prettier, if so add it with nix (not in nixpkgs)

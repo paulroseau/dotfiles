@@ -37,7 +37,7 @@ vimPlugins
       src = fetchFromGitHub {
         owner = "nvim-treesitter";
         repo = "nvim-treesitter";
-        rev = "f795520371e6563dac17a0d556f41d70ca86a789"; # bug inserted in queries/vim/highlight.scm right after ("tab" support)
+        rev = "f795520371e6563dac17a0d556f41d70ca86a789"; # bug inserted in queries/vim/highlight.scm right after this commit (adds "tab" support)
         hash = "sha256-b98BfpfHzrwHYBhC2nnQrUK8n/7OdAnevV0zg1Dyb+c=";
       };
       postPatch = ":";

@@ -2,7 +2,8 @@
 require('settings')
 require('mappings')
 require('commands')
-require('lsp').configure()
+require('treesitter')
+require('lsp')
 
 local utils = require('utils')
 utils.add_child_directories_to_rtp(vim.fs.normalize(vim.fn.stdpath('config') .. '/my-plugins'))
@@ -19,7 +20,6 @@ require('plugins.fzf-lua')
 require('plugins.lualine')
 require('plugins.neo-tree')
 require('plugins.nvim-surround')
--- require('plugins.nvim-treesitter')
 require('plugins.toggleterm')
 require('plugins.blink-cmp')
 require('plugins.lazydev')
@@ -27,6 +27,11 @@ require('plugins.luatab')
 require('plugins.rustaceanvim')
 require('plugins.minipairs')
 require('plugins.zen-mode')
+
+-- nvim-treesitter needs to be on the RTP if TS parsers are not managed by nix
+if pcall(require, 'nvim-treesitter')) then
+  require('plugins.nvim-treesitter')
+end
 
 -- Configure colorscheme plugins
 require('plugins.colorschemes.nord')
