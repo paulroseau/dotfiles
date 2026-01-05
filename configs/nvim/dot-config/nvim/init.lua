@@ -29,7 +29,7 @@ require('plugins.minipairs')
 require('plugins.zen-mode')
 
 -- nvim-treesitter needs to be on the RTP if TS parsers are not managed by nix
-if pcall(require, 'nvim-treesitter')) then
+if pcall(require, 'nvim-treesitter') then
   require('plugins.nvim-treesitter')
 end
 
