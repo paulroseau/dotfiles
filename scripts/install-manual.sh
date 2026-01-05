@@ -68,7 +68,7 @@ install_binary() {
 install_binaries() {
   echo "Installing binaires from Github"
 
-  NVIM_VERSION="0.11.1"
+  NVIM_VERSION="0.11.5"
   install_binary \
     "https://github.com/neovim/neovim/releases/download/v${NVIM_VERSION}" \
     nvim-linux-x86_64.tar.gz \
@@ -159,6 +159,7 @@ install_rust_built_applications() {
   cargo install starship --version 1.23.0
   cargo install yazi-fm yazi-cli --version 25.4.8
   cargo install zoxide --version 0.9.8
+  cargo install tree-sitter-cli --version 0.26.3
   echo "Done"
 }
 
