@@ -42,4 +42,4 @@ require('plugins.colorschemes.solarized')
 require('plugins.colorschemes.tokyonight')
 
 -- Pick default colorscheme
-vim.cmd.colorscheme('vaporwave')
+vim.cmd.colorscheme('nightfox')
