@@ -50,7 +50,7 @@ let
     vimPlugins.catppuccin-nvim
     vimPlugins.codecompanion-nvim
     vimPlugins.comment-nvim
-    vimPlugins.catppuccin-nvim
+    vimPlugins.conform-nvim
     vimPlugins.flatten-nvim
     vimPlugins.friendly-snippets
     vimPlugins.fzf-lua
