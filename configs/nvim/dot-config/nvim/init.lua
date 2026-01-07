@@ -3,7 +3,7 @@ require('settings')
 require('mappings')
 require('commands')
 require('treesitter')
-require('lsp')
+require('lsp').configure()
 
 -- Add personal (vendored) plugins to RTP
 local utils = require('utils')
