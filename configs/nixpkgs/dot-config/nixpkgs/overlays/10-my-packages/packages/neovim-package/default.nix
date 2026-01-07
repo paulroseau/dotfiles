@@ -47,6 +47,7 @@ let
 
   fromNixpkgsPlugins = [
     vimPlugins.blink-cmp
+    vimPlugins.catppuccin-nvim
     vimPlugins.codecompanion-nvim
     vimPlugins.comment-nvim
     vimPlugins.catppuccin-nvim
@@ -58,11 +59,11 @@ let
     vimPlugins.lualine-nvim
     vimPlugins.mini-pairs
     vimPlugins.neo-tree-nvim
+    vimPlugins.nightfox-nvim
     vimPlugins.nord-nvim
     vimPlugins.nui-nvim
     vimPlugins.nvim-surround
     vimPlugins.nvim-web-devicons
-    vimPlugins.nightfox-nvim
     vimPlugins.onedarkpro-nvim
     vimPlugins.plenary-nvim
     vimPlugins.rustaceanvim
