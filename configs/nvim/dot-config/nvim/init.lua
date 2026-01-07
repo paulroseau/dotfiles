@@ -27,6 +27,7 @@ require('plugins.nvim-tmux')
 require('plugins.nvim-wezterm')
 require('plugins.rustaceanvim')
 require('plugins.toggleterm')
+require('plugins.wildfire')
 require('plugins.zen-mode')
 
 -- nvim-treesitter needs to be loaded if TS parsers are not managed by nix

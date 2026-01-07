@@ -125,6 +125,11 @@
       "repo": "vim-fugitive",
       "rev": "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4"
     },
+    "wildfire.nvim": {
+      "owner": "SUSTech-data",
+      "repo": "wildfire.nvim",
+      "rev": "918a1873c2b8010baa034f373cf28c53ce4f038f"
+    },
     "zen-mode.nvim": {
       "owner": "folke",
       "repo": "zen-mode.nvim",

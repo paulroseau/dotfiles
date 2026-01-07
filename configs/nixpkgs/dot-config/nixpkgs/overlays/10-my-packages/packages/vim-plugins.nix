@@ -1,5 +1,4 @@
 {
-  lib,
   fetchFromGitHub,
   vimUtils,
   vimPlugins,
@@ -45,6 +44,18 @@ vimPlugins
     }
   );
 
+  gitmoji-nvim = vimUtils.buildVimPlugin {
+    pname = "gitmoji.nvim";
+    version = "unstable-2025-04-23";
+    src = fetchFromGitHub {
+      owner = "Dynge";
+      repo = "gitmoji.nvim";
+      rev = "2659de229c2b26d50732f1220700eebbcdb2d6ef";
+      hash = "sha256-cihJ2U+GIqf98t6wS4Fso6R8l69vXT+BsstqY7rrlc4=";
+    };
+    meta.homepage = "https://github.com/Dynge/gitmoji.nvim";
+  };
+
   solarized-nvim = vimUtils.buildVimPlugin {
     pname = "solarized.nvim";
     version = "3.6.0";
@@ -57,15 +68,15 @@ vimPlugins
     meta.homepage = "https://github.com/maxmx03/solarized.nvim";
   };
 
-  gitmoji-nvim = vimUtils.buildVimPlugin {
-    pname = "gitmoji.nvim";
-    version = "3.6.0";
+  wildfire-nvim = vimUtils.buildVimPlugin {
+    pname = "wildfire.nvim";
+    version = "unstable-2025-10-14";
     src = fetchFromGitHub {
-      owner = "Dynge";
-      repo = "gitmoji.nvim";
-      rev = "2659de229c2b26d50732f1220700eebbcdb2d6ef";
-      hash = "sha256-cihJ2U+GIqf98t6wS4Fso6R8l69vXT+BsstqY7rrlc4=";
+      owner = "SUSTech-data";
+      repo = "wildfire.nvim";
+      rev = "918a1873c2b8010baa034f373cf28c53ce4f038f";
+      hash = "sha256-HGNBUuUFtZU9ozFsM0X5QadfnK+cEiosQfnnrI6bdtI=";
     };
-    meta.homepage = "https://github.com/Dynge/gitmoji.nvim";
+    meta.homepage = "https://github.com/SUSTech-data/wildfire.nvim";
   };
 }

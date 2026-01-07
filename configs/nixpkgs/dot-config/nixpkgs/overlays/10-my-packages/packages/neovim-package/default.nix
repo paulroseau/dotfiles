@@ -71,6 +71,7 @@ let
     vimPlugins.toggleterm-nvim
     vimPlugins.tokyonight-nvim
     vimPlugins.vim-fugitive
+    vimPlugins.wildfire-nvim
     vimPlugins.zen-mode-nvim
   ];
 
