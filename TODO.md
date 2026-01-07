@@ -26,6 +26,7 @@
 - [x] update tabs for it not to show numbers when pop up autocomplete shows up
 - [x] install Solarized
 - [x] install codecompanion
+
 - [ ] configure codecompanion (probably need to learn a bit about the AI tooling ecosystem)
   - [ ] create alternative to `CodeCompanionActions`, because we want to be able to choose how to open chats (vert, bottom, tab) but we can't do that with a heterogenous list of actions (some trigger other pickers, one is inline, others open a chat buffer). The idea is to have the following:
     - [ ] cycle through the already open chats, seems like we could reuse `fzf.buffer` -> no manual for more control (display the type of adapter at least using `_G.chat_metadata`. You will need to use `fzf_lua.exec(contents, opts)` with `opts._fmt.from = function(s, _) return '[buf_nb]' end`)
@@ -46,11 +47,13 @@
         - check out if there are any others
   - [ ] take notes on CodeCompanion architecture
   - [ ] configure Claude
+
 - [ ] checkout this guy's repos and dotfiles https://github.com/olimorris/onedarkpro.nvim he also does codecompanion:
   - his colorschmeme, fonts style, tab bar are really nice on the README screen records
   - [ ] install nvimdev/dashboard
   - his plugins are (should you use them?):
-    - [ ] his onedarkpro -> YES
+    - [x] his onedarkpro
+    - [x] render-markdown
     - [ ] conform
     - [ ] switch from lualine to heirline, and remove your tabline plugin -> YES
     - [ ] copilot
@@ -65,13 +68,13 @@
     - [ ] nvim-autopairs
     - [ ] guess-indent
     - [x] todo-comments -> No, tried it, obnoxious
-    - [ ] render-markdown
     - [ ] edgy
     - [ ] gitsigns
     - [ ] snacks -> Not as a whole but see below
   - [ ] transition to vim.pack (0.12) but already there in nightly, requires `git`, but nicely enough should write plugins `$HOME/.local/share` (so nix compatible):
     - [ ] remove neovim plugins from nix
     - [ ] update install.sh
+
 - [ ] check snacks:
   - [x] file explorer -> mouais, not convinced neo-tree is better
   - [x] same for picker, fzf-lua better
@@ -79,7 +82,7 @@
   - [ ] check how snacks implement toggling
   - [ ] rework mapping like snacks default
 - [ ] undo tree
-- [ ] check if we have incremental node selection with lsp in new nvim (0.11.6?) - should include this commit
+- [ ] check if we have incremental node selection with lsp in new nvim (0.11.6?) - should include this commit https://github.com/neovim/neovim/pull/34011/files
 - [ ] install https://github.com/jackMort/ChatGPT.nvim (make sure you can start if no API key is found and DO NOT PUSH your api key to Github)
 - [ ] check plugins listed on lazyvim (in particular conform for formatting, dashboard)
   - [ ] for conform see if you need to install prettier, if so add it with nix (not in nixpkgs)
@@ -493,11 +496,6 @@
   - [ ] check out https://github.com/cachix/git-hooks.nix
   - [ ] arguments whether you are installing it on a local machine or remotely
   - [ ] distinguish whether we are running on Debian or MacOS X to set up the various links (fonts, launch menu, etc.)
-  - [ ] add a little shell script to automatically add a neovim plugin:
-  ```sh
-    niv -s ./nix/neovim-plugins/plugins/sources.json add shaunsingh/nord.nvim
-    nix-env --install --file nix/default.nix -A neovim-plugin
-  ```
   - [x] create small `init-perso-projects.sh` shell script to be installed as a binary with nix which would clone:
   ```
   git clone git@bitbucket.org:paul_roseau/hlx-gcp-infrastructure.git
@@ -511,6 +509,10 @@
   ```sh
   rustup component add rust-analyzer
   ```
+
+- [ ] If you are going to still support your install-manual.sh:
+  - [ ] add versions of binaries that you install to plugins-sources (rename it to sources-metadata)
+  - [ ] update ci script and install-manual.sh accordingly
 
 # Theory
 
