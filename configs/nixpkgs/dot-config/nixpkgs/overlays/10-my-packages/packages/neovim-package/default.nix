@@ -66,6 +66,7 @@ let
     vimPlugins.nvim-web-devicons
     vimPlugins.onedarkpro-nvim
     vimPlugins.plenary-nvim
+    vimPlugins.render-markdown-nvim
     vimPlugins.rustaceanvim
     vimPlugins.solarized-nvim
     vimPlugins.toggleterm-nvim
