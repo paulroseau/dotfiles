@@ -84,7 +84,6 @@ rec {
 
     nix = [
       nil
-      niv
       nixfmt
       pkgs.nix
     ];
