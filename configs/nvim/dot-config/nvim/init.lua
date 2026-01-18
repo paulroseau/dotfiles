@@ -3,7 +3,7 @@ require('settings')
 require('mappings')
 require('commands')
 require('treesitter')
-require('lsp').configure()
+require('lsp')
 
 -- Add personal (vendored) plugins to RTP
 local utils = require('utils')
@@ -12,6 +12,7 @@ utils.add_child_directories_to_rtp(vim.fs.normalize(vim.fn.stdpath('config') .. 
 -- Configure plugins
 require('plugins.blink-cmp')
 require('plugins.codecompanion')
+require('plugins.conform')
 require('plugins.comment')
 require('plugins.flatten')
 require('plugins.fugitive')

@@ -76,11 +76,21 @@ rec {
       cmake
     ];
 
-    go = [ gopls ];
+    go = [
+      pkgs.go
+      gotools
+      gopls
+    ];
 
-    json = [ vscode-langservers-extracted ];
+    web = [
+      vscode-langservers-extracted
+      prettierd
+    ];
 
-    lua = [ lua-language-server ];
+    lua = [
+      lua-language-server
+      stylua
+    ];
 
     nix = [
       nil
@@ -103,7 +113,7 @@ rec {
 
     yaml = [ yaml-language-server ];
 
-    all-free = c ++ go ++ json ++ lua ++ nix ++ python ++ rust ++ yaml;
+    all-free = c ++ go ++ lua ++ nix ++ python ++ rust ++ web ++ yaml;
 
     all = all-free ++ terraform;
   };

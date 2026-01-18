@@ -4,7 +4,7 @@
   - [x] rework how you place plugins in the RTP
   - [x] utils to select all treesitters grammar programmatically in nix
   - [x] add solarized, gitmoji + overriden nvim-treesitter to vimPlugins in overlay
-  - [x] experiment with rtp + override src for some plugins 
+  - [x] experiment with rtp + override src for some plugins
     -> can't do it rtpPath is not part of `vimUtils` attrset, it is bound in a `let rtpPath = "."; in ...` expression
   - [x] rework neovim-plugins-2 in nvim-packages a bit, using the above point
   - [x] update RTP for personal plugins and rm utils in nvim lua config
@@ -54,7 +54,7 @@
   - his plugins are (should you use them?):
     - [x] his onedarkpro
     - [x] render-markdown
-    - [ ] conform
+    - [x] conform
     - [ ] switch from lualine to heirline, and remove your tabline plugin -> YES
     - [ ] copilot
     - [ ] oil -> Probably NO
@@ -85,9 +85,8 @@
 - [ ] check if we have incremental node selection with lsp in new nvim (0.11.6?) - should include this commit https://github.com/neovim/neovim/pull/34011/files
 - [ ] install https://github.com/jackMort/ChatGPT.nvim (make sure you can start if no API key is found and DO NOT PUSH your api key to Github)
 - [ ] check plugins listed on lazyvim (in particular conform for formatting, dashboard)
-  - [ ] for conform see if you need to install prettier, if so add it with nix (not in nixpkgs)
 - [ ] rework your smart windows by separating configuration/initialization (ie. no setup(config)): https://github.com/nvim-neorocks/nvim-best-practices?tab=readme-ov-file#sleeping_bed-lazy-loading
-  - [ ] typing in lua: 
+  - [ ] typing in lua:
     - https://mrcjkb.dev/posts/2023-08-17-lua-adts.html
     - https://mrcjkb.dev/posts/2023-08-22-setup.html
     - https://luals.github.io/wiki/annotations/
