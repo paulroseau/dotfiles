@@ -67,7 +67,7 @@ let
     vimPlugins.onedarkpro-nvim
     vimPlugins.plenary-nvim
     vimPlugins.render-markdown-nvim
-    vimPlugins.rustaceanvim
+    # vimPlugins.rustaceanvim
     vimPlugins.solarized-nvim
     vimPlugins.toggleterm-nvim
     vimPlugins.tokyonight-nvim
