@@ -14,7 +14,7 @@ let
   # - nvim-treesitter/plugin/filetypes (necessary to interpret `sh` as `bash` for instance)
   # - a set of parsers of interest which versions always follow nvim-treesitter's main branch since nixpkgs pulls them from https://raw.githubusercontent.com/nvim-neorocks/nurr/main/tree-sitter-parsers.json
 
-  # NB: there is a slight risk that the queries diverge from the parsers if you the nvim-treesitter's version is pinned to a too old version in your vimPlugin overlay. This is a problem nixpkgs currently has since nvim-treesitter points to master which is much older than main from which the parsers' version file is generated on https://raw.githubusercontent.com/nvim-neorocks/nurr/main/tree-sitter-parsers.json
+  # NB: there is a slight risk that the queries diverge from the parsers if your nvim-treesitter's version is pinned to a too old version in your vimPlugin overlay. This is a problem nixpkgs currently has as well since nvim-treesitter points to master which is much older than main from which the parsers' version file is generated on https://raw.githubusercontent.com/nvim-neorocks/nurr/main/tree-sitter-parsers.json
   stripped-nvim-treesitter-plugin = import ./stripped-nvim-treesitter-plugin.nix {
     inherit linkFarm;
 
