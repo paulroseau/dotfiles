@@ -20,8 +20,6 @@ return {
     },
   },
   on_attach = function(client, bufnr)
-    require('lsp').setup_auto_formatting_on_save(client, bufnr)
-
     vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightOrganizeImports', function()
       client:exec_cmd({
         command = 'pyright.organizeimports',
