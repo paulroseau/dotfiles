@@ -3,17 +3,17 @@
     "blink.cmp": {
       "owner": "Saghen",
       "repo": "blink.cmp",
-      "rev": "refs/tags/v1.8.0"
+      "rev": "refs/tags/v1.9.1"
     },
     "catppuccin-nvim": {
       "owner": "catppuccin",
       "repo": "nvim",
-      "rev": "ce8d176faa4643e026e597ae3c31db59b63cef09"
+      "rev": "beaf41a30c26fd7d6c386d383155cbd65dd554cd"
     },
     "codecompanion.nvim": {
       "owner": "olimorris",
       "repo": "codecompanion.nvim",
-      "rev": "e6ec73c06d3ed8ce28f144d2f89c30dec0286961"
+      "rev": "42cf6d1637fc8934421fe69745fd01098068ece6"
     },
     "comment.nvim": {
       "owner": "numtostr",
@@ -23,7 +23,7 @@
     "conform.nvim": {
       "owner": "stevearc",
       "repo": "conform.nvim",
-      "rev": "5420c4b5ea0aeb99c09cfbd4fd0b70d257b44f25"
+      "rev": "c2526f1cde528a66e086ab1668e996d162c75f4f"
     },
     "flatten.nvim": {
       "owner": "willothy",
@@ -33,12 +33,12 @@
     "friendly-snippets": {
       "owner": "rafamadriz",
       "repo": "friendly-snippets",
-      "rev": "572f5660cf05f8cd8834e096d7b4c921ba18e175"
+      "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9"
     },
     "fzf-lua": {
       "owner": "ibhagwan",
       "repo": "fzf-lua",
-      "rev": "a03d68e40eea835a1cdbd9f93049708dab3621e6"
+      "rev": "0867870a6033d7e9cc40f40aaf57290fba66682d"
     },
     "gitmoji.nvim": {
       "owner": "Dynge",
@@ -58,12 +58,12 @@
     "mini.pairs": {
       "owner": "nvim-mini",
       "repo": "mini.pairs",
-      "rev": "d5a29b6254dad07757832db505ea5aeab9aad43a"
+      "rev": "4089aa6ea6423e02e1a8326a7a7a00159f6f5e04"
     },
     "neo-tree.nvim": {
       "owner": "nvim-neo-tree",
       "repo": "neo-tree.nvim",
-      "rev": "b0b73273b4f5a1f4b4aac8accd6e0c3b4b5a6967"
+      "rev": "1d682ea4b77890e4cdb7e6da17368a46ebdd6fb2"
     },
     "nightfox.nvim": {
       "owner": "EdenEast",
@@ -78,7 +78,7 @@
     "nui.nvim": {
       "owner": "MunifTanjim",
       "repo": "nui.nvim",
-      "rev": "0.4.0"
+      "rev": "refs/tags/0.4.0"
     },
     "nvim-surround": {
       "owner": "kylechui",
@@ -93,12 +93,12 @@
     "nvim-web-devicons": {
       "owner": "nvim-tree",
       "repo": "nvim-web-devicons",
-      "rev": "6788013bb9cb784e606ada44206b0e755e4323d7"
+      "rev": "746ffbb17975ebd6c40142362eee1b0249969c5c"
     },
     "onedarkpro.nvim": {
       "owner": "olimorris",
       "repo": "onedarkpro.nvim",
-      "rev": "6b12e00bf5e509e1278a84e2aecf918ca6be9aea"
+      "rev": "743bf248cf238a0625f3a204eecefafcf6281a9f"
     },
     "plenary.nvim": {
       "owner": "nvim-lua",
@@ -108,12 +108,12 @@
     "render-markdown.nvim": {
       "owner": "MeanderingProgrammer",
       "repo": "render-markdown.nvim",
-      "rev": "07d088bf8bdadd159eb807b90eaee86a4778383f"
+      "rev": "48b4175dbca8439d30c1f52231cbe5a712c8f9d9"
     },
     "rustaceanvim": {
       "owner": "mrcjkb",
       "repo": "rustaceanvim",
-      "rev": "50191da212fb867f8bf25ce5e00f55ffb7a7af8b"
+      "rev": "refs/tags/v8.0.1"
     },
     "solarized.nvim": {
       "owner": "maxmx03",
