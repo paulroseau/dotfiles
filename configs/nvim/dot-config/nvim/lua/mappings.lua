@@ -20,42 +20,42 @@ vim.keymap.set({ '' }, '<up>', '<cmd>normal! gk<CR>')
 vim.keymap.set({ '' }, '<down>', '<cmd>normal! gj<CR>')
 
 -- Window switching (Follow up on https://github.com/neovim/neovim/issues/26881)
-vim.keymap.set({ '', 't' }, '<M-h>', '<C-w>h')
-vim.keymap.set({ '', 't' }, '<M-j>', '<C-w>j')
-vim.keymap.set({ '', 't' }, '<M-k>', '<C-w>k')
-vim.keymap.set({ '', 't' }, '<M-l>', '<C-w>l')
+vim.keymap.set({ '', 't' }, '<M-h>', '<cmd>wincmd h<CR>')
+vim.keymap.set({ '', 't' }, '<M-j>', '<cmd>wincmd j<CR>')
+vim.keymap.set({ '', 't' }, '<M-k>', '<cmd>wincmd k<CR>')
+vim.keymap.set({ '', 't' }, '<M-l>', '<cmd>wincmd l<CR>')
 
 -- Window moving
-vim.keymap.set({ '', 't' }, '<M-H>', '<C-w>H')
-vim.keymap.set({ '', 't' }, '<M-J>', '<C-w>J')
-vim.keymap.set({ '', 't' }, '<M-K>', '<C-w>K')
-vim.keymap.set({ '', 't' }, '<M-L>', '<C-w>L')
-vim.keymap.set({ '', 't' }, '<M-x>', '<C-w>x')
-vim.keymap.set({ '', 't' }, '<M-r>', '<C-w>r')
-vim.keymap.set({ '', 't' }, '<M-R>', '<C-w>R')
+vim.keymap.set({ '', 't' }, '<M-H>', '<cmd>wincmd H<CR>')
+vim.keymap.set({ '', 't' }, '<M-J>', '<cmd>wincmd J<CR>')
+vim.keymap.set({ '', 't' }, '<M-K>', '<cmd>wincmd K<CR>')
+vim.keymap.set({ '', 't' }, '<M-L>', '<cmd>wincmd L<CR>')
+vim.keymap.set({ '', 't' }, '<M-x>', '<cmd>wincmd x<CR>')
+vim.keymap.set({ '', 't' }, '<M-r>', '<cmd>wincmd r<CR>')
+vim.keymap.set({ '', 't' }, '<M-R>', '<cmd>wincmd R<CR>')
 
 -- Window resizing
-vim.keymap.set({ '', 't' }, '<M-=>', '<C-w>=')
-vim.keymap.set({ '', 't' }, '<M-+>', '<C-w>+')
-vim.keymap.set({ '', 't' }, '<M-->', '<C-w>-')
-vim.keymap.set({ '', 't' }, '<M->>', '<C-w>>')
-vim.keymap.set({ '', 't' }, '<M-<>', '<C-w><')
+vim.keymap.set({ '', 't' }, '<M-=>', '<cmd>wincmd =<CR>')
+vim.keymap.set({ '', 't' }, '<M-+>', '<cmd>execute v:count1 .. "wincmd +"<CR>')
+vim.keymap.set({ '', 't' }, '<M-->', '<cmd>execute v:count1 .. "wincmd -"<CR>')
+vim.keymap.set({ '', 't' }, '<M->>', '<cmd>execute v:count1 .. "wincmd >"<CR>')
+vim.keymap.set({ '', 't' }, '<M-<>', '<cmd>execute v:count1 .. "wincmd <"<CR>')
 
 -- Window creating
 vim.keymap.set({ '', 't' }, '<M-n>', '<cmd>new<CR>')
 vim.keymap.set({ '', 't' }, '<M-m>', '<cmd>vnew<CR>')
-vim.keymap.set({ '' }, '<M-s>', '<C-w>s')
-vim.keymap.set({ '' }, '<M-v>', '<C-w>v')
+vim.keymap.set({ '', 't' }, '<M-s>', '<cmd>wincmd s<CR>')
+vim.keymap.set({ '', 't' }, '<M-v>', '<cmd>wincmd v<CR>')
 vim.keymap.set({ '' }, '<M-]>', '<C-w>g<C-]>')
 
 -- Window closing
-vim.keymap.set({ '' }, '<M-c>', '<C-w>c')
-vim.keymap.set({ '' }, '<M-o>', '<C-w>o')
+vim.keymap.set({ '', 't' }, '<M-c>', '<cmd>close<CR>')
+vim.keymap.set({ '', 't' }, '<M-o>', '<cmd>only<CR>')
 
 -- Tabpage creating
 vim.keymap.set({ 'n' }, 'Tn', '<cmd>tabnew<CR>')
 vim.keymap.set({ 'n' }, 'Tc', '<cmd>tabclose<CR>')
-vim.keymap.set({ '' }, '<M-t>', '<C-w>T')
+vim.keymap.set({ '', 't' }, '<M-t>', '<cmd>wincmd T<CR>')
 vim.keymap.set({ '' }, '<M-T>', '<C-w>T<cmd>tabprevious<CR>')
 
 -- Tabpage switching
@@ -96,7 +96,7 @@ local function visual_selection_search(search_character)
     local search_pattern = vim.fn.escape(vim.fn.getreg('s'), '\\' .. search_character)
     search_pattern = vim.fn.substitute(search_pattern, '\n', '\\\\n', 'g')
     vim.fn.setreg('s', previous_s_register)
-    vim.cmd("silent! " .. search_character .. "\\V" .. search_pattern)
+    vim.cmd('silent! ' .. search_character .. '\\V' .. search_pattern)
   end
 end
 vim.keymap.set({ 'v' }, '*', visual_selection_search('/'))
@@ -104,12 +104,12 @@ vim.keymap.set({ 'v' }, '#', visual_selection_search('?'))
 
 -- Clear whitespace
 local function clear_trailing_whitespaces()
-  local pos = vim.fn.getpos(".")
+  local pos = vim.fn.getpos('.')
   -- need silent! for when the pattern is not found
   -- (keymap { silent = true } option is equivalent to silent not silent!, ie. errors will be echoed)
   vim.cmd([[silent! %substitute/[ \t]\+$//]])
-  vim.cmd("nohlsearch")
-  vim.fn.setpos(".", pos)
+  vim.cmd('nohlsearch')
+  vim.fn.setpos('.', pos)
 end
 
 vim.keymap.set({ '' }, '<leader>W', clear_trailing_whitespaces)
@@ -127,9 +127,9 @@ local function locationlist_or_quickfixlist(action)
   return function()
     local locations = vim.fn.getloclist(0)
     if not vim.tbl_isempty(locations) then
-      vim.cmd("silent! l" .. action)
+      vim.cmd('silent! l' .. action)
     else
-      vim.cmd("silent! c" .. action)
+      vim.cmd('silent! c' .. action)
     end
   end
 end
@@ -138,10 +138,12 @@ vim.keymap.set({ 'n' }, '<C-p>', locationlist_or_quickfixlist('previous'))
 vim.keymap.set({ 'n' }, '<C-n>', locationlist_or_quickfixlist('next'))
 
 -- Snippet
-vim.keymap.set({ 'i', 's' }, '<C-p>', function() vim.snippet.jump(-1) end,
-  { desc = 'Snippet jump backward', silent = true })
-vim.keymap.set({ 'i', 's' }, '<C-n>', function() vim.snippet.jump(1) end,
-  { desc = 'Snippet jump forward', silent = true })
+vim.keymap.set({ 'i', 's' }, '<C-p>', function()
+  vim.snippet.jump(-1)
+end, { desc = 'Snippet jump backward', silent = true })
+vim.keymap.set({ 'i', 's' }, '<C-n>', function()
+  vim.snippet.jump(1)
+end, { desc = 'Snippet jump forward', silent = true })
 
 -- Renaming
 
@@ -158,11 +160,11 @@ local function rename_with_substitute()
     if not input or #input == 0 then
       return
     end
-    local pos = vim.fn.getpos(".")
-    local substitute_cmd = string.format("%%substitute/\\<%s\\>/%s/eg", cword, input)
+    local pos = vim.fn.getpos('.')
+    local substitute_cmd = string.format('%%substitute/\\<%s\\>/%s/eg', cword, input)
     vim.cmd(substitute_cmd)
-    vim.cmd("nohlsearch")
-    vim.fn.setpos(".", pos)
+    vim.cmd('nohlsearch')
+    vim.fn.setpos('.', pos)
   end)
 end
 

@@ -2,6 +2,7 @@
 require('settings')
 require('mappings')
 require('commands')
+require('autocommands')
 require('treesitter')
 require('lsp')
 
