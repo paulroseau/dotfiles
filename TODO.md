@@ -213,7 +213,7 @@
   ```
 - [x] install wezterm on remote Linux image (cf. wezterm)
 - [ ] rework `install-manual.sh`
-  - [ ] check out chezmoi seriously first, otherswise:
+  - [x] check out chezmoi seriously first, otherswise:
   - [ ] separate all binaries versions in a separate file
   - [ ] separate installation of each binary
   - [ ] split in several scripts? -> not sure
