@@ -3,6 +3,7 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function(args)
     vim.keymap.set('t', '<M-s>', '<M-s>', { buffer = args.buf })
     vim.keymap.set('t', '<M-v>', '<M-v>', { buffer = args.buf })
+    vim.keymap.set('t', '<M-t>', '<M-t>', { buffer = args.buf })
   end,
 })
 
