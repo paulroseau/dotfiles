@@ -3,3 +3,4 @@
 scratch*
 tags*
 venv
+**/.claude/settings.local.json
