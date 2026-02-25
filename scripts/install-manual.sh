@@ -210,6 +210,7 @@ install_node_applications() {
   npm install --global yaml-language-server@1.18.0
   npm install --global gitmoji-cli@v9.7.0
   npm install --global @anthropic-ai/claude-code@v2.1.44
+  npm install --global @zed-industries/claude-agent-acp@0.18.0
 
   for bin in $(ls "$NVM_BIN"); do
     ln -sf $NVM_BIN/$bin $ENVIRONMENT_HOME/bin
