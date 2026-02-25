@@ -14,8 +14,8 @@ mkdir -p $APPS_STORE
 ENVIRONMENT_HOME=$HOME/.local
 mkdir -p $ENVIRONMENT_HOME/bin
 
-SKIM_VERSION="0.18.0"
-FZF_VERSION="0.62.0"
+SKIM_VERSION="3.2.0"
+FZF_VERSION="0.67.0"
 
 DOTFILES=$HOME/.dotfiles
 
@@ -68,14 +68,14 @@ install_binary() {
 install_binaries() {
   echo "Installing binaires from Github"
 
-  NVIM_VERSION="0.11.5"
+  NVIM_VERSION="0.11.6"
   install_binary \
     "https://github.com/neovim/neovim/releases/download/v${NVIM_VERSION}" \
     nvim-linux-x86_64.tar.gz \
     ${APPS_STORE}/neovim-${NVIM_VERSION} \
     nvim-linux-x86_64/bin
 
-  LUA_LS_VERSION="3.14.0"
+  LUA_LS_VERSION="3.17.1"
   install_binary \
     "https://github.com/LuaLS/lua-language-server/releases/download/${LUA_LS_VERSION}" \
     lua-language-server-${LUA_LS_VERSION}-linux-x64.tar.gz \
@@ -88,14 +88,14 @@ install_binaries() {
     ${APPS_STORE}/fzf-${FZF_VERSION} \
     .
 
-  CLANGD_VERSION="19.1.2"
+  CLANGD_VERSION="21.1.8"
   install_binary \
     "https://github.com/clangd/clangd/releases/download/${CLANGD_VERSION}" \
     clangd-linux-${CLANGD_VERSION}.zip \
     ${APPS_STORE}/clangd-${CLANGD_VERSION} \
     clangd_${CLANGD_VERSION}/bin
 
-  YQ_VERSION="4.45.4"
+  YQ_VERSION="4.52.4"
   install_binary \
     "https://github.com/mikefarah/yq/releases/download/v${YQ_VERSION}" \
     yq_linux_amd64.tar.gz \
@@ -110,12 +110,19 @@ install_binaries() {
     ${APPS_STORE}/wezterm-${WEZTERM_VERSION} \
     wezterm/usr/bin
 
-  TERRAFORM_LS_VERSION="0.36.4"
+  TERRAFORM_LS_VERSION="0.38.4"
   install_binary \
     https://releases.hashicorp.com/terraform-ls/${TERRAFORM_LS_VERSION} \
     terraform-ls_${TERRAFORM_LS_VERSION}_linux_amd64.zip \
     ${APPS_STORE}/terraform-ls-${TERRAFORM_LS_VERSION} \
     .
+
+  GITLAB_CLI_VERSION="1.86.0"
+  install_binary \
+    https://gitlab.com/gitlab-org/cli/-/releases/v${GITLAB_CLI_VERSION}/downloads \
+    glab_${GITLAB_CLI_VERSION}_linux_amd64.tar.gz \
+    ${APPS_STORE}/glab-cli-${GITLAB_CLI_VERSION} \
+    bin
 
   echo "Done"
 }
@@ -185,9 +192,10 @@ install_node_applications() {
   . "$NVM_DIR/nvm.sh"
 
   npm install --global vscode-langservers-extracted@v4.10.0
-  npm install --global prettier@3.6.2
+  npm install --global prettier@3.8.1
   npm install --global yaml-language-server@1.18.0
   npm install --global gitmoji-cli@v9.7.0
+  npm install --global @anthropic-ai/claude-code@v2.1.44
 
   for bin in $(ls "$NVM_BIN"); do
     ln -sf $NVM_BIN/$bin $ENVIRONMENT_HOME/bin
@@ -314,7 +322,7 @@ download_zsh_plugins() {
 }
 
 download_nvim_plugins() {
-  NVIM_PLUGINS_DIR=$APPS_STORE/neovim-plugins
+  NVIM_PLUGINS_DIR=$APPS_STORE/neovim-plugins/start
   mkdir -p $NVIM_PLUGINS_DIR
   echo "Downloading Neovim plugins in $NVIM_PLUGINS_DIR"
   download_plugins "$DOTFILES/scripts/plugins-sources.json" $NVIM_PLUGINS_DIR "neovim"
