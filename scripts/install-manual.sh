@@ -117,13 +117,6 @@ install_binaries() {
     ${APPS_STORE}/terraform-ls-${TERRAFORM_LS_VERSION} \
     .
 
-  GITLAB_CLI_VERSION="1.86.0"
-  install_binary \
-    https://gitlab.com/gitlab-org/cli/-/releases/v${GITLAB_CLI_VERSION}/downloads \
-    glab_${GITLAB_CLI_VERSION}_linux_amd64.tar.gz \
-    ${APPS_STORE}/glab-cli-${GITLAB_CLI_VERSION} \
-    bin
-
   echo "Done"
 }
 
@@ -137,6 +130,27 @@ install_work_binaries() {
     ${APPS_STORE}/kind-${KIND_VERSION} \
     .
   mv $ENVIRONMENT_HOME/bin/kind-linux-amd64 $ENVIRONMENT_HOME/bin/kind
+
+  KUBECTL_VERSION="1.35.1"
+  install_binary \
+    https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64 \
+    kubectl \
+    ${APPS_STORE}/kubectl-${KUBECTL_VERSION} \
+    .
+
+  K9S_VERSION="0.50.18"
+  install_binary \
+    https://github.com/derailed/k9s/releases/download/v${K9S_VERSION} \
+    k9s_Linux_amd64.tar.gz \
+    ${APPS_STORE}/k9s-${K9S_VERSION} \
+    .
+
+  GITLAB_CLI_VERSION="1.86.0"
+  install_binary \
+    https://gitlab.com/gitlab-org/cli/-/releases/v${GITLAB_CLI_VERSION}/downloads \
+    glab_${GITLAB_CLI_VERSION}_linux_amd64.tar.gz \
+    ${APPS_STORE}/glab-cli-${GITLAB_CLI_VERSION} \
+    bin
 
   HELM_VERSION="3.18.6"
   install_binary \
