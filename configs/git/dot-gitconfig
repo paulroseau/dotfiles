@@ -12,7 +12,7 @@
 [alias]
   st = status
   cm = commit
-  br = branch
+  br = branch --sort=-committerdate
   co = checkout
   df = diff
   dc = diff --cached
