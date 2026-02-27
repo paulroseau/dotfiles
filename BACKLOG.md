@@ -36,13 +36,14 @@
   - [x] make <Ctrl-v> and <v> behave like in vim in copy mode
   - [ ] make status bar pretty:
     - https://tao-of-tmux.readthedocs.io/en/latest/manuscript/09-status-bar.html
-    (read the whole blog)
+      (read the whole blog)
     - https://medium.com/hackernoon/customizing-tmux-b3d2a5050207
   - [ ] look if [tmux pkg manager](https://github.com/tmux-plugins/tpm) makes sense ?
   - [ ] tmux sensible package -> check but copy paste if anything is interesting
   - [ ] change style of pane when in vim mode to indicate it is locked -> not sure this is really worth it since you will be able to get out of a vim locked window most of the time except when running nvim with your config remotely (experiment with setting vim-mode option as a pane option instead of window option)
   - [ ] Add `./tat.sh` script with nix allows to create a session named with the `pwd` automatically
   - [ ] look into Teamocil, tmuxinator or tmuxp to script session creation (tmuxp is written by the guy from tao-of-tmux, it is in python)
+
   ```bash
   #!/bin/sh
   #
@@ -93,46 +94,47 @@
       - check if "require(plenary.log)" does the trick
   - [ ] Once 0.10 is out, check out `readelf -d $(readlink -f $(which nvim))` and check if lpeg is now included in `Shared_libraries` (not in `RUNPATH`) or `RUNPATH`. It appeared when using the nightly source code built with the 9.1 code we get this:
     - for nvim 9.1
-        ```
-        $ readelf -d ./nvim
-        Dynamic section at offset 0x442e60 contains 40 entries:
-          Tag        Type                         Name/Value
-         0x0000000000000001 (NEEDED)             Shared library: [libluv.so.1]
-         0x0000000000000001 (NEEDED)             Shared library: [libtermkey.so.1]
-         0x0000000000000001 (NEEDED)             Shared library: [libvterm.so.0]
-         0x0000000000000001 (NEEDED)             Shared library: [libmsgpack-c.so.2]
-         0x0000000000000001 (NEEDED)             Shared library: [libtree-sitter.so.0]
-         0x0000000000000001 (NEEDED)             Shared library: [libunibilium.so.4]
-         0x0000000000000001 (NEEDED)             Shared library: [libluajit-5.1.so.2]
-         0x0000000000000001 (NEEDED)             Shared library: [libm.so.6]
-         0x0000000000000001 (NEEDED)             Shared library: [libutil.so.1]
-         0x0000000000000001 (NEEDED)             Shared library: [libuv.so.1]
-         0x0000000000000001 (NEEDED)             Shared library: [libdl.so.2]
-         0x0000000000000001 (NEEDED)             Shared library: [librt.so.1]
-         0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
-         0x000000000000001d (RUNPATH)            Library runpath: [/nix/store/xdzfi8nkxpvcv6659gclqw4vjwvqxa66-libtermkey-0.22/lib:/nix/store/c70parvipldqrfip3cmdq6xdxrpk2scd-libuv-1.46.0/lib:/nix/store/8c4mr713pf09xql0clrbg8nc61vxwfcj-libvterm-neovim-0.3.2/lib:/nix/store/pfrayy46grjqavyqilsjw7xg8cvmkwyw-libluv-1.44.2-1/lib:/nix/store/gnd9h9dzhqjsks0vd7pmsinc9xzsgii6-msgpack-c-6.0.0/lib:/nix/store/sxcwjz5ad54i1h2hnfx47ymig76sz81d-luajit-2.1.0-2022-10-04-env/lib:/nix/store/fb2ayr725cqjz4my1zma93678mbdpxmi-tree-sitter-0.20.8/lib:/nix/store/3mmh0lv1ynwx8jw4v2lhv28ifdgwcfrb-unibilium-2.1.1/lib:/nix/store/1x4ijm9r1a88qk7zcmbbfza324gx1aac-glibc-2.37-8/lib]
-        ```
+      ```
+      $ readelf -d ./nvim
+      Dynamic section at offset 0x442e60 contains 40 entries:
+        Tag        Type                         Name/Value
+       0x0000000000000001 (NEEDED)             Shared library: [libluv.so.1]
+       0x0000000000000001 (NEEDED)             Shared library: [libtermkey.so.1]
+       0x0000000000000001 (NEEDED)             Shared library: [libvterm.so.0]
+       0x0000000000000001 (NEEDED)             Shared library: [libmsgpack-c.so.2]
+       0x0000000000000001 (NEEDED)             Shared library: [libtree-sitter.so.0]
+       0x0000000000000001 (NEEDED)             Shared library: [libunibilium.so.4]
+       0x0000000000000001 (NEEDED)             Shared library: [libluajit-5.1.so.2]
+       0x0000000000000001 (NEEDED)             Shared library: [libm.so.6]
+       0x0000000000000001 (NEEDED)             Shared library: [libutil.so.1]
+       0x0000000000000001 (NEEDED)             Shared library: [libuv.so.1]
+       0x0000000000000001 (NEEDED)             Shared library: [libdl.so.2]
+       0x0000000000000001 (NEEDED)             Shared library: [librt.so.1]
+       0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+       0x000000000000001d (RUNPATH)            Library runpath: [/nix/store/xdzfi8nkxpvcv6659gclqw4vjwvqxa66-libtermkey-0.22/lib:/nix/store/c70parvipldqrfip3cmdq6xdxrpk2scd-libuv-1.46.0/lib:/nix/store/8c4mr713pf09xql0clrbg8nc61vxwfcj-libvterm-neovim-0.3.2/lib:/nix/store/pfrayy46grjqavyqilsjw7xg8cvmkwyw-libluv-1.44.2-1/lib:/nix/store/gnd9h9dzhqjsks0vd7pmsinc9xzsgii6-msgpack-c-6.0.0/lib:/nix/store/sxcwjz5ad54i1h2hnfx47ymig76sz81d-luajit-2.1.0-2022-10-04-env/lib:/nix/store/fb2ayr725cqjz4my1zma93678mbdpxmi-tree-sitter-0.20.8/lib:/nix/store/3mmh0lv1ynwx8jw4v2lhv28ifdgwcfrb-unibilium-2.1.1/lib:/nix/store/1x4ijm9r1a88qk7zcmbbfza324gx1aac-glibc-2.37-8/lib]
+      ```
     - for nvim 0.10-dev (nightly)
-        ```
-        $ readelf -d ./nvim
-        Dynamic section at offset 0x505e40 contains 41 entries:
-          Tag        Type                         Name/Value
-         0x0000000000000001 (NEEDED)             Shared library: [libluv.so.1]
-         0x0000000000000001 (NEEDED)             Shared library: [libtermkey.so.1]
-         0x0000000000000001 (NEEDED)             Shared library: [libvterm.so.0]
-         0x0000000000000001 (NEEDED)             Shared library: [libmsgpack-c.so.2]
-         0x0000000000000001 (NEEDED)             Shared library: [libtree-sitter.so.0]
-         0x0000000000000001 (NEEDED)             Shared library: [libunibilium.so.4]
-         0x0000000000000001 (NEEDED)             Shared library: [/nix/store/sxcwjz5ad54i1h2hnfx47ymig76sz81d-luajit-2.1.0-2022-10-04-env/lib/lua/5.1/lpeg.so]
-         0x0000000000000001 (NEEDED)             Shared library: [libluajit-5.1.so.2]
-         0x0000000000000001 (NEEDED)             Shared library: [libm.so.6]
-         0x0000000000000001 (NEEDED)             Shared library: [libutil.so.1]
-         0x0000000000000001 (NEEDED)             Shared library: [libuv.so.1]
-         0x0000000000000001 (NEEDED)             Shared library: [libdl.so.2]
-         0x0000000000000001 (NEEDED)             Shared library: [librt.so.1]
-         0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
-         0x000000000000001d (RUNPATH)            Library runpath: [/nix/store/xdzfi8nkxpvcv6659gclqw4vjwvqxa66-libtermkey-0.22/lib:/nix/store/c70parvipldqrfip3cmdq6xdxrpk2scd-libuv-1.46.0/lib:/nix/store/8c4mr713pf09xql0clrbg8nc61vxwfcj-libvterm-neovim-0.3.2/lib:/nix/store/pfrayy46grjqavyqilsjw7xg8cvmkwyw-libluv-1.44.2-1/lib:/nix/store/gnd9h9dzhqjsks0vd7pmsinc9xzsgii6-msgpack-c-6.0.0/lib:/nix/store/sxcwjz5ad54i1h2hnfx47ymig76sz81d-luajit-2.1.0-2022-10-04-env/lib:/nix/store/fb2ayr725cqjz4my1zma93678mbdpxmi-tree-sitter-0.20.8/lib:/nix/store/3mmh0lv1ynwx8jw4v2lhv28ifdgwcfrb-unibilium-2.1.1/lib:/nix/store/1x4ijm9r1a88qk7zcmbbfza324gx1aac-glibc-2.37-8/lib]
-            ```
+      ````
+      $ readelf -d ./nvim
+      Dynamic section at offset 0x505e40 contains 41 entries:
+        Tag        Type                         Name/Value
+       0x0000000000000001 (NEEDED)             Shared library: [libluv.so.1]
+       0x0000000000000001 (NEEDED)             Shared library: [libtermkey.so.1]
+       0x0000000000000001 (NEEDED)             Shared library: [libvterm.so.0]
+       0x0000000000000001 (NEEDED)             Shared library: [libmsgpack-c.so.2]
+       0x0000000000000001 (NEEDED)             Shared library: [libtree-sitter.so.0]
+       0x0000000000000001 (NEEDED)             Shared library: [libunibilium.so.4]
+       0x0000000000000001 (NEEDED)             Shared library: [/nix/store/sxcwjz5ad54i1h2hnfx47ymig76sz81d-luajit-2.1.0-2022-10-04-env/lib/lua/5.1/lpeg.so]
+       0x0000000000000001 (NEEDED)             Shared library: [libluajit-5.1.so.2]
+       0x0000000000000001 (NEEDED)             Shared library: [libm.so.6]
+       0x0000000000000001 (NEEDED)             Shared library: [libutil.so.1]
+       0x0000000000000001 (NEEDED)             Shared library: [libuv.so.1]
+       0x0000000000000001 (NEEDED)             Shared library: [libdl.so.2]
+       0x0000000000000001 (NEEDED)             Shared library: [librt.so.1]
+       0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+       0x000000000000001d (RUNPATH)            Library runpath: [/nix/store/xdzfi8nkxpvcv6659gclqw4vjwvqxa66-libtermkey-0.22/lib:/nix/store/c70parvipldqrfip3cmdq6xdxrpk2scd-libuv-1.46.0/lib:/nix/store/8c4mr713pf09xql0clrbg8nc61vxwfcj-libvterm-neovim-0.3.2/lib:/nix/store/pfrayy46grjqavyqilsjw7xg8cvmkwyw-libluv-1.44.2-1/lib:/nix/store/gnd9h9dzhqjsks0vd7pmsinc9xzsgii6-msgpack-c-6.0.0/lib:/nix/store/sxcwjz5ad54i1h2hnfx47ymig76sz81d-luajit-2.1.0-2022-10-04-env/lib:/nix/store/fb2ayr725cqjz4my1zma93678mbdpxmi-tree-sitter-0.20.8/lib:/nix/store/3mmh0lv1ynwx8jw4v2lhv28ifdgwcfrb-unibilium-2.1.1/lib:/nix/store/1x4ijm9r1a88qk7zcmbbfza324gx1aac-glibc-2.37-8/lib]
+          ```
+      ````
 
 - Neovim plugins:
   - [ ] Pretty status line: nvim-lualine/lualine.nvim:
@@ -172,9 +174,9 @@
     - [x] install
     - [x] configure
   - [ ] nvim-in-tmux:
-     - [x] move it inside `./plugins`, rework the module like nvim-treesitter
-     - [x] set the mappings outside
-     - [ ] check if you want to use vim.loop (libuv) instead of `os.execute`
+    - [x] move it inside `./plugins`, rework the module like nvim-treesitter
+    - [x] set the mappings outside
+    - [ ] check if you want to use vim.loop (libuv) instead of `os.execute`
   - [ ] Use fzf-lua.vim instead of Telescope:
     - [x] understand what you can do with fzf from: https://www.youtube.com/watch?v=qgG5Jhi_Els
     - [x] review if you can remove zsh directory plugin
@@ -197,8 +199,8 @@
     - [x] others 3: https://github.com/folke/tokyonight.nvim
   - [/] Bufferline
     - it is good but does way too much compared to what you need. All you need
-    is a nice name for tabs (or maybe just a number), and a floating window appearing on the side to show
-    the list of buffers when typing <C-j> and <C-k>, but fzf does this aleady pretty well
+      is a nice name for tabs (or maybe just a number), and a floating window appearing on the side to show
+      the list of buffers when typing <C-j> and <C-k>, but fzf does this aleady pretty well
   - [x] install https://github.com/willothy/flatten.nvim to allow to launch nvim inside a terminal (in particular for git rebase -i)
   - [ ] Git:
     - Various options to consider:
@@ -208,9 +210,9 @@
       - [ ] checkout GitSigns, looks cool, you can stage what you changed, but no sure it as good as the Gvdiff of TreeSitter, look around
       - [ ] explore: neogit + diffview
       - [x] `lazygit` (external tool): requires custom keybindings definition https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
-        -> powerful but a bit too much actually, rather stick to something more barebone
+            -> powerful but a bit too much actually, rather stick to something more barebone
   - [ ] Nice tab title
-      - [ ] https://github.com/alvarosevilla95/luatab.nvim/tree/master for nicer tabs, fork the repo since there is some Telescope specific shit and the plugin is a few lines long
+    - [ ] https://github.com/alvarosevilla95/luatab.nvim/tree/master for nicer tabs, fork the repo since there is some Telescope specific shit and the plugin is a few lines long
   - [x] LSP:
     - [x] understand lsp
     - [x] use nix to install lsp servers
@@ -244,23 +246,23 @@
   - [ ] adjust the nvim lua cmp plugin so it can autocomplete in cmd line even when not editing a vim or lua file (right now available uses the filetype)
   - [/] source a lua file (usage example: change the colorscheme option of onedark without needing to quit neovim and restart)
     -> use :luafile
-  - [ ] find a multiselect plugin so when you can search and replace without having to do * and the :s//blalba/, but direclty get the cursor everywhere
+  - [ ] find a multiselect plugin so when you can search and replace without having to do \* and the :s//blalba/, but direclty get the cursor everywhere
   - [ ] make your own script to increase and diminish foldlevel locally on the fold you are on. Strategy :
-       1. select the containing fold of the cursor (invisibly or something)
-       2. if you want to open, just execute foldopen on the range
-       3. if you want to close, find the lines with the highest foldlevel in the range and run foldclose on those
+    1.  select the containing fold of the cursor (invisibly or something)
+    2.  if you want to open, just execute foldopen on the range
+    3.  if you want to close, find the lines with the highest foldlevel in the range and run foldclose on those
   - [ ] alternatives to vimux or vim-tmux-runner, idea write your plugin to send text to other tmux pane. Implementation sketch :
     - use external script so you can do the same from outside nvim
     - send a particular register to the tty of a particular pane
     - send the content of a predefined register (in normal mode) to the left/right/up/down (C-x C-l, C-x C-k, etc.)
     - C-x C-x resends to the same pane
-    Edit: checkout toggleterm before
+      Edit: checkout toggleterm before
   - [ ] set textwidth to 0 for ft=markdown
   - [ ] implement zoom feature, get inspiration from https://github.com/dhruvasagar/vim-zoom
   - [ ] windwp/nvim-autopairs:
     - not sure if we want to install it, I am not a fan of autopairing (we could have it setup for certain filetype - programming languages)
     - it hooks into cmp so when you press <CR> for a function it adds the ()
-    automatically, which could be cool
+      automatically, which could be cool
   - [ ] show blanks https://github.com/lukas-reineke/indent-blankline.nvim
   - [ ] folke/which-key.nvim
   - [ ] JoosepAlviste/nvim-ts-context-commentstring:
@@ -274,7 +276,7 @@
   - refactor fugitive in Lua
 
 - Books:
-  - Learning eBPF by Liz Rice: https://github.com/lizrice/learning-ebpf 
+  - Learning eBPF by Liz Rice: https://github.com/lizrice/learning-ebpf
 
 - Misc:
   - think about finding a nice filewatcher to recomplie stuff when file changes for example (`entr` is recommended by the guy from the tao-of-tmux)
@@ -289,4 +291,4 @@
 - Bugs:
   - neovim:
     - Terminal Mode gets deactivated when moving in/out of the Terminal window: https://github.com/neovim/neovim/issues/26881
-    However toggleterm deals with this just fine, checkout how `persist_mode` works in toggleterm
+      However toggleterm deals with this just fine, checkout how `persist_mode` works in toggleterm
