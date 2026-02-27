@@ -219,6 +219,13 @@
   - [ ] separate installation of each binary
   - [ ] split in several scripts? -> not sure
 
+- [ ] finish nix setup:
+  - [ ] install podman in Dockerfile (add notes about why this is needed cf. setuid)
+  - [ ] install the missing libraries for numpy natively (add notes about why this is needed cf. dlopen)
+  - [ ] upgrade template kubernetes deployment etc.
+  - [ ] since you have podman installed you might be able to run some tests using bats
+  - [ ] test out this hybrid approach and see if it suits you - you should be able to do all the things you are currently doing
+
 - For the office (extra script, maybe in the office's gitlab):
   - [ ] install missing binaries (tmux, zsh, tig via conda?)
   - [ ] install uv with cargo
