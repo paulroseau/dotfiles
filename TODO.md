@@ -27,6 +27,12 @@
 - [x] install Solarized
 - [x] install codecompanion
 
+- [ ] Replace toggleterm by your own toggler:
+  - [ ] shortcut to start a terminal in the current window
+  - [ ] shortcuts to start a terminal in the current window running the following applications:
+    - [ ] claude
+    - [ ] tig
+
 - [ ] configure codecompanion (probably need to learn a bit about the AI tooling ecosystem)
   - [ ] create alternative to `CodeCompanionActions`, because we want to be able to choose how to open chats (vert, bottom, tab) but we can't do that with a heterogenous list of actions (some trigger other pickers, one is inline, others open a chat buffer). The idea is to have the following:
     - [ ] cycle through the already open chats, seems like we could reuse `fzf.buffer` -> no manual for more control (display the type of adapter at least using `_G.chat_metadata`. You will need to use `fzf_lua.exec(contents, opts)` with `opts._fmt.from = function(s, _) return '[buf_nb]' end`)
