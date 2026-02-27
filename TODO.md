@@ -5,19 +5,19 @@
   - [x] utils to select all treesitters grammar programmatically in nix
   - [x] add solarized, gitmoji + overriden nvim-treesitter to vimPlugins in overlay
   - [x] experiment with rtp + override src for some plugins
-    -> can't do it rtpPath is not part of `vimUtils` attrset, it is bound in a `let rtpPath = "."; in ...` expression
+        -> can't do it rtpPath is not part of `vimUtils` attrset, it is bound in a `let rtpPath = "."; in ...` expression
   - [x] rework neovim-plugins-2 in nvim-packages a bit, using the above point
   - [x] update RTP for personal plugins and rm utils in nvim lua config
   - [x] update config to use onedarkpro
   - [x] script to generate list of nvim plugins for manual install
   - [x] add autocommand to enable tree sitters features
     - for highlighting (just replace `<filetype>` by `*` or something and check in the callback there is a parser for this filetype):
-     ```lua
+    ```lua
     vim.api.nvim_create_autocmd('FileType', {
-      pattern = { '<filetype>' },
-      callback = function() vim.treesitter.start() end,
+     pattern = { '<filetype>' },
+     callback = function() vim.treesitter.start() end,
     })
-     ```
+    ```
 - [x] check following nvim-treesitter features in new version:
   - [x] is highlighting on by default
   - [x] folding
@@ -34,7 +34,7 @@
       - [ ] create commmand
       - [ ] create mapping
       - [ ] summarize the conversation asynchronously (use `_ctx`) to display:
-        it seems like you could hook yourself to the `User` event fired through `utils.fire` from `ChatSubmitted`, check if there is a title on your buffer, if not fire the request in a separate command, passing the context - maybe use treesitter to capture: go to first "## Me" and capture 3 times `##`, `## Me`, `## Me <text>`, and then invoke CodeCompanion Inline "summarize ..." and unconditionally accept the result in a scratch buffer that you keep around just for that purpose, or delete immediately after rather
+            it seems like you could hook yourself to the `User` event fired through `utils.fire` from `ChatSubmitted`, check if there is a title on your buffer, if not fire the request in a separate command, passing the context - maybe use treesitter to capture: go to first "## Me" and capture 3 times `##`, `## Me`, `## Me <text>`, and then invoke CodeCompanion Inline "summarize ..." and unconditionally accept the result in a scratch buffer that you keep around just for that purpose, or delete immediately after rather
     - [ ] cycle through the chat creation option: create empty chat, chat with memory, predefined workflow, create git message
     - [ ] cycle through the inline strategies (empty, `/Fix`, etc.)
     - [ ] cycle through the open chats whithin the open window
@@ -90,7 +90,7 @@
     - https://mrcjkb.dev/posts/2023-08-17-lua-adts.html
     - https://mrcjkb.dev/posts/2023-08-22-setup.html
     - https://luals.github.io/wiki/annotations/
-- [ ] allow to specify count in the mapping to resize window (like typing 20 and <M->> should resize by increment * 20)
+- [ ] allow to specify count in the mapping to resize window (like typing 20 and <M->> should resize by increment \* 20)
 - [ ] add luacats annotations in your config: https://luals.github.io/wiki/annotations (also for wezterm)
 - [ ] review all dos and don'ts in https://github.com/nvim-neorocks/nvim-best-practices
 - [ ] fix clangd (test on nvim or mit project)
@@ -101,12 +101,12 @@
 - [ ] try indent-blankline.nvim
 - [x] do you still need lspconfig in nvim 0.11? -> NO
 - [ ] setup formatting (autoformatting?) for all relevant filetype. Options are:
-    - rely on vim.lsp.buf.format() (works only if server supports formatting, check it with `:lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)` for rust, python, sh, etc. It seems that you need to see
+  - rely on vim.lsp.buf.format() (works only if server supports formatting, check it with `:lua vim.print(vim.lsp.get_active_clients()[1].server_capabilities)` for rust, python, sh, etc. It seems that you need to see
     `documentFormattingProvider = true,` in the results
-    - setup a `formatprg` and `formatoptions` in a personal `./ftplugin`
-    - add information to lsp.md nodes about this
-    - questions:
-      - we probably want to map gq to *vim.lsp.buf.format()* if it works (check how can the formatter pick up local options to the project? if the lsp.format works then ok, but in the case where it is not??
+  - setup a `formatprg` and `formatoptions` in a personal `./ftplugin`
+  - add information to lsp.md nodes about this
+  - questions:
+    - we probably want to map gq to _vim.lsp.buf.format()_ if it works (check how can the formatter pick up local options to the project? if the lsp.format works then ok, but in the case where it is not??
 - [ ] try nvim-tree instead of neotree - not sure it is better, but neo-tree is slow, background a bit weird, too configurable, nvim-tree looks simpler
 - [ ] try noice.nvim
 - [x] install LSP for Rust:
@@ -123,8 +123,8 @@
 
 - [x] read https://tao-of-tmux.readthedocs.io
 - [x] checkout tmux capture-pane, tmux save-buffer
-  -> ok capture-pane saves you from getting into copy-mode and selecting
-  -> to paste you can use `Prefix+]` or use `:paste-buffer`, you can also send it to stdout
+      -> ok capture-pane saves you from getting into copy-mode and selecting
+      -> to paste you can use `Prefix+]` or use `:paste-buffer`, you can also send it to stdout
 - [x] resize windows by more increments
 - [x] make status bar pretty:
   - [x] use conditionals (from `man tmux`) and fg/bg colors
@@ -136,24 +136,24 @@
 - [-] create some fuzzy finding with fzf for searching through sessions & tabs
   -> hard to get right and maintainable without external script again
 - [ ] see what you can do for panes (pane border style, etc.)
-    - useful link: https://arcolinux.com/everything-you-need-to-know-about-tmux-status-bar/
-    - status line can print output of a command at regular interval
+  - useful link: https://arcolinux.com/everything-you-need-to-know-about-tmux-status-bar/
+  - status line can print output of a command at regular interval
 
 # Rust binary to develop ideas
 
 ## Small (S)
 
 - [ ] super simple `icon4` which reads ~/.proc2icon config file which would be a json file (ideally lua though) which returns
-    ```json
-    {
-        "nvim": "",
-        "zsh": ""
-    }
-    ```
-    would be useful for `tmux` status window to:
-    ```
-    set-option -ag window-status-format "#(icon4 #{pane_current_command}) #(basename #{pane_current_path}) "
-    ```
+  ```json
+  {
+    "nvim": "",
+    "zsh": ""
+  }
+  ```
+  would be useful for `tmux` status window to:
+  ```
+  set-option -ag window-status-format "#(icon4 #{pane_current_command}) #(basename #{pane_current_path}) "
+  ```
 - [ ] a small CLI which allows to output up to N lines to stdout and then pass on the rest to a pipe
   - this would allow to print the header and then grep for example for ps, kubectl, readelf etc. (a bit like `tee` basically)
 
@@ -193,12 +193,12 @@
   - have colorscheme embedded
   - have a fuzzy finder embedded and be a first class citizen to select stuff
   - be able to multiplex across machines
-  => basically a fork of Wezterm, but without: the weird launch menu, the UI tabline, focus events, maybe rework the architecture (event/async) to allow async calls in the tabstatus, configurarble keyspace for command line, copy mode (better vi/emacs support), etc.
+    => basically a fork of Wezterm, but without: the weird launch menu, the UI tabline, focus events, maybe rework the architecture (event/async) to allow async calls in the tabstatus, configurarble keyspace for command line, copy mode (better vi/emacs support), etc.
 
 # Chezmoi
 
 - [x] Look into it to set the symlinks, and replace manual install
-  -> mouais not convinced, you end up writing go template instead of bash, not really cleaner, what would be useful is the management and rollback of configs, secret encryption but `stow` should be good enough for now
+      -> mouais not convinced, you end up writing go template instead of bash, not really cleaner, what would be useful is the management and rollback of configs, secret encryption but `stow` should be good enough for now
 
 # Office setup
 
@@ -212,6 +212,7 @@
   ssh coder.<...>
   ```
 - [x] install wezterm on remote Linux image (cf. wezterm)
+
 - [ ] rework `install-manual.sh`
   - [x] check out chezmoi seriously first, otherswise:
   - [ ] separate all binaries versions in a separate file
@@ -225,12 +226,11 @@
 
 # Alacritty
 
-- [ ] <Meta + Shift> does not work outside of Tmux (cannot resize nvim windows)
-  -> this is annoying, Karabiner shows that all 3 <left-option>/<left_shift>/<.> are pressed just like on wezterm, but it is like Alacritty suppresses it. However Tmux running inside alacritty catches it
+- [ ] <Meta + Shift> does not work outside of Tmux (cannot resize nvim windows) -> this is annoying, Karabiner shows that all 3 <left-option>/<left_shift>/<.> are pressed just like on wezterm, but it is like Alacritty suppresses it. However Tmux running inside alacritty catches it
 - [x] default program
   - [x] on MacOS the default PATH is prepended, so /bin/zsh is started instead of the nix one. Modifications to the path are not taken into account unless you launch it via command line (for which karabiner does not work ...)
-  -> potential solution, wrap it in Nix
-  -> no need fixed on MacOS, probably thanks to the fact that Alacritty launches zsh by default and hence picks up on zshrc (updates the $PATH environment variables by prepending `/Users/polo/.nix-profile/bin:/Users/polo/.local/bin`) cf:
+        -> potential solution, wrap it in Nix
+        -> no need fixed on MacOS, probably thanks to the fact that Alacritty launches zsh by default and hence picks up on zshrc (updates the $PATH environment variables by prepending `/Users/polo/.nix-profile/bin:/Users/polo/.local/bin`) cf:
   - https://github.com/alacritty/alacritty/issues/8535
   - https://github.com/chrisnc/alacritty/blob/6566dd3defa9f080dabb295740dc1dac06e3b8fb/alacritty_terminal/src/tty/unix.rs#L131-L150
 
@@ -246,7 +246,7 @@
   - [ ] pkg-config
   - [ ] pkg-config on nix
   - [ ] wezterm building on nix
-    => wezterm uses the vendored lua code, so pkg-config is irrelevant here
+        => wezterm uses the vendored lua code, so pkg-config is irrelevant here
 
 ## Tab bar
 
@@ -254,7 +254,7 @@
   - [x] fix swapping on right side
   - [x] set up tab rendering
   - [x] factorize even further the components.init (explicit arguments not an {} for each function and handle the args unwrapping in there)
-  - [x] make the map for all components programmatically launch require('tabline.components' .. name) (if it fails return nil), through a setmetatable({}, {__index = function(k, t)})
+  - [x] make the map for all components programmatically launch require('tabline.components' .. name) (if it fails return nil), through a setmetatable({}, {\_\_index = function(k, t)})
   - [x] allow to customize tabs colors & attributes (test with a rainbow)
   - [x] rename section_config.colors in section_config.color_overrides
   - [x] create a constant component (need to pass args from config - not rendering options)
@@ -286,12 +286,13 @@
   vim.g.clipboard = 'osc52'
   vim.o.clipboard = 'unnamedplus'
   ```
-  but the issue is that wezterm can *write* fine to the terminal clipboard through the `osc52` sequence but it cannot read from it! Hence `p` (for paste in neovim blocks)
+  but the issue is that wezterm can _write_ fine to the terminal clipboard through the `osc52` sequence but it cannot read from it! Hence `p` (for paste in neovim blocks)
   people are aware of the issue: https://github.com/wezterm/wezterm/issues/2050 and there is even a PR for it: https://github.com/wezterm/wezterm/pull/6239 but not reviewed for the last 10 months. Otherwise we can make a workaround to paste directly from nvim registers and resort to `Ctrl+Shift+V` to paste from clipboard
 - [x] nvim is glitchy (screen is not recomputed properly, especially on repeat keys, but not only, eg. expanding neo-tree next to an empty buffer)
-  -> fixed in nightly
+      -> fixed in nightly
 - [x] install wezterm mux server inside docker at work. Possible strategies:
   - [x] build it headless with the following command:
+
   ```sh
   mkdir -p ${HOME}/sources
   pushd ${HOME}/sources
@@ -304,7 +305,9 @@
   popd
   # crate links
   ```
+
   - [x] test use wezterm ssh
+
   ```ps1
   C:\Users\proseau\AppData\Local\Microsoft\WinGet\Packages\Coder.Coder_Microsoft.Winget.Source_8wekyb3d8bbwe\coder.exe port-forward proseau/eu-west-1 --tcp 127.0.0.1:2222:22
   # direct ssh
@@ -313,13 +316,15 @@
   # ssh domains
   C:\Users\proseau\apps\WezTerm-windows-20240203-110809-5046fc22\wezterm.exe connect eu-west-1
   ```
+
   - [x] test use wezterm connect (probably need a port-forward dance for the mux-server)
   - [x] fix neovim change windows remotely
   - [x] handle the PATH on Windows to simplify the above commands, add coder + wezterm (coder was already done, wezterm added manually)
+
 - [ ] Productionize the above item (`install-manual.sh` etc.)
   - [ ] see if you can avoid spawning 2 windows, or show only the windows from the current domain (maybe assign a workspace), maybe finalize the picker here
 - [ ] launch zsh if available for eu-west-1 domain
-  -> the issue comes from the entrypoint being `bash -l` which does not read .bashrc, you could find a temporary workaround but probably this will be the start of creating your own image
+      -> the issue comes from the entrypoint being `bash -l` which does not read .bashrc, you could find a temporary workaround but probably this will be the start of creating your own image
 
 ## Picker
 
@@ -331,23 +336,24 @@
   - [ ] tabs
     - [x] need to rework my-tabline to set the title (mark fields to be included? how to concatenate them)
     - test in debug mode with:
+
     ```lua
     window = wezterm.mux.all_windows()[1]
     tab = window:tabs()[1]
     tab:get_title()
     ```
+
     - [ ] using `set title` on top of returning the formatted string in the `format-tab-title` event is an issue remotely
+
   - [ ] domains
   - [ ] Refacto:
-    - [ ] extra-action split in 2:
-      - [ ] better copy mode
-      - [ ] focused-in events
-  -> checkout those to get inspiration, but you probably will define your own selector (not just for domains, workspaces, but also fonts etc.)
+    - [ ] extra-action split in 2: - [ ] better copy mode - [ ] focused-in events
+          -> checkout those to get inspiration, but you probably will define your own selector (not just for domains, workspaces, but also fonts etc.)
     - https://github.com/MLFlexer/smart_workspace_switcher.wezterm/blob/main/plugin/init.lua
     - https://github.com/DavidRR-F/quick_domains.wezterm
     - https://github.com/mikkasendke/sessionizer.wezterm (maybe the closest to your need)
-  -> use the table trick to display clean values / make the selector its own lua module
-  -> issue with for color_scheme (config_overrides) when creating new workspace it keeps the setting (looks like a bug)
+      -> use the table trick to display clean values / make the selector its own lua module
+      -> issue with for color_scheme (config_overrides) when creating new workspace it keeps the setting (looks like a bug)
     - [ ] Create a domain dynamically ? needs to be added to wezterm -> no but prepare a config file to edit, test with docker container or VM
 
 - Wezterm missing:
@@ -357,7 +363,7 @@
 - Wezterm Big issues at the moment:
   - search not intuitive, selection by default also when you come back, case sensitivity, there should be only 1 copy mode
   - missing choose-tree, more uniform menus
-      import pane/tab from elsewhere (need choose-tree)
+    import pane/tab from elsewhere (need choose-tree)
   - missing focus pane events
   - set title bug, what is returned by the format-tab-title event should be the title
   - missing active key changed event
@@ -373,7 +379,7 @@
   - have an unlock key like in zellij
 
 - Wezterm:
-    - [ ] configure multiplexing session and check that clipboard is working fine
+  - [ ] configure multiplexing session and check that clipboard is working fine
   - Karabiner:
     - [ ] check if conditions for karabiner could not be factored out
     - [x] find how to apply changes to when wezterm is launched from the command line -> use FilePath instead of bundle identifier
@@ -381,7 +387,7 @@
   - [ ] replicate your tmux setup (in particular nvim integration remotely)
     - [ ] lua what is userdata vs metatable
     - [ ] default program
-        - [ ] zsh is not the nix-env one!
+      - [ ] zsh is not the nix-env one!
     - [x] vi mode in copy mode
     - [x] vi rectangular selection
     - [x] copy paste in copy mode
@@ -392,6 +398,7 @@
     - [ ] reload config
 
     - [ ] Session navigation
+
   - [ ] check how it works on Linux, you probably need to do the same `ld` hack as on Alacritty to use the LibGL
   - [ ] contribute to:
     - [ ] add `Ctrl-C` to exit launcher, super-mini change: https://github.com/wezterm/wezterm/issues/4722
@@ -401,9 +408,9 @@
 
 - for nix setup:
   - [ ] add git completions with nix (understand whether you should add
-   .nix-profile/share/git/contrib/completion/ to the fpath or source .nix-profile/share/git/contrib/completion/git-completion.zsh
+        .nix-profile/share/git/contrib/completion/ to the fpath or source .nix-profile/share/git/contrib/completion/git-completion.zsh
   - [ ] setup bash completions by linking
-    ~/.nix-profile/share/bash-completion/completions
+        ~/.nix-profile/share/bash-completion/completions
 
 - docker:
   - mv install-docker.sh close to the Dockerfile, add in README docker command to build it from the root of this repo
@@ -411,8 +418,9 @@
 - updates:
   - [ ] install unixtools (find a good way to discrimate between MacOS X and Linux since unfortunately not all unixtools are available for Darwin, it seems that unixtools is more of a convenience for build script rather than something you should depend on)
   - [x] understand caching for fonts
-  => nothing really - to reset you can just reboot laptop
-  It does not follow links, you need to copy fonts - kinda sucks https://apple.stackexchange.com/questions/446227/can-you-install-fonts-by-symlinking-them-into-library-fonts
+        => nothing really - to reset you can just reboot laptop
+        It does not follow links, you need to copy fonts - kinda sucks https://apple.stackexchange.com/questions/446227/can-you-install-fonts-by-symlinking-them-into-library-fonts
+
   ```sh
   # Just Do (-L to follow links to target and not copy symlinks themselves - since it does not work on Mac)
   cp -Lr ~/.nix-profile/share/fonts/* ~/Library/Fonts/
@@ -427,7 +435,7 @@
     - [ ] ???
 
   - [x] understand nix's by-name package new structure and automatic addition to all-package
-    => added in specific overlay (check `top-level/stages.nix`)
+        => added in specific overlay (check `top-level/stages.nix`)
 
   - [x] configure karabiner
     - idea #1:
@@ -444,14 +452,15 @@
         - override command + tab to
 
   - [x] understand alacritty for spotlight
-    => seems like you just need to copy it there cf. https://github.com/nix-community/home-manager/issues/1341#issuecomment-2748323255
-       spotlight does not follow links, MacOS seems painful on that issue
-       ```sh
-       # -L to follow links (when using GNU cp)
-        cp -rL ~/.nix-profile/Applications/* ~/Applications/
-       # ideally we should use rsync to prevent recopying everything after a reinstall
-       # cf. what nix-darwin does at https://github.com/nix-community/home-manager/issues/1341#issuecomment-2748323255
-       ```
+        => seems like you just need to copy it there cf. https://github.com/nix-community/home-manager/issues/1341#issuecomment-2748323255
+        spotlight does not follow links, MacOS seems painful on that issue
+
+    ```sh
+    # -L to follow links (when using GNU cp)
+     cp -rL ~/.nix-profile/Applications/* ~/Applications/
+    # ideally we should use rsync to prevent recopying everything after a reinstall
+    # cf. what nix-darwin does at https://github.com/nix-community/home-manager/issues/1341#issuecomment-2748323255
+    ```
 
   - [/] install Karabiner with nix for macOS?
     - won't do, no time to get into MacOS custom installation (several disks, locked permissions) + all of this might evolve in the future
@@ -462,6 +471,7 @@
     - install Karabiner manually
     - add link to `~/.nix-profile/Applications/Alacritty.app` in `~/Applications/` (for Spotlight to be able to find it, there could have been 2 issues:
     - use rsync for that
+
     ```sh
     # We use -L with cp below because MacOS does not follow sym links for these funcionalities
     # A better approach could resort on using `rsync` with the options that nix-darwin uses https://github.com/nix-community/home-manager/issues/1341#issuecomment-2748323255
@@ -472,7 +482,8 @@
     # Add NerdFonts (you may need to restart for them to appear)
     cp -Lr ~/.nix-profile/share/fonts/* ~/Library/Fonts/
     ```
-      - install rust-analyzer, cargo through rustup
+
+    - install rust-analyzer, cargo through rustup
 
   - [ ] use last version of stow for now before yours gets ready
     - [ ] test on Linux (@home, when wifi is not an issue)
@@ -496,6 +507,7 @@
   - [ ] arguments whether you are installing it on a local machine or remotely
   - [ ] distinguish whether we are running on Debian or MacOS X to set up the various links (fonts, launch menu, etc.)
   - [x] create small `init-perso-projects.sh` shell script to be installed as a binary with nix which would clone:
+
   ```
   git clone git@bitbucket.org:paul_roseau/hlx-gcp-infrastructure.git
   git clone https://github.com/aylei/leetcode-rust.git
@@ -504,7 +516,9 @@
   git clone git@github.com:paulroseau/rust-executable-packer.git
   git clone git://g.csail.mit.edu/xv6-labs-2020
   ```
+
   - [ ] check whether rustup actually downloads rust-analyzer directly or not when first called otherwise:
+
   ```sh
   rustup component add rust-analyzer
   ```
@@ -518,12 +532,12 @@
 - [ ] how does FFI work
 - [ ] how does a Rust program handle signals, are the handlers set by exec?
 - [ ] read about https://computationstructures.org/lectures/interrupts/interrupts.html :
-    - how do we keep up with interrupts? Example of a network card bombing the system
-    - how is the interrupt wire checked at each cycle?
-    - which PC is saved when interrupted? how do we make sure some instructions are complete
+  - how do we keep up with interrupts? Example of a network card bombing the system
+  - how is the interrupt wire checked at each cycle?
+  - which PC is saved when interrupted? how do we make sure some instructions are complete
 - [ ] update the notes on ComputerArchitecture especially about asynchronous IOs
 - [ ] once that is done explore libluv and understand how IOs are handled
 - [ ] then you should be able to understand flatten.nvim with the use of
-sockopen and pipes which maps to libuv under the hood (decompose all the way
-down to the processor level)
+      sockopen and pipes which maps to libuv under the hood (decompose all the way
+      down to the processor level)
 - [ ] understand the pipe / NVIM env variable
