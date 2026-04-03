@@ -42,63 +42,111 @@ config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
 
 config.keys = {
   -- terminal
-  { key = 'r',  mods = 'LEADER',       action = act.ReloadConfiguration },
-  { key = 'q',  mods = 'LEADER',       action = act.QuitApplication },
-  { key = 'f',  mods = 'CTRL|SHIFT',   action = act.ToggleFullScreen, },
-  { key = 'c',  mods = 'CTRL|SHIFT',   action = require('selector').color_schemes },
-  { key = 'f',  mods = 'LEADER',       action = require('selector').fonts },
+  { key = 'r', mods = 'LEADER', action = act.ReloadConfiguration },
+  { key = 'q', mods = 'LEADER', action = act.QuitApplication },
+  { key = 'f', mods = 'CTRL|SHIFT', action = act.ToggleFullScreen },
+  { key = 'c', mods = 'CTRL|SHIFT', action = require('selector').color_schemes },
+  { key = 'f', mods = 'LEADER', action = require('selector').fonts },
 
   -- fonts
-  { key = '+',  mods = 'CTRL|SHIFT',   action = act.IncreaseFontSize },
-  { key = '-',  mods = 'CTRL',         action = act.DecreaseFontSize },
-  { key = '=',  mods = 'CTRL',         action = act.ResetFontSize },
+  { key = '+', mods = 'CTRL|SHIFT', action = act.IncreaseFontSize },
+  { key = '-', mods = 'CTRL', action = act.DecreaseFontSize },
+  { key = '=', mods = 'CTRL', action = act.ResetFontSize },
 
   -- sending keys
-  { key = 'a',  mods = 'LEADER|CTRL',  action = act.SendKey { key = 'a', mods = 'CTRL' } },
-  { key = 'l',  mods = 'LEADER',       action = act.SendKey { key = 'l', mods = 'CTRL' } },
+  { key = 'a', mods = 'LEADER|CTRL', action = act.SendKey({ key = 'a', mods = 'CTRL' }) },
+  { key = 'l', mods = 'LEADER', action = act.SendKey({ key = 'l', mods = 'CTRL' }) },
 
   -- copy/search mode
-  { key = '[',  mods = 'LEADER',       action = extra_actions.copy_mode_activate_no_selection },
-  { key = '/',  mods = 'LEADER',       action = act.Search { CaseInSensitiveString = '' } },
+  { key = '[', mods = 'LEADER', action = extra_actions.copy_mode_activate_no_selection },
+  { key = '/', mods = 'LEADER', action = act.Search({ CaseInSensitiveString = '' }) },
 
   -- domains
-  { key = 'd',  mods = 'LEADER',       action = act.ShowLauncherArgs { flags = 'DOMAINS' } }, -- can't trigger pane-focused-in :-/
+  { key = 'd', mods = 'LEADER', action = act.ShowLauncherArgs({ flags = 'DOMAINS' }) }, -- can't trigger pane-focused-in :-/
 
   -- workspaces
-  { key = 'n',  mods = 'LEADER|SHIFT', action = extra_actions.spawn_new_workspace },
-  { key = 'r',  mods = 'LEADER|SHIFT', action = extra_actions.rename_workspace },
-  { key = 's',  mods = 'LEADER',       action = require('selector').workspaces },
-  { key = 's',  mods = 'LEADER|CTRL',  action = require('selector').workspaces },
+  { key = 'n', mods = 'LEADER|SHIFT', action = extra_actions.spawn_new_workspace },
+  { key = 'r', mods = 'LEADER|SHIFT', action = extra_actions.rename_workspace },
+  { key = 's', mods = 'LEADER', action = require('selector').workspaces },
+  { key = 's', mods = 'LEADER|CTRL', action = require('selector').workspaces },
 
   -- tabs
-  { key = 'c',  mods = 'LEADER',       action = extra_actions.spawn_tab },
-  { key = 'w',  mods = 'LEADER',       action = extra_actions.close_current_tab },
-  { key = 'h',  mods = 'CTRL',         action = extra_actions.activate_tab_relative(-1) },
-  { key = 'l',  mods = 'CTRL',         action = extra_actions.activate_tab_relative(1) },
-  { key = 'h',  mods = 'CTRL|META',    action = act.MoveTabRelative(-1) },
-  { key = 'l',  mods = 'CTRL|META',    action = act.MoveTabRelative(1) },
-  { key = 't',  mods = 'LEADER',       action = require('selector').tabs },
+  { key = 'c', mods = 'LEADER', action = extra_actions.spawn_tab },
+  { key = 'w', mods = 'LEADER', action = extra_actions.close_current_tab },
+  { key = 'h', mods = 'CTRL', action = extra_actions.activate_tab_relative(-1) },
+  { key = 'l', mods = 'CTRL', action = extra_actions.activate_tab_relative(1) },
+  { key = 'h', mods = 'CTRL|META', action = act.MoveTabRelative(-1) },
+  { key = 'l', mods = 'CTRL|META', action = act.MoveTabRelative(1) },
+  { key = 't', mods = 'LEADER', action = require('selector').tabs },
 
   -- panes
-  { key = 'b',  mods = 'LEADER',       action = extra_actions.move_pane_to_new_tab },
-  { key = 'b',  mods = 'LEADER|SHIFT', action = extra_actions.send_pane_to_new_tab },
-  { key = 'x',  mods = 'LEADER',       action = extra_actions.close_current_pane },
-  { key = 'z',  mods = 'META',         action = act.TogglePaneZoomState },
-  { key = '\\', mods = 'META',         action = nvim_support.toggle_ignore_nvim_running_flag },
-  nvim_support.assign_key { key = 's', mods = 'META', action = extra_actions.split_pane { direction = 'Up' } },
-  nvim_support.assign_key { key = 'v', mods = 'META', action = extra_actions.split_pane { direction = 'Right' } },
-  nvim_support.assign_key { key = 'n', mods = 'META', action = extra_actions.split_pane { direction = 'Up' } },
-  nvim_support.assign_key { key = 'm', mods = 'META', action = extra_actions.split_pane { direction = 'Right' } },
-  nvim_support.assign_key { key = 'h', mods = 'META', action = extra_actions.activate_pane_direction 'Left' },
-  nvim_support.assign_key { key = 'j', mods = 'META', action = extra_actions.activate_pane_direction 'Down' },
-  nvim_support.assign_key { key = 'k', mods = 'META', action = extra_actions.activate_pane_direction 'Up' },
-  nvim_support.assign_key { key = 'l', mods = 'META', action = extra_actions.activate_pane_direction 'Right' },
-  nvim_support.assign_key { key = 'r', mods = 'META', action = act.RotatePanes 'Clockwise' },
-  nvim_support.assign_key { key = 'R', mods = 'META', action = act.RotatePanes 'CounterClockwise' },
-  nvim_support.assign_key { key = '<', mods = 'META|SHIFT', action = act.AdjustPaneSize { 'Left', 2 } },
-  nvim_support.assign_key { key = '+', mods = 'META|SHIFT', action = act.AdjustPaneSize { 'Down', 2 } },
-  nvim_support.assign_key { key = '-', mods = 'META', action = act.AdjustPaneSize { 'Up', 2 } },
-  nvim_support.assign_key { key = '>', mods = 'META|SHIFT', action = act.AdjustPaneSize { 'Right', 2 } },
+  { key = 'b', mods = 'LEADER', action = extra_actions.move_pane_to_new_tab },
+  { key = 'b', mods = 'LEADER|SHIFT', action = extra_actions.send_pane_to_new_tab },
+  { key = 'x', mods = 'LEADER', action = extra_actions.close_current_pane },
+  { key = 'z', mods = 'META', action = act.TogglePaneZoomState },
+  { key = '\\', mods = 'META', action = nvim_support.toggle_ignore_nvim_running_flag },
+  nvim_support.assign_key({
+    key = 's',
+    mods = 'META',
+    action = extra_actions.split_pane({ direction = 'Up' }),
+  }),
+  nvim_support.assign_key({
+    key = 'v',
+    mods = 'META',
+    action = extra_actions.split_pane({ direction = 'Right' }),
+  }),
+  nvim_support.assign_key({
+    key = 'n',
+    mods = 'META',
+    action = extra_actions.split_pane({ direction = 'Up' }),
+  }),
+  nvim_support.assign_key({
+    key = 'm',
+    mods = 'META',
+    action = extra_actions.split_pane({ direction = 'Right' }),
+  }),
+  nvim_support.assign_key({
+    key = 'h',
+    mods = 'META',
+    action = extra_actions.activate_pane_direction('Left'),
+  }),
+  nvim_support.assign_key({
+    key = 'j',
+    mods = 'META',
+    action = extra_actions.activate_pane_direction('Down'),
+  }),
+  nvim_support.assign_key({
+    key = 'k',
+    mods = 'META',
+    action = extra_actions.activate_pane_direction('Up'),
+  }),
+  nvim_support.assign_key({
+    key = 'l',
+    mods = 'META',
+    action = extra_actions.activate_pane_direction('Right'),
+  }),
+  nvim_support.assign_key({ key = 'r', mods = 'META', action = act.RotatePanes('Clockwise') }),
+  nvim_support.assign_key({
+    key = 'R',
+    mods = 'META',
+    action = act.RotatePanes('CounterClockwise'),
+  }),
+  nvim_support.assign_key({
+    key = '<',
+    mods = 'META|SHIFT',
+    action = act.AdjustPaneSize({ 'Left', 2 }),
+  }),
+  nvim_support.assign_key({
+    key = '+',
+    mods = 'META|SHIFT',
+    action = act.AdjustPaneSize({ 'Down', 2 }),
+  }),
+  nvim_support.assign_key({ key = '-', mods = 'META', action = act.AdjustPaneSize({ 'Up', 2 }) }),
+  nvim_support.assign_key({
+    key = '>',
+    mods = 'META|SHIFT',
+    action = act.AdjustPaneSize({ 'Right', 2 }),
+  }),
 }
 
 local copy_mode = nil
@@ -109,11 +157,11 @@ if wezterm.gui then
   search_mode = wezterm.gui.default_key_tables().search_mode
 
   local copy_mode_keys = {
-    { key = 'y',         mods = 'NONE',  action = extra_actions.copy_mode_yank_and_exit },
-    { key = 'n',         mods = 'NONE',  action = extra_actions.copy_mode_next_match },
-    { key = 'n',         mods = 'SHIFT', action = extra_actions.copy_mode_prior_match },
-    { key = 'Backspace', mods = 'NONE',  action = act.CopyMode 'ClearPattern' },
-    { key = '/',         mods = 'NONE',  action = extra_actions.copy_mode_start_search },
+    { key = 'y', mods = 'NONE', action = extra_actions.copy_mode_yank_and_exit },
+    { key = 'n', mods = 'NONE', action = extra_actions.copy_mode_next_match },
+    { key = 'n', mods = 'SHIFT', action = extra_actions.copy_mode_prior_match },
+    { key = 'Backspace', mods = 'NONE', action = act.CopyMode('ClearPattern') },
+    { key = '/', mods = 'NONE', action = extra_actions.copy_mode_start_search },
   }
 
   for _, key in pairs(copy_mode_keys) do
@@ -121,8 +169,8 @@ if wezterm.gui then
   end
 
   local search_mode_keys = {
-    { key = 'c',     mods = 'CTRL', action = extra_actions.exit_copy_mode },
-    { key = 'w',     mods = 'CTRL', action = act.CopyMode 'ClearPattern' },
+    { key = 'c', mods = 'CTRL', action = extra_actions.exit_copy_mode },
+    { key = 'w', mods = 'CTRL', action = act.CopyMode('ClearPattern') },
     { key = 'Enter', mods = 'NONE', action = extra_actions.search_mode_validate },
   }
 
@@ -132,7 +180,7 @@ if wezterm.gui then
 
   config.key_tables = {
     copy_mode = copy_mode,
-    search_mode = search_mode
+    search_mode = search_mode,
   }
 end
 
@@ -153,7 +201,7 @@ config.ssh_domains = {
     remote_address = '127.0.0.1:2222',
     username = 'coder',
     remote_wezterm_path = '/home/coder/.local/bin/wezterm',
-  }
+  },
 }
 
 return config
