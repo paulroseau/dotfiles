@@ -6,7 +6,13 @@ local buf_del = function(selected, opts)
   for _, sel in ipairs(selected) do
     local entry = fzf.path.entry_to_file(sel, opts)
     vim.print(entry.path)
-    if entry.bufnr and (vim.endswith(entry.path, '[No Name]') or not fzf.utils.buffer_is_dirty(entry.bufnr, true, false)) then
+    if
+      entry.bufnr
+      and (
+        vim.endswith(entry.path, '[No Name]')
+        or not fzf.utils.buffer_is_dirty(entry.bufnr, true, false)
+      )
+    then
       vim.api.nvim_buf_delete(entry.bufnr, { force = true })
     end
   end
@@ -52,7 +58,7 @@ fzf.setup({
   buffers = {
     actions = {
       ['ctrl-x'] = { fn = buf_del, reload = true },
-    }
+    },
   },
   commands = {
     actions = {
@@ -62,7 +68,7 @@ fzf.setup({
   tabs = {
     actions = {
       ['ctrl-x'] = { fn = buf_del, reload = true },
-    }
+    },
   },
   helptags = {
     actions = {
@@ -99,16 +105,16 @@ fzf.setup({
       ['alt-v'] = fzf.actions.man_vert,
       ['alt-t'] = fzf.actions.man_tab,
     },
-  }
+  },
 })
 
 local function wrap_vertical(fn)
   local vertial_layout_opts = {
     winopts = {
       preview = {
-        layout = 'vertical'
-      }
-    }
+        layout = 'vertical',
+      },
+    },
   }
   return function()
     fn(vertial_layout_opts)
@@ -134,3 +140,15 @@ vim.keymap.set({ 'n' }, '<leader>S', fzf.lsp_live_workspace_symbols)
 vim.keymap.set({ 'n' }, '<leader>s', fzf.lsp_document_symbols)
 vim.keymap.set({ 'n' }, '<leader>D', wrap_vertical(fzf.lsp_workspace_diagnostics))
 vim.keymap.set({ 'n' }, '<leader>d', wrap_vertical(fzf.lsp_document_diagnostics))
+
+-- auto-commands
+
+-- We need to cancel global terminal mappings for the above mappings to work since fzf is fired inside a terminal window
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'fzf',
+  callback = function(args)
+    vim.keymap.set('t', '<M-s>', '<M-s>', { buffer = args.buf })
+    vim.keymap.set('t', '<M-v>', '<M-v>', { buffer = args.buf })
+    vim.keymap.set('t', '<M-t>', '<M-t>', { buffer = args.buf })
+  end,
+})
